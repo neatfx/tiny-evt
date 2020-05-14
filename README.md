@@ -13,7 +13,7 @@
 | `@vue/compiler-sfc` | `dev` | `^3.0.0-alpha.10`
 | `electron` | `dev` | `^8.2.5`
 | `electron-builder` | `dev` | `^22.6.0`
-| `vite` | `dev` | `^0.13.1`
+| `vite` | `dev` | `^0.15.1`
 
 ---
 
