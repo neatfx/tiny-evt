@@ -1,7 +1,7 @@
 const { build } = require('vite')
 const esbuild = require('esbuild')
 const builder = require('electron-builder')
-const builderConfig = require('./app-builder-config')
+const builderConfig = require('../config/electron-builder')
 
 function packMain () {
   return esbuild.build({
