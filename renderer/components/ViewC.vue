@@ -1,5 +1,5 @@
 <template>
   <div>
-    NavDA
+    ViewC
   </div>
 </template>

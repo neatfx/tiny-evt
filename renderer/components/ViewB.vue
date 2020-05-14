@@ -1,5 +1,5 @@
 <template>
   <div>
-    NavB
+    ViewB
   </div>
 </template>

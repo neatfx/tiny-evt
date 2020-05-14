@@ -1,25 +1,18 @@
 import { createRouter, createWebHistory } from "vue-router"
 
-import NavA from './views/NavA.vue'
-import NavB from './views/NavB.vue'
-import NavC from './views/NavC.vue'
-import NavD from './views/NavD.vue'
-import NavDA from './views/NavDA.vue'
+import ViewA from './components/ViewA.vue'
+import ViewB from './components/ViewB.vue'
+import ViewC from './components/ViewC.vue'
+import ViewD from './components/ViewD.vue'
 
 const routerHistory = createWebHistory()
 const router = createRouter({
   history: routerHistory,
   routes: [
-    { path: '/', component: NavA },
-    { path: '/b', component: NavB },
-    { path: '/c', component: NavC },
-    { path: '/d', component: NavD, children: [
-        {
-          path:"",
-          component: NavDA,
-        }
-      ]
-    },
+    { path: '/', component: ViewA },
+    { path: '/b', component: ViewB },
+    { path: '/c', component: ViewC },
+    { path: '/d', component: ViewD },
   ]
 })
 
