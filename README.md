@@ -4,6 +4,8 @@
 
 感谢 [Vite](https://github.com/vuejs/vite) 、[esbuild](https://github.com/evanw/esbuild) 项目，编程前的准备工作从未如此简单，且开发过程中具有更快的启动、HMR、编译打包速度。
 
+> 关于 Vite 项目：
+>
 > *It's more like a more streamlined, opinionated development workflow tool. Think webpack-dev-server + webpack but lighter, faster, and pre-configured.*
 >
 > &mdash; Evan You ( [@youyuxi](https://twitter.com/youyuxi/status/1258112624300118022) ) May 6, 2020
