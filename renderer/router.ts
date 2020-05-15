@@ -1,11 +1,11 @@
-import { createRouter, createWebHistory } from "vue-router"
+import { createRouter, createWebHashHistory } from "vue-router"
 
 import ViewA from './components/ViewA.vue'
 import ViewB from './components/ViewB.vue'
 import ViewC from './components/ViewC.vue'
 import ViewD from './components/ViewD.vue'
 
-const routerHistory = createWebHistory()
+const routerHistory = createWebHashHistory()
 const router = createRouter({
   history: routerHistory,
   routes: [
