@@ -23,7 +23,7 @@ function runMain() {
       outfile: 'build/main.js',
       minify: false,
       bundle: true,
-      external: ['electron'],
+      external: ['electron', 'path'],
     }).then(() => {
       if (electronProcess && electronProcess.kill) {
         process.kill(electronProcess.pid)

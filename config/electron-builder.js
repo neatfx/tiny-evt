@@ -7,6 +7,11 @@ const config = {
   compression: 'store',
   files: [
     'build',
+    {
+      "from": "resources",
+      "to": "build/resources",
+      "filter": ["**/*"]
+    }
   ],
   dmg: {
     contents: [{

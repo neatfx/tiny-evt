@@ -9,7 +9,7 @@ function packMain () {
     outfile: 'build/main.js',
     minify: true,
     bundle: true,
-    external: ['electron']
+    external: ['electron', 'path']
   }).then(result => {
     console.log(result.stderr)
   })

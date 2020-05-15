@@ -1,4 +1,4 @@
-import { app, Tray, Menu, nativeImage } from 'electron'
+import { app, Tray, Menu } from 'electron'
 
 export default class {
   iconPath: any
@@ -7,7 +7,6 @@ export default class {
     this.iconPath = iconPath
   }
   init() {
-    const trayIcon = nativeImage.createFromPath(this.iconPath)
     const contextMenu = Menu.buildFromTemplate([
       {
         label: '退出应用',
@@ -16,7 +15,7 @@ export default class {
         }
       }
     ])
-    this.tray = new Tray(trayIcon)
+    this.tray = new Tray(this.iconPath)
     this.tray.setToolTip('TinyEvt')
     this.tray.setContextMenu(contextMenu)
   }

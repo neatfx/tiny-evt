@@ -1,6 +1,7 @@
 'use strict'
 
 import { app } from 'electron'
+import path from 'path'
 
 import appMainWindow from './window-main'
 import menu from './menu'
@@ -11,8 +12,10 @@ const winURL =
     ? `http://127.0.0.1:3000`
     : `file://${__dirname}/renderer/index.html`
 
-let mainWindow = new appMainWindow('resources/icons/icon.png', winURL)
-let tray = new appTray('resources/icons/tray.png')
+let mainWindow = new appMainWindow(path.join(__dirname, '/resources/icons/icon.png'), winURL)
+let tray = process.env.NODE_ENV === 'development'
+  ? new appTray(path.join(__dirname, '../resources/icons/tray.png'))
+  : new appTray(path.join(__dirname, '/resources/icons/tray.png'))
 
 app.on('ready', () => {
   mainWindow.init()
