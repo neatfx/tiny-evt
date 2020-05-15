@@ -1,4 +1,4 @@
-import { app, Tray, Menu } from 'electron'
+import { app, Tray, Menu, nativeImage } from 'electron'
 
 export default class {
   iconPath: any
@@ -7,21 +7,17 @@ export default class {
     this.iconPath = iconPath
   }
   init() {
-    this.tray = new Tray(this.iconPath)
-    this.tray.setToolTip('TinyEvt')
-    this.tray.setIgnoreDoubleClickEvents(true) // 忽略双击事件
-
-    this.tray.on('click', () => {
-      const contextMenu = Menu.buildFromTemplate([
-        {
-          label: '退出应用',
-          click: () => {
-            app.quit()
-          }
+    const trayIcon = nativeImage.createFromPath(this.iconPath)
+    const contextMenu = Menu.buildFromTemplate([
+      {
+        label: '退出应用',
+        click: () => {
+          app.quit()
         }
-      ])
-      this.tray.setContextMenu(contextMenu)
-      this.tray.popUpContextMenu()
-    })
+      }
+    ])
+    this.tray = new Tray(trayIcon)
+    this.tray.setToolTip('TinyEvt')
+    this.tray.setContextMenu(contextMenu)
   }
 }
