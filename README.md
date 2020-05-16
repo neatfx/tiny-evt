@@ -1,5 +1,7 @@
 # *tiny-evt*
 
+![banner](banner.png)
+
 包含测试（ 支持 HMR ）、应用打包功能的极简 `(e)lectron`+`(v)ue`+`(t)ypeScript` 项目基础代码。
 
 感谢 [Vite](https://github.com/vuejs/vite) 、[esbuild](https://github.com/evanw/esbuild) 项目，编程前的准备工作从未如此简单，且开发过程中具有更快的启动、HMR、编译打包速度。
@@ -48,7 +50,7 @@ npm run dev
 # Main Process ( TypeScript APP ) ---> esbuild.build() --->【 main.js、etc. 】@ build/
 
 # 打包应用
-# resources/**/* ---> electron-builder ---> build/resources
+# resources/**/* ---> electron-builder ---> build/resources/
 # build/**/* ---> electron-builder ---> dist/
 
 # 以可分发格式打包后的 Electron 应用指向 Vue 应用打包后的本地文件
