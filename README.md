@@ -48,7 +48,8 @@ npm run dev
 # Main Process ( TypeScript APP ) ---> esbuild.build() --->【 main.js、etc. 】@ build/
 
 # 打包应用
-# build/**/* ---> electron-builder ---> dist/**/*
+# resources/**/* ---> electron-builder ---> build/resources
+# build/**/* ---> electron-builder ---> dist/
 
 # 以可分发格式打包后的 Electron 应用指向 Vue 应用打包后的本地文件
 # main-window @ TinyEvt（ packed，DMG 格式 ）---> build/renderer/index.html
