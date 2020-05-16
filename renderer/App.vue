@@ -12,6 +12,9 @@ export default {
   name: 'App',
   components: {
     Navbar
+  },
+  setup(props) {
+    return {}
   }
 }
 </script>
@@ -21,7 +24,7 @@ export default {
   display: grid;
   height: 100vh;
   grid-template-rows: auto 1fr;
-  background-color: #b8beca;
+  background-color: #282c34;
 }
 #content {
   display: grid;
