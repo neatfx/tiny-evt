@@ -17,11 +17,11 @@
 
 | 依赖名称 | 类型 | 版本 | 说明 |
 | :---:|:---:|:---:|:---:|
-| `vue-router` | `optional` | `^4.0.0-alpha.10`
+| `vue-router` | `optional` | `^4.0.0-alpha.11`
 | `@vue/compiler-sfc` | `dev` | `^3.0.0-beta.13`
-| `electron` | `dev` | `^8.2.5`
+| `electron` | `dev` | `^8.3.0`
 | `electron-builder` | `dev` | `^22.6.0`
-| `vite` | `dev` | `^0.15.1` | `vue@next` ---> `vue@3.0.0-beta.12`
+| `vite` | `dev` | `^0.15.2` | `vue@next` ---> `vue@3.0.0-beta.12`
 
 ---
 
