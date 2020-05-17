@@ -1,8 +1,8 @@
 import { app, Tray } from 'electron'
 
-import './menu'
+import './app-menu'
 import MainWindow from './window-main'
-import appTray from './tray'
+import appTray from './app-tray'
 
 const mainWindow = new MainWindow()
 let tray: Tray
@@ -13,7 +13,6 @@ app.on('ready', () => {
 })
 
 app.on('window-all-closed', () => {
-  tray.destroy()
   if (process.platform !== 'darwin') {
     app.quit()
   }
