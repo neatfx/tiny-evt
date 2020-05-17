@@ -25,6 +25,12 @@
 
 ---
 
+> First Run
+
+```bash
+mv .env.example .env
+```
+
 > 启动测试：
 
 ```bash

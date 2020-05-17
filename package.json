@@ -5,7 +5,7 @@
   "author": "Robocat<neatfx@gmail.com>",
   "main": "./build/main.js",
   "scripts": {
-    "dev": "NODE_ENV=development node ./scripts/dev-runner.js",
+    "dev": "env-cmd node ./scripts/dev-runner.js",
     "dist": "node ./scripts/app-builder.js"
   },
   "dependencies": {
@@ -15,6 +15,7 @@
     "@vue/compiler-sfc": "^3.0.0-beta.13",
     "electron": "^8.3.0",
     "electron-builder": "^22.6.0",
+    "env-cmd": "^10.1.0",
     "vite": "^0.15.2"
   }
 }
