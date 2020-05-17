@@ -5,6 +5,7 @@ export default class PreferenceWindow {
   option: BrowserWindowConstructorOptions
   constructor() {
     this.option = {
+      title: 'Preferences',
       center: true,
       width: 400,
       height: 300,
