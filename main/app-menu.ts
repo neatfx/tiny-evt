@@ -1,36 +1,18 @@
-import { app, Menu, MenuItem } from 'electron'
+import darwinMenu from './menus/darwin'
+// import ('./menus/linux')
+// import ('./menus/win32')
+import { ComponentsRouter } from './index'
 
-import PreferenceWindow from './window-preference'
+export default function(cr: ComponentsRouter) {
+  if (process.platform === 'darwin'){
+    darwinMenu(cr)
+  }
 
-const preferenceWindow = new PreferenceWindow()
-const appMenu = new MenuItem({
-  label: app.name,
-  submenu: [
-    {
-      label: '关于',
-      role: 'about'
-    },
-    {
-      type: 'separator'
-    },
-    {
-      label: '偏好设置',
-      click: () => {
-        preferenceWindow.toggle()
-      }
-    },
-    { type: 'separator' },
-    {
-      label: '退出',
-      click() {
-        app.quit()
-      }
-    }
-  ]
-})
-const viewMenu = new MenuItem({
-  role: 'viewMenu',
-})
-const menu = Menu.buildFromTemplate([appMenu, viewMenu])
+  if (process.platform === 'linux'){
 
-Menu.setApplicationMenu(menu)
+  }
+
+  if (process.platform === 'win32'){
+
+  }
+}

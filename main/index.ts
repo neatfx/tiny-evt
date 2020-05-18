@@ -1,15 +1,25 @@
-import { app, Tray } from 'electron'
+import { app } from 'electron'
 
-import './app-menu'
+import Menu from './app-menu'
+
 import MainWindow from './window-main'
-import appTray from './app-tray'
+import PreferenceWindow from './window-preference'
+import AppTray from './app-tray'
 
 const mainWindow = new MainWindow()
-let tray: Tray
+const tray = new AppTray()
+
+export interface ComponentsRouter {
+  preferenceWindow: PreferenceWindow 
+}
+const cr: ComponentsRouter = {
+  preferenceWindow: new PreferenceWindow()
+}
 
 app.on('ready', () => {
+  Menu(cr)
   mainWindow.init()
-  tray = appTray()
+  tray.init()
 })
 
 app.on('window-all-closed', () => {

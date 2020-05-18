@@ -1,0 +1,26 @@
+{
+  "menu": [{
+    "label": "TinyEvt",
+    "submenu": [
+      {
+        "label": "关于",
+        "role": "about"
+      },
+      {
+        "type": "separator"
+      },
+      {
+        "label": "偏好设置",
+        "command": "app::preferenceWindow"
+      },
+      { "type": "separator"},
+      {
+        "label": "退出",
+        "command": "app::quit"
+      }
+    ]
+  },
+  {
+    "role": "viewMenu"
+  }]
+}

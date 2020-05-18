@@ -1,6 +1,6 @@
 import { BrowserWindow, BrowserWindowConstructorOptions } from 'electron'
 
-export default class PreferenceWindow {
+export default class {
   window: BrowserWindow | null
   option: BrowserWindowConstructorOptions
   constructor() {
