@@ -15,13 +15,14 @@
 ---
 > 依赖数量 - tiny！
 
-| 依赖名称 | 类型 | 版本 | 说明 |
-| :---:|:---:|:---:|:---:|
-| `vue-router` | `optional` | `^4.0.0-alpha.11`
-| `@vue/compiler-sfc` | `dev` | `^3.0.0-beta.13`
-| `electron` | `dev` | `^8.3.0`
-| `electron-builder` | `dev` | `^22.6.0`
-| `vite` | `dev` | `^0.15.2` | `vue@next` ---> `vue@3.0.0-beta.12`
+| Dependence | Category | Optional | Version | Description |
+| :---:|:---:|:---:|:---:|:---:|
+| `env-cmd`| | `true` | `^10.1.0`|
+| `vue-router` | | `true` | `^4.0.0-alpha.11`
+| `@vue/compiler-sfc` | `dev` | `false` | `^3.0.0-beta.13`
+| `electron` | `dev` | `false` | `^8.3.0`
+| `electron-builder` | `dev` | `false` | `^22.6.0`
+| `vite` | `dev` | `false` | `^0.15.2` | `vue@next` ---> `vue@3.0.0-beta.12`
 
 ---
 
