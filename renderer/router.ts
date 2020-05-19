@@ -9,10 +9,10 @@ const routerHistory = createWebHashHistory()
 const router = createRouter({
   history: routerHistory,
   routes: [
-    { path: '/', component: ViewA },
-    { path: '/b', component: ViewB },
-    { path: '/c', component: ViewC },
-    { path: '/d', component: ViewD },
+    { path: '/', component: ViewA as never },
+    { path: '/b', component: ViewB as never},
+    { path: '/c', component: ViewC as never},
+    { path: '/d', component: ViewD  as never},
   ]
 })
 

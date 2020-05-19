@@ -1,0 +1,39 @@
+{
+  "include": ["./**/*.ts"],
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "sourceMap": false,
+    "lib": [
+      "esnext",
+      "esnext.asynciterable",
+      "dom"
+    ],
+    "strict": true,
+    "noUnusedLocals": true,
+    "noImplicitReturns": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "noImplicitAny": false,
+    "allowJs": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "~/*": [
+        "main/*"
+      ],
+      "@/*": [
+        "renderer/*"
+      ]
+    },
+  },
+  "exclude": [
+    "node_modules",
+    "build",
+    "dist",
+    "resources",
+    "scripts",
+    "static"
+  ]
+}
