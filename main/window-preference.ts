@@ -9,6 +9,7 @@ export default class {
       center: true,
       width: 400,
       height: 300,
+      backgroundColor: '#ececec',
       webPreferences: {
         nodeIntegration: true
       }
