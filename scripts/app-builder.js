@@ -5,8 +5,8 @@ const builderConfig = require('../config/electron-builder')
 
 function packMain () {
   return esbuild.build({
-    entryPoints: ['main/index.ts'],
-    outfile: 'build/main.js',
+    entryPoints: ['main/main.ts', 'main/preload.ts'],
+    outdir: 'build/',
     minify: true,
     bundle: true,
     external: ['electron', 'path']

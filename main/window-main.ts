@@ -5,12 +5,16 @@ export default class {
   window: BrowserWindow | null
   iconPath: string
   pageUrl: string
+  preloadPath: string
   constructor() {
     this.window = null
     this.iconPath = path.join(__dirname, '/resources/icons/icon.png') 
     this.pageUrl = process.env.NODE_ENV === 'development'
       ? `http://127.0.0.1:3000`
       : `file://${__dirname}/renderer/index.html`
+    this.preloadPath = process.env.NODE_ENV === 'development'
+    ? path.join(app.getAppPath(), 'preload.js')
+    : path.join(app.getAppPath(), '/build/preload.js')
   }
   init() {
     this.window = new BrowserWindow({
@@ -21,7 +25,7 @@ export default class {
         nodeIntegration: false, // default === false 
         contextIsolation: true,
         enableRemoteModule: false, // default === true
-        preload: path.join(app.getAppPath(), 'preload.js')
+        preload: this.preloadPath
       }
     })
 

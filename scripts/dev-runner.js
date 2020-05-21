@@ -19,7 +19,7 @@ function runRenderer() {
 
 function runMain() {
     return esbuild.build({
-      entryPoints: ['main/index.ts', 'main/preload.ts'],
+      entryPoints: ['main/main.ts', 'main/preload.ts'],
       outdir: 'build/',
       minify: false,
       bundle: true,
@@ -37,7 +37,7 @@ function runMain() {
 function runElectron() {
   let args = [
     '--inspect=5858',
-    'build/index.js'
+    'build/main.js'
   ]
   let electronProcess = spawn(electron, args)
 
