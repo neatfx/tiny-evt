@@ -2,7 +2,7 @@
 
 ![banner](banner.png)
 
-包含测试（ 支持 HMR ）、应用打包功能的极简 `(e)lectron`+`(v)ue`+`(t)ypeScript` 项目基础代码。
+包含测试、应用打包功能的极简 `(e)lectron`+`(v)ue`+`(t)ypeScript` 项目基础代码。
 
 感谢 [Vite](https://github.com/vuejs/vite) 、[esbuild](https://github.com/evanw/esbuild) 项目，编程前的准备工作从未如此简单，且开发过程中具有更快的启动、HMR、编译打包速度。
 
@@ -11,6 +11,10 @@
 > *It's more like a more streamlined, opinionated development workflow tool. Think webpack-dev-server + webpack but lighter, faster, and pre-configured.*
 >
 > &mdash; Evan You ( [@youyuxi](https://twitter.com/youyuxi/status/1258112624300118022) ) May 6, 2020
+
+---
+如何创建安全的 `Electron` 应用：
+> [官方文档](https://www.electronjs.org/docs/tutorial/security)
 
 ---
 > 依赖数量 - tiny！
