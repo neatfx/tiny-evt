@@ -1,10 +1,10 @@
 import { app, ipcMain } from 'electron'
 
-import Menu from './app-menu'
+import Menu from './menu'
 
-import MainWindow from './window-main'
-import PreferenceWindow from './window-preference'
-import AppTray from './app-tray'
+import MainWindow from './windows/main'
+import PreferenceWindow from './windows/preferences'
+import AppTray from './tray'
 
 const mainWindow = new MainWindow()
 const tray = new AppTray()
