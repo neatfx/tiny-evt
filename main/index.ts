@@ -1,4 +1,4 @@
-import { app } from 'electron'
+import { app, ipcMain } from 'electron'
 
 import Menu from './app-menu'
 
@@ -30,4 +30,21 @@ app.on('window-all-closed', () => {
 
 app.on('activate', () => {
   mainWindow.toggle()
+})
+
+ipcMain.on('async-message-to-main', (event, arg) => {
+  console.log('[channel] - "async-message-to-main"')
+  console.log('[IpcMainEvent] - ', event)
+  console.log('[arg] - ', arg)
+
+  event.reply('async-reply', 'pong')
+})
+
+ipcMain.on('open-preference-window', (event, arg) => {
+  console.log('[channel] - "open-preference-window"')
+  console.log('[IpcMainEvent] - ', event)
+  console.log('[arg] - ', arg)
+
+  cr.preferenceWindow.toggle()
+  event.returnValue = 'pong'
 })

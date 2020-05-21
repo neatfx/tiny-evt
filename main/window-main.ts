@@ -1,4 +1,4 @@
-import { BrowserWindow } from 'electron'
+import { BrowserWindow, app } from 'electron'
 import path from 'path'
 
 export default class {
@@ -18,7 +18,10 @@ export default class {
       center: true,
       show: false,
       webPreferences: {
-        nodeIntegration: true
+        nodeIntegration: false, // default === false 
+        contextIsolation: true,
+        enableRemoteModule: false, // default === true
+        preload: path.join(app.getAppPath(), 'preload.js')
       }
     })
 

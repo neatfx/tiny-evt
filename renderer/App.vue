@@ -27,7 +27,6 @@ export default {
   background-color: #282c34;
 }
 #content {
-  display: grid;
   padding: 15px;
   color: #666666;
 }

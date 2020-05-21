@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts">
-import { ref, computed, watch, onMounted, getCurrentInstance } from 'vue'
+import { computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
 export default {
@@ -21,7 +21,6 @@ export default {
     watch(() => currentLocation, path => {
       console.log('watch', path)
     })
-
     return {
       activeNav: currentLocation,
     }
