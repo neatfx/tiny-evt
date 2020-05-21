@@ -8,7 +8,9 @@ export default class {
   preloadPath: string
   constructor() {
     this.window = null
-    this.iconPath = path.join(__dirname, '/resources/icons/icon.png') 
+    this.iconPath =  process.env.NODE_ENV === 'development'
+      ? path.join(__dirname, '../resources/icons/icon.png')
+      : path.join(__dirname, '/resources/icons/icon.png')  
     this.pageUrl = process.env.NODE_ENV === 'development'
       ? `http://127.0.0.1:3000`
       : `file://${__dirname}/renderer/index.html`
