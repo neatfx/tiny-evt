@@ -2,7 +2,7 @@ const config = {
   productName: 'TinyEvt',
   appId: 'com.tinyevt.org',
   copyright: 'Copyright © 2020',
-  electronVersion: '8.2.5',
+  electronVersion: '9.0.0',
   nodeGypRebuild: false,
   compression: 'store',
   files: [
