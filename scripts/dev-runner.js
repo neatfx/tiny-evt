@@ -10,14 +10,27 @@ function runRenderer() {
     createServer({
       root: 'renderer',
       minify: false,
-    }).listen(3000).addListener("listening", () => {
+      optimizeDeps: {
+        auto: false // FIXME: 默认值 true 会引发 package.json 未找到错误
+      }
+    })
+    .on("listening", () => {
       console.log("Vite-Dev-Server running on localhost:3000")
       resolve()
+    })
+    .on("error", (e) => {
+      console.log('Vite-Dev-Server Error: ', e)
+      reject()
+    })
+    .listen(3000)
+    .catch((e) => {
+      console.log('Failed creating Vite server: ', e)
+      reject()
     })
   })
 }
 
-function runMain() {
+async function runMain() {
     return esbuild.build({
       entryPoints: ['main/main.ts', 'main/preload.ts'],
       outdir: 'build/',
@@ -31,6 +44,8 @@ function runMain() {
       }
     }, (err) => {
       console.log(err)
+    }).catch((e) => {
+      return e
     })
 }
 
