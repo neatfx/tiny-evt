@@ -1,5 +1,4 @@
 {
-  "include": ["./**/*.ts"],
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
@@ -18,22 +17,6 @@
     "noImplicitAny": false,
     "allowJs": true,
     "noEmit": true,
-    "baseUrl": ".",
-    "paths": {
-      "~/*": [
-        "main/*"
-      ],
-      "@/*": [
-        "renderer/*"
-      ]
-    },
-  },
-  "exclude": [
-    "node_modules",
-    "build",
-    "dist",
-    "resources",
-    "scripts",
-    "static"
-  ]
+    "baseUrl": "."
+  }
 }

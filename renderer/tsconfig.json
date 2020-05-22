@@ -1,0 +1,8 @@
+{
+  "extends": "../configs/tsconfig-base",
+  "exclude": [
+    "styles",
+    "assets",
+    "static"
+  ]
+}
