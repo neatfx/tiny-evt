@@ -2,20 +2,20 @@
 
 ![banner](banner.png)
 
-基于 [`Vite`](https://github.com/vuejs/vite) 、[`esbuild`](https://github.com/evanw/esbuild) 实现的 `(E)lectron`+`(V)ue`+`(T)ypeScript` 项目基础代码。
+基于 `Vite` 实现的 `(E)lectron`+`(V)ue`+`(T)ypeScript` 项目基础代码。
 
-依赖简单、使用方便，编程前准备工作更少，运行、HMR、编译打包速度更快，同时关注 [应用安全](https://www.electronjs.org/docs/tutorial/security)、自动化测试。
+依赖简单，无需复杂配置，编程前准备工作更少，运行、HMR、编译打包速度更快，关注 [应用安全](https://www.electronjs.org/docs/tutorial/security)、自动化测试。
 
 ---
 
 | Dependence | Category | Optional | Version | Description |
 | :---:|:---:|:---:|:---:|:---:|
 | `env-cmd`| | `true` | `^10.1.0`|
-| `vue-router` | | `true` | `^4.0.0-alpha.11`
-| `@vue/compiler-sfc` | `dev` | `false` | `^3.0.0-beta.13`
+| `vue-router` | | `true` | `^4.0.0-alpha.12` |
+| `@vue/compiler-sfc` | `dev` | `false` | `^3.0.0-beta.14` | 版本必须与 `vite` 中的 `vue` 版本保持一致
 | `electron` | `dev` | `false` | `^9.0.0`
 | `electron-builder` | `dev` | `false` | `^22.6.0`
-| `vite` | `dev` | `false` | `^0.15.2` | `vue@next` ---> `vue@3.0.0-beta.12`
+| [`vite`](https://github.com/vuejs/vite) | `dev` | `false` | `^0.16.7` | `vue@3.0.0-beta.14`、[`esbuild`](https://github.com/evanw/esbuild)
 
 >
 > *It's more like a more streamlined, opinionated development workflow tool. Think webpack-dev-server + webpack but lighter, faster, and pre-configured.*
