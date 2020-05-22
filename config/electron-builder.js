@@ -8,7 +8,7 @@ const config = {
   files: [
     'build',
     {
-      "from": "resources",
+      "from": "main/resources",
       "to": "build/resources",
       "filter": ["**/*"]
     }
@@ -29,7 +29,7 @@ const config = {
     category: 'public.app-category.utilities', // Apple 官方预定义
     target: 'dmg',
     type: 'distribution',
-    icon: 'resources/icons/icon.icns',
+    icon: 'main/resources/icons/icon.icns',
     identity: 'The name of certificate to use when signing',
     extendInfo: {}
   }

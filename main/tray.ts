@@ -1,7 +1,7 @@
 import { app, Tray, Menu } from 'electron'
 import path from 'path'
 
-import resources from '../resources'
+import resources from './resources'
 
 export default class {
   tray: Tray | null
@@ -10,7 +10,7 @@ export default class {
   constructor() {
     this.tray = null
     this.trayIconPath = process.env.NODE_ENV === 'development'
-      ? path.join(__dirname, '../resources/' + resources["icon-tray-png-16"])
+      ? path.join(__dirname, '../main/resources/' + resources["icon-tray-png-16"])
       : path.join(__dirname, '/resources/icons/tray.png')
     this.contextMenu = Menu.buildFromTemplate([
       { label: '选项', type: 'radio' },
