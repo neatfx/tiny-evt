@@ -3,7 +3,7 @@ const config = {
   base: '.',
   outDir: 'build/renderer',
   assetsDir: '.',
-  bundle: true,
+  write: false
 }
 
 module.exports = config
