@@ -10,7 +10,7 @@
 
 | Dependence | Category | Optional | Version | Description |
 | :---:|:---:|:---:|:---:|:---:|
-| `env-cmd`| | `true` | `^10.1.0`|
+| `env-cmd`| `dev` | `true` | `^10.1.0`|
 | `vue-router` | | `true` | `^4.0.0-alpha.12` |
 | `@vue/compiler-sfc` | `dev` | `false` | `^3.0.0-beta.14` | 版本必须与 `vite` 中的 `vue` 版本保持一致
 | `electron` | `dev` | `false` | `^9.0.0`
