@@ -17,10 +17,11 @@
 | `electron-builder` | `dev` | `false` | `^22.6.0`
 | [`vite`](https://github.com/vuejs/vite) | `dev` | `false` | `^0.16.7` | `vue@3.0.0-beta.14`、[`esbuild`](https://github.com/evanw/esbuild)
 
+> 关于 Vite 的定位:
 >
 > *It's more like a more streamlined, opinionated development workflow tool. Think webpack-dev-server + webpack but lighter, faster, and pre-configured.*
 >
-> &mdash; Evan You ( [@youyuxi](https://twitter.com/youyuxi/status/1258112624300118022) ) May 6, 2020
+> &mdash; *Evan You ( [@youyuxi](https://twitter.com/youyuxi/status/1258112624300118022) ) May 6, 2020*
 
 ---
 
