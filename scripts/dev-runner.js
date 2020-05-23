@@ -3,17 +3,14 @@ const electron = require('electron')
 const { spawn } = require('child_process')
 const esbuild = require('esbuild')
 
+const viteConfig = require('../configs/vite.config.dev')
+const esbuildConfig = require('../configs/esbuild.config.dev')
+
 let electronProcess = null
 
 function runRenderer() {
   return new Promise((resolve, reject) => {
-    createServer({
-      root: 'renderer',
-      minify: false,
-      optimizeDeps: {
-        auto: false // FIXME: 默认值 true 会引发 package.json 未找到错误
-      }
-    })
+    createServer(viteConfig)
     .on("listening", () => {
       console.log("Vite-Dev-Server running on localhost:3000")
       resolve()
@@ -31,13 +28,7 @@ function runRenderer() {
 }
 
 async function runMain() {
-    return esbuild.build({
-      entryPoints: ['main/main.ts', 'main/preload.ts'],
-      outdir: 'build/',
-      minify: false,
-      bundle: true,
-      external: ['electron', 'path'],
-    }).then(() => {
+    return esbuild.build(esbuildConfig).then(() => {
       if (electronProcess && electronProcess.kill) {
         process.kill(electronProcess.pid)
         electronProcess = null
@@ -50,11 +41,11 @@ async function runMain() {
 }
 
 function runElectron() {
-  let args = [
+  const args = [
     '--inspect=5858',
     'build/main.js'
   ]
-  let electronProcess = spawn(electron, args)
+  const electronProcess = spawn(electron, args)
 
   electronProcess.stdout.on('data', data => {
     electronEcho(data, 'blue')

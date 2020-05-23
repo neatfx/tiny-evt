@@ -1,43 +1,35 @@
 const { build } = require('vite')
 const esbuild = require('esbuild')
 const builder = require('electron-builder')
+
+const esbuildConfig = require('../configs/esbuild.config.dist')
+const viteConfig = require('../configs/vite.config.dist')
 const builderConfig = require('../configs/electron-builder')
 
 function packMain () {
-  return esbuild.build({
-    entryPoints: ['main/main.ts', 'main/preload.ts'],
-    outdir: 'build/',
-    minify: true,
-    bundle: true,
-    external: ['electron', 'path']
-  }).then(result => {
+  return esbuild.build(esbuildConfig).then(result => {
     console.log(result.stderr)
   })
   .catch(err => {
-    console.log(`\n failed to build main process`)
+    console.log(`\nfailed to build main process`)
     console.error(`\n${err}\n`)
     process.exit(1)
   })
 }
 
 function packRenderer() {
-  return build({
-    bundle: true,
-    root: 'renderer',
-    base: '.',
-    outDir: 'build/renderer',
-    assetsDir: '.',
-  }).then(result => {
-  })
+  return build(viteConfig)
   .catch(err => {
-    console.log(`\n failed to build renderer process`)
+    console.log(`\nfailed to build renderer process`)
     console.error(`\n${err}\n`)
     process.exit(1)
   })
 }
 
 console.log(`Building Main & Renderer...\n--------------------`)
+
 const buildStart = Date.now()
+
 Promise.all([packMain(), packRenderer()])
   .then(result => {
     builder.build({
@@ -45,7 +37,7 @@ Promise.all([packMain(), packRenderer()])
         config: builderConfig
       })
       .then(m => {
-        console.log('\nBUILD TIME: ', Math.floor((Date.now() - buildStart) / 1000) + ' s')
+        console.log('\nBuild completed in: ', Math.floor((Date.now() - buildStart) / 1000) + ' s')
       })
       .catch(e => {
         console.error(e)
