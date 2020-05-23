@@ -26,8 +26,6 @@ function packRenderer() {
   })
 }
 
-console.log(`Building Main & Renderer...\n--------------------`)
-
 const buildStart = Date.now()
 
 Promise.all([packMain(), packRenderer()])
@@ -37,7 +35,7 @@ Promise.all([packMain(), packRenderer()])
         config: builderConfig
       })
       .then(m => {
-        console.log('\nBuild completed in: ', Math.floor((Date.now() - buildStart) / 1000) + ' s')
+        console.log('\nBuild completed in', Math.floor((Date.now() - buildStart) / 1000) + ' s.')
       })
       .catch(e => {
         console.error(e)
