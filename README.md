@@ -34,13 +34,19 @@ cp configs/.env.example .env
 > 启动测试
 
 ```bash
-# 启动本地服务器运行 Renderer Process ( Vue APP )
+# 编译脚本
+# scripts/dev-runner.ts ---> esbuild.build() ---> build/dev-runner.js
+
+# 运行脚本
+# node build/dev-runner.js
+
+# 脚本执行操作 - 启动本地服务器运行 Renderer Process ( Vue APP )
 # renderer/**/* ---> Vite ---> dev-server @ localhost:3000
 
-# 利用 Vite 中引入的 esbuild 编译打包 Main Process ( TypeScript APP )
+# 脚本执行操作 - 利用 Vite 中引入的 esbuild 编译打包 Main Process ( TypeScript APP )
 # main/**/* ---> esbuild.build() ---> build/main.js、build/preload.js
 
-# 运行 Electron 应用
+# 脚本执行操作 - 运行 Electron 应用
 # electron ---> build/main.js
 
 # 开发版环境下，测试版本 Electron 应用的 main-window 指向本地 Vite-dev-server
@@ -52,13 +58,19 @@ npm run dev
 > 应用打包
 
 ```bash
-# 编译打包 Renderer Process ( Vue APP )
+# 编译脚本
+# scripts/app-builder.ts ---> esbuild.build() ---> build/app-builder.js
+
+# 运行脚本
+# node build/app-builder.js
+
+# 脚本执行操作 - 编译打包 Renderer Process ( Vue APP )
 # renderer/**/* ---> Vite.build() ---> build/renderer/
 
-# 编译打包 Main Process ( TypeScript APP )
+# 脚本执行操作 - 编译打包 Main Process ( TypeScript APP )
 # main/**/* ---> esbuild.build() ---> build/main.js、build/preload.js、
 
-# 打包应用
+# 脚本执行操作 - 打包创建应用
 # main/resources/**/* ---> electron-builder ---> build/resources/
 # build/**/* ---> electron-builder ---> dist/
 
