@@ -2,14 +2,14 @@ import { createServer } from 'vite'
 import { spawn, ChildProcessWithoutNullStreams } from 'child_process'
 import { build } from 'esbuild'
 
-import viteConfig from '../configs/vite.config.dev'
+import viteServerConfig from '../configs/vite.config.dev'
 import esbuildConfig from '../configs/esbuild.config.dev'
 
 let electronProcess: ChildProcessWithoutNullStreams | null
 
 function runRenderer() {
   return new Promise((resolve, reject) => {
-    createServer(viteConfig)
+    createServer(viteServerConfig)
     .on("listening", () => {
       console.log("Vite-Dev-Server running on localhost:3000")
       resolve()
@@ -18,7 +18,7 @@ function runRenderer() {
       console.log('Vite-Dev-Server Error: ', e)
       reject()
     })
-    .listen(viteConfig.port)
+    .listen(viteServerConfig.port)
   })
 }
 
@@ -43,11 +43,11 @@ function runElectron() {
   const electronProcess = spawn('electron', args)
 
   electronProcess.stdout.on('data', data => {
-    electronEcho(data, 'blue')
+    electronEcho(data)
   })
 
   electronProcess.stderr.on('data', data => {
-    electronEcho(data, 'red')
+    electronEcho(data)
   })
 
   electronProcess.on('close', () => {
@@ -63,7 +63,7 @@ Promise.all([runRenderer(), runMain()])
     console.error(err)
   })
 
-function electronEcho(data, color) {
+function electronEcho(data: string[]) {
   let log = '\n'
 
   data = data.toString().split(/\r?\n/)

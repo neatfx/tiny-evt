@@ -1,13 +1,13 @@
-import { build } from 'vite'
-import esbuild from 'esbuild'
-const builder = require('electron-builder')
+import { build as viteBuild } from 'vite'
+import { build as esbuild } from 'esbuild'
+import { build as electronBuild, Platform } from 'electron-builder'
 
 import esbuildConfig from '../configs/esbuild.config.dist'
-import viteConfig from '../configs/vite.config.dist'
-import builderConfig from '../configs/electron-builder.conf'
+import viteBuildConfig from '../configs/vite.config.dist'
+import electronBuilderConfig from '../configs/electron-builder.conf'
 
 function packMain () {
-  return esbuild.build(esbuildConfig).then(result => {
+  return esbuild(esbuildConfig).then(result => {
     console.log(result.stderr)
   })
   .catch(err => {
@@ -18,7 +18,7 @@ function packMain () {
 }
 
 function packRenderer() {
-  return build(viteConfig)
+  return viteBuild(viteBuildConfig)
   .catch(err => {
     console.log(`\nfailed to build renderer process`)
     console.error(`\n${err}\n`)
@@ -30,11 +30,11 @@ const buildStart = Date.now()
 
 Promise.all([packMain(), packRenderer()])
   .then(result => {
-    builder.build({
-        targets: builder.Platform.MAC.createTarget(),
-        config: builderConfig
+    electronBuild({
+        targets: Platform.MAC.createTarget(),
+        config: electronBuilderConfig
       })
-      .then(m => {
+      .then(() => {
         console.log('\nBuild completed in', Math.floor((Date.now() - buildStart) / 1000) + ' s.')
       })
       .catch(e => {
