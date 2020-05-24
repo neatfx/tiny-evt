@@ -16,7 +16,7 @@ export default class {
       : `file://${__dirname}/renderer/index.html`
     this.preloadPath = process.env.NODE_ENV === 'development'
     ? path.join(app.getAppPath(), 'preload.js')
-    : path.join(app.getAppPath(), '/build/preload.js')
+    : path.join(app.getAppPath(), 'preload.js')
   }
   init() {
     this.window = new BrowserWindow({

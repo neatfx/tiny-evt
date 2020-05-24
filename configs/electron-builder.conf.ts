@@ -8,10 +8,14 @@ const conf: Configuration = {
   nodeGypRebuild: false,
   compression: 'store',
   files: [
-    'build',
+    "package.json",
+    {
+      "from": "build",
+      "filter": ["!dev-runner.js", "!app-builder.js"]
+    },
     {
       "from": "main/resources",
-      "to": "build/resources",
+      "to": "resources",
       "filter": ["**/*"]
     }
   ],
