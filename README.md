@@ -1,6 +1,6 @@
 # *tiny-evt*
 
-![banner](banner.png)
+![screenshot](screenshot.png)
 
 基于 `Vite` 实现的 `(E)lectron`+`(V)ue`+`(T)ypeScript` 项目基础代码。
 
@@ -28,10 +28,10 @@
 > First Run
 
 ```bash
-mv .env.example .env
+cp configs/.env.example .env
 ```
 
-> 启动测试：
+> 启动测试
 
 ```bash
 # 启动本地服务器运行 Renderer Process ( Vue APP )
@@ -49,7 +49,7 @@ mv .env.example .env
 npm run dev
 ```
 
-> 应用打包：
+> 应用打包
 
 ```bash
 # 编译打包 Renderer Process ( Vue APP )
