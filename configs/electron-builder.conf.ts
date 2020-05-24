@@ -1,4 +1,6 @@
-const config = {
+import { Configuration } from 'electron-builder'
+
+const conf: Configuration = {
   productName: 'TinyEvt',
   appId: 'com.tinyevt.org',
   copyright: 'Copyright © 2020',
@@ -35,4 +37,4 @@ const config = {
   }
 }
 
-module.exports = config
+export default conf

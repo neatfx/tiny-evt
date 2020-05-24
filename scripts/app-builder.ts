@@ -1,10 +1,10 @@
-const { build } = require('vite')
-const esbuild = require('esbuild')
+import { build } from 'vite'
+import esbuild from 'esbuild'
 const builder = require('electron-builder')
 
-const esbuildConfig = require('../configs/esbuild.config.dist')
-const viteConfig = require('../configs/vite.config.dist')
-const builderConfig = require('../configs/electron-builder')
+import esbuildConfig from '../configs/esbuild.config.dist'
+import viteConfig from '../configs/vite.config.dist'
+import builderConfig from '../configs/electron-builder.conf'
 
 function packMain () {
   return esbuild.build(esbuildConfig).then(result => {
@@ -42,5 +42,3 @@ Promise.all([packMain(), packRenderer()])
       })
   })
   .catch(e => console.log(e))
-
-  export {} // this fix "Cannot redeclare block-scoped variable" error
