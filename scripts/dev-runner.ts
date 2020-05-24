@@ -80,3 +80,5 @@ function electronEcho(data, color) {
       console.log(log)
   }
 }
+
+export {} // this fix "Cannot redeclare block-scoped variable" error

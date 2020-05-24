@@ -42,3 +42,5 @@ Promise.all([packMain(), packRenderer()])
       })
   })
   .catch(e => console.log(e))
+
+  export {} // this fix "Cannot redeclare block-scoped variable" error
