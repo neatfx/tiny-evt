@@ -19,7 +19,7 @@ function runRenderer() {
       console.log('Vite-Dev-Server Error: ', e)
       reject()
     })
-    .listen(3000)
+    .listen(viteConfig.port)
     .catch((e) => {
       console.log('Failed creating Vite server: ', e)
       reject()
