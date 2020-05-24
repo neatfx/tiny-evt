@@ -1,12 +1,11 @@
-const { createServer } = require('vite')
-const electron = require('electron')
-const { spawn } = require('child_process')
-const esbuild = require('esbuild')
+import { createServer } from 'vite'
+import { spawn, ChildProcessWithoutNullStreams } from 'child_process'
+import { build } from 'esbuild'
 
-const viteConfig = require('../configs/vite.config.dev')
-const esbuildConfig = require('../configs/esbuild.config.dev')
+import viteConfig from '../configs/vite.config.dev'
+import esbuildConfig from '../configs/esbuild.config.dev'
 
-let electronProcess = null
+let electronProcess: ChildProcessWithoutNullStreams | null
 
 function runRenderer() {
   return new Promise((resolve, reject) => {
@@ -20,15 +19,11 @@ function runRenderer() {
       reject()
     })
     .listen(viteConfig.port)
-    .catch((e) => {
-      console.log('Failed creating Vite server: ', e)
-      reject()
-    })
   })
 }
 
 async function runMain() {
-    return esbuild.build(esbuildConfig).then(() => {
+    return build(esbuildConfig).then(() => {
       if (electronProcess && electronProcess.kill) {
         process.kill(electronProcess.pid)
         electronProcess = null
@@ -45,7 +40,7 @@ function runElectron() {
     '--inspect=5858',
     'build/main.js'
   ]
-  const electronProcess = spawn(electron, args)
+  const electronProcess = spawn('electron', args)
 
   electronProcess.stdout.on('data', data => {
     electronEcho(data, 'blue')
@@ -80,5 +75,3 @@ function electronEcho(data, color) {
       console.log(log)
   }
 }
-
-export {} // this fix "Cannot redeclare block-scoped variable" error

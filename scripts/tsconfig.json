@@ -1,6 +1,3 @@
 {
   "extends": "../configs/tsconfig.base",
-  "exclude": [
-    "resources/icons"
-  ]
 }

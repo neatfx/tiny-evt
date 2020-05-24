@@ -16,7 +16,7 @@
     "esModuleInterop": true,
     "isolatedModules": true,
     "noImplicitAny": false,
-    "allowJs": true,
+    "allowJs": false,
     "noEmit": true,
     "baseUrl": "."
   }
