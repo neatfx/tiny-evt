@@ -9,7 +9,7 @@
     "dist": "esbuild --platform=node --bundle --external:vite --external:esbuild --external:electron-builder scripts/app-builder.ts --outfile=build/app-builder.js && node build/app-builder.js"
   },
   "dependencies": {
-    "vue-router": "^4.0.0-alpha.12"
+    "vue-router": "^4.0.0-alpha.11"
   },
   "devDependencies": {
     "@vue/compiler-sfc": "^3.0.0-beta.14",
