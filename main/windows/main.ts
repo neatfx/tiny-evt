@@ -10,13 +10,13 @@ export default class {
     this.window = null
     this.iconPath =  process.env.NODE_ENV === 'development'
       ? path.join(__dirname, '../main/resources/icons/icon.png')
-      : path.join(__dirname, '/resources/icons/icon.png')
+      : path.join(__dirname, '../resources/icons/icon.png')
     this.pageUrl = process.env.NODE_ENV === 'development'
-      ? `http://127.0.0.1:3000`
-      : `file://${__dirname}/renderer/index.html`
+      ? 'http://127.0.0.1:3000'
+      : path.join(__dirname, './renderer/index.html')
     this.preloadPath = process.env.NODE_ENV === 'development'
-    ? path.join(app.getAppPath(), 'preload.js')
-    : path.join(app.getAppPath(), 'preload.js')
+    ? path.join(__dirname, './preload.js')
+    : path.join(__dirname, './preload.js')
   }
   init() {
     this.window = new BrowserWindow({
@@ -24,9 +24,8 @@ export default class {
       center: true,
       show: false,
       webPreferences: {
-        nodeIntegration: false, // default === false 
         contextIsolation: true,
-        enableRemoteModule: false, // default === true
+        enableRemoteModule: false,
         preload: this.preloadPath
       }
     })
@@ -39,7 +38,9 @@ export default class {
       this.window = null
     })
 
-   this.window.loadURL(this.pageUrl)
+    process.env.NODE_ENV === 'development'
+    ? this.window.loadURL(this.pageUrl)
+    : this.window.loadFile(this.pageUrl)
   }
   toggle() {
     if (this.window === null) {

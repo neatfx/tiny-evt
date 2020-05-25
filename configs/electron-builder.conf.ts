@@ -8,6 +8,7 @@ const conf: Configuration = {
     "package.json",
     {
       "from": "build",
+      "to": "build",
       "filter": ["!dev-runner.js", "!app-builder.js"]
     },
     {

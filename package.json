@@ -3,10 +3,10 @@
   "description": "a tiny codebase for building electron-vue-typescript application with vite",
   "version": "0.1.0",
   "author": "Robocat<neatfx@gmail.com>",
-  "main": "main.js",
+  "main": "build/main.js",
   "scripts": {
     "dev": "esbuild --platform=node --bundle --external:vite --external:esbuild scripts/dev-runner.ts --outfile=build/dev-runner.js && env-cmd node build/dev-runner.js",
-    "dist": "esbuild --platform=node --bundle --external:vite --external:electron-builder --external:esbuild scripts/app-builder.ts --outfile=build/app-builder.js && node build/app-builder.js"
+    "dist": "esbuild --platform=node --bundle --external:vite --external:esbuild --external:electron-builder scripts/app-builder.ts --outfile=build/app-builder.js && node build/app-builder.js"
   },
   "dependencies": {
     "vue-router": "^4.0.0-alpha.12"

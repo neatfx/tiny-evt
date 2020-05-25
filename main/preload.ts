@@ -12,18 +12,18 @@ const validChannels = {
 
 contextBridge.exposeInMainWorld(
   "ipcApi", {
-      send: (channel, data) => {
+      send: (channel: string, data: object) => {
           if (validChannels.send.includes(channel)) {
             ipcRenderer.send(channel, data);
           }
       },
-      sendSync: (channel, data) => {
+      sendSync: (channel: string, data: object) => {
         if (validChannels.sendSync.includes(channel)) {
             const result = ipcRenderer.sendSync(channel, data)
             return result
         }
       },
-      receive: (channel, func) => {
+      receive: (channel: string, func: () => {}) => {
           if (validChannels.receive.includes(channel)) {
               ipcRenderer.on(channel, (event, ...args) => {
                 console.log(event, args)
@@ -31,4 +31,4 @@ contextBridge.exposeInMainWorld(
           }
       }
   }
-);
+)
