@@ -29,7 +29,7 @@
 > First Run
 
 ```bash
-cp configs/.env.example .env
+cp configs/.env.example .env-cmdrc.json
 ```
 
 > 启动测试
@@ -38,7 +38,7 @@ cp configs/.env.example .env
 # 编译脚本
 # scripts/dev-runner.ts ---> esbuild.build() ---> build/dev-runner.js
 
-# 运行脚本
+# 运行脚本（ 环境变量，NODE_ENV=development ）
 # node build/dev-runner.js
 
 # 脚本执行操作 - 启动本地服务器运行 Renderer Process ( Vue APP )
@@ -81,4 +81,21 @@ npm run dev
 # main-window @ TinyEvt（ packaged，DMG 格式 ）---> app.asar/build/renderer/index.html
 
 npm run dist
+```
+
+> E2E 测试
+
+```bash
+# 编译脚本
+# scripts/dev-runner.ts ---> esbuild.build() ---> build/dev-runner.js
+
+# 运行脚本（ 环境变量 NODE_ENV=development、TEST=cypress ）
+# node build/dev-runner.js
+
+# 脚本执行操作 - 启动本地服务器运行 Renderer Process ( Vue APP )
+# renderer/**/* ---> Vite ---> dev-server @ localhost:3000
+
+# 脚本执行操作 - 启动 Cypress Test Runner
+
+npm run cypress
 ```
