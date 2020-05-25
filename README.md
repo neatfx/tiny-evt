@@ -71,11 +71,13 @@ npm run dev
 # main/**/* ---> esbuild.build() ---> build/main.js、build/preload.js、
 
 # 脚本执行操作 - 打包创建应用
-# main/resources/**/* ---> electron-builder ---> build/resources/
-# build/**/* ---> electron-builder ---> dist/
+# package.json ---> electron-builder ---> dist/~app.asar/package.json
+# build/**/*（ dev-runner.js、app-builder.js 除外 ）---> electron-builder ---> dist/~app.asar/build/
+# main/resources/**/* ---> electron-builder ---> dist/~app.asar/build/resources/
+# dist/mac/**/* ---> electron-builder ---> dist/TinyEvt.dmg
 
 # 以可分发格式打包后的 Electron 应用指向 Vue 应用打包后的本地文件
-# main-window @ TinyEvt（ packaged，DMG 格式 ）---> build/renderer/index.html
+# main-window @ TinyEvt（ packaged，DMG 格式 ）---> app.asar/build/renderer/index.html
 
 npm run dist
 ```
