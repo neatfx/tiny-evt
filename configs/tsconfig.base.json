@@ -6,12 +6,10 @@
     "strict": true,
     "noUnusedLocals": true,
     "noImplicitReturns": true,
-    "resolveJsonModule": true,
     "esModuleInterop": true,
     "isolatedModules": true,
     "noImplicitAny": true,
     "allowJs": false,
     "noEmit": true,
-    "baseUrl": "."
   }
 }

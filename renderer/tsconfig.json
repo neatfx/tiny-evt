@@ -1,5 +1,8 @@
 {
   "extends": "../configs/tsconfig.base",
+  "compilerOptions": {
+    "moduleResolution": "node",
+  },
   "exclude": [
     "styles",
     "assets",
