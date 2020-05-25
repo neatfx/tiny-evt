@@ -11,11 +11,12 @@
 | Dependence | Category | Optional | Version | Description |
 | :---:|:---:|:---:|:---:|:---:|
 | `env-cmd`| `dev` | `true` | `^10.1.0`|
+| `cypress`| `dev` | `true`| `^4.6.0` |
 | `vue-router` | | `true` | `^4.0.0-alpha.11` |
-| `@vue/compiler-sfc` | `dev` | `false` | `^3.0.0-beta.14` | 版本必须与 `vite` 中的 `vue` 版本保持一致
-| `electron` | `dev` | `false` | `^9.0.0`
-| `electron-builder` | `dev` | `false` | `^22.6.0`
-| [`vite`](https://github.com/vuejs/vite) | `dev` | `false` | `^0.16.7` | `vue@3.0.0-beta.14`、[`esbuild`](https://github.com/evanw/esbuild)
+| `@vue/compiler-sfc` | `dev` | | `^3.0.0-beta.14` | 版本必须与 `vite` 中的 `vue` 版本保持一致
+| `electron` | `dev` | | `^9.0.0`
+| `electron-builder` | `dev` | | `^22.6.0`
+| [`vite`](https://github.com/vuejs/vite) | `dev` | | `^0.16.7` | `vue@3.0.0-beta.14`、[`esbuild`](https://github.com/evanw/esbuild)
 
 > 关于 Vite 的定位:
 >
