@@ -2,10 +2,7 @@ import { Configuration } from 'electron-builder'
 
 const conf: Configuration = {
   productName: 'TinyEvt',
-  appId: 'com.tinyevt.org',
-  copyright: 'Copyright © 2020',
   electronVersion: '9.0.0',
-  nodeGypRebuild: false,
   compression: 'store',
   files: [
     "package.json",
@@ -32,12 +29,10 @@ const conf: Configuration = {
     }]
   },
   mac: {
-    category: 'public.app-category.utilities', // Apple 官方预定义
+    category: 'public.app-category.developer-tools', // Apple 官方预定义
     target: 'dmg',
     type: 'distribution',
     icon: 'main/resources/icons/icon.icns',
-    identity: 'The name of certificate to use when signing',
-    extendInfo: {}
   }
 }
 

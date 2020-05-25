@@ -2,10 +2,9 @@ import { BuildConfig } from 'vite'
 
 const config: BuildConfig = {
   root: 'renderer',
-  base: '.',
   outDir: 'build/renderer',
+  base: '.',
   assetsDir: '.',
-  cssCodeSplit: false,
 }
 
 export default config
