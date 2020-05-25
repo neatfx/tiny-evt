@@ -16,7 +16,7 @@
 | `@vue/compiler-sfc` | `dev` | | `^3.0.0-beta.14` | 版本必须与 `vite` 中的 `vue` 版本保持一致
 | `electron` | `dev` | | `^9.0.0`
 | `electron-builder` | `dev` | | `^22.6.0`
-| [`vite`](https://github.com/vuejs/vite) | `dev` | | `^0.16.7` | `vue@3.0.0-beta.14`、[`esbuild`](https://github.com/evanw/esbuild)
+| [`vite`](https://github.com/vuejs/vite) | `dev` | | `^0.16.10` | `vue@3.0.0-beta.14`、[`esbuild`](https://github.com/evanw/esbuild)
 
 > 关于 Vite 的定位:
 >
