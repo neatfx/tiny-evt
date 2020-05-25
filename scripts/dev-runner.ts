@@ -12,6 +12,14 @@ function runRenderer() {
     createServer(viteServerConfig)
     .on("listening", () => {
       console.log("Vite-Dev-Server running on localhost:3000")
+      if(process.env.TEST === 'cypress') {
+        const args = [
+          'open',
+          '--config-file',
+          'configs/cypress.json'
+        ]
+        spawn('cypress', args)
+      }
       resolve()
     })
     .on("error", (e) => {
@@ -55,6 +63,9 @@ function runElectron() {
   })
 }
 
+if(process.env.TEST === 'cypress') {
+  runRenderer()
+} else {
 Promise.all([runRenderer(), runMain()])
   .then(() => {
     runElectron()
@@ -62,6 +73,7 @@ Promise.all([runRenderer(), runMain()])
   .catch(err => {
     console.error(err)
   })
+}
 
 function electronEcho(data: string[]) {
   let log = '\n'
