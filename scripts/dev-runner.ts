@@ -66,13 +66,13 @@ function runElectron() {
 if(process.env.TEST === 'cypress') {
   runRenderer()
 } else {
-Promise.all([runRenderer(), runMain()])
-  .then(() => {
-    runElectron()
-  })
-  .catch(err => {
-    console.error(err)
-  })
+  Promise.all([runRenderer(), runMain()])
+    .then(() => {
+      runElectron()
+    })
+    .catch(err => {
+      console.error(err)
+    })
 }
 
 function electronEcho(data: string[]) {
