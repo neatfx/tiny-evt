@@ -1,5 +1,8 @@
 import { app, ipcMain } from 'electron'
 
+import './security/remote-module-filter'
+import './security/web-contents'
+
 import Menu from './menu'
 
 import MainWindow from './windows/main'
