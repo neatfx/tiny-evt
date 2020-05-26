@@ -29,7 +29,7 @@
 > First Run
 
 ```bash
-cp configs/.env.example .env-cmdrc.json
+cp configs/.env.example configs/.env-cmdrc.json
 ```
 
 > 启动测试
