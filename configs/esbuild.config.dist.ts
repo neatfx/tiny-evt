@@ -5,7 +5,7 @@ const config: BuildOptions =  {
   outdir: 'build/',
   minify: true,
   bundle: true,
-  external: ['electron', 'path']
+  external: ['electron', 'path', 'fs']
 }
 
 export default config

@@ -1,4 +1,5 @@
 import { contextBridge, ipcRenderer } from 'electron'
+import { readFileSync } from 'fs'
 
 // Expose protected methods that allow the renderer process to use
 // the ipcRenderer without exposing the entire object
@@ -29,6 +30,11 @@ contextBridge.exposeInMainWorld(
                 console.log(event, args)
               });
           }
+      },
+      // 上下文隔离 - preload 中可访问 node 提供的功能，封装之后暴露给 renderer process 使用，此处代码仅为示例
+      readConfig: () => {
+        const data = readFileSync('./config.json')
+        return data
       }
   }
 )
