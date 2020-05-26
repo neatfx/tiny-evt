@@ -4,7 +4,9 @@
 
 基于 `Vite` 实现的 `(E)lectron`+`(V)ue`+`(T)ypeScript` 项目基础代码。
 
-依赖简单，无需复杂配置，编程前准备工作更少，运行、HMR、编译打包速度更快，关注 [应用安全](https://www.electronjs.org/docs/tutorial/security)、自动化测试。
+依赖、配置、使用都非常简单，编程前准备工作更少，运行、HMR、编译打包速度更快！
+
+遵循 [应用安全建议](https://www.electronjs.org/docs/tutorial/security)，包含自动化测试。
 
 ---
 
@@ -32,7 +34,7 @@
 cp configs/.env.example configs/.env-cmdrc.json
 ```
 
-> 启动测试
+> 运行应用
 
 ```bash
 # 编译脚本
@@ -83,7 +85,7 @@ npm run dev
 npm run dist
 ```
 
-> E2E 测试
+> 运行 E2E 测试
 
 ```bash
 # 编译脚本
