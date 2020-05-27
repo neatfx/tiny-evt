@@ -6,9 +6,9 @@ import { readFileSync } from 'fs'
 
 // whitelist channels
 const validChannels = {
-  send: ["async-message-to-main"],
+  send: ["async-ipc-from-renderer-to-main"],
   sendSync: ["open-preference-window"],
-  receive: ["fromMain", "async-reply"]
+  receive: ["ipc_from_main"]
 }
 
 contextBridge.exposeInMainWorld(
@@ -21,13 +21,16 @@ contextBridge.exposeInMainWorld(
       sendSync: (channel: string, data: object) => {
         if (validChannels.sendSync.includes(channel)) {
             const result = ipcRenderer.sendSync(channel, data)
+            console.log('[@preload.ipcApi.sendSync -> result]', result)
             return result
         }
       },
-      receive: (channel: string, func: () => {}) => {
+      receive: (channel: string, callback: (args: object) => void) => {
           if (validChannels.receive.includes(channel)) {
+            console.log('[@preload.ipcApi.receive -> listens to channel]', channel)
               ipcRenderer.on(channel, (event, ...args) => {
-                console.log(event, args)
+                console.log('[@preload.ipcApi.receive -> on message]', event, args)
+                callback(args)
               });
           }
       },

@@ -15,7 +15,7 @@ export default function(cr: ComponentsRouter) {
       {
         label: '偏好设置',
         click: (a,b,c) => {
-          cr.preferenceWindow.toggle()
+          cr.mainWindow.window?.webContents.send('ipc_from_main', '/c')
         }
       },
       { type: 'separator' },

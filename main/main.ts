@@ -13,10 +13,12 @@ const mainWindow = new MainWindow()
 const tray = new AppTray()
 
 export interface ComponentsRouter {
-  preferenceWindow: PreferenceWindow 
+  preferenceWindow: PreferenceWindow
+  mainWindow: MainWindow 
 }
 const cr: ComponentsRouter = {
-  preferenceWindow: new PreferenceWindow()
+  preferenceWindow: new PreferenceWindow(),
+  mainWindow: mainWindow
 }
 
 app.on('ready', () => {
@@ -36,17 +38,17 @@ app.on('activate', () => {
 })
 
 ipcMain.on('async-message-to-main', (event, arg) => {
-  console.log('[channel] - "async-message-to-main"')
-  console.log('[IpcMainEvent] - ', event)
-  console.log('[arg] - ', arg)
+  // console.log('[channel] - "async-message-to-main"')
+  // console.log('[IpcMainEvent] - ', event)
+  // console.log('[arg] - ', arg)
 
   event.reply('async-reply', 'pong')
 })
 
 ipcMain.on('open-preference-window', (event, arg) => {
-  console.log('[channel] - "open-preference-window"')
-  console.log('[IpcMainEvent] - ', event)
-  console.log('[arg] - ', arg)
+  // console.log('[channel] - "open-preference-window"')
+  // console.log('[IpcMainEvent] - ', event)
+  // console.log('[arg] - ', arg)
 
   cr.preferenceWindow.toggle()
   event.returnValue = 'pong'

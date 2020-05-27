@@ -6,6 +6,10 @@
 </template>
 
 <script lang="ts">
+import { onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+const { ipcApi } = window
+
 import Navbar from './components/Navbar.vue'
 
 export default {
@@ -14,6 +18,13 @@ export default {
     Navbar
   },
   setup(props) {
+    const router = useRouter()
+    onMounted(() => {
+      ipcApi.receive('ipc_from_main', (res) => {
+        console.log('[@vue -> message from main]', res)
+        router.push(res[0]) // res[0] === '/c'
+      })
+    })
     return {}
   }
 }
