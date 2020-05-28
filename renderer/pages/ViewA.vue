@@ -1,6 +1,6 @@
 <template>
   <div id="container">
-    <button @click="openPreferenceWindow"> Open Preferences Window </button>
+    <button @click="openPreferenceWindow"> Open BrowserWindow </button>
   </div>
 </template>
 

@@ -13,7 +13,7 @@ export default function(cr: ComponentsRouter) {
         type: 'separator'
       },
       {
-        label: '偏好设置',
+        label: '发送消息至 RendererProcess',
         click: (a,b,c) => {
           cr.mainWindow.window?.webContents.send('ipc_from_main', '/c')
         }
