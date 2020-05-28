@@ -1,0 +1,27 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+			"label": "RunViteDevServer",
+			"command": "${workspaceFolder}/node_modules/.bin/vite",
+      "args": [
+        "--mode development",
+        "--config ${workspaceFolder}/configs/vite.config.dev.ts"
+      ]
+    },
+    {
+			"label": "RunEsbuild",
+      "command": "${workspaceFolder}/node_modules/.bin/esbuild",
+      "args": [
+				"--platform=node",
+				"--bundle",
+				"--external:electron",
+        "--external:path",
+        "--external:fs",
+				"${workspaceFolder}/main/main.ts",
+				"${workspaceFolder}/main/preload.ts",
+				"--outdir=${workspaceFolder}/build/"
+			]
+    }
+  ]
+}
