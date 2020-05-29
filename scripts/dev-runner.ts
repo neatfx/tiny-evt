@@ -20,6 +20,17 @@ function runRenderer() {
         ]
         spawn('cypress', args)
       }
+      if(process.env.TEST === 'spectron') {
+        const args = [
+          "--no-package",
+          "--config",
+          "configs/.mocharc.json",
+          "tests"
+        ]
+        spawn('mocha', args, {
+          stdio: 'inherit'
+        })
+      }
       resolve()
     })
     .on("error", (e) => {
@@ -63,7 +74,7 @@ function runElectron() {
   })
 }
 
-if(process.env.TEST === 'cypress') {
+if(process.env.TEST === 'cypress' || process.env.TEST === 'spectron') {
   runRenderer()
 } else {
   Promise.all([runRenderer(), runMain()])

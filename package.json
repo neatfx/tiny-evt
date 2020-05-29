@@ -8,7 +8,7 @@
     "dev": "cat scripts/dev-runner.esbuild.args | xargs esbuild && env-cmd -r configs/.env-cmdrc.json -e development node build/dev-runner.js",
     "dist": "cat scripts/app-builder.esbuild.args | xargs esbuild && node build/app-builder.js",
     "cypress": "cat scripts/dev-runner.esbuild.args | xargs esbuild && env-cmd -r configs/.env-cmdrc.json -e development,test node build/dev-runner.js",
-    "spectron": "mocha --no-package --config configs/.mocharc.json tests"
+    "spectron": "cat scripts/dev-runner.esbuild.args | xargs esbuild && env-cmd -r configs/.env-cmdrc.json -e development,integration node build/dev-runner.js"
   },
   "dependencies": {
     "vue-router": "^4.0.0-alpha.11"
