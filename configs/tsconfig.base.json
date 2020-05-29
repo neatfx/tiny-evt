@@ -4,12 +4,14 @@
     "module": "esnext",
     "sourceMap": false,
     "strict": true,
+    "strictFunctionTypes": false,
+    "importsNotUsedAsValues": "error",
     "noUnusedLocals": true,
     "noImplicitReturns": true,
     "esModuleInterop": true,
     "isolatedModules": true,
     "noImplicitAny": true,
     "allowJs": false,
-    "noEmit": true,
+    "noEmit": true
   }
 }
