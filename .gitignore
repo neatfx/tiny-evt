@@ -1,5 +1,4 @@
-*.env
-
+.env-cmdrc.json
 dist/
 build/
 node_modules/
