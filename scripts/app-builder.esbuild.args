@@ -1,0 +1,7 @@
+--platform=node
+--bundle
+--external:vite
+--external:esbuild
+--external:electron-builder
+scripts/app-builder.ts
+--outfile=build/app-builder.js

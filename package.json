@@ -5,11 +5,9 @@
   "author": "Robocat<neatfx@gmail.com>",
   "main": "build/main.js",
   "scripts": {
-    "dev-prebuild": "esbuild --platform=node --bundle --external:vite --external:esbuild scripts/dev-runner.ts --outfile=build/dev-runner.js",
-    "dev": "npm run dev-prebuild && env-cmd -r configs/.env-cmdrc.json -e development node build/dev-runner.js",
-    "dist-prebuild": "esbuild --platform=node --bundle --external:vite --external:esbuild --external:electron-builder scripts/app-builder.ts --outfile=build/app-builder.js",
-    "dist": "npm run dist-prebuild && node build/app-builder.js",
-    "cypress": "npm run dev-prebuild && env-cmd -r configs/.env-cmdrc.json -e development,test node build/dev-runner.js",
+    "dev": "cat scripts/dev-runner.esbuild.args | xargs esbuild && env-cmd -r configs/.env-cmdrc.json -e development node build/dev-runner.js",
+    "dist": "cat scripts/app-builder.esbuild.args | xargs esbuild && node build/app-builder.js",
+    "cypress": "cat scripts/dev-runner.esbuild.args | xargs esbuild && env-cmd -r configs/.env-cmdrc.json -e development,test node build/dev-runner.js",
     "spectron": "mocha --no-package --config configs/.mocharc.json tests"
   },
   "dependencies": {

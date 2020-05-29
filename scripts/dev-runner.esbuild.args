@@ -1,0 +1,6 @@
+--platform=node
+--bundle
+--external:vite
+--external:esbuild
+scripts/dev-runner.ts
+--outfile=build/dev-runner.js
