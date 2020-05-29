@@ -5,10 +5,10 @@
   "author": "Robocat<neatfx@gmail.com>",
   "main": "build/main.js",
   "scripts": {
-    "dev": "cat scripts/dev-runner.esbuild.args | xargs esbuild && env-cmd -e development node build/dev-runner.js",
+    "dev": "cat scripts/dev-runner.esbuild.args | xargs esbuild && env-cmd -e dev node build/dev-runner.js",
     "dist": "cat scripts/app-builder.esbuild.args | xargs esbuild && node build/app-builder.js",
-    "cypress": "cat scripts/dev-runner.esbuild.args | xargs esbuild && env-cmd -e development,test node build/dev-runner.js",
-    "spectron": "cat scripts/dev-runner.esbuild.args | xargs esbuild && env-cmd -e development,integration node build/dev-runner.js"
+    "cypress": "cat scripts/dev-runner.esbuild.args | xargs esbuild && env-cmd -e dev,cypress node build/dev-runner.js",
+    "spectron": "cat scripts/dev-runner.esbuild.args | xargs esbuild && env-cmd -e dev,spectron node build/dev-runner.js"
   },
   "dependencies": {
     "vue-router": "^4.0.0-alpha.11"
