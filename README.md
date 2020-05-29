@@ -10,15 +10,17 @@
 
 ---
 
-| Dependence | Category | Optional | Version | Description |
+| Dependence | Category | Required | Version | Information |
 | :---:|:---:|:---:|:---:|:---:|
-| `env-cmd`| `dev` | `true` | `^10.1.0`|
-| `cypress`| `dev` | `true`| `^4.6.0` |
-| `vue-router` | | `true` | `^4.0.0-alpha.11` |
-| `@vue/compiler-sfc` | `dev` | | `^3.0.0-beta.14` | 版本必须与 `vite` 中的 `vue` 版本保持一致
-| `electron` | `dev` | | `^9.0.0`
-| `electron-builder` | `dev` | | `^22.6.0`
-| [`vite`](https://github.com/vuejs/vite) | `dev` | | `^0.17.0` | `vue@3.0.0-beta.14`、[`esbuild`](https://github.com/evanw/esbuild)
+| `vue-router` | | | `4.0.0-alpha.11` |
+| `env-cmd`| `dev` |  | `10.1.0`|
+| `cypress`| `dev` |  | `4.6.0` |
+| `mocha`| `dev` |  | `7.2.0` |
+| `spectron`| `dev` |  | `11.0.0` |
+| `@vue/compiler-sfc` | `dev` | `true` | `3.0.0-beta.14` | 版本必须匹配 `vite` 中的 `vue` 版本
+| `electron` | `dev` | `true` | `9.0.0`
+| `electron-builder` | `dev` | `true` | `22.6.0`
+| [`vite`](https://github.com/vuejs/vite) | `dev` | `true` | `0.17.0` | 包含 `vue@3.0.0-beta.14`、[`esbuild`](https://github.com/evanw/esbuild)
 
 > 关于 Vite 的定位:
 >
@@ -100,4 +102,21 @@ npm run dist
 # 脚本执行操作 - 启动 Cypress Test Runner
 
 npm run cypress
+```
+
+> 测试 Electron App
+
+```bash
+# 编译脚本
+# scripts/dev-runner.ts ---> esbuild.build() ---> build/dev-runner.js
+
+# 运行脚本（ 环境变量 NODE_ENV=development、TEST=spectron ）
+# node build/dev-runner.js
+
+# 脚本执行操作 - 启动本地服务器运行 Renderer Process ( Vue APP )
+# renderer/**/* ---> Vite ---> dev-server @ localhost:3000
+
+# 脚本执行操作 - 启动 Mocha 调用 Spectron 运行 Electron App 进行测试
+
+npm run spectron
 ```
