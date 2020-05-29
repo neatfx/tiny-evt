@@ -4,7 +4,7 @@ import { build as electronBuild, Platform } from 'electron-builder'
 
 import esbuildConfig from '../configs/esbuild.config.dist'
 import viteBuildConfig from '../configs/vite.config.dist'
-import electronBuilderConfig from '../configs/electron-builder.conf'
+import electronBuilderConfig from '../configs/electron-builder'
 
 function packMain () {
   return esbuild(esbuildConfig).then(result => {
