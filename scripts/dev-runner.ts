@@ -4,32 +4,22 @@ import { build } from 'esbuild'
 
 import viteServerConfig from '../configs/vite.config.dev'
 import esbuildConfig from '../configs/esbuild.config.dev'
+import esbuildConfigMocha from '../configs/esbuild.config.dev.mocha'
 
 let electronProcess: ChildProcessWithoutNullStreams | null
 
-function runRenderer() {
+function launchViteDevServer() {
   return new Promise((resolve, reject) => {
     createServer(viteServerConfig)
     .on("listening", () => {
       console.log("Vite-Dev-Server running on localhost:3000")
-      if(process.env.TEST === 'cypress') {
+      if (process.env.TEST === 'cypress') {
         const args = [
           'open',
           '--config-file',
           'configs/cypress.json'
         ]
         spawn('cypress', args)
-      }
-      if(process.env.TEST === 'spectron') {
-        const args = [
-          "--no-package",
-          "--config",
-          "configs/.mocharc.json",
-          "tests"
-        ]
-        spawn('mocha', args, {
-          stdio: 'inherit'
-        })
       }
       resolve()
     })
@@ -41,7 +31,7 @@ function runRenderer() {
   })
 }
 
-async function runMain() {
+async function buildMainProcess() {
     return build(esbuildConfig).then(() => {
       if (electronProcess && electronProcess.kill) {
         process.kill(electronProcess.pid)
@@ -54,7 +44,20 @@ async function runMain() {
     })
 }
 
-function runElectron() {
+function electronEcho(data: string[]) {
+  let log = '\n'
+
+  data = data.toString().split(/\r?\n/)
+  data.forEach(line => {
+    log += `  ${line}\n`
+  })
+
+  if (/[0-9A-z]+/.test(log)) {
+      console.log(log)
+  }
+}
+
+function runElectronApp() {
   const args = [
     '--inspect=5858',
     'build/main.js'
@@ -74,27 +77,43 @@ function runElectron() {
   })
 }
 
-if(process.env.TEST === 'cypress' || process.env.TEST === 'spectron') {
-  runRenderer()
-} else {
-  Promise.all([runRenderer(), runMain()])
+async function buildTests() {
+  return build(esbuildConfigMocha).then(() => {
+  }, (err) => {
+    console.log(err)
+  }).catch((e) => {
+    return e
+  })
+}
+
+if (process.env.TEST === 'cypress') {
+  launchViteDevServer()
+}
+
+if (process.env.TEST === 'spectron') {
+  Promise.all([launchViteDevServer(), buildTests()])
+  .then(() => {
+    const args = [
+      "--no-package",
+      "--config",
+      "configs/.mocharc.json",
+      "tests"
+    ]
+    spawn('mocha', args, {
+      stdio: 'inherit'
+    })
+  })
+  .catch(err => {
+    console.error(err)
+  })
+}
+
+if (!process.env.TEST) {
+  Promise.all([launchViteDevServer(), buildMainProcess()])
     .then(() => {
-      runElectron()
+      runElectronApp()
     })
     .catch(err => {
       console.error(err)
     })
-}
-
-function electronEcho(data: string[]) {
-  let log = '\n'
-
-  data = data.toString().split(/\r?\n/)
-  data.forEach(line => {
-    log += `  ${line}\n`
-  })
-
-  if (/[0-9A-z]+/.test(log)) {
-      console.log(log)
-  }
 }

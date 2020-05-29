@@ -1,7 +1,6 @@
-const Application = require('spectron').Application
-const assert = require('assert')
-const electronPath = require('electron')
-const path = require('path')
+import  {Application} from 'spectron'
+import assert from 'assert'
+import path from 'path'
 
 describe('Application launch', function () {
   this.timeout(20000)
@@ -12,7 +11,7 @@ describe('Application launch', function () {
         'NODE_ENV': 'development'
       },
       requireName: 'electronRequire', // only for accessing any Electron APIs
-      path: electronPath,
+      path: 'node_modules/.bin/electron',
       args: [path.join(__dirname, '../build/main.js')]
     })
     return this.app.start()
