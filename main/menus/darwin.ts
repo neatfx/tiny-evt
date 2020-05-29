@@ -1,5 +1,5 @@
 import { app, Menu, MenuItem } from 'electron'
-import { ComponentsRouter } from '../main'
+import type { ComponentsRouter } from '../main'
 
 export default function(cr: ComponentsRouter) {
   const appMenu = new MenuItem({

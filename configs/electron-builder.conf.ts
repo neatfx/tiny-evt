@@ -1,4 +1,4 @@
-import { Configuration } from 'electron-builder'
+import type { Configuration } from 'electron-builder'
 
 const conf: Configuration = {
   productName: 'TinyEvt',

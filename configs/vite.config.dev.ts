@@ -1,4 +1,4 @@
-import { ServerConfig } from 'vite'
+import type { ServerConfig } from 'vite'
 
 const config: ServerConfig = {
   root: 'renderer',

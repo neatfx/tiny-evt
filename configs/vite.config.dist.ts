@@ -1,4 +1,4 @@
-import { BuildConfig } from 'vite'
+import type { BuildConfig } from 'vite'
 
 const config: BuildConfig = {
   root: 'renderer',
