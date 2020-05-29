@@ -9,7 +9,8 @@
     "dev": "npm run dev-prebuild && env-cmd -r configs/.env-cmdrc.json -e development node build/dev-runner.js",
     "dist-prebuild": "esbuild --platform=node --bundle --external:vite --external:esbuild --external:electron-builder scripts/app-builder.ts --outfile=build/app-builder.js",
     "dist": "npm run dist-prebuild && node build/app-builder.js",
-    "cypress": "npm run dev-prebuild && env-cmd -r configs/.env-cmdrc.json -e development,test node build/dev-runner.js"
+    "cypress": "npm run dev-prebuild && env-cmd -r configs/.env-cmdrc.json -e development,test node build/dev-runner.js",
+    "spectron": "mocha --no-package --config configs/.mocharc.json tests"
   },
   "dependencies": {
     "vue-router": "^4.0.0-alpha.11"
@@ -20,6 +21,8 @@
     "electron": "^9.0.0",
     "electron-builder": "^22.6.0",
     "env-cmd": "^10.1.0",
+    "mocha": "^7.2.0",
+    "spectron": "^11.0.0",
     "vite": "^0.17.0"
   }
 }

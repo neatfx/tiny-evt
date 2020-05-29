@@ -1,6 +1,11 @@
 import { contextBridge, ipcRenderer } from 'electron'
 import { readFileSync } from 'fs'
 
+// expose a require window global to Spectron so it can access the core Electron APIs.
+if (process.env.NODE_ENV === 'development') {
+  window.electronRequire = window.require
+}
+
 // Expose protected methods that allow the renderer process to use
 // the ipcRenderer without exposing the entire object
 
