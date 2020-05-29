@@ -33,7 +33,7 @@
 > First Run
 
 ```bash
-cp configs/.env.example configs/.env-cmdrc.json
+cp configs/.env-cmdrc.json .
 ```
 
 > 运行应用
