@@ -1,6 +1,6 @@
 {
-  "extends": "../configs/tsconfig.base",
+  "extends": "./tsconfig.base",
   "compilerOptions": {
-    "moduleResolution": "node",
+    "moduleResolution": "node"
   }
 }
