@@ -12,7 +12,7 @@
     "cypress": "npm run dev-prebuild && env-cmd -r configs/.env-cmdrc.json -e development,test node build/dev-runner.js"
   },
   "dependencies": {
-    "vue-router": "^4.0.0-alpha.12"
+    "vue-router": "^4.0.0-alpha.11"
   },
   "devDependencies": {
     "@vue/compiler-sfc": "^3.0.0-beta.14",
