@@ -73,7 +73,7 @@ npm run dev
 # renderer/**/* ---> Vite.build() ---> build/renderer/
 
 # 脚本执行操作 - 编译打包 Main Process ( TypeScript APP )
-# main/**/* ---> esbuild.build() ---> build/main.js、build/preload.js、
+# main/**/* ---> esbuild.build() ---> build/main.js、build/preload.js
 
 # 脚本执行操作 - 打包创建应用
 # package.json ---> electron-builder ---> dist/~app.asar/package.json
@@ -116,7 +116,13 @@ npm run cypress
 # 脚本执行操作 - 启动本地服务器运行 Renderer Process ( Vue APP )
 # renderer/**/* ---> Vite ---> dev-server @ localhost:3000
 
-# 脚本执行操作 - 启动 Mocha 调用 Spectron 运行 Electron App 进行测试
+# 脚本执行操作 - 编译打包 Main Process ( TypeScript APP )
+# main/**/* ---> esbuild.build() ---> build/main.js、build/preload.js
+
+# 脚本执行操作 - 编译 Mocha Tests
+# tests/**/*.ts ---> esbuild.build() ---> tests/**/*.js
+
+# 脚本执行操作 - 启动 Mocha 调用 Spectron 运行 Electron App ( ---> build/main.js ) 进行测试
 
 npm run spectron
 ```
