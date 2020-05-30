@@ -100,6 +100,8 @@ if (process.env.TEST === 'spectron') {
     ]
     spawn('mocha', args, {
       stdio: 'inherit'
+    }).on('close', () => {
+      process.exit()
     })
   })
   .catch(err => {
