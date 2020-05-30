@@ -33,7 +33,7 @@
 > First Run
 
 ```bash
-cp configs/.env-cmdrc.json .
+cd tiny-evt && npm install && cp configs/.env-cmdrc.json .
 ```
 
 > 运行应用
