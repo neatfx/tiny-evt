@@ -44,7 +44,16 @@ async function buildMainProcess() {
     })
 }
 
-function electronEcho(data: string[]) {
+async function buildTests() {
+  return build(esbuildConfigMocha).then(() => {
+  }, (err) => {
+    console.log(err)
+  }).catch((e) => {
+    return e
+  })
+}
+
+function logPrinter(data: string[]) {
   let log = '\n'
 
   data = data.toString().split(/\r?\n/)
@@ -65,24 +74,15 @@ function runElectronApp() {
   const electronProcess = spawn('electron', args)
 
   electronProcess.stdout.on('data', data => {
-    electronEcho(data)
+    logPrinter(data)
   })
 
   electronProcess.stderr.on('data', data => {
-    electronEcho(data)
+    logPrinter(data)
   })
 
   electronProcess.on('close', () => {
     process.exit()
-  })
-}
-
-async function buildTests() {
-  return build(esbuildConfigMocha).then(() => {
-  }, (err) => {
-    console.log(err)
-  }).catch((e) => {
-    return e
   })
 }
 
