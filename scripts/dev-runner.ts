@@ -91,7 +91,7 @@ if (process.env.TEST === 'cypress') {
 }
 
 if (process.env.TEST === 'spectron') {
-  Promise.all([launchViteDevServer(), buildTests()])
+  Promise.all([launchViteDevServer(), buildMainProcess(), buildTests()])
   .then(() => {
     const args = [
       "--no-package",
