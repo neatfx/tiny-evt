@@ -13,14 +13,6 @@ function launchViteDevServer() {
     createServer(viteServerConfig)
     .on("listening", () => {
       console.log("Vite-Dev-Server running on localhost:3000")
-      if (process.env.TEST === 'cypress') {
-        const args = [
-          'open',
-          '--config-file',
-          'configs/cypress.json'
-        ]
-        spawn('cypress', args)
-      }
       resolve()
     })
     .on("error", (e) => {
@@ -87,7 +79,14 @@ function runElectronApp() {
 }
 
 if (process.env.TEST === 'cypress') {
-  launchViteDevServer()
+  launchViteDevServer().then(() => {
+    const args = [
+      'open',
+      '--config-file',
+      'configs/cypress.json'
+    ]
+    spawn('cypress', args)
+  })
 }
 
 if (process.env.TEST === 'spectron') {
