@@ -1,4 +1,4 @@
-import  {Application} from 'spectron'
+import { Application } from 'spectron'
 import assert from 'assert'
 import path from 'path'
 
