@@ -32,9 +32,28 @@ export class GithubGraphqlApi {
     if(process.env.APP_ENV !== 'development') {
       return Promise.resolve(mockData)
     }
+
     const postBody = {
-      "query": "{user(login: \"neatfx\"){name,followers{totalCount},contributionsCollection{contributionCalendar{totalContributions,weeks{contributionDays{color,contributionCount,date}}}}}}"
+      query: `{
+        user(login: \"neatfx\"){
+          name,
+          followers { totalCount },
+          contributionsCollection {
+            contributionCalendar {
+              totalContributions,
+              weeks {
+                contributionDays {
+                  color,
+                  contributionCount,
+                  date
+                }
+              }
+            }
+          }
+        }
+      }`
     }
+
     let response = await fetch(this.baseUrl, {
       method: 'POST',
       headers: this.config.headers,
