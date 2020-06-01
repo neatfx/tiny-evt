@@ -1,9 +1,9 @@
 import { createApp, defineAsyncComponent } from 'vue'
-import './index.css'
+import './styles/index.css'
 import router from "./router"
 
 const app = createApp(defineAsyncComponent({
-  loader: () => import('./App.vue'),
+  loader: () => import('./layouts/App.vue'),
   delay: 200,
   timeout: 3000,
   // loadingComponent: PublicAPIComponent) 

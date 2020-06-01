@@ -10,7 +10,7 @@ import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 const { ipcApi } = window
 
-import Navbar from './components/Navbar.vue'
+import Navbar from '../components/Navbar.vue'
 
 export default {
   name: 'App',
