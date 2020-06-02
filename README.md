@@ -4,9 +4,9 @@
 
 基于 `Vite` 实现的 `(E)lectron`+`(V)ue`+`(T)ypeScript` 项目基础代码。
 
-依赖、配置、使用都非常简单，编程前准备工作更少，运行、HMR、编译打包速度更快！
+依赖、配置、使用都很简单，编程前准备工作更少，运行、HMR、编译打包速度更快！遵循 [安全建议](https://www.electronjs.org/docs/tutorial/security)、包含自动化测试。
 
-遵循 [应用安全建议](https://www.electronjs.org/docs/tutorial/security)，包含自动化测试 -
+---
 
 | 测试类型               |  测试工具  | 测试框架 | 测试目标 | 命令 |
 | :---:                 | :---:             | :---:   | :---:                              | :---: |
