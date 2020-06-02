@@ -1,0 +1,5 @@
+{
+  "roots": ["../tests"],
+  "testMatch": ["**/*.js", "**/?(*.)+(spec|test).js"],
+  "testTimeout": 20000
+}

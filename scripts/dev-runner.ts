@@ -1,10 +1,11 @@
-import { createServer } from 'vite'
+import { createServer, build as viteBuild } from 'vite'
 import { spawn, ChildProcessWithoutNullStreams } from 'child_process'
 import { build } from 'esbuild'
 
 import viteServerConfig from '../configs/vite.config.dev'
 import esbuildConfig from '../configs/esbuild.config.dev'
 import esbuildConfigMocha from '../configs/esbuild.config.dev.mocha'
+import esbuildConfigVtu from '../configs/esbuild.config.dev.vtu'
 
 let electronProcess: ChildProcessWithoutNullStreams | null
 
@@ -42,6 +43,15 @@ async function buildTests() {
     console.log(err)
   }).catch((e) => {
     return e
+  })
+}
+
+async function buildVueTests() {
+  return viteBuild(esbuildConfigVtu)
+  .catch(err => {
+    console.log(`\nfailed to build vue tests`)
+    console.error(`\n${err}\n`)
+    process.exit(1)
   })
 }
 
@@ -85,28 +95,47 @@ if (process.env.TEST === 'cypress') {
       '--config-file',
       'configs/cypress.json'
     ]
-    spawn('cypress', args)
+    spawn('cypress', args).on('close', () => {
+      process.exit()
+    })
   })
 }
 
 if (process.env.TEST === 'spectron') {
   Promise.all([launchViteDevServer(), buildMainProcess(), buildTests()])
-  .then(() => {
-    const args = [
-      "--no-package",
-      "--config",
-      "configs/.mocharc.json",
-      "tests"
-    ]
-    spawn('mocha', args, {
-      stdio: 'inherit'
-    }).on('close', () => {
-      process.exit()
+    .then(() => {
+      const args = [
+        '--detectOpenHandles',
+        '--config',
+        'configs/jest.config.spectron.json'
+      ]
+      spawn('jest', args, {
+        stdio: 'inherit'
+      }).on('close', () => {
+        process.exit()
+      })
     })
-  })
-  .catch(err => {
-    console.error(err)
-  })
+    .catch(err => {
+      console.error(err)
+    })
+}
+
+if (process.env.TEST === 'components') {
+  buildVueTests()
+    .then(() => {
+      const args = [
+        "--config",
+        "configs/jest.config.vtu.json",
+      ]
+      spawn('jest', args, {
+        stdio: 'inherit'
+      }).on('close', () => {
+        process.exit()
+      })
+    })
+    .catch(err => {
+      console.error(err)
+    })
 }
 
 if (!process.env.TEST) {

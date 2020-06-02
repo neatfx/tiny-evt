@@ -15,7 +15,7 @@ export default {
   setup(props) {
     const route = useRoute()
     const currentLocation = computed(() => {
-      const { matched, ...rest } = route
+      const { matched, ...rest } = route || {fullPath: '/c'}
       return rest.fullPath
     })
     watch(() => currentLocation, path => {

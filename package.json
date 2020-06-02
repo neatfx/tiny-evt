@@ -5,21 +5,23 @@
   "author": "Robocat<neatfx@gmail.com>",
   "main": "build/main.js",
   "scripts": {
-    "dev": "cat scripts/args.esbuild.dev-runner | xargs esbuild && env-cmd -e dev node build/dev-runner.js",
+    "dev": "cat scripts/args.esbuild.dev-runner | xargs esbuild && env-cmd -e dev,token node build/dev-runner.js",
     "dist": "cat scripts/args.esbuild.app-builder | xargs esbuild && node build/app-builder.js",
     "cypress": "cat scripts/args.esbuild.dev-runner | xargs esbuild && env-cmd -e dev,cypress node build/dev-runner.js",
-    "spectron": "cat scripts/args.esbuild.dev-runner | xargs esbuild && env-cmd -e dev,spectron node build/dev-runner.js"
+    "spectron": "cat scripts/args.esbuild.dev-runner | xargs esbuild && env-cmd -e dev,spectron node build/dev-runner.js",
+    "vtu": "cat scripts/args.esbuild.dev-runner | xargs esbuild && env-cmd -e dev,vtu node build/dev-runner.js"
   },
   "dependencies": {
     "vue-router": "^4.0.0-alpha.11"
   },
   "devDependencies": {
     "@vue/compiler-sfc": "^3.0.0-beta.14",
+    "@vue/test-utils": "^2.0.0-alpha.6",
     "cypress": "^4.6.0",
     "electron": "^9.0.0",
     "electron-builder": "^22.6.0",
     "env-cmd": "^10.1.0",
-    "mocha": "^7.2.0",
+    "jest": "^26.0.1",
     "spectron": "^11.0.0",
     "vite": "^0.17.0"
   }
