@@ -1,4 +1,10 @@
 {
   "baseUrl": "http://localhost:3000",
-  "video": false
+  "testFiles": "**/*.spec.ts",
+  "video": false,
+  "integrationFolder": "tests/cypress/integration",
+  "fixturesFolder": "tests/cypress/fixtures",
+  "pluginsFile": false,
+  "supportFile": false,
+  "screenshotsFolder": "tests/cypress/screenshots"
 }
