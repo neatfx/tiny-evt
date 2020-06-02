@@ -11,7 +11,7 @@
 ```bash
 #  E2E testing for Vue App @ Renderer <--- scripts/dev-runner.ts <--- Cypress
 
-#  Components testing fro Vue App @ Renderer <--- Jest <--- scripts/dev-runner.ts <--- Vue Test Utils
+#  Component testing fro Vue App @ Renderer <--- Jest <--- scripts/dev-runner.ts <--- Vue Test Utils
 
 #  Integration testing for Electron App <--- Jest <--- scripts/dev-runner.ts <--- Spectron
 ```
