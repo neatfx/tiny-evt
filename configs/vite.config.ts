@@ -1,6 +1,12 @@
-import type { ServerConfig } from 'vite'
+import type { ServerConfig, BuildConfig } from 'vite'
 
-const config: ServerConfig = {
+const buildConfig: BuildConfig = {
+  root: 'renderer',
+  outDir: 'build/renderer',
+  base: '.'
+}
+
+const serverConfig: ServerConfig = {
   root: 'renderer',
   optimizeDeps: {
     auto: false // FIXME: 默认值 undefined 会引发 package.json 未找到错误
@@ -12,4 +18,7 @@ const config: ServerConfig = {
   }
 }
 
-export default config
+export default {
+  buildConfig,
+  serverConfig
+}

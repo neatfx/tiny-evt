@@ -2,7 +2,7 @@ import { createServer, build as viteBuild } from 'vite'
 import { spawn, ChildProcessWithoutNullStreams } from 'child_process'
 import { build } from 'esbuild'
 
-import viteServerConfig from '../configs/vite.config.dev'
+import viteConfig from '../configs/vite.config'
 import esbuildConfig from '../configs/esbuild.config.dev'
 import esbuildConfigSpectron from '../configs/esbuild.config.dev.spectron'
 import esbuildConfigVtu from '../configs/esbuild.config.dev.vtu'
@@ -11,7 +11,7 @@ let electronProcess: ChildProcessWithoutNullStreams | null
 
 function launchViteDevServer() {
   return new Promise((resolve, reject) => {
-    createServer(viteServerConfig)
+    createServer(viteConfig.serverConfig)
     .on("listening", () => {
       console.log("Vite-Dev-Server running on localhost:3000")
       resolve()
@@ -20,7 +20,7 @@ function launchViteDevServer() {
       console.log('Vite-Dev-Server Error: ', e)
       reject()
     })
-    .listen(viteServerConfig.port)
+    .listen(viteConfig.serverConfig.port)
   })
 }
 

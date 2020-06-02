@@ -3,7 +3,7 @@ import { build as esbuild } from 'esbuild'
 import { build as electronBuild, Platform } from 'electron-builder'
 
 import esbuildConfig from '../configs/esbuild.config.dist'
-import viteBuildConfig from '../configs/vite.config.dist'
+import viteConfig from '../configs/vite.config'
 import electronBuilderConfig from '../configs/electron-builder'
 
 function packMain () {
@@ -18,7 +18,7 @@ function packMain () {
 }
 
 function packRenderer() {
-  return viteBuild(viteBuildConfig)
+  return viteBuild(viteConfig.buildConfig)
   .catch(err => {
     console.log(`\nfailed to build renderer process`)
     console.error(`\n${err}\n`)
