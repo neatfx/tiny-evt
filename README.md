@@ -8,19 +8,28 @@
 
 遵循 [应用安全建议](https://www.electronjs.org/docs/tutorial/security)，包含自动化测试。
 
+```bash
+#  E2E testing for Vue App @ Renderer <--- scripts/dev-runner.ts <--- Cypress
+
+#  Components testing fro Vue App @ Renderer <--- Jest <--- scripts/dev-runner.ts <--- Vue Test Utils
+
+#  Integration testing for Electron App <--- Jest <--- scripts/dev-runner.ts <--- Spectron
+```
+
 ---
 
-| Dependence | Category | Required | Version | Information |
-| :---:|:---:|:---:|:---:|:---:|
-| `vue-router` | | | `4.0.0-alpha.11` |
-| `env-cmd`| `dev` |  | `10.1.0`|
-| `cypress`| `dev` |  | `4.6.0` |
-| `mocha`| `dev` |  | `7.2.0` |
-| `spectron`| `dev` |  | `11.0.0` |
-| `@vue/compiler-sfc` | `dev` | `true` | `3.0.0-beta.14` | 版本必须匹配 `vite` 中的 `vue` 版本
-| `electron` | `dev` | `true` | `9.0.0`
-| `electron-builder` | `dev` | `true` | `22.6.0`
-| [`vite`](https://github.com/vuejs/vite) | `dev` | `true` | `0.17.0` | 包含 `vue@3.0.0-beta.14`、[`esbuild`](https://github.com/evanw/esbuild)
+| Dependence          | Category  | Required | Version          | Information |
+| :---:               |:---:      |:---:     |:---:             |:---:|
+| `vue-router`        |           |          | `4.0.0-alpha.11` |
+| `env-cmd`           | `dev`     |          | `10.1.0`         |
+| `cypress`           | `dev`     |          | `4.6.0`          | 测试工具
+| `spectron`          | `dev`     |          | `11.0.0`         | 测试工具
+| `@vue/test-utils`   | `dev`     |          | `2.0.0-alpha.6`  | 测试工具
+| `jest`              | `dev`     |          | `26.0.1`         | 测试工具
+| `@vue/compiler-sfc` | `dev`     | `true`   | `3.0.0-beta.14`  | 版本必须匹配 `vite` 中的 `vue` 版本
+| `electron`          | `dev`     | `true`   | `9.0.0`          |
+| `electron-builder`  | `dev`     | `true`   | `22.6.0`         |
+| `vite`              | `dev`     | `true`   | `0.17.0`         | 包含 `vue@3.0.0-beta.14`、`esbuild`
 
 > 关于 Vite 的定位:
 >
@@ -104,7 +113,7 @@ npm run dist
 npm run cypress
 ```
 
-> 测试 Electron App
+> 测试 Electron 应用
 
 ```bash
 # 编译脚本
@@ -125,4 +134,21 @@ npm run cypress
 # 脚本执行操作 - 启动 Mocha 调用 Spectron 运行 Electron App ( ---> build/main.js ) 进行测试
 
 npm run spectron
+```
+
+> 测试 Vue 组件
+
+```bash
+# 编译脚本
+# scripts/dev-runner.ts ---> esbuild.build() ---> build/dev-runner.js
+
+# 运行脚本（ 环境变量 NODE_ENV=development、TEST=components ）
+# node build/dev-runner.js
+
+# 脚本执行操作 - 编译 Tests ( 利用既有 vite 预置编译功能，以支持 import .vue 文件以及 TypeScript 转换 )
+# vue/**/*.ts ---> Vite.build() ---> vue/**/*.js
+
+# 脚本执行操作 - 启动 Jest 运行测试用例
+
+npm run vtu
 ```
