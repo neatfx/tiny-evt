@@ -3,7 +3,8 @@ import assert from 'assert'
 import path from 'path'
 
 describe('Application launch', function () {
-  let app
+  let app: Application
+
   beforeEach( () => {
     app = new Application({
       env: {
@@ -23,7 +24,6 @@ describe('Application launch', function () {
   })
 
   it('shows an initial window', done => {
-    // this.timeout(20000)
     return app.client.getWindowCount().then(function (count) {
       assert.equal(count, 1)
       // Please note that getWindowCount() will return 2 if `dev tools` are opened.
