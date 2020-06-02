@@ -2,12 +2,12 @@ import { build as viteBuild } from 'vite'
 import { build as esbuild } from 'esbuild'
 import { build as electronBuild, Platform } from 'electron-builder'
 
-import esbuildConfig from '../configs/esbuild.config.dist'
+import esbuildConfig from '../configs/esbuild.config'
 import viteConfig from '../configs/vite.config'
 import electronBuilderConfig from '../configs/electron-builder'
 
 function packMain () {
-  return esbuild(esbuildConfig).then(result => {
+  return esbuild(esbuildConfig.dist).then(result => {
     console.log(result.stderr)
   })
   .catch(err => {

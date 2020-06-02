@@ -3,9 +3,7 @@ import { spawn, ChildProcessWithoutNullStreams } from 'child_process'
 import { build } from 'esbuild'
 
 import viteConfig from '../configs/vite.config'
-import esbuildConfig from '../configs/esbuild.config.dev'
-import esbuildConfigSpectron from '../configs/esbuild.config.dev.spectron'
-import esbuildConfigVtu from '../configs/esbuild.config.dev.vtu'
+import esbuildConfig from '../configs/esbuild.config'
 
 let electronProcess: ChildProcessWithoutNullStreams | null
 
@@ -25,7 +23,7 @@ function launchViteDevServer() {
 }
 
 async function buildMainProcess() {
-    return build(esbuildConfig).then(() => {
+    return build(esbuildConfig.dev).then(() => {
       if (electronProcess && electronProcess.kill) {
         process.kill(electronProcess.pid)
         electronProcess = null
@@ -38,7 +36,7 @@ async function buildMainProcess() {
 }
 
 async function buildSpectronTests() {
-  return build(esbuildConfigSpectron).then(() => {
+  return build(esbuildConfig.spectron).then(() => {
   }, (err) => {
     console.log(err)
   }).catch((e) => {
@@ -47,7 +45,7 @@ async function buildSpectronTests() {
 }
 
 async function buildVueTests() {
-  return viteBuild(esbuildConfigVtu)
+  return viteBuild(viteConfig.buildConfigVtu)
   .catch(err => {
     console.log(`\nfailed to build vue tests`)
     console.error(`\n${err}\n`)
