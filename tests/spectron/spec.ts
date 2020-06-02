@@ -18,8 +18,8 @@ describe('Application launch', function () {
   })
 
   afterEach(function () {
-    if (this.app && this.app.isRunning()) {
-      return this.app.stop()
+    if (app && app.isRunning()) {
+      return app.stop()
     }
   })
 
