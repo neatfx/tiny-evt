@@ -4,7 +4,7 @@ import { build } from 'esbuild'
 
 import viteServerConfig from '../configs/vite.config.dev'
 import esbuildConfig from '../configs/esbuild.config.dev'
-import esbuildConfigMocha from '../configs/esbuild.config.dev.mocha'
+import esbuildConfigSpectron from '../configs/esbuild.config.dev.spectron'
 import esbuildConfigVtu from '../configs/esbuild.config.dev.vtu'
 
 let electronProcess: ChildProcessWithoutNullStreams | null
@@ -37,8 +37,8 @@ async function buildMainProcess() {
     })
 }
 
-async function buildTests() {
-  return build(esbuildConfigMocha).then(() => {
+async function buildSpectronTests() {
+  return build(esbuildConfigSpectron).then(() => {
   }, (err) => {
     console.log(err)
   }).catch((e) => {
@@ -102,7 +102,7 @@ if (process.env.TEST === 'cypress') {
 }
 
 if (process.env.TEST === 'spectron') {
-  Promise.all([launchViteDevServer(), buildMainProcess(), buildTests()])
+  Promise.all([launchViteDevServer(), buildMainProcess(), buildSpectronTests()])
     .then(() => {
       const args = [
         '--detectOpenHandles',

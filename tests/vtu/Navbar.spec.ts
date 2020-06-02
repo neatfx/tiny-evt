@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import expect from 'expect'
 
-import Navbar from '../renderer/components/Navbar.vue'
+import Navbar from '../../renderer/components/Navbar.vue'
 
 describe('Navbar.vue', () => {
   test('have a NavC', () => {

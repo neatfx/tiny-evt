@@ -1,4 +1,4 @@
 {
-  "roots": ["../vue/build"],
-  "testMatch": ["**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[jt]s?(x)"]
+  "roots": ["../tests/vtu"],
+  "testMatch": ["**/*.js", "**/?(*.)+(spec|test).js"]
 }

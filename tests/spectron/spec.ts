@@ -12,9 +12,9 @@ describe('Application launch', function () {
       },
       requireName: 'electronRequire', // only for accessing any Electron APIs
       path: 'node_modules/.bin/electron',
-      args: [path.join(__dirname, '../build/main.js')]
+      args: [path.join(__dirname, '../../build/main.js')]
     })
-    return this.app.start()
+    return app.start()
   })
 
   afterEach(function () {

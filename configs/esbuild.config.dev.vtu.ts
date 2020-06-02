@@ -1,14 +1,14 @@
 import type { BuildConfig } from 'vite'
 
 const config: BuildConfig = {
-  root: 'vue',
-  outDir: 'vue/build',
+  root: 'tests/vtu',
+  outDir: 'tests/vtu/build',
   // base: '.',
   assetsDir: '.',
   emitIndex: false,
   emitAssets: false,
   rollupInputOptions: {
-    input: 'vue/Navbar.spec.ts',
+    input: 'tests/vtu/Navbar.spec.ts',
     external: ['assert', 'path', 'fs', 'util', 'stream', 'os', 'constants', 'tty', 'module'],
   },
   rollupOutputOptions: {
