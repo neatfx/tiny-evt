@@ -49,6 +49,12 @@ jobs:
           path: ${{ github.workspace }}
           key: workspace-${{ github.sha }}
 
+      - name: copy env file
+        uses: canastro/copy-file-action@master
+        with:
+          source: "configs/.env-cmdrc.json"
+          target: ".env-cmdrc.json"
+
       - name: test
         run: npm run vtu
   
