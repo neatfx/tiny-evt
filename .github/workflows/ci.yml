@@ -26,7 +26,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install
-    - run: cp configs/.env-cmdrc.json .
 #     - run: npm lint
 #     - run: npm test
     - run: npm dist
