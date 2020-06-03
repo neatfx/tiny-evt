@@ -2,8 +2,8 @@ name: CI
 
 on:
   push:
-    - tags: 'v*'
-    - branches: gh-actions
+    tags:
+      - 'v*'
 
 jobs:
   setup:
