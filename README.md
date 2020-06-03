@@ -1,6 +1,6 @@
 # *tiny-evt*
 
-![CI](https://github.com/neatfx/tiny-evt/workflows/CI/badge.svg)
+![CI](https://github.com/neatfx/tiny-evt/workflows/CI/badge.svg) ![Create Release](https://github.com/neatfx/tiny-evt/workflows/Create%20Release/badge.svg)
 
 ![screenshot](screenshot.png)
 
