@@ -30,5 +30,3 @@ jobs:
 #     - run: npm lint
 #     - run: npm test
     - run: npm dist
-      env:
-        CI: true
