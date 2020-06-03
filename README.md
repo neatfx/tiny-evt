@@ -20,14 +20,14 @@
 | :---:               |:---:      |:---:     |:---:             |:---:|
 | `vue-router`        |           |          | `4.0.0-alpha.11` |
 | `env-cmd`           | `dev`     |          | `10.1.0`         |
-| `cypress`           | `dev`     |          | `4.6.0`          | 测试工具
+| `cypress`           | `dev`     |          | `4.7.0`          | 测试工具
 | `spectron`          | `dev`     |          | `11.0.0`         | 测试工具
 | `@vue/test-utils`   | `dev`     |          | `2.0.0-alpha.6`  | 测试工具
 | `jest`              | `dev`     |          | `26.0.1`         | 测试工具
 | `@vue/compiler-sfc` | `dev`     | `true`   | `3.0.0-beta.14`  | 版本必须匹配 `vite` 中的 `vue` 版本
 | `electron`          | `dev`     | `true`   | `9.0.0`          |
 | `electron-builder`  | `dev`     | `true`   | `22.6.0`         |
-| `vite`              | `dev`     | `true`   | `0.17.0`         | 包含 `vue@3.0.0-beta.14`、`esbuild`
+| `vite`              | `dev`     | `true`   | `0.20.2`         | 包含 `vue@3.0.0-beta.14`、`esbuild`
 
 > 关于 Vite 的定位:
 >
