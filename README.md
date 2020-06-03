@@ -1,5 +1,7 @@
 # *tiny-evt*
 
+![CI](https://github.com/neatfx/tiny-evt/workflows/CI/badge.svg)
+
 ![screenshot](screenshot.png)
 
 基于 `Vite` 实现的 `(E)lectron`+`(V)ue`+`(T)ypeScript` 项目基础代码。
