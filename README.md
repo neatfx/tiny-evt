@@ -2,21 +2,11 @@
 
 ![CI](https://github.com/neatfx/tiny-evt/workflows/CI/badge.svg) ![Create Release](https://github.com/neatfx/tiny-evt/workflows/Create%20Release/badge.svg)
 
+基于 [Vite](https://github.com/vitejs/vite) 实现，使用 `TypeScript`、`Vue` 开发 `Electron` 应用的项目基础代码。
+
+依赖、配置、使用简单，编程前准备工作更少，运行、HMR、编译打包速度更快！遵循 [安全建议](https://www.electronjs.org/docs/tutorial/security)、包含自动化测试。
+
 ![screenshot](screenshot.png)
-
-基于 `Vite` 实现的 `(E)lectron`+`(V)ue`+`(T)ypeScript` 项目基础代码。
-
-依赖、配置、使用都很简单，编程前准备工作更少，运行、HMR、编译打包速度更快！遵循 [安全建议](https://www.electronjs.org/docs/tutorial/security)、包含自动化测试。
-
----
-
-| 测试类型               |  测试工具  | 测试框架 | 测试目标 | 命令 |
-| :---:                 | :---:             | :---:   | :---:                              | :---: |
-| `Unit`        | `Vue Test Utils` | `Jest`   | `Components @ Vue App @ Renderer`  | `npm run vtu`
-| `End-to-end`  | `Cypress`         |         | `Vue App @ Renderer`               | `npm run cypress`
-| `Integration` | `Spectron`        | `Jest`  | `Electron App`                             | `npm run spectron`
-
----
 
 | Dependence          | Category  | Required | Version          | Information |
 | :---:               |:---:      |:---:     |:---:             |:---:|
@@ -31,11 +21,13 @@
 | `electron-builder`  | `dev`     | `true`   | `22.6.0`         |
 | `vite`              | `dev`     | `true`   | `0.20.2`         | 包含 `vue@3.0.0-beta.14`、`esbuild`
 
-> 关于 Vite 的定位:
->
-> *It's more like a more streamlined, opinionated development workflow tool. Think webpack-dev-server + webpack but lighter, faster, and pre-configured.*
->
-> &mdash; *Evan You ( [@youyuxi](https://twitter.com/youyuxi/status/1258112624300118022) ) May 6, 2020*
+---
+
+| 测试类型               |  测试工具  | 测试框架 | 测试目标 | 命令 |
+| :---:                 | :---:             | :---:   | :---:                      | :---: |
+| `Unit`        | `Vue Test Utils` | `Jest`   | `Components @ Vue App @ Renderer`  | `npm run vtu`
+| `End-to-end`  | `Cypress`         |         | `Vue App @ Renderer`               | `npm run cypress`
+| `Integration` | `Spectron`        | `Jest`  | `Electron App`                     | `npm run spectron`
 
 ---
 
