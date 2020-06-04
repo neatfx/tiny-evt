@@ -80,6 +80,9 @@ jobs:
           path: ${{ github.workspace }}
           key: workspace-${{ github.sha }}
 
+      - name: install esbuild
+        run: npm i esbuild-wasm
+
       - name: build
         run: npm run test-esbuild
   
