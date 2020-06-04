@@ -82,7 +82,7 @@ jobs:
           key: workspace-${{ github.sha }}
 
       - name: Add global esbuild command
-        run: npm install --global esbuild
+        run: npm install --global esbuild vite
   
       - name: Build script
         run: esbuild --platform=node --bundle --external:vite --external:esbuild --external:electron-builder scripts/app-builder.ts --outfile=build/app-builder.js
