@@ -34,6 +34,7 @@ const conf: Configuration = {
     target: 'dmg',
     type: 'distribution',
     icon: 'main/resources/icons/icon.icns',
+    publish: ['github']
   }
 }
 
