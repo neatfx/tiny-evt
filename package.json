@@ -6,7 +6,7 @@
   "main": "build/main.js",
   "scripts": {
     "dev": "cat scripts/args.esbuild.dev-runner | xargs esbuild && env-cmd -e dev,token node build/dev-runner.js",
-    "dist": "cat scripts/args.esbuild.app-builder | xargs esbuild && node build/app-builder.js",
+    "dist": "cat scripts/args.esbuild.app-builder | xargs esbuild && env-cmd -e debug node build/app-builder.js",
     "cypress": "cat scripts/args.esbuild.dev-runner | xargs esbuild && env-cmd -e dev,cypress node build/dev-runner.js",
     "spectron": "cat scripts/args.esbuild.dev-runner | xargs esbuild && env-cmd -e dev,spectron node build/dev-runner.js",
     "vtu": "cat scripts/args.esbuild.dev-runner | xargs esbuild && env-cmd -e dev,vtu node build/dev-runner.js"

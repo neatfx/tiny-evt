@@ -1,13 +1,14 @@
 import { build as viteBuild } from 'vite'
 // import { build as esbuild } from 'esbuild'
 import { build as electronBuild, Platform } from 'electron-builder'
-import { exec, spawn, ExecException } from 'child_process'
+import { execSync, exec, spawn, ExecException } from 'child_process'
 
 // import esbuildConfig from '../configs/esbuild.config'
 import viteConfig from '../configs/vite.config'
 import electronBuilderConfig from '../configs/electron-builder'
 
-const run = (cmd: string, callback: (error: ExecException | null, stdout: string, stderr: string) => void) => exec(cmd, (error, stdout, stderr) => callback(error, stdout, stderr))
+// const run = (cmd: string, callback: (error: ExecException | null, stdout: string, stderr: string) => void) => exec(cmd, (error, stdout, stderr) => callback(error, stdout, stderr))
+const run = (cmd: string, cwd: string) => execSync(cmd, { encoding: "utf8", stdio: "inherit", cwd })
 
 async function packMain () {
   // return new Promise((resolve, reject) => {
@@ -31,10 +32,13 @@ async function packMain () {
   // })
 
   return new Promise((resolve, reject) => {
-    run('esbuild --platform=node --bundle --minify --external:electron --external:path --external:fs main/main.ts main/preload.ts --outdir=build', (error, stdout, stderr) => {
-      if(error) reject(error)
-      resolve(stdout)
-    })
+    // run('esbuild --platform=node --bundle --minify --external:electron --external:path --external:fs main/main.ts main/preload.ts --outdir=build', (error, stdout, stderr) => {
+    //   if(error) return reject(error)
+    //   resolve(stdout)
+    // })
+
+    run('esbuild --platform=node --bundle --minify --external:electron --external:path --external:fs main/main.ts main/preload.ts --outdir=build', '.')
+    resolve()
   })
 
   // try {
@@ -59,10 +63,13 @@ async function packRenderer() {
   // }
 
   return new Promise((resolve, reject) => {
-    run('vite build --root renderer --outDir=build/renderer', (error, stdout, stderr) => {
-      if(error) reject(error)
-      resolve(stdout)
-    })
+    // run('vite build --root renderer --outDir=build/renderer', (error, stdout, stderr) => {
+    //   if(error) return reject(error)
+    //   resolve(stdout)
+    // })
+
+    run('vite build --root renderer --outDir=build/renderer', '.')
+    resolve()
   })
 }
 
@@ -72,7 +79,8 @@ Promise.all([packMain(), packRenderer()])
   .then(result => {
     electronBuild({
         targets: Platform.current().createTarget(),
-        config: electronBuilderConfig
+        config: electronBuilderConfig,
+        publish: process.env.BUILD_TYPE === 'testing' ? 'never' : 'always'
       })
       .then(() => {
         console.log('\nBuild completed in', Math.floor((Date.now() - buildStart) / 1000) + ' s.')
