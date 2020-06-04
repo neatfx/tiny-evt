@@ -1,20 +1,37 @@
 import { build as viteBuild } from 'vite'
-import { build as esbuild } from 'esbuild'
+// import { build as esbuild } from 'esbuild'
 import { build as electronBuild, Platform } from 'electron-builder'
+import { spawn } from 'child_process'
 
-import esbuildConfig from '../configs/esbuild.config'
+// import esbuildConfig from '../configs/esbuild.config'
 import viteConfig from '../configs/vite.config'
 import electronBuilderConfig from '../configs/electron-builder'
 
 function packMain () {
-  return esbuild(esbuildConfig.dist).then(result => {
-    console.log(result.stderr)
+  const args = [
+    '--platform=node',
+    '--bundle',
+    '--minify',
+    '--external:electron',
+    '--external:path',
+    '--external:fs',
+    'main/main.ts',
+    'main/preload.ts',
+    '--outdir=build'
+  ]
+
+  spawn('esbuild', args).on('close', () => {
+    process.exit()
   })
-  .catch(err => {
-    console.log(`\nfailed to build main process`)
-    console.error(`\n${err}\n`)
-    process.exit(1)
-  })
+
+  // return esbuild(esbuildConfig.dist).then(result => {
+  //   console.log(result.stderr)
+  // })
+  // .catch(err => {
+  //   console.log(`\nfailed to build main process`)
+  //   console.error(`\n${err}\n`)
+  //   process.exit(1)
+  // })
 }
 
 function packRenderer() {
