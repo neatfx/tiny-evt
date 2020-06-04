@@ -84,8 +84,9 @@ jobs:
       - name: Add global esbuild command
         run: npm install --global esbuild
   
-      - name: Build App
-        run: |
-          esbuild --platform=node --bundle --external:vite --external:esbuild --external:electron-builder scripts/app-builder.ts --outfile=build/app-builder.js
-          node build/app-builder.js
+      - name: Build script
+        run: esbuild --platform=node --bundle --external:vite --external:esbuild --external:electron-builder scripts/app-builder.ts --outfile=build/app-builder.js
+
+      - name: Build app
+        run: node build/app-builder.js
   
