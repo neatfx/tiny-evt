@@ -79,10 +79,8 @@ jobs:
         with:
           path: ${{ github.workspace }}
           key: workspace-${{ github.sha }}
-
-      - name: install esbuild
-        run: npm i esbuild-wasm
-
+      - name: fix path
+        run: export PATH=/bin:/usr/bin:/sbin:/usr/sbin
       - name: build
-        run: ./node_modules/esbuild/bin/esbuild --platform=node --bundle --external:vite --external:esbuild --external:electron-builder scripts/app-builder.ts --outfile=build/app-builder.js
+        run: npm run test-esbuild
   
