@@ -90,6 +90,5 @@ jobs:
       - name: Build app
         env:
           BUILD_ENV: 'gh-action'
-        run: npm run dist
-        working-directory: ./
+        run: cat scripts/args.esbuild.app-builder | xargs esbuild && node build/app-builder.js
   
