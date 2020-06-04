@@ -88,5 +88,9 @@ jobs:
         run: esbuild --platform=node --bundle --external:vite --external:esbuild --external:electron-builder scripts/app-builder.ts --outfile=build/app-builder.js
 
       - name: Build app
-        run: node build/app-builder.js
+        env:
+          BUILD_ENV: 'gh-action'
+        run: |
+          esbuild --platform=node --bundle --minify --external:electron --external:path --external:fs main/main.ts main/preload.ts --outdir=build
+          node build/app-builder.js
   

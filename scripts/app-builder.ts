@@ -27,7 +27,7 @@ function packMain () {
   //     resolve()
   //   })
   // })
-
+  if(process.env.BUILD_ENV && process.env.BUILD_ENV === 'gh-action') return Promise.resolve()
   return esbuild(esbuildConfig.dist).then(result => {
     console.log(result.stderr)
   })
