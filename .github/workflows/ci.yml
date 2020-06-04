@@ -11,24 +11,24 @@ jobs:
       matrix:
         os: [macos-10.15]
     steps:
-      - name: Install Node.js, NPM and Yarn
+      - name: Install Node.js and NPM
         uses: actions/setup-node@v1
         with:
           node-version: '12.x'
 
-      - name: checkout
+      - name: Checkout repo
         uses: actions/checkout@v2
 
-      - name: cache node_modules
+      - name: Cache node_modules
         uses: actions/cache@v1
         with:
           path: node_modules
           key: deps-node-${{ hashFiles('**/package-lock.json') }}
 
-      - name: install
+      - name: Install dependencies
         run: npm install
 
-      - name: cache workspace
+      - name: Cache workspace
         uses: actions/cache@v1
         with:
           path: ${{ github.workspace }}
@@ -42,22 +42,22 @@ jobs:
         with:
           node-version: '12.x'
 
-      - name: checkout
+      - name: Checkout repo
         uses: actions/checkout@v2
 
-      - name: restore workspace cache
+      - name: Restore workspace
         uses: actions/cache@v1
         with:
           path: ${{ github.workspace }}
           key: workspace-${{ github.sha }}
 
-      - name: copy env file
+      - name: Copy env file
         uses: canastro/copy-file-action@master
         with:
           source: "configs/.env-cmdrc.json"
           target: ".env-cmdrc.json"
 
-      - name: test
+      - name: Test Vue components
         run: npm run vtu
   
   build-app:
@@ -67,15 +67,15 @@ jobs:
       matrix:
         os: [macos-10.15]
     steps:
-      - name: Setup Node.js env
+      - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
           node-version: '12.x'
 
-      - name: Checkout
+      - name: Checkout repo
         uses: actions/checkout@v2
 
-      - name: Restore workspace cache
+      - name: Restore workspace
         uses: actions/cache@v1
         with:
           path: ${{ github.workspace }}
