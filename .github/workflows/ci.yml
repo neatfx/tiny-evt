@@ -6,7 +6,10 @@ on:
 
 jobs:
   setup:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest]
     steps:
       - name: Install Node.js, NPM and Yarn
         uses: actions/setup-node@v1
@@ -60,10 +63,9 @@ jobs:
   build-app:
     runs-on: ${{ matrix.os }}
     needs: setup
-    # Platforms to build on/for
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
+        os: [macos-latest, ubuntu-latest]
     steps:
       - uses: actions/setup-node@v1
         with:
