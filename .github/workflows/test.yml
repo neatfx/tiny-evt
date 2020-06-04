@@ -1,0 +1,67 @@
+name: Test
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  setup:
+    name: Setup 
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest]
+    steps:
+      - name: Install Node.js and NPM
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Cache node_modules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: deps-node-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Cache workspace
+        uses: actions/cache@v1
+        with:
+          path: ${{ github.workspace }}
+          key: workspace-${{ github.sha }}
+
+  unit-testing:
+    name: Unit Testing
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest]
+    needs: setup
+    steps:
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Restore workspace
+        uses: actions/cache@v1
+        with:
+          path: ${{ github.workspace }}
+          key: workspace-${{ github.sha }}
+
+      - name: Copy env file
+        uses: canastro/copy-file-action@master
+        with:
+          source: "configs/.env-cmdrc.json"
+          target: ".env-cmdrc.json"
+
+      - name: Test Vue components
+        run: npm run vtu
+  
