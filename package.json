@@ -10,7 +10,7 @@
     "cypress": "cat scripts/args.esbuild.dev-runner | xargs esbuild && env-cmd -e dev,cypress node build/dev-runner.js",
     "spectron": "cat scripts/args.esbuild.dev-runner | xargs esbuild && env-cmd -e dev,spectron node build/dev-runner.js",
     "vtu": "cat scripts/args.esbuild.dev-runner | xargs esbuild && env-cmd -e dev,vtu node build/dev-runner.js",
-    "test-esbuild": "./node_modules/esbuild/bin/esbuild --platform=node --bundle --external:vite --external:esbuild --external:electron-builder scripts/app-builder.ts --outfile=build/app-builder.js"
+    "test-esbuild": "node scripts/app-builder.js"
   },
   "dependencies": {
     "vue-router": "^4.0.0-alpha.11"
