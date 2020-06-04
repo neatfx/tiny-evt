@@ -81,5 +81,6 @@ jobs:
           key: workspace-${{ github.sha }}
 
       - name: build
+        run: npm install --global esbuild
         run: npm run dist
   
