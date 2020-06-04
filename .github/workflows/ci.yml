@@ -81,14 +81,11 @@ jobs:
           path: ${{ github.workspace }}
           key: workspace-${{ github.sha }}
 
-      - name: Add global esbuild command
+      - name: Add global Esbuild and Vite command
         run: npm install --global esbuild vite
-  
-      - name: Build script
-        run: esbuild --platform=node --bundle --external:vite --external:esbuild --external:electron-builder scripts/app-builder.ts --outfile=build/app-builder.js
 
-      - name: Build app
+      - name: Build App
         env:
-          BUILD_ENV: 'gh-action'
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: cat scripts/args.esbuild.app-builder | xargs esbuild && node build/app-builder.js
   
