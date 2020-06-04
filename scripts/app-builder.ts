@@ -68,7 +68,7 @@ async function packRenderer() {
     //   resolve(stdout)
     // })
 
-    run('vite build --root renderer --outDir=build/renderer', '.')
+    run('vite build --root renderer --base . --outDir build/renderer', '.')
     resolve()
   })
 }
