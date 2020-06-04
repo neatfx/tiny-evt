@@ -7,7 +7,7 @@ on:
 jobs:
   setup:
     name: Setup
-    if: startsWith(github.ref, 'refs/tags/v')
+    if: ${{ startsWith(github.ref, 'refs/tags/v') }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -39,7 +39,7 @@ jobs:
   release:
     name: Release
     needs: setup
-    if: startsWith(github.ref, 'refs/tags/v')
+    if: ${{ startsWith(github.ref, 'refs/tags/v') }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
