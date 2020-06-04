@@ -31,7 +31,7 @@ const buildStart = Date.now()
 Promise.all([packMain(), packRenderer()])
   .then(result => {
     electronBuild({
-        targets: Platform.MAC.createTarget(),
+        targets: Platform.current().createTarget(),
         config: electronBuilderConfig
       })
       .then(() => {

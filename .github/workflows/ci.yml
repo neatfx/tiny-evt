@@ -8,7 +8,8 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-node@v1
+      - name: Install Node.js, NPM and Yarn
+        uses: actions/setup-node@v1
         with:
           node-version: '12.x'
 
@@ -20,8 +21,6 @@ jobs:
         with:
           path: node_modules
           key: deps-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            deps-node-
 
       - name: install
         run: npm install
@@ -59,8 +58,12 @@ jobs:
         run: npm run vtu
   
   build-app:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     needs: setup
+    # Platforms to build on/for
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
     steps:
       - uses: actions/setup-node@v1
         with:
