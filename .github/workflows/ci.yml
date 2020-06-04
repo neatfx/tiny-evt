@@ -67,25 +67,25 @@ jobs:
       matrix:
         os: [macos-latest]
     steps:
-      - uses: actions/setup-node@v1
+      - name: Setup Node.js env
+        uses: actions/setup-node@v1
         with:
           node-version: '12.x'
 
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v2
 
-      - name: restore workspace cache
+      - name: Restore workspace cache
         uses: actions/cache@v1
         with:
           path: ${{ github.workspace }}
           key: workspace-${{ github.sha }}
 
-      - name: global install esbuild
+      - name: Add global esbuild command
         run: npm install --global esbuild
   
-      - name: pre-build script
-        run: esbuild --platform=node --bundle --external:vite --external:esbuild --external:electron-builder scripts/app-builder.ts --outfile=build/app-builder.js
-
-      - name: build app
-        run: node build/app-builder.js
+      - name: Build App
+        run: |
+          esbuild --platform=node --bundle --external:vite --external:esbuild --external:electron-builder scripts/app-builder.ts --outfile=build/app-builder.js
+          node build/app-builder.js
   

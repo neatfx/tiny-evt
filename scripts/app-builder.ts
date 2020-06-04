@@ -8,20 +8,24 @@ import viteConfig from '../configs/vite.config'
 import electronBuilderConfig from '../configs/electron-builder'
 
 function packMain () {
-  const args = [
-    '--platform=node',
-    '--bundle',
-    '--minify',
-    '--external:electron',
-    '--external:path',
-    '--external:fs',
-    'main/main.ts',
-    'main/preload.ts',
-    '--outdir=build'
-  ]
+  return new Promise((resolve, reject) => {
+    const args = [
+      '--platform=node',
+      '--bundle',
+      '--minify',
+      '--external:electron',
+      '--external:path',
+      '--external:fs',
+      'main/main.ts',
+      'main/preload.ts',
+      '--outdir=build'
+    ]
 
-  spawn('esbuild', args).on('close', () => {
-    process.exit()
+    spawn('esbuild', args, {
+      stdio: 'inherit'
+    }).on('close', () => {
+      resolve()
+    })
   })
 
   // return esbuild(esbuildConfig.dist).then(result => {
