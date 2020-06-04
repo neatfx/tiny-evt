@@ -1,13 +1,15 @@
 import { build as viteBuild } from 'vite'
 import { build as esbuild } from 'esbuild'
 import { build as electronBuild, Platform } from 'electron-builder'
-// import { spawn } from 'child_process'
+// import { execSync, spawn } from 'child_process'
 
 import esbuildConfig from '../configs/esbuild.config'
 import viteConfig from '../configs/vite.config'
 import electronBuilderConfig from '../configs/electron-builder'
 
-function packMain () {
+// const run = (cmd: string, cwd: string) => execSync(cmd, { encoding: "utf8", stdio: "inherit", cwd })
+
+async function packMain () {
   // return new Promise((resolve, reject) => {
   //   const args = [
   //     '--platform=node',
@@ -27,24 +29,30 @@ function packMain () {
   //     resolve()
   //   })
   // })
-  if(process.env.BUILD_ENV && process.env.BUILD_ENV === 'gh-action') return Promise.resolve()
-  return esbuild(esbuildConfig.dist).then(result => {
+  // return new Promise((resolve, reject) => {
+  //   run('esbuild --platform=node --bundle --minify --external:electron --external:path --external:fs main/main.ts main/preload.ts --outdir=build', './')
+  //   resolve()
+  // })
+  try {
+    const result = await esbuild(esbuildConfig.dist)
     console.log(result.stderr)
-  })
-  .catch(err => {
+  }
+  catch (err) {
     console.log(`\nfailed to build main process`)
     console.error(`\n${err}\n`)
     process.exit(1)
-  })
+  }
 }
 
-function packRenderer() {
-  return viteBuild(viteConfig.buildConfig)
-  .catch(err => {
+async function packRenderer() {
+  try {
+    return viteBuild(viteConfig.buildConfig)
+  }
+  catch (err) {
     console.log(`\nfailed to build renderer process`)
     console.error(`\n${err}\n`)
     process.exit(1)
-  })
+  }
 }
 
 const buildStart = Date.now()

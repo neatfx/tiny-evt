@@ -9,7 +9,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-latest]
+        os: [macos-10.15]
     steps:
       - name: Install Node.js, NPM and Yarn
         uses: actions/setup-node@v1
@@ -65,7 +65,7 @@ jobs:
     needs: setup
     strategy:
       matrix:
-        os: [macos-latest]
+        os: [macos-10.15]
     steps:
       - name: Setup Node.js env
         uses: actions/setup-node@v1
@@ -90,7 +90,6 @@ jobs:
       - name: Build app
         env:
           BUILD_ENV: 'gh-action'
-        run: |
-          esbuild --platform=node --bundle --minify --external:electron --external:path --external:fs main/main.ts main/preload.ts --outdir=build
-          node build/app-builder.js
+        run: npm run dist
+        working-directory: ./
   
