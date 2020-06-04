@@ -84,5 +84,5 @@ jobs:
         run: npm i esbuild-wasm
 
       - name: build
-        run: npm run test-esbuild
+        run: ./node_modules/esbuild/bin/esbuild --platform=node --bundle --external:vite --external:esbuild --external:electron-builder scripts/app-builder.ts --outfile=build/app-builder.js
   
