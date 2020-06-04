@@ -9,8 +9,7 @@
     "dist": "cat scripts/args.esbuild.app-builder | xargs esbuild && node build/app-builder.js",
     "cypress": "cat scripts/args.esbuild.dev-runner | xargs esbuild && env-cmd -e dev,cypress node build/dev-runner.js",
     "spectron": "cat scripts/args.esbuild.dev-runner | xargs esbuild && env-cmd -e dev,spectron node build/dev-runner.js",
-    "vtu": "cat scripts/args.esbuild.dev-runner | xargs esbuild && env-cmd -e dev,vtu node build/dev-runner.js",
-    "test-esbuild": "node scripts/app-builder.js"
+    "vtu": "cat scripts/args.esbuild.dev-runner | xargs esbuild && env-cmd -e dev,vtu node build/dev-runner.js"
   },
   "dependencies": {
     "vue-router": "^4.0.0-alpha.11"

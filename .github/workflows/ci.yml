@@ -80,9 +80,12 @@ jobs:
           path: ${{ github.workspace }}
           key: workspace-${{ github.sha }}
 
-      # - name: fix path
-      #   run: npm install --global esbuild
+      - name: global install esbuild
+        run: npm install --global esbuild
   
-      - name: build
-        run: npx esbuild --platform=node --bundle --external:vite --external:esbuild --external:electron-builder scripts/app-builder.ts --outfile=build/app-builder.js
+      - name: pre-build script
+        run: esbuild --platform=node --bundle --external:vite --external:esbuild --external:electron-builder scripts/app-builder.ts --outfile=build/app-builder.js
+
+      - name: build app
+        run: node build/app-builder.js
   
