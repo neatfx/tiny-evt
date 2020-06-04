@@ -1,13 +1,13 @@
 import { build as viteBuild } from 'vite'
 // import { build as esbuild } from 'esbuild'
 import { build as electronBuild, Platform } from 'electron-builder'
-import { execSync, spawn } from 'child_process'
+import { exec, spawn, ExecException } from 'child_process'
 
 // import esbuildConfig from '../configs/esbuild.config'
 import viteConfig from '../configs/vite.config'
 import electronBuilderConfig from '../configs/electron-builder'
 
-const run = (cmd: string, cwd: string) => execSync(cmd, { encoding: "utf8", stdio: "inherit", cwd })
+const run = (cmd: string, callback: (error: ExecException | null, stdout: string, stderr: string) => void) => exec(cmd, (error, stdout, stderr) => callback(error, stdout, stderr))
 
 async function packMain () {
   // return new Promise((resolve, reject) => {
@@ -31,8 +31,10 @@ async function packMain () {
   // })
 
   return new Promise((resolve, reject) => {
-    run('esbuild --platform=node --bundle --minify --external:electron --external:path --external:fs main/main.ts main/preload.ts --outdir=build', './')
-    resolve()
+    run('esbuild --platform=node --bundle --minify --external:electron --external:path --external:fs main/main.ts main/preload.ts --outdir=build', (error, stdout, stderr) => {
+      if(error) reject(error)
+      resolve(stdout)
+    })
   })
 
   // try {
@@ -47,14 +49,21 @@ async function packMain () {
 }
 
 async function packRenderer() {
-  try {
-    return viteBuild(viteConfig.buildConfig)
-  }
-  catch (err) {
-    console.log(`\nfailed to build renderer process`)
-    console.error(`\n${err}\n`)
-    process.exit(1)
-  }
+  // try {
+  //   return viteBuild(viteConfig.buildConfig)
+  // }
+  // catch (err) {
+  //   console.log(`\nfailed to build renderer process`)
+  //   console.error(`\n${err}\n`)
+  //   process.exit(1)
+  // }
+
+  return new Promise((resolve, reject) => {
+    run('vite build --root renderer --outDir=build/renderer', (error, stdout, stderr) => {
+      if(error) reject(error)
+      resolve(stdout)
+    })
+  })
 }
 
 const buildStart = Date.now()
