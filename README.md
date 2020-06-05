@@ -6,7 +6,7 @@
 
 基于 [Vite](https://github.com/vitejs/vite) 实现，使用 `TypeScript`、`Vue` 开发 `Electron` 应用的项目基础代码。
 
-依赖、配置、使用简单，编程前准备工作更少，运行、HMR、编译打包速度更快！遵循 [安全建议](https://www.electronjs.org/docs/tutorial/security)、包含自动化测试。
+依赖、配置、使用简单，编程前准备工作更少，运行、HMR、编译打包速度更快！遵循 [安全建议](https://www.electronjs.org/docs/tutorial/security)、包含自动化测试构建。
 
 ![screenshot](screenshot.png)
 
