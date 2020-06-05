@@ -28,9 +28,6 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-      
-      - name: Install global Esbuild and Vite commands
-        run: npm install --global esbuild vite
 
       - name: Cache workspace
         uses: actions/cache@v1
@@ -58,6 +55,9 @@ jobs:
         with:
           path: ${{ github.workspace }}
           key: workspace-${{ github.sha }}
+    
+      - name: Install global Esbuild and Vite commands
+        run: npm install --global esbuild vite
 
       - name: Copy env file
         run: cp configs/.env-cmdrc.json .env-cmdrc.json
