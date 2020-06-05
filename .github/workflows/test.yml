@@ -28,29 +28,24 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '12.x'
-      - name: Get Date
-        id: get-date
-        run: |
-          echo "::set-output name=date::$(/bin/date -u "+%Y%m%d")"
-        shell: bash
-      - name: Restore npm cache
+      - name: Restore NPM cache
         id: restore-cache
         uses: actions/cache@v2
         with:
           path: node_modules
-          key: ${{ runner.os }}-npm-cache-${{ hashFiles('package-lock.json') }}-${{ steps.get-date.outputs.date }}
+          key: ${{ runner.os }}-npm-cache-${{ hashFiles('package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-npm-cache-
       - name: Install dependencies
         if: steps.restore-cache.outputs.cache-hit != 'true'
-        run: npm install
+        run: |
+          npm install
+          npm install --global esbuild vite env-cmd
       - name: Restore workspace
-        uses: actions/cache@v1
+        uses: actions/cache@v2
         with:
           path: ${{ github.workspace }}
-          key: ${{ runner.os }}-workspace-cache-${{ github.sha }}-${{ steps.get-date.outputs.date }}
-      - name: Install global Esbuild and Vite commands
-        run: npm install --global esbuild vite env-cmd
+          key: ${{ runner.os }}-workspace-cache-${{ github.sha }}
       - name: Copy env file
         run: cp configs/.env-cmdrc.json .env-cmdrc.json
       - name: Test Vue components
