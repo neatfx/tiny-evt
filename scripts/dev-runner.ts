@@ -1,11 +1,12 @@
 import { createServer, build as viteBuild } from 'vite'
-import { spawn, ChildProcessWithoutNullStreams } from 'child_process'
+import { spawn, ChildProcessWithoutNullStreams, execSync } from 'child_process'
 import { build } from 'esbuild'
 
 import viteConfig from '../configs/vite.config'
 import esbuildConfig from '../configs/esbuild.config'
 
 let electronProcess: ChildProcessWithoutNullStreams | null
+const run = (cmd: string, cwd: string) => execSync(cmd, { encoding: "utf8", stdio: "inherit", cwd })
 
 function launchViteDevServer() {
   return new Promise((resolve, reject) => {
@@ -102,16 +103,18 @@ if (process.env.TEST === 'cypress') {
 if (process.env.TEST === 'spectron') {
   Promise.all([launchViteDevServer(), buildMainProcess(), buildSpectronTests()])
     .then(() => {
-      const args = [
-        '--detectOpenHandles',
-        '--config',
-        'configs/jest.config.spectron.json'
-      ]
-      spawn('jest', args, {
-        stdio: 'inherit'
-      }).on('close', () => {
-        process.exit()
-      })
+      // const args = [
+      //   '--detectOpenHandles',
+      //   '--config',
+      //   'configs/jest.config.spectron.json'
+      // ]
+      // spawn('jest', args, {
+      //   stdio: 'inherit'
+      // }).on('close', () => {
+      //   process.exit()
+      // })
+
+      run('jest --detectOpenHandles --config configs/jest.config.spectron.json', '.')
     })
     .catch(err => {
       console.error(err)
