@@ -40,7 +40,6 @@ jobs:
         if: steps.restore-cache.outputs.cache-hit != 'true'
         run: |
           npm install
-          npm install --global esbuild vite env-cmd
       - name: Restore workspace
         uses: actions/cache@v2
         with:
@@ -56,4 +55,4 @@ jobs:
         run: |
           export NPM_BIN=node_modules/.bin
           export PATH=$PATH:$NPM_BIN
-          cat scripts/args.esbuild.dev-runner | xargs esbuild && env-cmd -e dev,vtu node build/dev-runner.js
+          npm run vtu
