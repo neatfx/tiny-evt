@@ -80,7 +80,7 @@ Promise.all([packMain(), packRenderer()])
     electronBuild({
         targets: Platform.current().createTarget(),
         config: electronBuilderConfig,
-        publish: process.env.BUILD_TYPE === 'testing' ? 'never' : 'always'
+        publish: process.env.PUBLISH_BUILD ? 'always' : 'never'
       })
       .then(() => {
         console.log('\nBuild completed in', Math.floor((Date.now() - buildStart) / 1000) + ' s.')

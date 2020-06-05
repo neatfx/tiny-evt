@@ -48,6 +48,9 @@ jobs:
         if: steps.restore-cache.outputs.cache-hit != 'true'
         run: npm install
 
+      - name: Copy env file
+        run: cp configs/.env-cmdrc.json .env-cmdrc.json
+
       - name: Build App and publish
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
