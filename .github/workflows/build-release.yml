@@ -1,4 +1,4 @@
-name: Build & Release
+name: Build & Publish
 
 on:
   push:
@@ -6,63 +6,53 @@ on:
       - 'v*'
 
 jobs:
-  setup:
-    name: Setup
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [macos-latest]
+  create_release:
+    name: Create Release
+    runs-on: ubuntu-latest
     steps:
-      - name: Install Node.js and NPM
-        uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
-
-      - name: Checkout repo
+      - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Cache node_modules
-        uses: actions/cache@v1
+      - name: Create release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          path: node_modules
-          key: deps-node-${{ hashFiles('**/package-lock.json') }}
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Cache workspace
-        uses: actions/cache@v1
-        with:
-          path: ${{ github.workspace }}
-          key: workspace-${{ github.sha }}
-  
-  release:
-    name: Release
-    needs: setup
-    runs-on: ${{ matrix.os }}
+  build_and_publish:
+    name: Build & Publish
+    needs: create_release 
     strategy:
       matrix:
-        os: [macos-latest]
+        os: [macos-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
           node-version: '12.x'
 
-      - name: Checkout repo
+      - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Restore workspace
-        uses: actions/cache@v1
+      - name: Restore NPM cache
+        id: restore-cache
+        uses: actions/cache@v2
         with:
-          path: ${{ github.workspace }}
-          key: workspace-${{ github.sha }}
+          path: node_modules
+          key: ${{ runner.os }}-npm-deps-${{ hashFiles('package-lock.json') }}
 
-      - name: Install global Esbuild and Vite commands
-        run: npm install --global esbuild vite
+      - name: Install dependencies
+        if: steps.restore-cache.outputs.cache-hit != 'true'
+        run: npm install
 
-      - name: Build App
+      - name: Build App and publish
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: cat scripts/args.esbuild.app-builder | xargs esbuild && node build/app-builder.js
+        run: |
+          export NPM_BIN=node_modules/.bin
+          export PATH=$PATH:$NPM_BIN
+          npm run dist
   

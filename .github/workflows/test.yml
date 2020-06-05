@@ -24,21 +24,26 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
           node-version: '12.x'
+
       - name: Restore NPM cache
         id: restore-cache
         uses: actions/cache@v2
         with:
           path: node_modules
           key: ${{ runner.os }}-npm-deps-${{ hashFiles('package-lock.json') }}
+
       - name: Install dependencies
         if: steps.restore-cache.outputs.cache-hit != 'true'
         run: npm install
+
       - name: Copy env file
         run: cp configs/.env-cmdrc.json .env-cmdrc.json
+
       - name: Test Vue components
         run: |
           export NPM_BIN=node_modules/.bin
