@@ -48,10 +48,6 @@ jobs:
       - name: Copy env file
         run: cp configs/.env-cmdrc.json .env-cmdrc.json
       - name: Test Vue components
-        if: ${{ startsWith(matrix.os, 'ubuntu') }}
-        run: npm run vtu
-      - name: Test Vue components
-        if: ${{ startsWith(matrix.os, 'macos') }}
         run: |
           export NPM_BIN=node_modules/.bin
           export PATH=$PATH:$NPM_BIN
