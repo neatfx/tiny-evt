@@ -70,5 +70,4 @@ jobs:
         if: ${{ startsWith(matrix.os, 'macos') }}
         run: |
           cat scripts/args.esbuild.dev-runner | xargs esbuild && env-cmd -e dev,vtu node build/dev-runner.js
-        working-directory: node_modules/.bin
   
