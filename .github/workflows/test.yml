@@ -40,7 +40,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [macos-latest, ubuntu-latest]
     needs: setup
     steps:
       - uses: actions/setup-node@v1
@@ -63,5 +63,5 @@ jobs:
         run: cp configs/.env-cmdrc.json .env-cmdrc.json
 
       - name: Test Vue components
-        run: cat scripts/args.esbuild.dev-runner | xargs esbuild && env-cmd -e dev,vtu node build/dev-runner.js
+        run: npm run vtu
   
