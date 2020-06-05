@@ -114,7 +114,7 @@ if (process.env.TEST === 'spectron') {
       //   process.exit()
       // })
 
-      run('jest --detectOpenHandles --config configs/jest.config.spectron.json', '.')
+      run('jest --config configs/jest.config.spectron.json', '.')
     })
     .catch(err => {
       console.error(err)
