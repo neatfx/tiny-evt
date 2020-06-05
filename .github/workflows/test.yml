@@ -40,7 +40,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [ubuntu-latest, macos-latest]
     needs: setup
     steps:
       - uses: actions/setup-node@v1
@@ -56,11 +56,14 @@ jobs:
           path: ${{ github.workspace }}
           key: workspace-${{ github.sha }}
 
+      # - name: Copy env file
+      #   uses: canastro/copy-file-action@master
+      #   with:
+      #     source: "configs/.env-cmdrc.json"
+      #     target: ".env-cmdrc.json"
+
       - name: Copy env file
-        uses: canastro/copy-file-action@master
-        with:
-          source: "configs/.env-cmdrc.json"
-          target: ".env-cmdrc.json"
+        run: cp configs/.env-cmdrc.json .env-cmdrc.json
 
       - name: Test Vue components
         run: npm run vtu
