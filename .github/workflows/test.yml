@@ -15,7 +15,7 @@ on:
       - '**.md'
 
 jobs:
-  setup:
+  test:
     name: Unit Test
     strategy:
       matrix:
@@ -33,18 +33,10 @@ jobs:
         uses: actions/cache@v2
         with:
           path: node_modules
-          key: ${{ runner.os }}-npm-cache-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-npm-cache-
+          key: ${{ runner.os }}-npm-deps-${{ hashFiles('package-lock.json') }}
       - name: Install dependencies
         if: steps.restore-cache.outputs.cache-hit != 'true'
-        run: |
-          npm install
-      - name: Restore workspace
-        uses: actions/cache@v2
-        with:
-          path: ${{ github.workspace }}
-          key: ${{ runner.os }}-workspace-cache-${{ github.sha }}
+        run: npm install
       - name: Copy env file
         run: cp configs/.env-cmdrc.json .env-cmdrc.json
       - name: Test Vue components
