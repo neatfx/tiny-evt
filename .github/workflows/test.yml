@@ -1,71 +1,61 @@
 name: Test
 
 on:
-  - push
-  - pull_request
+  pull_request:
+    branches:
+      - master
+      - releases/**
+    paths-ignore:
+      - '**.md'
+  push:
+    branches:
+      - master
+      - releases/**
+    paths-ignore:
+      - '**.md'
 
 jobs:
   setup:
-    name: Setup 
-    runs-on: ${{ matrix.os }}
+    name: Unit Test
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
     steps:
-      - name: Install Node.js and NPM
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
           node-version: '12.x'
-
-      - name: Checkout repo
-        uses: actions/checkout@v2
-
-      - name: Cache node_modules
-        uses: actions/cache@v1
+      - name: Get Date
+        id: get-date
+        run: |
+          echo "::set-output name=date::$(/bin/date -u "+%Y%m%d")"
+        shell: bash
+      - name: Restore npm cache
+        id: restore-cache
+        uses: actions/cache@v2
         with:
           path: node_modules
-          key: deps-node-${{ hashFiles('**/package-lock.json') }}
-
+          key: ${{ runner.os }}-npm-cache-${{ hashFiles('package-lock.json') }}-${{ steps.get-date.outputs.date }}
+          restore-keys: |
+            ${{ runner.os }}-npm-cache-
       - name: Install dependencies
+        if: steps.restore-cache.outputs.cache-hit != 'true'
         run: npm install
-
-      - name: Cache workspace
-        uses: actions/cache@v1
-        with:
-          path: ${{ github.workspace }}
-          key: workspace-${{ github.sha }}
-
-  unit-testing:
-    name: Unit Testing
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [macos-latest, ubuntu-latest]
-    needs: setup
-    steps:
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
-
-      - name: Checkout repo
-        uses: actions/checkout@v2
-
       - name: Restore workspace
         uses: actions/cache@v1
         with:
           path: ${{ github.workspace }}
-          key: workspace-${{ github.sha }}
-    
+          key: ${{ runner.os }}-workspace-cache-${{ github.sha }}-${{ steps.get-date.outputs.date }}
       - name: Install global Esbuild and Vite commands
         run: npm install --global esbuild vite env-cmd
-
       - name: Copy env file
         run: cp configs/.env-cmdrc.json .env-cmdrc.json
-
       - name: Test Vue components
         if: ${{ startsWith(matrix.os, 'ubuntu') }}
         run: npm run vtu
-      
       - name: Test Vue components
         if: ${{ startsWith(matrix.os, 'macos') }}
         run: cat scripts/args.esbuild.dev-runner | xargs esbuild && env-cmd -e dev,vtu node build/dev-runner.js
