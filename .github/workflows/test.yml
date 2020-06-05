@@ -63,5 +63,5 @@ jobs:
         run: cp configs/.env-cmdrc.json .env-cmdrc.json
 
       - name: Test Vue components
-        run: npm run vtu
+        run: scripts/vtu.sh
   
