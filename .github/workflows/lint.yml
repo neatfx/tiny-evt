@@ -1,1 +1,27 @@
 name: Lint
+
+on:
+  - pull_request
+  - push
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+
+      # - name: Install dependencies
+      #   run: yarn install
+
+      # - name: Lint
+      #   run: |
+      #     yarn lint
+      #     yarn format
