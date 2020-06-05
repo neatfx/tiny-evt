@@ -30,10 +30,18 @@ const conf: Configuration = {
     }]
   },
   mac: {
-    category: 'public.app-category.developer-tools', // Apple 官方预定义
+    category: 'public.app-category.developer-tools',
     target: 'dmg',
     type: 'distribution',
     icon: 'main/resources/icons/icon.icns',
+    publish: [{
+      provider: 'github',
+      releaseType: 'release'
+    }]
+  },
+  linux: {
+    category: 'Development',
+    target: "AppImage",
     publish: [{
       provider: 'github',
       releaseType: 'release'
