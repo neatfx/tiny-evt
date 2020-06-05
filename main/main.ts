@@ -5,7 +5,7 @@ import './security/web-contents'
 
 import Menu from './menu'
 
-import { createWindow } from './windows/mainn'
+import MainWindow from './windows/main'
 import PreferenceWindow from './windows/preferences'
 import AppTray from './tray'
 
@@ -22,8 +22,7 @@ const cr: ComponentsRouter = {
 }
 
 app.on('ready', () => {
-  // Menu(cr)
-  createWindow()
+  Menu(cr)
   mainWindow.init()
   tray.init()
 })
