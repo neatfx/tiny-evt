@@ -63,5 +63,10 @@ jobs:
         run: cp configs/.env-cmdrc.json .env-cmdrc.json
 
       - name: Test Vue components
-        run: scripts/vtu.sh
+        if: ${{ matrix.os === 'ubuntu-latest' }}
+        run: npm run vtu
+      
+      - name: Test Vue components
+        if: ${{ matrix.os === 'macos-latest' }}
+        run: cat scripts/args.esbuild.dev-runner | xargs esbuild && env-cmd -e dev,vtu node build/dev-runner.js
   
