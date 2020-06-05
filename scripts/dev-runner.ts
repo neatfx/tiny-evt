@@ -124,15 +124,17 @@ if (process.env.TEST === 'spectron') {
 if (process.env.TEST === 'components') {
   buildVueTests()
     .then(() => {
-      const args = [
-        "--config",
-        "configs/jest.config.vtu.json",
-      ]
-      spawn('jest', args, {
-        stdio: 'inherit'
-      }).on('close', () => {
-        process.exit()
-      })
+      // const args = [
+      //   "--config",
+      //   "configs/jest.config.vtu.json",
+      // ]
+      // spawn('jest', args, {
+      //   stdio: 'inherit'
+      // }).on('close', () => {
+      //   process.exit()
+      // })
+
+      run('jest --config configs/jest.config.vtu.json', '.')
     })
     .catch(err => {
       console.error(err)
