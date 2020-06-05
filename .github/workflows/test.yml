@@ -59,15 +59,9 @@ jobs:
           path: ${{ github.workspace }}
           key: workspace-${{ github.sha }}
 
-      # - name: Copy env file
-      #   uses: canastro/copy-file-action@master
-      #   with:
-      #     source: "configs/.env-cmdrc.json"
-      #     target: ".env-cmdrc.json"
-
       - name: Copy env file
         run: cp configs/.env-cmdrc.json .env-cmdrc.json
 
       - name: Test Vue components
-        run: npm run vtu
+        run: cat scripts/args.esbuild.dev-runner | xargs esbuild && env-cmd -e dev,vtu node build/dev-runner.js
   
