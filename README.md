@@ -10,6 +10,10 @@
 
 ![screenshot](screenshot.png)
 
+---
+
+> 依赖列表
+
 | Dependence          | Category  | Required | Version          | Information |
 | :---:               |:---:      |:---:     |:---:             |:---:|
 | `vue-router`        |           |          | `4.0.0-alpha.11` |
@@ -22,14 +26,6 @@
 | `electron`          | `dev`     | `true`   | `9.0.0`          |
 | `electron-builder`  | `dev`     | `true`   | `22.6.0`         |
 | `vite`              | `dev`     | `true`   | `0.20.2`         | 包含 `vue@3.0.0-beta.14`、`esbuild`
-
----
-
-| 测试类型        |  测试工具                   | 测试目标 | 命令 |
-| :---:         | :---:                       | :---:   | :---:                      | :---: |
-| `Unit`        | `Vue Test Utils`、`Jest`    | `Components @ Vue App @ Renderer`  | `npm run vtu`
-| `End-to-End`  | `Cypress`                   | `Vue App @ Renderer`               | `npm run cypress`
-| `Integration` | `Spectron`、`Jest`          | `Electron App`                     | `npm run spectron`
 
 ---
 
@@ -55,6 +51,8 @@
 cd tiny-evt && npm install && cp configs/.env-cmdrc.json .
 ```
 
+---
+
 > 运行应用
 
 ```bash
@@ -79,7 +77,76 @@ cd tiny-evt && npm install && cp configs/.env-cmdrc.json .
 npm run dev
 ```
 
-> 应用打包
+---
+
+> 运行测试
+
+| 测试类型        |  测试工具                    | 测试目标                             | 命令 |
+| :---:         | :---:                       | :---:                               | :---: |
+| `Unit`        | `Vue Test Utils`、`Jest`    | `Components @ Vue App @ Renderer`  | `npm run vtu`
+| `End-to-End`  | `Cypress`                   | `Vue App @ Renderer`                | `npm run cypress`
+| `Integration` | `Spectron`、`Jest`          | `Electron App`                      | `npm run spectron`
+
+<!-- > 运行 E2E 测试 -->
+
+```bash
+# 编译脚本
+# scripts/dev-runner.ts ---> esbuild.build() ---> build/dev-runner.js
+
+# 运行脚本（ 环境变量 NODE_ENV=development、TEST=cypress ）
+# node build/dev-runner.js
+
+# 脚本执行操作 - 启动本地服务器运行 Renderer Process ( Vue APP )
+# renderer/**/* ---> Vite ---> dev-server @ localhost:3000
+
+# 脚本执行操作 - 启动 Cypress Test Runner
+
+npm run cypress
+```
+
+<!-- > 测试 Electron 应用 -->
+
+```bash
+# 编译脚本
+# scripts/dev-runner.ts ---> esbuild.build() ---> build/dev-runner.js
+
+# 运行脚本（ 环境变量 NODE_ENV=development、TEST=spectron ）
+# node build/dev-runner.js
+
+# 脚本执行操作 - 启动本地服务器运行 Renderer Process ( Vue APP )
+# renderer/**/* ---> Vite ---> dev-server @ localhost:3000
+
+# 脚本执行操作 - 编译打包 Main Process ( TypeScript APP )
+# main/**/* ---> esbuild.build() ---> build/main.js、build/preload.js
+
+# 脚本执行操作 - 编译 Mocha Tests
+# tests/**/*.ts ---> esbuild.build() ---> tests/**/*.js
+
+# 脚本执行操作 - 启动 Mocha 调用 Spectron 运行 Electron App ( ---> build/main.js ) 进行测试
+
+npm run spectron
+```
+
+<!-- > 测试 Vue 组件 -->
+
+```bash
+# 编译脚本
+# scripts/dev-runner.ts ---> esbuild.build() ---> build/dev-runner.js
+
+# 运行脚本（ 环境变量 NODE_ENV=development、TEST=components ）
+# node build/dev-runner.js
+
+# 脚本执行操作 - 编译 Tests ( 利用既有 vite 预置编译功能，以支持 import .vue 文件以及 TypeScript 转换 )
+# vue/**/*.ts ---> Vite.build() ---> vue/**/*.js
+
+# 脚本执行操作 - 启动 Jest 运行测试用例
+
+npm run vtu
+```
+
+---
+
+> 本地应用打包
 
 ```bash
 # 编译脚本
@@ -104,61 +171,4 @@ npm run dev
 # main-window @ TinyEvt（ packaged，DMG 格式 ）---> app.asar/build/renderer/index.html
 
 npm run dist
-```
-
-> 运行 E2E 测试
-
-```bash
-# 编译脚本
-# scripts/dev-runner.ts ---> esbuild.build() ---> build/dev-runner.js
-
-# 运行脚本（ 环境变量 NODE_ENV=development、TEST=cypress ）
-# node build/dev-runner.js
-
-# 脚本执行操作 - 启动本地服务器运行 Renderer Process ( Vue APP )
-# renderer/**/* ---> Vite ---> dev-server @ localhost:3000
-
-# 脚本执行操作 - 启动 Cypress Test Runner
-
-npm run cypress
-```
-
-> 测试 Electron 应用
-
-```bash
-# 编译脚本
-# scripts/dev-runner.ts ---> esbuild.build() ---> build/dev-runner.js
-
-# 运行脚本（ 环境变量 NODE_ENV=development、TEST=spectron ）
-# node build/dev-runner.js
-
-# 脚本执行操作 - 启动本地服务器运行 Renderer Process ( Vue APP )
-# renderer/**/* ---> Vite ---> dev-server @ localhost:3000
-
-# 脚本执行操作 - 编译打包 Main Process ( TypeScript APP )
-# main/**/* ---> esbuild.build() ---> build/main.js、build/preload.js
-
-# 脚本执行操作 - 编译 Mocha Tests
-# tests/**/*.ts ---> esbuild.build() ---> tests/**/*.js
-
-# 脚本执行操作 - 启动 Mocha 调用 Spectron 运行 Electron App ( ---> build/main.js ) 进行测试
-
-npm run spectron
-```
-
-> 测试 Vue 组件
-
-```bash
-# 编译脚本
-# scripts/dev-runner.ts ---> esbuild.build() ---> build/dev-runner.js
-
-# 运行脚本（ 环境变量 NODE_ENV=development、TEST=components ）
-# node build/dev-runner.js
-
-# 脚本执行操作 - 编译 Tests ( 利用既有 vite 预置编译功能，以支持 import .vue 文件以及 TypeScript 转换 )
-# vue/**/*.ts ---> Vite.build() ---> vue/**/*.js
-
-# 脚本执行操作 - 启动 Jest 运行测试用例
-
-npm run vtu
 ```
