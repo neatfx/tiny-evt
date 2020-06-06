@@ -33,6 +33,22 @@
 
 ---
 
+> Workflow - Build & Release
+
+```bash
+# 步骤 1 - 更新 `package.json` 中的版本号，例如从 `v1.2.2` 变更至 `v1.2.3`
+
+# 步骤 2 - `git commit -am v1.2.3`
+
+# 步骤 3 - `git tag v1.2.3`，使用指定的命名格式 `v*.*.*`
+
+# 步骤 4 - `git push && git push --tags`
+
+# 步骤 5 - 指定格式标签的推送事件会触发 GitHub Actions 自动创建 Release v1.2.3、打包生成不同平台格式的应用并发布
+```
+
+---
+
 > First Run
 
 ```bash
