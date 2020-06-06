@@ -25,11 +25,11 @@
 
 ---
 
-| 测试类型               |  测试工具  | 测试框架 | 测试目标 | 命令 |
-| :---:                 | :---:             | :---:   | :---:                      | :---: |
-| `Unit`        | `Vue Test Utils` | `Jest`   | `Components @ Vue App @ Renderer`  | `npm run vtu`
-| `End-to-end`  | `Cypress`         |         | `Vue App @ Renderer`               | `npm run cypress`
-| `Integration` | `Spectron`        | `Jest`  | `Electron App`                     | `npm run spectron`
+| 测试类型        |  测试工具                   | 测试目标 | 命令 |
+| :---:         | :---:                       | :---:   | :---:                      | :---: |
+| `Unit`        | `Vue Test Utils`、`Jest`    | `Components @ Vue App @ Renderer`  | `npm run vtu`
+| `End-to-End`  | `Cypress`                   | `Vue App @ Renderer`               | `npm run cypress`
+| `Integration` | `Spectron`、`Jest`          | `Electron App`                     | `npm run spectron`
 
 ---
 
