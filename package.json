@@ -3,6 +3,10 @@
   "description": "a tiny codebase built on vite for creating electron app with typescript and vue",
   "version": "0.9.3",
   "author": "Robocat<neatfx@gmail.com>",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/neatfx/tiny-evt.git"
+  },
   "main": "build/main.js",
   "scripts": {
     "dev": "cat scripts/args.esbuild.dev-runner | xargs esbuild && env-cmd -e dev,token node build/dev-runner.js",
