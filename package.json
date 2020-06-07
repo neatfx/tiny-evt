@@ -4,8 +4,8 @@
   "version": "0.9.3",
   "author": "Robocat<neatfx@gmail.com>",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/neatfx/tiny-evt.git"
+    "type": "git",
+    "url": "https://github.com/neatfx/tiny-evt.git"
   },
   "main": "build/main.js",
   "scripts": {

@@ -1,6 +1,6 @@
 import { build as viteBuild } from 'vite'
 // import { build as esbuild } from 'esbuild'
-import { build as electronBuild, Platform } from 'electron-builder'
+import { build as electronBuild, Platform, CliOptions } from 'electron-builder'
 import { execSync, exec, spawn, ExecException } from 'child_process'
 
 // import esbuildConfig from '../configs/esbuild.config'
@@ -77,11 +77,14 @@ const buildStart = Date.now()
 
 Promise.all([packMain(), packRenderer()])
   .then(result => {
-    electronBuild({
-        targets: Platform.current().createTarget(),
-        config: electronBuilderConfig,
-        publish: process.env.PUBLISH_BUILD ? 'always' : 'never'
-      })
+    const options: CliOptions = {
+      targets: Platform.current().createTarget(),
+      config: electronBuilderConfig,
+    }
+
+    if (process.env.PUBLISH_BUILD === 'true') options.publish = 'always'
+
+    electronBuild(options)
       .then(() => {
         console.log('\nBuild completed in', Math.floor((Date.now() - buildStart) / 1000) + ' s.')
       })
