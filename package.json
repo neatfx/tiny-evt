@@ -1,7 +1,7 @@
 {
   "name": "tiny-evt",
   "description": "a tiny codebase built on vite for creating electron app with typescript and vue",
-  "version": "0.9.4",
+  "version": "0.9.5",
   "author": "Robocat<neatfx@gmail.com>",
   "repository": {
     "type": "git",
