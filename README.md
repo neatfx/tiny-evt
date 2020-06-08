@@ -48,7 +48,16 @@
 > First Run
 
 ```bash
+# 第一步
 cd tiny-evt && npm install && cp configs/.env-cmdrc.json .
+
+# 第二步，修改 ./.env-cmdrc.json 文件
+"dist": {
+  "CSC_IDENTITY_AUTO_DISCOVERY": false,
+  "PUBLISH_BUILD": false
+}
+
+应用包含 GitHub Graphql API 调用，需填写 "GITHUB_TOKEN" 字段，如留空则使用 Mock 数据代替真实请求
 ```
 
 ---
