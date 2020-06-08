@@ -18,10 +18,19 @@ jobs:
         with:
           node-version: '12.x'
 
-      # - name: Install dependencies
-      #   run: yarn install
+      - name: Restore NPM cache
+        id: restore-cache
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-npm-deps-${{ hashFiles('package-lock.json') }}
 
-      # - name: Lint
-      #   run: |
-      #     yarn lint
-      #     yarn format
+      - name: Install dependencies
+        if: steps.restore-cache.outputs.cache-hit != 'true'
+        run: npm install prettier
+
+      - name: Lint
+        run: |
+          export NPM_BIN=node_modules/.bin
+          export PATH=$PATH:$NPM_BI
+          npm run lint
