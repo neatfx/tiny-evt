@@ -8,15 +8,18 @@ export default class {
   preloadPath: string
   constructor() {
     this.window = null
-    this.iconPath =  process.env.NODE_ENV === 'development'
-      ? path.join(__dirname, '../main/resources/icons/icon.png')
-      : path.join(__dirname, '../resources/icons/icon.png')
-    this.pageUrl = process.env.NODE_ENV === 'development'
-      ? 'http://127.0.0.1:3000'
-      : path.join(__dirname, './renderer/index.html')
-    this.preloadPath = process.env.NODE_ENV === 'development'
-    ? path.join(__dirname, './preload.js')
-    : path.join(__dirname, './preload.js')
+    this.iconPath =
+      process.env.NODE_ENV === 'development'
+        ? path.join(__dirname, '../main/resources/icons/icon.png')
+        : path.join(__dirname, '../resources/icons/icon.png')
+    this.pageUrl =
+      process.env.NODE_ENV === 'development'
+        ? 'http://127.0.0.1:3000'
+        : path.join(__dirname, './renderer/index.html')
+    this.preloadPath =
+      process.env.NODE_ENV === 'development'
+        ? path.join(__dirname, './preload.js')
+        : path.join(__dirname, './preload.js')
   }
   init() {
     this.window = new BrowserWindow({
@@ -39,8 +42,8 @@ export default class {
     })
 
     process.env.NODE_ENV === 'development'
-    ? this.window.loadURL(this.pageUrl)
-    : this.window.loadFile(this.pageUrl)
+      ? this.window.loadURL(this.pageUrl)
+      : this.window.loadFile(this.pageUrl)
   }
   toggle() {
     if (this.window === null) {

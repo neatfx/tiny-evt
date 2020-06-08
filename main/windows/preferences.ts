@@ -18,11 +18,12 @@ export default class {
       }
     }
     // TODO: 页面加载完成后，ipc 转向 /preferences
-    this.pageUrl = process.env.NODE_ENV === 'development'
-    ? 'http://127.0.0.1:3000/#/preferences'
-    : path.join(__dirname, './renderer/index.html')
+    this.pageUrl =
+      process.env.NODE_ENV === 'development'
+        ? 'http://127.0.0.1:3000/#/preferences'
+        : path.join(__dirname, './renderer/index.html')
   }
-  init(){
+  init() {
     this.window = new BrowserWindow(this.option)
     // this.window.on('ready-to-show', () => {
     //   this.window?.show()

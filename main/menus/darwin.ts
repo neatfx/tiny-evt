@@ -1,7 +1,7 @@
 import { app, Menu, MenuItem } from 'electron'
 import type { ComponentsRouter } from '../main'
 
-export default function(cr: ComponentsRouter) {
+export default function (cr: ComponentsRouter) {
   const appMenu = new MenuItem({
     label: app.name,
     submenu: [
@@ -14,7 +14,7 @@ export default function(cr: ComponentsRouter) {
       },
       {
         label: '发送消息至 RendererProcess',
-        click: (a,b,c) => {
+        click: (a, b, c) => {
           cr.mainWindow.window?.webContents.send('ipc_from_main', '/c')
         }
       },
@@ -28,7 +28,7 @@ export default function(cr: ComponentsRouter) {
     ]
   })
   const viewMenu = new MenuItem({
-    role: 'viewMenu',
+    role: 'viewMenu'
   })
   const menu = Menu.buildFromTemplate([appMenu, viewMenu])
 

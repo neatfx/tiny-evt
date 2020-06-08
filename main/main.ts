@@ -14,7 +14,7 @@ const tray = new AppTray()
 
 export interface ComponentsRouter {
   preferenceWindow: PreferenceWindow
-  mainWindow: MainWindow 
+  mainWindow: MainWindow
 }
 const cr: ComponentsRouter = {
   preferenceWindow: new PreferenceWindow(),
