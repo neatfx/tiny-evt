@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from "vue-router"
+import { createRouter, createWebHashHistory } from 'vue-router'
 
 import ViewA from './pages/ViewA.vue'
 import ViewB from './pages/ViewB.vue'
@@ -11,10 +11,10 @@ const router = createRouter({
   history: routerHistory,
   routes: [
     { path: '/', component: ViewA as never },
-    { path: '/b', component: ViewB as never},
-    { path: '/c', component: ViewC as never},
-    { path: '/d', component: ViewD  as never},
-    { path: '/preferences', component: Preferences  as never},
+    { path: '/b', component: ViewB as never },
+    { path: '/c', component: ViewC as never },
+    { path: '/d', component: ViewD as never },
+    { path: '/preferences', component: Preferences as never }
   ]
 })
 

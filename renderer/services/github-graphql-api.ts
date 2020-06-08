@@ -3,7 +3,7 @@ import mockData from './mock-data'
 export class GithubGraphqlApi {
   private config: {
     headers: Record<string, string>
-  } = { headers: {}}
+  } = { headers: {} }
   private baseUrl: string = ''
 
   public constructor() {
@@ -11,13 +11,13 @@ export class GithubGraphqlApi {
   }
 
   private _initializeRequest = () => {
-      this._handleRequest()
+    this._handleRequest()
   }
 
   private _handleRequest = () => {
     this.baseUrl = 'https://api.github.com/graphql'
     this.config.headers['content-type'] = 'application/json'
-    if(process.env.APP_ENV === 'development') {
+    if (process.env.APP_ENV === 'development') {
       // console.log('env: ', process.env)
       this.config.headers['Authorization'] = process.env.GITHUB_TOKEN || ''
       if (!process.env.GITHUB_TOKEN) {
@@ -28,8 +28,8 @@ export class GithubGraphqlApi {
     }
   }
 
-  public getContribution = async(): Promise<GithubJson> => {
-    if(process.env.APP_ENV !== 'development') {
+  public getContribution = async (): Promise<GithubJson> => {
+    if (process.env.APP_ENV !== 'development') {
       return Promise.resolve(mockData)
     }
 
@@ -65,24 +65,24 @@ export class GithubGraphqlApi {
 }
 
 type GithubJson = {
-  "data": {
-      "user": {
-          "name": string
-          "followers": {
-              "totalCount": number
-          }
-          "contributionsCollection": {
-              "contributionCalendar": {
-                  "totalContributions": number
-                  "weeks": {
-                      "contributionDays": {
-                          "color": string
-                          "contributionCount": number
-                          "date": string
-                      }[]
-                  }[]
-              }
-          }
+  data: {
+    user: {
+      name: string
+      followers: {
+        totalCount: number
       }
+      contributionsCollection: {
+        contributionCalendar: {
+          totalContributions: number
+          weeks: {
+            contributionDays: {
+              color: string
+              contributionCount: number
+              date: string
+            }[]
+          }[]
+        }
+      }
+    }
   }
 }
