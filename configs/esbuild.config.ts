@@ -5,7 +5,7 @@ const dev: BuildOptions = {
   outdir: 'build/',
   minify: false,
   bundle: true,
-  external: ['electron', 'path', 'fs'],
+  external: ['electron', 'path', 'fs']
 }
 
 const spectron: BuildOptions = {
@@ -13,10 +13,10 @@ const spectron: BuildOptions = {
   outdir: 'tests/spectron',
   minify: false,
   bundle: true,
-  external: ['path', 'spectron', 'assert'],
+  external: ['path', 'spectron', 'assert']
 }
 
-const dist: BuildOptions =  {
+const dist: BuildOptions = {
   entryPoints: ['main/main.ts', 'main/preload.ts'],
   outdir: 'build/',
   minify: true,

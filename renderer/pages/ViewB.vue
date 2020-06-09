@@ -1,5 +1,3 @@
 <template>
-  <div>
-    ViewB
-  </div>
+  <div>ViewB</div>
 </template>

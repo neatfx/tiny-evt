@@ -6,48 +6,57 @@ import viteConfig from '../configs/vite.config'
 import esbuildConfig from '../configs/esbuild.config'
 
 let electronProcess: ChildProcessWithoutNullStreams | null
-const run = (cmd: string, cwd: string) => execSync(cmd, { encoding: "utf8", stdio: "inherit", cwd })
+const run = (cmd: string, cwd: string) =>
+  execSync(cmd, { encoding: 'utf8', stdio: 'inherit', cwd })
 
 function launchViteDevServer() {
   return new Promise((resolve, reject) => {
     createServer(viteConfig.serverConfig)
-    .on("listening", () => {
-      console.log("Vite-Dev-Server running on localhost:3000")
-      resolve()
-    })
-    .on("error", (e) => {
-      console.log('Vite-Dev-Server Error: ', e)
-      reject()
-    })
-    .listen(viteConfig.serverConfig.port)
+      .on('listening', () => {
+        console.log('Vite-Dev-Server running on localhost:3000')
+        resolve()
+      })
+      .on('error', (e) => {
+        console.log('Vite-Dev-Server Error: ', e)
+        reject()
+      })
+      .listen(viteConfig.serverConfig.port)
   })
 }
 
 async function buildMainProcess() {
-    return build(esbuildConfig.dev).then(() => {
-      if (electronProcess && electronProcess.kill) {
-        process.kill(electronProcess.pid)
-        electronProcess = null
+  return build(esbuildConfig.dev)
+    .then(
+      () => {
+        if (electronProcess && electronProcess.kill) {
+          process.kill(electronProcess.pid)
+          electronProcess = null
+        }
+      },
+      (err) => {
+        console.log(err)
       }
-    }, (err) => {
-      console.log(err)
-    }).catch((e) => {
+    )
+    .catch((e) => {
       return e
     })
 }
 
 async function buildSpectronTests() {
-  return build(esbuildConfig.spectron).then(() => {
-  }, (err) => {
-    console.log(err)
-  }).catch((e) => {
-    return e
-  })
+  return build(esbuildConfig.spectron)
+    .then(
+      () => {},
+      (err) => {
+        console.log(err)
+      }
+    )
+    .catch((e) => {
+      return e
+    })
 }
 
 async function buildVueTests() {
-  return viteBuild(viteConfig.buildConfigVtu)
-  .catch(err => {
+  return viteBuild(viteConfig.buildConfigVtu).catch((err) => {
     console.log(`\nfailed to build vue tests`)
     console.error(`\n${err}\n`)
     process.exit(1)
@@ -58,27 +67,24 @@ function logPrinter(data: string[]) {
   let log = '\n'
 
   data = data.toString().split(/\r?\n/)
-  data.forEach(line => {
+  data.forEach((line) => {
     log += `  ${line}\n`
   })
 
   if (/[0-9A-z]+/.test(log)) {
-      console.log(log)
+    console.log(log)
   }
 }
 
 function runElectronApp() {
-  const args = [
-    '--inspect=5858',
-    'build/main.js'
-  ]
+  const args = ['--inspect=5858', 'build/main.js']
   const electronProcess = spawn('electron', args)
 
-  electronProcess.stdout.on('data', data => {
+  electronProcess.stdout.on('data', (data) => {
     logPrinter(data)
   })
 
-  electronProcess.stderr.on('data', data => {
+  electronProcess.stderr.on('data', (data) => {
     logPrinter(data)
   })
 
@@ -89,11 +95,7 @@ function runElectronApp() {
 
 if (process.env.TEST === 'cypress') {
   launchViteDevServer().then(() => {
-    const args = [
-      'open',
-      '--config-file',
-      'configs/cypress.json'
-    ]
+    const args = ['open', '--config-file', 'configs/cypress.json']
     spawn('cypress', args).on('close', () => {
       process.exit()
     })
@@ -116,7 +118,7 @@ if (process.env.TEST === 'spectron') {
 
       run('jest --config configs/jest.config.spectron.json', '.')
     })
-    .catch(err => {
+    .catch((err) => {
       console.error(err)
     })
 }
@@ -136,7 +138,7 @@ if (process.env.TEST === 'components') {
 
       run('jest --config configs/jest.config.vtu.json', '.')
     })
-    .catch(err => {
+    .catch((err) => {
       console.error(err)
     })
 }
@@ -146,7 +148,7 @@ if (!process.env.TEST) {
     .then(() => {
       runElectronApp()
     })
-    .catch(err => {
+    .catch((err) => {
       console.error(err)
     })
 }

@@ -1,5 +1,3 @@
 <template>
-  <div>
-    ViewD
-  </div>
+  <div>ViewD</div>
 </template>

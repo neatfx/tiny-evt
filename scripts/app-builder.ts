@@ -8,9 +8,10 @@ import viteConfig from '../configs/vite.config'
 import electronBuilderConfig from '../configs/electron-builder'
 
 // const run = (cmd: string, callback: (error: ExecException | null, stdout: string, stderr: string) => void) => exec(cmd, (error, stdout, stderr) => callback(error, stdout, stderr))
-const run = (cmd: string, cwd: string) => execSync(cmd, { encoding: "utf8", stdio: "inherit", cwd })
+const run = (cmd: string, cwd: string) =>
+  execSync(cmd, { encoding: 'utf8', stdio: 'inherit', cwd })
 
-async function packMain () {
+async function packMain() {
   // return new Promise((resolve, reject) => {
   //   const args = [
   //     '--platform=node',
@@ -37,7 +38,10 @@ async function packMain () {
     //   resolve(stdout)
     // })
 
-    run('esbuild --platform=node --bundle --minify --external:electron --external:path --external:fs main/main.ts main/preload.ts --outdir=build', '.')
+    run(
+      'esbuild --platform=node --bundle --minify --external:electron --external:path --external:fs main/main.ts main/preload.ts --outdir=build',
+      '.'
+    )
     resolve()
   })
 
@@ -76,20 +80,23 @@ async function packRenderer() {
 const buildStart = Date.now()
 
 Promise.all([packMain(), packRenderer()])
-  .then(result => {
+  .then((result) => {
     const options: CliOptions = {
       targets: Platform.current().createTarget(),
-      config: electronBuilderConfig,
+      config: electronBuilderConfig
     }
 
     if (process.env.PUBLISH_BUILD === 'true') options.publish = 'always'
 
     electronBuild(options)
       .then(() => {
-        console.log('\nBuild completed in', Math.floor((Date.now() - buildStart) / 1000) + ' s.')
+        console.log(
+          '\nBuild completed in',
+          Math.floor((Date.now() - buildStart) / 1000) + ' s.'
+        )
       })
-      .catch(e => {
+      .catch((e) => {
         console.error(e)
       })
   })
-  .catch(e => console.log(e))
+  .catch((e) => console.log(e))

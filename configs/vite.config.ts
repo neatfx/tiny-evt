@@ -27,10 +27,20 @@ const buildConfigVtu: BuildConfig = {
   emitAssets: false,
   rollupInputOptions: {
     input: 'tests/vtu/Navbar.spec.ts',
-    external: ['assert', 'path', 'fs', 'util', 'stream', 'os', 'constants', 'tty', 'module'],
+    external: [
+      'assert',
+      'path',
+      'fs',
+      'util',
+      'stream',
+      'os',
+      'constants',
+      'tty',
+      'module'
+    ]
   },
   rollupOutputOptions: {
-    format: 'cjs', // related to issue
+    format: 'cjs' // related to issue
   }
 }
 

@@ -5,10 +5,10 @@ import path from 'path'
 describe('Application launch', function () {
   let app: Application
 
-  beforeEach( () => {
+  beforeEach(() => {
     app = new Application({
       env: {
-        'NODE_ENV': 'development'
+        NODE_ENV: 'development'
       },
       requireName: 'electronRequire', // only for accessing any Electron APIs
       path: 'node_modules/.bin/electron',
@@ -23,7 +23,7 @@ describe('Application launch', function () {
     }
   })
 
-  it('shows an initial window', done => {
+  it('shows an initial window', (done) => {
     return app.client.getWindowCount().then(function (count) {
       assert.equal(count, 1)
       // Please note that getWindowCount() will return 2 if `dev tools` are opened.

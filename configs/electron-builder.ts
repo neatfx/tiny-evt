@@ -5,47 +5,54 @@ const conf: Configuration = {
   electronVersion: '9.0.0',
   compression: 'store',
   files: [
-    "package.json",
+    'package.json',
     {
-      "from": "build",
-      "to": "build",
-      "filter": ["!dev-runner.js", "!app-builder.js"]
+      from: 'build',
+      to: 'build',
+      filter: ['!dev-runner.js', '!app-builder.js']
     },
     {
-      "from": "main/resources",
-      "to": "resources",
-      "filter": ["**/*"]
+      from: 'main/resources',
+      to: 'resources',
+      filter: ['**/*']
     }
   ],
   dmg: {
-    contents: [{
+    contents: [
+      {
         x: 410,
         y: 150,
         type: 'link',
-        path: '/Applications',
-    }, {
+        path: '/Applications'
+      },
+      {
         x: 130,
         y: 150,
-        type: 'file',
-    }]
+        type: 'file'
+      }
+    ]
   },
   mac: {
     category: 'public.app-category.developer-tools',
     target: 'dmg',
     type: 'distribution',
     icon: 'main/resources/icons/icon.icns',
-    publish: [{
-      provider: 'github',
-      releaseType: 'release'
-    }]
+    publish: [
+      {
+        provider: 'github',
+        releaseType: 'release'
+      }
+    ]
   },
   linux: {
     category: 'Development',
-    target: "AppImage",
-    publish: [{
-      provider: 'github',
-      releaseType: 'release'
-    }]
+    target: 'AppImage',
+    publish: [
+      {
+        provider: 'github',
+        releaseType: 'release'
+      }
+    ]
   }
 }
 
