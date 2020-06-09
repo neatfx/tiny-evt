@@ -32,15 +32,31 @@
 > Workflow - Build & Release
 
 ```bash
-# 步骤 1 - 更新 `package.json` 中的版本号，例如从 `v1.2.2` 变更至 `v1.2.3`
+# 1. 更新 `package.json` 中的版本号，例如从 `v1.2.2` 变更至 `v1.2.3`
+# 2. `git commit -am v1.2.3`
+# 3. `git tag v1.2.3`，使用指定的命名格式 `v*.*.*`
+# 4. `git push && git push --tags`
+# 5. 指定格式标签的推送事件会触发 GitHub Actions 自动创建 Release v1.2.3、打包生成不同平台格式的应用并发布
+```
 
-# 步骤 2 - `git commit -am v1.2.3`
+> Workflow - Build & Release - Code Signing @ macOS
 
-# 步骤 3 - `git tag v1.2.3`，使用指定的命名格式 `v*.*.*`
+```bash
+# 使用 GitHub Actions 构建应用时对其进行签名的步骤如下：
 
-# 步骤 4 - `git push && git push --tags`
+# 1. 导出与应用相关的所有证书至单个文件 `certs.p12`，并设置强密码
+# 2. 运行命令 `base64 -i certs.p12 -o encoded.txt` 对导出文件进行编码
+# 3. 在项目仓库的 `Secrets` 设置项中添加 `mac_certs`（ 即 `encoded.txt` 的内容 ）
+# 4. 在项目仓库的 `Secrets` 设置项中添加 `mac_certs_password`（ 即导出证书时设置的密码 ）
+# 5. 在 `.github/workflows/build-release.yml` 中添加 `CSC_LINK`, `CSC_KEY_PASSWORD` 环境变量配置
+```
 
-# 步骤 5 - 指定格式标签的推送事件会触发 GitHub Actions 自动创建 Release v1.2.3、打包生成不同平台格式的应用并发布
+```yaml
+- name: Build App and publish
+  env: |
+    GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    CSC_LINK: ${{ secrets.CSC_LINK }}
+    CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
 ```
 
 ---
