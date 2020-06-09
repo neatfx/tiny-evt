@@ -27,7 +27,7 @@ jobs:
 
       - name: Install dependencies
         if: steps.restore-cache.outputs.cache-hit != 'true'
-        run: npm install prettier
+        run: npm install
 
       - name: Lint
         run: |
