@@ -76,7 +76,10 @@ function logPrinter(data: string[]) {
 
 function runElectronApp() {
   const args = ['--inspect=5858', 'build/main.js']
-  const electronProcess = spawn('electron', args)
+  const electronProcess = spawn('electron', args, {
+    stdio: 'pipe',
+    shell: process.platform === 'win32'
+  })
 
   electronProcess.stderr.on('data', (data) => {
     logPrinter(data)
@@ -95,7 +98,10 @@ if (process.env.TEST === 'cypress') {
   launchViteDevServer().then(() => {
     const args = ['open', '--config-file', 'configs/cypress.json']
 
-    spawn('cypress', args).on('close', () => {
+    spawn('cypress', args, {
+      stdio: 'inherit',
+      shell: process.platform === 'win32' 
+    }).on('close', () => {
       process.exit()
     })
   })
@@ -111,7 +117,8 @@ if (process.env.TEST === 'spectron') {
       ]
 
       spawn('jest', args, {
-        stdio: 'inherit'
+        stdio: 'inherit',
+        shell: process.platform === 'win32'
       }).on('close', () => {
         process.exit()
       })
@@ -127,7 +134,8 @@ if (process.env.TEST === 'components') {
       const args = ['--config', 'configs/jest.config.vtu.json']
 
       spawn('jest', args, {
-        stdio: 'inherit'
+        stdio: 'inherit',
+        shell: process.platform === 'win32'
       }).on('close', () => {
         process.exit()
       })

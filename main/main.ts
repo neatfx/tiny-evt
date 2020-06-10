@@ -28,9 +28,10 @@ app.on('ready', () => {
 })
 
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
+  // FIXME: 与 Spectron 的 app.stop() 冲突，导致测试完毕后应用无法关闭
+  // if (process.platform !== 'darwin') {
     app.quit()
-  }
+  // }
 })
 
 app.on('activate', () => {

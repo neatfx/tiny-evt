@@ -15,8 +15,8 @@ on:
       - '**.md'
 
 jobs:
-  test:
-    name: Unit Test
+  setup:
+    name: Setup
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest]
@@ -44,8 +44,29 @@ jobs:
       - name: Copy env file
         run: cp configs/.env-cmdrc.json .env-cmdrc.json
 
-      - name: Test Vue components
+      - name: Set env vars
         run: |
           export NPM_BIN=node_modules/.bin
           export PATH=$PATH:$NPM_BIN
-          npm run vtu
+
+  vtu:
+    name: Unit
+    needs: setup
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Test Vue components
+        run: npm run vtu
+
+  spectron:
+    name: Integration
+    needs: setup
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Test Electron App
+        run: npm run spectron
