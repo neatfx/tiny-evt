@@ -86,12 +86,13 @@ jobs:
           export NPM_BIN=node_modules/.bin
           export PATH=$PATH:$NPM_BIN
 
-      - name: Headless setup for linux
-        if: matrix.os == 'ubuntu-latest'
-        run: sudo apt-get install xvfb
-
       - name: Test Electron App @ macOS
+        if: matrix.os == 'macos-latest'
         run: npm run spectron
 
+      # Needs headless setup
       - name: Test Electron App @ Linux
-        run: xvfb-run --auto-servernum npm run spectron
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt-get install xvfb
+          xvfb-run --auto-servernum npm run spectron
