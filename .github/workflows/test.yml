@@ -123,11 +123,11 @@ jobs:
         if: steps.restore-cache.outputs.cache-hit != 'true'
         run: npm install
 
-      - name: Restore Cypress cache
+      - name: Cache Cypress binary
         id: restore-cypress-cache
         uses: actions/cache@v2
         with:
-          path: /Users/runner/Library/Caches/Cypress
+          path: ~/.cache/Cypress
           key: ${{ runner.os }}-cypress-${{ hashFiles('package-lock.json') }}
 
       - name: Copy env file
@@ -143,12 +143,11 @@ jobs:
         run: npx cypress install
 
       - name: Test Electron App
-        # if: matrix.os == 'macos-latest'
+        if: matrix.os == 'macos-latest'
         run: npm run cypress
 
-      # Needs headless setup
-      # - name: Test Electron App @ Linux
-      #   if: matrix.os == 'ubuntu-latest'
-      #   run: |
-      #     sudo apt-get install xvfb
-      #     xvfb-run --auto-servernum npm run spectron
+      - name: Test Electron App @ Linux
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt-get install xvfb
+          xvfb-run --auto-servernum npm run cypress
