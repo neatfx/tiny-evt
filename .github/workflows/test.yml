@@ -89,6 +89,7 @@ jobs:
       - name: Headless setup for linux
         if: matrix.os == 'ubuntu-latest'
         run: |
+          apt-get install xvfb
           Xvfb :99 &
           export DISPLAY=:99.0
 
