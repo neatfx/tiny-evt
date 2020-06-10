@@ -86,7 +86,15 @@ jobs:
           export NPM_BIN=node_modules/.bin
           export PATH=$PATH:$NPM_BIN
 
+      - name: Headless setup for linux
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          export DISPLAY=:99.0
+          sh -e /etc/init.d/xvfb start
+          sleep 3
+
       - name: Test Electron App
+
         run: npm run spectron
 
   # vtu:
