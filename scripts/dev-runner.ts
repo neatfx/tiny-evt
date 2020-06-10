@@ -124,10 +124,7 @@ if (process.env.TEST === 'spectron') {
 if (process.env.TEST === 'components') {
   buildVueTests()
     .then(() => {
-      const args = [
-        "--config",
-        "configs/jest.config.vtu.json",
-      ]
+      const args = ['--config', 'configs/jest.config.vtu.json']
 
       spawn('jest', args, {
         stdio: 'inherit'
