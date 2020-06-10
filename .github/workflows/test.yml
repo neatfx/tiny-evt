@@ -89,12 +89,10 @@ jobs:
       - name: Headless setup for linux
         if: matrix.os == 'ubuntu-latest'
         run: |
+          Xvfb :99 &
           export DISPLAY=:99.0
-          sh -e /etc/init.d/xvfb start
-          sleep 3
 
       - name: Test Electron App
-
         run: npm run spectron
 
   # vtu:
