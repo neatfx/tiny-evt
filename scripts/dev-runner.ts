@@ -105,18 +105,18 @@ if (process.env.TEST === 'cypress') {
 if (process.env.TEST === 'spectron') {
   Promise.all([launchViteDevServer(), buildMainProcess(), buildSpectronTests()])
     .then(() => {
-      // const args = [
-      //   '--detectOpenHandles',
-      //   '--config',
-      //   'configs/jest.config.spectron.json'
-      // ]
-      // spawn('jest', args, {
-      //   stdio: 'inherit'
-      // }).on('close', () => {
-      //   process.exit()
-      // })
+      const args = [
+        '--detectOpenHandles',
+        '--config',
+        'configs/jest.config.spectron.json'
+      ]
+      spawn('jest', args, {
+        stdio: 'inherit'
+      }).on('close', () => {
+        process.exit()
+      })
 
-      run('jest --config configs/jest.config.spectron.json', '.')
+      // run('jest --config configs/jest.config.spectron.json', '.')
     })
     .catch((err) => {
       console.error(err)
@@ -126,17 +126,17 @@ if (process.env.TEST === 'spectron') {
 if (process.env.TEST === 'components') {
   buildVueTests()
     .then(() => {
-      // const args = [
-      //   "--config",
-      //   "configs/jest.config.vtu.json",
-      // ]
-      // spawn('jest', args, {
-      //   stdio: 'inherit'
-      // }).on('close', () => {
-      //   process.exit()
-      // })
+      const args = [
+        "--config",
+        "configs/jest.config.vtu.json",
+      ]
+      spawn('jest', args, {
+        stdio: 'inherit'
+      }).on('close', () => {
+        process.exit()
+      })
 
-      run('jest --config configs/jest.config.vtu.json', '.')
+      // run('jest --config configs/jest.config.vtu.json', '.')
     })
     .catch((err) => {
       console.error(err)
