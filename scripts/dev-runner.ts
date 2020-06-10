@@ -1,13 +1,11 @@
 import { createServer, build as viteBuild } from 'vite'
-import { spawn, ChildProcessWithoutNullStreams, execSync } from 'child_process'
+import { spawn, ChildProcessWithoutNullStreams } from 'child_process'
 import { build } from 'esbuild'
 
 import viteConfig from '../configs/vite.config'
 import esbuildConfig from '../configs/esbuild.config'
 
 let electronProcess: ChildProcessWithoutNullStreams | null
-const run = (cmd: string, cwd: string) =>
-  execSync(cmd, { encoding: 'utf8', stdio: 'inherit', cwd })
 
 function launchViteDevServer() {
   return new Promise((resolve, reject) => {
@@ -80,11 +78,11 @@ function runElectronApp() {
   const args = ['--inspect=5858', 'build/main.js']
   const electronProcess = spawn('electron', args)
 
-  electronProcess.stdout.on('data', (data) => {
+  electronProcess.stderr.on('data', (data) => {
     logPrinter(data)
   })
 
-  electronProcess.stderr.on('data', (data) => {
+  electronProcess.stdout.on('data', (data) => {
     logPrinter(data)
   })
 
@@ -96,6 +94,7 @@ function runElectronApp() {
 if (process.env.TEST === 'cypress') {
   launchViteDevServer().then(() => {
     const args = ['open', '--config-file', 'configs/cypress.json']
+
     spawn('cypress', args).on('close', () => {
       process.exit()
     })
@@ -110,13 +109,12 @@ if (process.env.TEST === 'spectron') {
         '--config',
         'configs/jest.config.spectron.json'
       ]
+
       spawn('jest', args, {
         stdio: 'inherit'
       }).on('close', () => {
         process.exit()
       })
-
-      // run('jest --config configs/jest.config.spectron.json', '.')
     })
     .catch((err) => {
       console.error(err)
@@ -130,13 +128,12 @@ if (process.env.TEST === 'components') {
         "--config",
         "configs/jest.config.vtu.json",
       ]
+
       spawn('jest', args, {
         stdio: 'inherit'
       }).on('close', () => {
         process.exit()
       })
-
-      // run('jest --config configs/jest.config.vtu.json', '.')
     })
     .catch((err) => {
       console.error(err)

@@ -7,6 +7,5 @@ describe('Navbar.vue', () => {
   test('have a NavC', () => {
     const wrapper = mount(Navbar, {})
     expect(wrapper.html()).toContain('NavC')
-    console.log(wrapper.html())
   })
 })
