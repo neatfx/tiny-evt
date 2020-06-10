@@ -57,24 +57,24 @@ async function packMain() {
 }
 
 async function packRenderer() {
-  // try {
-  //   return viteBuild(viteConfig.buildConfig)
-  // }
-  // catch (err) {
-  //   console.log(`\nfailed to build renderer process`)
-  //   console.error(`\n${err}\n`)
-  //   process.exit(1)
-  // }
+  try {
+    return viteBuild(viteConfig.buildConfig)
+  }
+  catch (err) {
+    console.log(`\nfailed to build renderer process`)
+    console.error(`\n${err}\n`)
+    process.exit(1)
+  }
 
-  return new Promise((resolve, reject) => {
-    // run('vite build --root renderer --outDir=build/renderer', (error, stdout, stderr) => {
-    //   if(error) return reject(error)
-    //   resolve(stdout)
-    // })
+  // return new Promise((resolve, reject) => {
+  //   // run('vite build --root renderer --outDir=build/renderer', (error, stdout, stderr) => {
+  //   //   if(error) return reject(error)
+  //   //   resolve(stdout)
+  //   // })
 
-    run('vite build --root renderer --base . --outDir build/renderer', '.')
-    resolve()
-  })
+  //   run('vite build --root renderer --base . --outDir build/renderer', '.')
+  //   resolve()
+  // })
 }
 
 const buildStart = Date.now()
