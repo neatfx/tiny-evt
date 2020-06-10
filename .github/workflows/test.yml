@@ -88,30 +88,10 @@ jobs:
 
       - name: Headless setup for linux
         if: matrix.os == 'ubuntu-latest'
-        run: |
-          sudo apt-get install xvfb
+        run: sudo apt-get install xvfb
 
-      - name: Test Electron App
+      - name: Test Electron App @ macOS
+        run: npm run spectron
+
+      - name: Test Electron App @ Linux
         run: xvfb-run --auto-servernum npm run spectron
-
-  # vtu:
-  #   name: Unit
-  #   needs: setup
-  #   strategy:
-  #     matrix:
-  #       os: [macos-latest, ubuntu-latest]
-  #   runs-on: ${{ matrix.os }}
-  #   steps:
-  #     - name: Test Vue components
-  #       run: npm run vtu
-
-  # spectron:
-  #   name: Integration
-  #   needs: setup
-  #   strategy:
-  #     matrix:
-  #       os: [macos-latest, ubuntu-latest]
-  #   runs-on: ${{ matrix.os }}
-  #   steps:
-  #     - name: Test Electron App
-  #       run: npm run spectron
