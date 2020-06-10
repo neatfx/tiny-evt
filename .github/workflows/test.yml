@@ -15,8 +15,8 @@ on:
       - '**.md'
 
 jobs:
-  setup:
-    name: Setup
+  unit-testing:
+    name: Unit
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest]
@@ -49,24 +49,64 @@ jobs:
           export NPM_BIN=node_modules/.bin
           export PATH=$PATH:$NPM_BIN
 
-  vtu:
-    name: Unit
-    needs: setup
-    strategy:
-      matrix:
-        os: [macos-latest, ubuntu-latest]
-    runs-on: ${{ matrix.os }}
-    steps:
       - name: Test Vue components
         run: npm run vtu
 
-  spectron:
-    name: Integration
-    needs: setup
+  integration-testing:
+    name: Integration 
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest]
     runs-on: ${{ matrix.os }}
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+
+      - name: Restore NPM cache
+        id: restore-cache
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-npm-deps-${{ hashFiles('package-lock.json') }}
+
+      - name: Install dependencies
+        if: steps.restore-cache.outputs.cache-hit != 'true'
+        run: npm install
+
+      - name: Copy env file
+        run: cp configs/.env-cmdrc.json .env-cmdrc.json
+
+      - name: Set env vars
+        run: |
+          export NPM_BIN=node_modules/.bin
+          export PATH=$PATH:$NPM_BIN
+
       - name: Test Electron App
         run: npm run spectron
+
+  # vtu:
+  #   name: Unit
+  #   needs: setup
+  #   strategy:
+  #     matrix:
+  #       os: [macos-latest, ubuntu-latest]
+  #   runs-on: ${{ matrix.os }}
+  #   steps:
+  #     - name: Test Vue components
+  #       run: npm run vtu
+
+  # spectron:
+  #   name: Integration
+  #   needs: setup
+  #   strategy:
+  #     matrix:
+  #       os: [macos-latest, ubuntu-latest]
+  #   runs-on: ${{ matrix.os }}
+  #   steps:
+  #     - name: Test Electron App
+  #       run: npm run spectron
