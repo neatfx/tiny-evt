@@ -96,7 +96,7 @@ function runElectronApp() {
 
 if (process.env.TEST === 'cypress') {
   launchViteDevServer().then(() => {
-    const args = ['open', '--config-file', 'configs/cypress.json']
+    const args = ['run', '--config-file', 'configs/cypress.json']
 
     spawn('cypress', args, {
       stdio: 'inherit',
