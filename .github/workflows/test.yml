@@ -140,7 +140,7 @@ jobs:
 
       - name: Install Cypress
         if: steps.restore-cypress-cache.outputs.cache-hit != 'true'
-        run: cypress install
+        run: npx cypress install
 
       - name: Test Electron App
         # if: matrix.os == 'macos-latest'
