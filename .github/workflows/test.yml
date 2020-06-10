@@ -123,6 +123,13 @@ jobs:
         if: steps.restore-cache.outputs.cache-hit != 'true'
         run: npm install
 
+      - name: Restore Cypress cache
+        id: restore-cypress-cache
+        uses: actions/cache@v2
+        with:
+          path: /Users/runner/Library/Caches/Cypress
+          key: ${{ runner.os }}-cypress-${{ hashFiles('package-lock.json') }}
+
       - name: Copy env file
         run: cp configs/.env-cmdrc.json .env-cmdrc.json
 
@@ -130,6 +137,10 @@ jobs:
         run: |
           export NPM_BIN=node_modules/.bin
           export PATH=$PATH:$NPM_BIN
+
+      - name: Install Cypress
+        if: steps.restore-cypress-cache.outputs.cache-hit != 'true'
+        run: cypress install
 
       - name: Test Electron App
         # if: matrix.os == 'macos-latest'
