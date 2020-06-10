@@ -96,3 +96,48 @@ jobs:
         run: |
           sudo apt-get install xvfb
           xvfb-run --auto-servernum npm run spectron
+
+  e2e-testing:
+    name: E2E 
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+
+      - name: Restore NPM cache
+        id: restore-cache
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-npm-deps-${{ hashFiles('package-lock.json') }}
+
+      - name: Install dependencies
+        if: steps.restore-cache.outputs.cache-hit != 'true'
+        run: npm install
+
+      - name: Copy env file
+        run: cp configs/.env-cmdrc.json .env-cmdrc.json
+
+      - name: Set env vars
+        run: |
+          export NPM_BIN=node_modules/.bin
+          export PATH=$PATH:$NPM_BIN
+
+      - name: Test Electron App
+        # if: matrix.os == 'macos-latest'
+        run: npm run cypress
+
+      # Needs headless setup
+      # - name: Test Electron App @ Linux
+      #   if: matrix.os == 'ubuntu-latest'
+      #   run: |
+      #     sudo apt-get install xvfb
+      #     xvfb-run --auto-servernum npm run spectron
