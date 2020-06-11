@@ -55,7 +55,5 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          export NPM_BIN=node_modules/.bin
-          export PATH=$PATH:$NPM_BIN
           npm run dist
   
