@@ -54,6 +54,5 @@ jobs:
       - name: Build App and publish
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          npm run dist
+        run: npm run dist
   
