@@ -2,7 +2,12 @@ name: Lint
 
 on:
   - pull_request
-  - push
+  push:
+    branches:
+      - master
+      - dev
+    tags-ignore:
+      - v*
 
 jobs:
   lint:
@@ -30,7 +35,4 @@ jobs:
         run: npm install
 
       - name: Lint
-        run: |
-          export NPM_BIN=node_modules/.bin
-          export PATH=$PATH:$NPM_BI
-          npm run lint
+        run: npm run lint
