@@ -113,7 +113,7 @@ jobs:
         run: npm install
 
       - name: Cache Cypress binary @ Linux
-        id: cache-cypress-${{ runner.os }}
+        id: cache-cypress-linux
         if: matrix.os == 'ubuntu-latest'
         uses: actions/cache@v2
         with:
@@ -121,7 +121,7 @@ jobs:
           key: ${{ runner.os }}-cypress-${{ hashFiles('package-lock.json') }}
       
       - name: Cache Cypress binary @ macOS
-        id: cache-cypress-${{ runner.os }}
+        id: cache-cypress-macos
         if: matrix.os == 'macos-latest'
         uses: actions/cache@v2
         with:
@@ -129,7 +129,7 @@ jobs:
           key: ${{ runner.os }}-cypress-${{ hashFiles('package-lock.json') }}
 
       - name: Install Cypress
-        if: steps.cache-cypress-${{ runner.os }}.outputs.cache-hit != 'true'
+        if: (matrix.os == 'ubuntu-latest' && steps.cache-cypress-linux.outputs.cache-hit != 'true') || (matrix.os == 'macos-latest' && steps.cache-cypress-macos.outputs.cache-hit != 'true')  
         run: |
           npx cypress install
           npx cypress cache path
