@@ -75,72 +75,80 @@ npm run dev
 
 > 运行测试
 
-| 测试类型        |  测试工具                    | 测试目标                             | 命令 |
-| :---:         | :---:                       | :---:                               | :---: |
-| `Unit`        | `Vue Test Utils`、`Jest`    | `Components @ Vue App @ Renderer`  | `npm run vtu`
-| `End-to-End`  | `Cypress`                   | `Vue App @ Renderer`                | `npm run cypress`
-| `Integration` | `Spectron`、`Jest`          | `Electron App`                      | `npm run spectron`
-
-<!-- > 运行 E2E 测试 -->
-
-```bash
-# 编译脚本
-# scripts/dev-runner.ts ---> esbuild.build() ---> build/dev-runner.js
-
-# 运行脚本（ 环境变量 NODE_ENV=development、TEST=cypress ）
-# node build/dev-runner.js
-
-# 脚本执行操作 - 启动本地服务器运行 Renderer Process ( Vue APP )
-# renderer/**/* ---> Vite ---> dev-server @ localhost:3000
-
-# 脚本执行操作 - 启动 Cypress Test Runner
-
-npm run cypress
-```
-
-<!-- > 测试 Electron 应用 -->
-
-```bash
-# 编译脚本
-# scripts/dev-runner.ts ---> esbuild.build() ---> build/dev-runner.js
-
-# 运行脚本（ 环境变量 NODE_ENV=development、TEST=spectron ）
-# node build/dev-runner.js
-
-# 脚本执行操作 - 启动本地服务器运行 Renderer Process ( Vue APP )
-# renderer/**/* ---> Vite ---> dev-server @ localhost:3000
-
-# 脚本执行操作 - 编译打包 Main Process ( TypeScript APP )
-# main/**/* ---> esbuild.build() ---> build/main.js、build/preload.js
-
-# 脚本执行操作 - 编译 Mocha Tests
-# tests/**/*.ts ---> esbuild.build() ---> tests/**/*.js
-
-# 脚本执行操作 - 启动 Mocha 调用 Spectron 运行 Electron App ( ---> build/main.js ) 进行测试
-
-npm run spectron
-```
-
-<!-- > 测试 Vue 组件 -->
-
-```bash
-# 编译脚本
-# scripts/dev-runner.ts ---> esbuild.build() ---> build/dev-runner.js
-
-# 运行脚本（ 环境变量 NODE_ENV=development、TEST=components ）
-# node build/dev-runner.js
-
-# 脚本执行操作 - 编译 Tests ( 利用既有 vite 预置编译功能，以支持 import .vue 文件以及 TypeScript 转换 )
-# vue/**/*.ts ---> Vite.build() ---> vue/**/*.js
-
-# 脚本执行操作 - 启动 Jest 运行测试用例
+```js
+/**
+ * 测试类型：`Unit Testing`
+ * 测试目标：`Components @ Vue App @ Renderer`
+ * 测试工具：`Vue Test Utils`、`Jest`
+ *
+ * 编译脚本
+ * scripts/dev-runner.ts ---> esbuild.build() ---> build/dev-runner.js
+ *
+ * 运行脚本（ 环境变量 NODE_ENV=development、TEST=components ）
+ * node build/dev-runner.js
+ *
+ * 脚本执行操作 - 编译 Tests ( 利用既有 vite 配置，无缝支持解析 .vue 文件以及编译 TypeScript )
+ * tests/vue/*.spec.ts ---> Vite.build() ---> tests/vue/build/*.js
+ *
+ * 脚本执行操作 - 启动 Jest 运行测试用例 ( tests/vue/build/*.js )
+ */
 
 npm run vtu
 ```
 
+```js
+/**
+ * 测试类型：`End-to-End Testing`
+ * 测试目标：`Vue App @ Renderer`
+ * 测试工具：`Cypress`
+ *
+ * 编译脚本
+ * scripts/dev-runner.ts ---> esbuild.build() ---> build/dev-runner.js
+ *
+ * 运行脚本（ 环境变量 NODE_ENV=development、TEST=cypress ）
+ * node build/dev-runner.js
+ *
+ * 脚本执行操作 - 启动本地服务器运行 Renderer Process ( Vue APP )
+ * renderer/* ---> Vite ---> dev-server @ localhost:3000
+ *
+ * 脚本执行操作 - 启动 Cypress 测试（ tests/cypress/integration/*.spec.ts，测试页面指向 localhost:3000 ）
+ *
+ * 测试及构建环境下 Cypress 的使用方式存在区别：process.env.CI ? cypress run : cypress open
+ */
+
+npm run cypress
+```
+
+```js
+/**
+ * 测试类型：`Integration Testing`
+ * 测试目标：`Electron App`
+ * 测试工具：`Spectron`、`Jest`
+ *
+ * 编译脚本
+ * scripts/dev-runner.ts ---> esbuild.build() ---> build/dev-runner.js
+ *
+ * 运行脚本（ 环境变量 NODE_ENV=development、TEST=spectron ）
+ * node build/dev-runner.js
+ *
+ * 脚本执行操作 - 启动本地服务器运行 Renderer Process ( Vue APP )
+ * renderer/* ---> Vite ---> dev-server @ localhost:3000
+ *
+ * 脚本执行操作 - 编译打包 Main Process ( TypeScript APP )
+ * main/* ---> esbuild.build() ---> build/main.js、build/preload.js
+ *
+ * 脚本执行操作 - 编译 Tests
+ * tests/spectron/*.ts ---> esbuild.build() ---> tests/spectron/*.js
+ *
+ * 脚本执行操作 - 启动 Jest 调用 Spectron 运行 Electron App ( 测试应用启动文件指向 build/main.js ) 进行测试
+ */
+
+npm run spectron
+```
+
 ---
 
-> 本地应用打包
+> 应用打包
 
 ```bash
 # 编译脚本
@@ -164,14 +172,18 @@ npm run vtu
 # 以可分发格式打包后的 Electron 应用指向 Vue 应用打包后的本地文件
 # main-window @ TinyEvt（ packaged，DMG 格式 ）---> app.asar/build/renderer/index.html
 
+# 注意：本机环境下执行打包操作时，默认忽略 `Code Signing` 以及 `publish` 操作
+
 npm run dist
 ```
 
 ---
 
-> GitHub Workflow - Build & Release
+> GitHub Workflow
 
 ```bash
+# Build & Release
+
 # 1. 更新 `package.json` 中的版本号，例如从 `v1.2.2` 变更至 `v1.2.3`
 # 2. `git commit -am v1.2.3`
 # 3. `git tag v1.2.3`，使用指定的命名格式 `v*.*.*`
@@ -179,22 +191,18 @@ npm run dist
 # 5. 指定格式标签的推送事件会触发 GitHub Actions 自动创建 Release v1.2.3、打包生成不同平台格式的应用并发布
 ```
 
-> GitHub Workflow - Build & Release - Code Signing @ macOS
-
 ```bash
-# 使用 GitHub Actions 构建应用时对其进行签名的步骤如下：
+# Build & Release - Code Signing @ macOS runner
 
 # 1. 导出与应用相关的所有证书至单个文件 `certs.p12`，并设置强密码
 # 2. 运行命令 `base64 -i certs.p12 -o encoded.txt` 对导出文件进行编码
 # 3. 在项目仓库的 `Secrets` 设置项中添加 `mac_certs`（ 即 `encoded.txt` 的内容 ）
 # 4. 在项目仓库的 `Secrets` 设置项中添加 `mac_certs_password`（ 即导出证书时设置的密码 ）
 # 5. 在 `.github/workflows/build-release.yml` 中添加 `CSC_LINK`, `CSC_KEY_PASSWORD` 环境变量配置
-```
 
-```yaml
-- name: Build App and publish
-  env: |
-    GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    CSC_LINK: ${{ secrets.CSC_LINK }}
-    CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
+# .github/workflows/build-release.yml
+# - name: Build App and publish
+#   env: |
+#     CSC_LINK: ${{ secrets.CSC_LINK }}
+#     CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
 ```
