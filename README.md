@@ -1,5 +1,6 @@
 # *tiny-evt*
 
+![Lint](https://github.com/neatfx/tiny-evt/workflows/Lint/badge.svg)
 ![Test](https://github.com/neatfx/tiny-evt/workflows/Test/badge.svg)
 ![Release](https://github.com/neatfx/tiny-evt/workflows/Release/badge.svg)
 ![Build & Publish](https://github.com/neatfx/tiny-evt/workflows/Build%20&%20Publish/badge.svg)
