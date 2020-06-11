@@ -135,7 +135,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: /Users/runner/Library/Caches/Cypress
-          key: ${{ runner.os }}-cypress-${{ hashFiles('package-lock.json') }
+          key: ${{ runner.os }}-cypress-${{ hashFiles('package-lock.json') }}
 
       - name: Copy env file
         run: cp configs/.env-cmdrc.json .env-cmdrc.json
