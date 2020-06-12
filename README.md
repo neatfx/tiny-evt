@@ -7,8 +7,8 @@
     <img src=https://github.com/neatfx/tiny-evt/workflows/Release/badge.svg>
     <img src=https://github.com/neatfx/tiny-evt/workflows/Build%20&%20Publish/badge.svg>
   </p>
-  <p>基于 <a href="https://github.com/vitejs/vite">Vite</a> 实现，使用 TypeScript、Vue 开发 Electron 应用的项目基础代码</p>
-  <p>依赖、配置、使用简单，编程前准备工作更少，运行、HMR、编译打包速度更快！遵循 <a href="https://www.electronjs.org/docs/tutorial/security">安全建议</a>、包含自动化测试构建</p>
+  <p>由 Vite 驱动，使用 TypeScript、Vue 进行 Electron 应用开发的项目基础代码</p>
+  <p>简单易用，开发前准备工作更少，编译、运行、HMR、打包速度更快！遵循 <a href="https://www.electronjs.org/docs/tutorial/security">安全建议</a>、包含自动化测试构建</p>
 </div>
 
 ![screenshot](screenshot.png)
@@ -205,4 +205,28 @@ npm run dist
 #   env: |
 #     CSC_LINK: ${{ secrets.CSC_LINK }}
 #     CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
+```
+
+---
+
+> Sponsor
+
+```ts
+// 非职业前端，出于研究以及自用目的创建此项目
+// 私以为值得投入时间，实际也在逐步获得生产力方面的回报
+// 请调用以下函数来判断是否要赞助此项目：
+
+enum Comment {
+    NotBad = '还不错',
+    DidHelped = '确实有所帮助',
+    Sorry = '毫无感觉'
+}
+
+function makeDecision (comment: Comment, willingToSponsor: boolean) {
+  if (( comment === Comment.NotBad || comment === Comment.DidHelped ) && willingToSponsor ) {
+    console.log('请点击当前页面顶部的 “Sponsor” 按钮')
+  } else {
+    console.log('能理解')
+  }
+}
 ```
