@@ -1,5 +1,5 @@
 <div align="center">
-	<img width="120" src="main/resources/icons/icon.png" alt="Awesome">
+  <img width="120" src="main/resources/icons/icon.png" alt="Awesome">
   <p><b><i>tiny-evt</i></b></p>
   <p>
     <img src=https://github.com/neatfx/tiny-evt/workflows/Lint/badge.svg>
@@ -7,7 +7,7 @@
     <img src=https://github.com/neatfx/tiny-evt/workflows/Release/badge.svg>
     <img src=https://github.com/neatfx/tiny-evt/workflows/Build%20&%20Publish/badge.svg>
   </p>
-  <p>由 Vite 驱动，使用 TypeScript、Vue 开发 Electron 应用项目的基础代码</p>
+  <p>由 Vite 驱动，使用 TypeScript、Vue 开发 Electron 应用的项目基础代码</p>
   <p>简洁易用，准备工作更少，运行、HMR、打包速度更快！遵循 <a href="https://www.electronjs.org/docs/tutorial/security">安全建议</a>、包含自动化测试构建</p>
   <img src="screenshot.png" />
 </div>
