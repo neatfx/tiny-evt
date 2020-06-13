@@ -97,29 +97,6 @@ npm run vtu
 
 ```js
 /**
- * 测试类型：`End-to-End Testing`
- * 测试目标：`Vue App @ Renderer`
- * 测试工具：`Cypress`
- *
- * 编译脚本
- * scripts/dev-runner.ts ---> esbuild.build() ---> build/dev-runner.js
- *
- * 运行脚本（ 环境变量 NODE_ENV=development、TEST=cypress ）
- * node build/dev-runner.js
- *
- * 脚本执行操作 - 启动本地服务器运行 Renderer Process ( Vue APP )
- * renderer/* ---> Vite ---> dev-server @ localhost:3000
- *
- * 脚本执行操作 - 启动 Cypress 测试（ tests/cypress/integration/*.spec.ts，测试页面指向 localhost:3000 ）
- *
- * 测试及构建环境下 Cypress 的使用方式存在区别：process.env.CI ? cypress run : cypress open
- */
-
-npm run cypress
-```
-
-```js
-/**
  * 测试类型：`Integration Testing`
  * 测试目标：`Electron App`
  * 测试工具：`Spectron`、`Jest`
@@ -143,6 +120,29 @@ npm run cypress
  */
 
 npm run spectron
+```
+
+```js
+/**
+ * 测试类型：`End-to-End Testing`
+ * 测试目标：`Vue App @ Renderer`
+ * 测试工具：`Cypress`
+ *
+ * 编译脚本
+ * scripts/dev-runner.ts ---> esbuild.build() ---> build/dev-runner.js
+ *
+ * 运行脚本（ 环境变量 NODE_ENV=development、TEST=cypress ）
+ * node build/dev-runner.js
+ *
+ * 脚本执行操作 - 启动本地服务器运行 Renderer Process ( Vue APP )
+ * renderer/* ---> Vite ---> dev-server @ localhost:3000
+ *
+ * 脚本执行操作 - 启动 Cypress 测试（ tests/cypress/integration/*.spec.ts，测试页面指向 localhost:3000 ）
+ *
+ * 测试及构建环境下 Cypress 的使用方式存在区别：process.env.CI ? cypress run : cypress open
+ */
+
+npm run cypress
 ```
 
 ---
