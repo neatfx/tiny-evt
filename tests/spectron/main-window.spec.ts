@@ -1,30 +1,17 @@
 import { Application } from 'spectron'
 import assert from 'assert'
-import path from 'path'
+
+import { startApplication, stopApplication } from './helper'
 
 describe('Application launch', function () {
   let app: Application | null = null
 
   beforeEach(async () => {
-    app = new Application({
-      env: {
-        NODE_ENV: 'development'
-      },
-      requireName: 'electronRequire',
-      path: 'node_modules/.bin/electron',
-      args: [path.join(__dirname, '../../build/main.js')]
-    })
-    
-    return app.start().then((app) => {
-      assert.strictEqual(app.isRunning(), true)
-    })
+    app = await startApplication()
   })
 
   afterEach(async () => {
-    if (app && app.isRunning()) {
-      await app.stop()
-      assert.strictEqual(app.isRunning(), false)
-    }
+    await stopApplication(app)
   })
 
   it('shows an initial window', async (done) => {

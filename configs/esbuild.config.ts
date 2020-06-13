@@ -9,7 +9,7 @@ const dev: BuildOptions = {
 }
 
 const spectron: BuildOptions = {
-  entryPoints: ['tests/spectron/spec.ts'],
+  entryPoints: ['tests/spectron/main-window.spec.ts'],
   outdir: 'tests/spectron',
   minify: false,
   bundle: true,
