@@ -96,14 +96,25 @@ function runElectronApp() {
 
 if (process.env.TEST === 'cypress') {
   launchViteDevServer().then(() => {
-    const args = ['run', '--config-file', 'configs/cypress.json']
+    if (process.env.CI) {
+      const args = ['run', '--config-file', 'configs/cypress.json']
 
-    spawn('cypress', args, {
-      stdio: 'inherit',
-      shell: process.platform === 'win32' 
-    }).on('close', () => {
-      process.exit()
-    })
+      spawn('cypress', args, {
+        stdio: 'inherit',
+        shell: process.platform === 'win32' 
+      }).on('close', () => {
+        process.exit()
+      })
+    } else {
+      const args = ['open', '--config-file', 'configs/cypress.json']
+
+      spawn('cypress', args, {
+        stdio: 'inherit',
+        shell: process.platform === 'win32' 
+      }).on('close', () => {
+        process.exit()
+      })
+    }
   })
 }
 

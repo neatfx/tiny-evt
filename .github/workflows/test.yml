@@ -137,7 +137,9 @@ jobs:
           npx cypress verify
           npx cypress info
 
-      - name: Copy env file
+      - name: Set env vars
+        env:
+          CI: true
         run: cp configs/.env-cmdrc.json .env-cmdrc.json
 
       - name: Test Electron App @ macOS
