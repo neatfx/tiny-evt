@@ -28,14 +28,14 @@ export class GithubGraphqlApi {
     }
   }
 
-  public getContribution = async (): Promise<GithubJson> => {
+  public getContribution = async (user_name: String): Promise<GithubJson> => {
     if (process.env.APP_ENV !== 'development') {
       return Promise.resolve(mockData)
     }
 
     const postBody = {
       query: `{
-        user(login: \"neatfx\"){
+        user(login: \"` + user_name + `\"){
           name,
           followers { totalCount },
           contributionsCollection {
