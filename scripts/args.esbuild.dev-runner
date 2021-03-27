@@ -2,5 +2,6 @@
 --bundle
 --external:vite
 --external:esbuild
+--external:consolidate
 scripts/dev-runner.ts
 --outfile=build/dev-runner.js

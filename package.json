@@ -20,20 +20,23 @@
     "pre-commit": "lint-staged -c configs/.lintstagedrc"
   },
   "dependencies": {
-    "vue-router": "^4.0.0-alpha.11"
+    "vue": "^3.0.8",
+    "vue-router": "^4.0.5"
   },
   "devDependencies": {
     "@types/jest": "^25.2.3",
-    "@vue/compiler-sfc": "^3.0.0-beta.14",
-    "@vue/test-utils": "^2.0.0-alpha.6",
-    "cypress": "^4.8.0",
-    "electron": "^9.0.0",
-    "electron-builder": "^22.6.0",
+    "@vitejs/plugin-vue": "^1.2.0",
+    "@vue/compiler-sfc": "^3.0.8",
+    "@vue/test-utils": "^2.0.0-rc.4",
+    "cypress": "^4.12.1",
+    "electron": "^12.0.2",
+    "electron-builder": "^22.10.5",
     "env-cmd": "^10.1.0",
-    "jest": "^26.0.1",
-    "lint-staged": "^10.2.9",
+    "esbuild": "^0.10.2",
+    "jest": "^26.6.3",
+    "lint-staged": "^10.5.4",
     "prettier": "2.0.5",
-    "spectron": "^11.0.0",
-    "vite": "^0.20.8"
+    "spectron": "^11.1.0",
+    "vite": "^2.1.3"
   }
 }

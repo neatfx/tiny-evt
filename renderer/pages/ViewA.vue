@@ -7,13 +7,13 @@
         <div v-for="day in week.contributionDays" :key="day.id">
           <a v-bind:style="{ background: day.color === '#ebedf0'? 'lightgrey' : day.color }"></a>
         </div>
+        <input v-model="inputs.github_user_name" />
       </div>
-      <input v-model="inputs.github_user_name" />
     </div>
   </div>
 </template>
 
-<script lang="ts">
+<script lang='jsx'>
 import { onMounted, ref, reactive, watch } from 'vue'
 const { ipcApi } = window
 import { GithubGraphqlApi } from '../services/github-graphql-api'
@@ -42,7 +42,7 @@ export default {
       console.log(`mounted`)
       fetchData(props.github_user_name || 'neatfx')
     })
-    async function fetchData(github_user_name: String) {
+    async function fetchData(github_user_name) {
       const result = await new GithubGraphqlApi().getContribution(github_user_name)
       weeks.value = result.data.user.contributionsCollection.contributionCalendar.weeks
     }
