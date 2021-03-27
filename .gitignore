@@ -1,3 +1,4 @@
+.env.development.local
 .env-cmdrc.json
 dist/
 build/

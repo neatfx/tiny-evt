@@ -17,20 +17,22 @@ export class GithubGraphqlApi {
   private _handleRequest = () => {
     this.baseUrl = 'https://api.github.com/graphql'
     this.config.headers['content-type'] = 'application/json'
-    if (process.env.APP_ENV === 'development') {
-      // console.log('env: ', process.env)
-      this.config.headers['Authorization'] = process.env.GITHUB_TOKEN || ''
-      if (!process.env.GITHUB_TOKEN) {
-        throw new Error('Add GITHUB_TOKEN to .env-cmdrc.json first')
-      }
-    } else {
+
+    console.log('import.meta.env.VITE_GITHUB_TOKEN: ', import.meta.env.VITE_GITHUB_TOKEN)
+
+    if (import.meta.env.VITE_APP_ENV !== 'development') {
       // TODO: retrieve configs from local file via main-process
     }
   }
 
   public getContribution = async (user_name: String): Promise<GithubJson> => {
-    if (process.env.APP_ENV !== 'development') {
+    if (import.meta.env.VITE_APP_ENV !== 'development') {
       return Promise.resolve(mockData)
+    }
+
+    this.config.headers['Authorization'] = import.meta.env.VITE_GITHUB_TOKEN || ''
+    if (!import.meta.env.VITE_GITHUB_TOKEN) {
+      throw new Error('Add GITHUB_TOKEN to .env-cmdrc.json first')
     }
 
     const postBody = {

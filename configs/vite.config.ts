@@ -1,27 +1,12 @@
 import type { UserConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
-const buildConfig: UserConfig = {
-  root: 'renderer',
-  build: {
-    outDir: 'build/renderer',
-  },
-  base: '.'
-}
-
 const serverConfig: UserConfig = {
-  plugins: [ vue()],
+  plugins: [vue()],
   root: 'renderer',
   server: {
     port: 3000,
-  },
-  optimizeDeps: {
-    include: []
   }
-  // env: {
-  //   GITHUB_TOKEN: process.env.GITHUB_TOKEN || '',
-  //   APP_ENV: process.env.NODE_ENV || 'development'
-  // }
 }
 
 const buildConfigVtu: UserConfig = {
@@ -51,6 +36,14 @@ const buildConfigVtu: UserConfig = {
   // rollupOutputOptions: {
   //   format: 'cjs' // related to issue
   // }
+}
+
+const buildConfig: UserConfig = {
+  root: 'renderer',
+  build: {
+    outDir: 'build/renderer',
+  },
+  base: '.'
 }
 
 export default {

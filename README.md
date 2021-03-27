@@ -16,16 +16,17 @@
 
 | Dependence          | Category  | Required | Version          | Information |
 | :---:               |:---:      |:---:     |:---:             |:---:|
-| `vue-router`        |           |          | `4.0.0-alpha.11` |
-| `env-cmd`           | `dev`     |          | `10.1.0`         |
-| `cypress`           | `dev`     |          | `4.7.0`          | 测试工具
-| `spectron`          | `dev`     |          | `11.0.0`         | 测试工具
-| `@vue/test-utils`   | `dev`     |          | `2.0.0-alpha.6`  | 测试工具
-| `jest`              | `dev`     |          | `26.0.1`         | 测试工具
-| `@vue/compiler-sfc` | `dev`     | `true`   | `3.0.0-beta.14`  | 版本必须匹配 `vite` 中的 `vue` 版本
-| `electron`          | `dev`     | `true`   | `9.0.0`          |
-| `electron-builder`  | `dev`     | `true`   | `22.6.0`         |
-| `vite`              | `dev`     | `true`   | `0.20.2`         | 包含 `vue@3.0.0-beta.14`、`esbuild`
+| `vue`               |           | `true`   | `3.0.8`          |
+| `vue-router`        |           |          | `4.0.5`          |
+| `cypress`           | `dev`     |          | `4.12.1`         | 测试工具
+| `spectron`          | `dev`     |          | `14.0.0`         | 测试工具
+| `@vue/test-utils`   | `dev`     |          | `2.0.0-rc.4`     | 测试工具
+| `jest`              | `dev`     |          | `26.6.3`         | 测试工具
+| `@vue/compiler-sfc` | `dev`     | `true`   | `3.0.8`          | 为 @vitejs/plugin-vue 提供支持
+| `@vitejs/plugin-vue`| `dev`     | `true`   | `1.2.0`          | 为 SFC@Vue3 提供支持
+| `electron`          | `dev`     | `true`   | `12.0.2`         |
+| `electron-builder`  | `dev`     | `true`   | `22.10.5`        |
+| `vite`              | `dev`     | `true`   | `2.1.3`          | 包含 `esbuild`
 
 ---
 

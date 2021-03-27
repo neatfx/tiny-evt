@@ -3,6 +3,9 @@ declare global {
     ipcApi: IpcApi
   }
   // type GithubJson = GithubJsonDef
+  interface ImportMeta {
+    env: any;
+  }
 }
 
 export interface IpcApi {

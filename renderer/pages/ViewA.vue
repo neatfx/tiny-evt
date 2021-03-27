@@ -7,8 +7,8 @@
         <div v-for="day in week.contributionDays" :key="day.id">
           <a v-bind:style="{ background: day.color === '#ebedf0'? 'lightgrey' : day.color }"></a>
         </div>
-        <input v-model="inputs.github_user_name" />
       </div>
+      <!-- <input v-model="inputs.github_user_name"> -->
     </div>
   </div>
 </template>
