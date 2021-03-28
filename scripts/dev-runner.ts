@@ -91,7 +91,7 @@ if (process.env.TEST === 'cypress') {
 
       spawn('cypress', args, {
         stdio: 'inherit',
-        shell: process.platform === 'win32' 
+        shell: process.platform === 'win32'
       }).on('close', () => {
         process.exit()
       })
@@ -100,7 +100,7 @@ if (process.env.TEST === 'cypress') {
 
       spawn('cypress', args, {
         stdio: 'inherit',
-        shell: process.platform === 'win32' 
+        shell: process.platform === 'win32'
       }).on('close', () => {
         process.exit()
       })
@@ -147,10 +147,7 @@ if (process.env.TEST === 'components') {
 }
 
 if (!process.env.TEST) {
-  Promise.all([
-    launchViteDevServer(), 
-    buildMainProcess()
-  ])
+  Promise.all([launchViteDevServer(), buildMainProcess()])
     .then(() => {
       runElectronApp()
     })

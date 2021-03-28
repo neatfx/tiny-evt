@@ -30,14 +30,18 @@ export class GithubGraphqlApi {
       return Promise.resolve(mockData)
     }
 
-    this.config.headers['Authorization'] = import.meta.env.VITE_GITHUB_TOKEN || ''
+    this.config.headers['Authorization'] =
+      import.meta.env.VITE_GITHUB_TOKEN || ''
     if (!import.meta.env.VITE_GITHUB_TOKEN) {
       throw new Error('Add GITHUB_TOKEN to .env-cmdrc.json first')
     }
 
     const postBody = {
-      query: `{
-        user(login: \"` + user_name + `\"){
+      query:
+        `{
+        user(login: \"` +
+        user_name +
+        `\"){
           name,
           followers { totalCount },
           contributionsCollection {

@@ -3,13 +3,13 @@ import assert from 'assert'
 
 var path = require('path')
 
-function getElectronPath () {
+function getElectronPath() {
   var electronPath = path.join('node_modules', '.bin', 'electron')
   if (process.platform === 'win32') electronPath += '.cmd'
   return electronPath
 }
 
-export async function startApplication (): Promise<Application> {
+export async function startApplication(): Promise<Application> {
   const options = {
     env: {
       NODE_ENV: 'development'
@@ -30,7 +30,7 @@ export async function startApplication (): Promise<Application> {
   })
 }
 
-export async function stopApplication (app: Application) {
+export async function stopApplication(app: Application) {
   if (!app || !app.isRunning()) return
 
   await app.stop()

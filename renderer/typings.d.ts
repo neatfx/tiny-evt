@@ -4,7 +4,7 @@ declare global {
   }
   // type GithubJson = GithubJsonDef
   interface ImportMeta {
-    env: any;
+    env: any
   }
 }
 

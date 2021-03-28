@@ -5,7 +5,7 @@ const serverConfig: UserConfig = {
   plugins: [vue()],
   root: 'renderer',
   server: {
-    port: 3000,
+    port: 3000
   }
 }
 
@@ -22,8 +22,8 @@ const buildConfigVtu: UserConfig = {
         format: 'cjs' // related to issue
       },
       external: []
-    },
-  },
+    }
+  }
 }
 
 const buildConfig: UserConfig = {
@@ -34,7 +34,7 @@ const buildConfig: UserConfig = {
   build: {
     outDir: '../build/renderer',
     assetsDir: './',
-    rollupOptions: {},
+    rollupOptions: {}
   }
 }
 
@@ -43,4 +43,3 @@ export default {
   buildConfig,
   buildConfigVtu
 }
-
