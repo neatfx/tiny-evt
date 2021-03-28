@@ -10,40 +10,32 @@ const serverConfig: UserConfig = {
 }
 
 const buildConfigVtu: UserConfig = {
+  plugins: [vue()],
   root: 'tests/vtu',
+  base: './',
   build: {
-    outDir: 'tests/vtu/build',
-    assetsDir: '.',
-
+    outDir: 'build',
+    rollupOptions: {
+      input: 'tests/vtu/Navbar.spec.ts',
+      output: {
+        format: 'cjs' // related to issue
+      },
+    },
   },
-  base: '.',
-  // emitAssets: false,
-  // emitIndex: false,
-  // rollupInputOptions: {
-  //   input: 'tests/vtu/Navbar.spec.ts',
-  //   external: [
-  //     'assert',
-  //     'path',
-  //     'fs',
-  //     'util',
-  //     'stream',
-  //     'os',
-  //     'constants',
-  //     'tty',
-  //     'module'
-  //   ]
-  // },
-  // rollupOutputOptions: {
-  //   format: 'cjs' // related to issue
-  // }
 }
 
 const buildConfig: UserConfig = {
+  mode: 'production',
+  plugins: [vue()],
+  base: './',
   root: 'renderer',
   build: {
-    outDir: 'build/renderer',
-  },
-  base: '.'
+    outDir: '../build/renderer',
+    assetsDir: './',
+    rollupOptions: {
+      external: []
+    },
+  }
 }
 
 export default {

@@ -2,7 +2,7 @@ import type { Configuration } from 'electron-builder'
 
 const conf: Configuration = {
   productName: 'TinyEvt',
-  electronVersion: '9.0.0',
+  electronVersion: '12.0.2',
   compression: 'store',
   files: [
     'package.json',

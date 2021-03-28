@@ -18,7 +18,7 @@ export class GithubGraphqlApi {
     this.baseUrl = 'https://api.github.com/graphql'
     this.config.headers['content-type'] = 'application/json'
 
-    console.log('import.meta.env.VITE_GITHUB_TOKEN: ', import.meta.env.VITE_GITHUB_TOKEN)
+    // console.log('import.meta.env.VITE_GITHUB_TOKEN: ', import.meta.env.VITE_GITHUB_TOKEN)
 
     if (import.meta.env.VITE_APP_ENV !== 'development') {
       // TODO: retrieve configs from local file via main-process

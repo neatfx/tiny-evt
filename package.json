@@ -15,7 +15,7 @@
     "cypress": "npm run build-dev-runner && NODE_ENV=development TEST=cypress node build/dev-runner.js",
     "spectron": "npm run build-dev-runner && NODE_ENV=development TEST=spectron node build/dev-runner.js",
     "vtu": "npm run build-dev-runner && NODE_ENV=development TEST=components node build/dev-runner.js",
-    "dist": "cat scripts/args.esbuild.app-builder | xargs esbuild && node build/app-builder.js"
+    "dist": "cat scripts/args.esbuild.app-builder | xargs esbuild && NODE_ENV=production node build/app-builder.js"
   },
   "gitHooks": {
     "pre-commit": "lint-staged -c configs/.lintstagedrc"
