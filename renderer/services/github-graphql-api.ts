@@ -30,11 +30,11 @@ export class GithubGraphqlApi {
       return Promise.resolve(mockData)
     }
 
-    this.config.headers['Authorization'] =
-      import.meta.env.VITE_GITHUB_TOKEN || ''
     if (!import.meta.env.VITE_GITHUB_TOKEN) {
       throw new Error('Add GITHUB_TOKEN to .env-cmdrc.json first')
     }
+
+    this.config.headers['Authorization'] = String(import.meta.env.VITE_GITHUB_TOKEN)
 
     const postBody = {
       query:

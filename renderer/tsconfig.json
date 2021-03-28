@@ -2,6 +2,7 @@
   "extends": "../configs/tsconfig.base",
   "compilerOptions": {
     "moduleResolution": "node",
+    "types": ["vite/client"]
   },
   "exclude": [
     "styles",
