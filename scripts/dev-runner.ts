@@ -7,8 +7,10 @@ import esbuildConfig from '../configs/esbuild.config'
 
 let electronProcess: ChildProcessWithoutNullStreams | null
 
-async function launchViteDevServer() {
-  const server = await createServer(viteConfig.serverConfig)
+async function launchViteDevServer(openInBrowser = false) {
+  const server = await createServer(
+    openInBrowser ? viteConfig.serveConfig : viteConfig.serverConfig
+  )
   await server.listen()
 }
 
@@ -146,7 +148,7 @@ if (process.env.TEST === 'components') {
     })
 }
 
-if (!process.env.TEST) {
+if (process.env.TEST === 'electron') {
   Promise.all([launchViteDevServer(), buildMainProcess()])
     .then(() => {
       runElectronApp()
@@ -154,4 +156,8 @@ if (!process.env.TEST) {
     .catch((err) => {
       console.error(err)
     })
+}
+
+if (process.env.TEST === 'browser') {
+  launchViteDevServer(true)
 }

@@ -11,7 +11,8 @@
   "scripts": {
     "lint": "prettier --config configs/.prettierrc --write --list-different --parser typescript \"**/*.ts\"",
     "build-dev-runner": "cat scripts/args.esbuild.dev-runner | xargs npx esbuild",
-    "dev": "npm run build-dev-runner && NODE_ENV=development node build/dev-runner.js",
+    "serve": "npm run build-dev-runner && NODE_ENV=development TEST=browser node build/dev-runner.js",
+    "dev": "npm run build-dev-runner && NODE_ENV=development TEST=electron node build/dev-runner.js",
     "cypress": "npm run build-dev-runner && NODE_ENV=development TEST=cypress node build/dev-runner.js",
     "spectron": "npm run build-dev-runner && NODE_ENV=development TEST=spectron node build/dev-runner.js",
     "vtu": "npm run build-dev-runner && NODE_ENV=development TEST=components node build/dev-runner.js",

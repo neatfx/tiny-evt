@@ -9,6 +9,15 @@ const serverConfig: UserConfig = {
   }
 }
 
+const serveConfig: UserConfig = {
+  plugins: [vue()],
+  root: 'renderer',
+  server: {
+    port: 3000,
+    open: true
+  }
+}
+
 const buildConfigVtu: UserConfig = {
   plugins: [vue()],
   root: 'tests/vtu',
@@ -40,6 +49,7 @@ const buildConfig: UserConfig = {
 }
 
 export default {
+  serveConfig,
   serverConfig,
   buildConfig,
   buildConfigVtu
