@@ -10,12 +10,12 @@
   "main": "build/main.js",
   "scripts": {
     "lint": "prettier --config configs/.prettierrc --write --list-different --parser typescript \"**/*.ts\"",
-    "build-dev-runner": "cat scripts/args.esbuild.dev-runner | xargs esbuild",
+    "build-dev-runner": "cat scripts/args.esbuild.dev-runner | xargs npx esbuild",
     "dev": "npm run build-dev-runner && NODE_ENV=development node build/dev-runner.js",
     "cypress": "npm run build-dev-runner && NODE_ENV=development TEST=cypress node build/dev-runner.js",
     "spectron": "npm run build-dev-runner && NODE_ENV=development TEST=spectron node build/dev-runner.js",
     "vtu": "npm run build-dev-runner && NODE_ENV=development TEST=components node build/dev-runner.js",
-    "dist": "cat scripts/args.esbuild.app-builder | xargs esbuild && NODE_ENV=production node build/app-builder.js"
+    "dist": "cat scripts/args.esbuild.app-builder | xargs npx esbuild && NODE_ENV=production node build/app-builder.js"
   },
   "gitHooks": {
     "pre-commit": "lint-staged -c configs/.lintstagedrc"
@@ -33,7 +33,6 @@
     "electron": "^12.0.2",
     "electron-builder": "^22.10.5",
     "env-cmd": "^10.1.0",
-    "esbuild": "^0.10.2",
     "jest": "^26.6.3",
     "lint-staged": "^10.5.4",
     "prettier": "2.0.5",
