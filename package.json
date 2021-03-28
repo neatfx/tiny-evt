@@ -1,6 +1,6 @@
 {
   "name": "tiny-evt",
-  "description": "Vite powered foundation for building secure Electron Apps with TypeScript and Vue",
+  "description": "Vite + Vue + Electron + TypeScript",
   "version": "0.10.2",
   "author": "Robocat<neatfx@gmail.com>",
   "repository": {
