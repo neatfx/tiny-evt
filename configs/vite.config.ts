@@ -15,11 +15,13 @@ const buildConfigVtu: UserConfig = {
   base: './',
   build: {
     outDir: 'build',
+    assetsDir: './',
     rollupOptions: {
       input: 'tests/vtu/Navbar.spec.ts',
       output: {
         format: 'cjs' // related to issue
       },
+      external: []
     },
   },
 }
@@ -32,9 +34,7 @@ const buildConfig: UserConfig = {
   build: {
     outDir: '../build/renderer',
     assetsDir: './',
-    rollupOptions: {
-      external: []
-    },
+    rollupOptions: {},
   }
 }
 
