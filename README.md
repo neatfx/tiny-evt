@@ -206,26 +206,3 @@ npm run dist
 #     CSC_LINK: ${{ secrets.CSC_LINK }}
 #     CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
 ```
-
----
-
-> Sponsor
-
-```ts
-// 非职业前端，出于研究以及自用目的创建此项目
-// 请调用以下函数来判断是否要赞助此项目：
-
-enum Comment {
-    NotBad = '还不错',
-    DidHelped = '确实有所帮助',
-    Sorry = '毫无感觉'
-}
-
-function makeDecision (comment: Comment, willingToSponsor: boolean) {
-  if (( comment === Comment.NotBad || comment === Comment.DidHelped ) && willingToSponsor ) {
-    console.log('请点击当前页面顶部的 “Sponsor” 按钮')
-  } else {
-    console.log('能理解')
-  }
-}
-```
