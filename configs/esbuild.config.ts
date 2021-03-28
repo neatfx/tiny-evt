@@ -1,6 +1,7 @@
-import type { BuildOptions } from 'esbuild'
+import type { BuildOptions } from 'vite/node_modules/esbuild'
 
 const dev: BuildOptions = {
+  platform: 'node',
   entryPoints: ['main/main.ts', 'main/preload.ts'],
   outdir: 'build/',
   minify: false,
@@ -17,6 +18,7 @@ const spectron: BuildOptions = {
 }
 
 const dist: BuildOptions = {
+  platform: 'node',
   entryPoints: ['main/main.ts', 'main/preload.ts'],
   outdir: 'build/',
   minify: true,

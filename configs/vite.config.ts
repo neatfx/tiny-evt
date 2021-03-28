@@ -33,6 +33,7 @@ const buildConfig: UserConfig = {
   root: 'renderer',
   build: {
     outDir: '../build/renderer',
+    emptyOutDir: true,
     assetsDir: './',
     rollupOptions: {}
   }
