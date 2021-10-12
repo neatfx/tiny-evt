@@ -31,7 +31,7 @@
     "@vue/compiler-sfc": "^3.0.8",
     "@vue/test-utils": "^2.0.0-rc.4",
     "cypress": "^6.8.0",
-    "electron": "^12.0.2",
+    "electron": "^12.1.0",
     "electron-builder": "^22.10.5",
     "env-cmd": "^10.1.0",
     "jest": "^26.6.3",
