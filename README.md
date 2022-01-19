@@ -22,7 +22,6 @@
 | `spectron`          | `dev`     |          | `14.0.0`         | 测试工具
 | `@vue/test-utils`   | `dev`     |          | `2.0.0-rc.4`     | 测试工具
 | `jest`              | `dev`     |          | `26.6.3`         | 测试工具
-| `@vue/compiler-sfc` | `dev`     | `true`   | `3.0.8`          | 为 @vitejs/plugin-vue 提供支持
 | `@vitejs/plugin-vue`| `dev`     | `true`   | `2.1.0`          | 为 SFC@Vue3 提供支持
 | `electron`          | `dev`     | `true`   | `16.0.7`         |
 | `electron-builder`  | `dev`     | `true`   | `22.10.5`        |
