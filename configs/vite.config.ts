@@ -24,6 +24,7 @@ const buildConfigVtu: UserConfig = {
   build: {
     outDir: 'tests/vtu/build',
     assetsDir: './',
+    chunkSizeWarningLimit: 1000,
     rollupOptions: {
       input: './tests/vtu/Navbar.spec.ts',
 
