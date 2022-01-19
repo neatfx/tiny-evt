@@ -20,17 +20,20 @@ const serveConfig: UserConfig = {
 
 const buildConfigVtu: UserConfig = {
   plugins: [vue()],
-  root: 'tests/vtu',
-  base: './',
+  root: '.',
   build: {
-    outDir: 'build',
+    outDir: 'tests/vtu/build',
     assetsDir: './',
     rollupOptions: {
-      input: 'tests/vtu/Navbar.spec.ts',
+      input: './tests/vtu/Navbar.spec.ts',
+
+      external: [
+        // path.resolve( __dirname, 'src/some-local-file-that-should-not-be-bundled.js' ),
+        // /node_modules/
+      ],
       output: {
         format: 'cjs' // related to issue
       },
-      external: []
     }
   }
 }

@@ -1,4 +1,4 @@
-import type { BuildOptions } from 'vite/node_modules/esbuild'
+import type { BuildOptions } from 'esbuild'
 
 const dev: BuildOptions = {
   platform: 'node',
