@@ -26,7 +26,7 @@
 | `@vitejs/plugin-vue`| `dev`     | `true`   | `2.1.0`          | 为 SFC@Vue3 提供支持
 | `electron`          | `dev`     | `true`   | `16.0.7`         |
 | `electron-builder`  | `dev`     | `true`   | `22.10.5`        |
-| `vite`              | `dev`     | `true`   | `2.1.3`          | 包含 `esbuild`
+| `vite`              | `dev`     | `true`   | `2.7.13`          | 包含 `esbuild`
 
 ---
 
