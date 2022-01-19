@@ -1,6 +1,6 @@
 import { createServer, build as viteBuild } from 'vite'
 import { spawn, ChildProcessWithoutNullStreams } from 'child_process'
-import { build } from 'vite/node_modules/esbuild'
+import { build } from 'esbuild'
 
 import viteConfig from '../configs/vite.config'
 import esbuildConfig from '../configs/esbuild.config'

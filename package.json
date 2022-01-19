@@ -22,12 +22,12 @@
     "pre-commit": "lint-staged -c configs/.lintstagedrc"
   },
   "dependencies": {
-    "vue": "^3.0.8",
+    "vue": "^3.2.25",
     "vue-router": "^4.0.5"
   },
   "devDependencies": {
     "@types/jest": "^25.2.3",
-    "@vitejs/plugin-vue": "^1.2.0",
+    "@vitejs/plugin-vue": "^2.0.1",
     "@vue/compiler-sfc": "^3.0.8",
     "@vue/test-utils": "^2.0.0-rc.4",
     "cypress": "^6.8.0",

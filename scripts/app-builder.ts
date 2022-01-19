@@ -1,5 +1,5 @@
 import { build as viteBuild } from 'vite'
-import { build as esbuild } from 'vite/node_modules/esbuild'
+import { build as esbuild } from 'esbuild'
 import { build as electronBuild, Platform, CliOptions } from 'electron-builder'
 
 import esbuildConfig from '../configs/esbuild.config'
