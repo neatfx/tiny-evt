@@ -28,7 +28,6 @@
   "devDependencies": {
     "@types/jest": "^25.2.3",
     "@vitejs/plugin-vue": "^2.0.1",
-    "@vue/compiler-sfc": "^3.0.8",
     "@vue/test-utils": "^2.0.0-rc.18",
     "cypress": "^6.8.0",
     "electron": "^16.0.7",
