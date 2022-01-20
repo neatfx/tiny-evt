@@ -15,21 +15,17 @@ on:
       - '**.md'
 
 jobs:
-  unit-testing:
+  vue-components-testing:
     name: Unit
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest]
+        os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
         with:
-          node-version: '12.x'
-
+          node-version: '16.x'
       - name: Cache NPM
         id: restore-cache
         uses: actions/cache@v2
@@ -46,108 +42,3 @@ jobs:
 
       - name: Test Vue components
         run: npm run vtu
-
-  integration-testing:
-    name: Integration 
-    strategy:
-      matrix:
-        os: [macos-latest, ubuntu-latest]
-    runs-on: ${{ matrix.os }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
-
-      - name: Cache NPM
-        id: restore-cache
-        uses: actions/cache@v2
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-npm-deps-${{ hashFiles('package-lock.json') }}
-
-      - name: Install dependencies
-        if: steps.restore-cache.outputs.cache-hit != 'true'
-        run: npm install
-
-      - name: Copy env file
-        run: cp configs/.env-cmdrc.json .env-cmdrc.json
-
-      - name: Test Electron App @ macOS
-        if: matrix.os == 'macos-latest'
-        run: npm run spectron
-
-      - name: Test Electron App @ Linux
-        if: matrix.os == 'ubuntu-latest'
-        run: |
-          sudo apt-get install xvfb
-          xvfb-run --auto-servernum npm run spectron
-
-  # e2e-testing:
-  #   name: E2E 
-  #   strategy:
-  #     matrix:
-  #       os: [macos-latest, ubuntu-latest]
-  #   runs-on: ${{ matrix.os }}
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v2
-
-  #     - name: Setup Node.js
-  #       uses: actions/setup-node@v1
-  #       with:
-  #         node-version: '12.x'
-
-  #     - name: Cache NPM
-  #       id: restore-cache
-  #       uses: actions/cache@v2
-  #       with:
-  #         path: node_modules
-  #         key: ${{ runner.os }}-npm-deps-${{ hashFiles('package-lock.json') }}
-
-  #     - name: Install dependencies
-  #       if: steps.restore-cache.outputs.cache-hit != 'true'
-  #       run: npm install
-
-  #     - name: Cache Cypress binary @ Linux
-  #       id: cache-cypress-linux
-  #       if: matrix.os == 'ubuntu-latest'
-  #       uses: actions/cache@v2
-  #       with:
-  #         path: ~/.cache/Cypress
-  #         key: ${{ runner.os }}-cypress-${{ hashFiles('package-lock.json') }}
-      
-  #     - name: Cache Cypress binary @ macOS
-  #       id: cache-cypress-macos
-  #       if: matrix.os == 'macos-latest'
-  #       uses: actions/cache@v2
-  #       with:
-  #         path: /Users/runner/Library/Caches/Cypress
-  #         key: ${{ runner.os }}-cypress-${{ hashFiles('package-lock.json') }}
-
-  #     - name: Install Cypress
-  #       if: (matrix.os == 'ubuntu-latest' && steps.cache-cypress-linux.outputs.cache-hit != 'true') || (matrix.os == 'macos-latest' && steps.cache-cypress-macos.outputs.cache-hit != 'true')  
-  #       run: |
-  #         npx cypress install
-  #         npx cypress cache path
-  #         npx cypress cache list
-  #         npx cypress verify
-  #         npx cypress info
-
-  #     - name: Set env vars
-  #       env:
-  #         CI: true
-  #       run: cp configs/.env-cmdrc.json .env-cmdrc.json
-
-  #     - name: Test Electron App @ macOS
-  #       if: matrix.os == 'macos-latest'
-  #       run: npm run cypress
-
-  #     - name: Test Electron App @ Linux
-  #       if: matrix.os == 'ubuntu-latest'
-  #       run: |
-  #         sudo apt-get install xvfb
-  #         xvfb-run --auto-servernum npm run cypress
