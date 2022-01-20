@@ -34,7 +34,7 @@ const buildConfigVtu: UserConfig = {
       ],
       output: {
         format: 'cjs' // related to issue
-      },
+      }
     }
   }
 }

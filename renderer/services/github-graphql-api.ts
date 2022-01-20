@@ -34,7 +34,9 @@ export class GithubGraphqlApi {
       throw new Error('Add GITHUB_TOKEN to .env-cmdrc.json first')
     }
 
-    this.config.headers['Authorization'] = String(import.meta.env.VITE_GITHUB_TOKEN)
+    this.config.headers['Authorization'] = String(
+      import.meta.env.VITE_GITHUB_TOKEN
+    )
 
     const postBody = {
       query:
