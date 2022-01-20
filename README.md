@@ -16,16 +16,14 @@
 
 | Dependence          | Category  | Required | Version          | Information |
 | :---:               |:---:      |:---:     |:---:             |:---:|
-| `vue`               |           | `true`   | `3.2.25`          |
+| `vue`               |           | `true`   | `3.2.25`         |
 | `vue-router`        |           |          | `4.0.5`          |
-| `cypress`           | `dev`     |          | `4.12.1`         | 测试工具
-| `spectron`          | `dev`     |          | `14.0.0`         | 测试工具
+| `@playwright/test`  | `dev`     |          | `1.17.2`         | 测试工具
 | `@vue/test-utils`   | `dev`     |          | `2.0.0-rc.4`     | 测试工具
-| `jest`              | `dev`     |          | `26.6.3`         | 测试工具
 | `@vitejs/plugin-vue`| `dev`     | `true`   | `2.1.0`          | 为 SFC@Vue3 提供支持
 | `electron`          | `dev`     | `true`   | `16.0.7`         |
 | `electron-builder`  | `dev`     | `true`   | `22.10.5`        |
-| `vite`              | `dev`     | `true`   | `2.7.13`          | 包含 `esbuild`
+| `vite`              | `dev`     | `true`   | `2.7.13`         | 包含 `esbuild`
 
 ---
 
@@ -83,13 +81,13 @@ npm run dev
  * 编译脚本
  * scripts/dev-runner.ts ---> esbuild.build() ---> build/dev-runner.js
  *
- * 运行脚本（ 环境变量 NODE_ENV=development、TEST=components ）
+ * 运行脚本（ 环境变量 NODE_ENV=development、TEST=vtu ）
  * node build/dev-runner.js
  *
  * 脚本执行操作 - 编译 Tests ( 利用既有 vite 配置，无缝支持解析 .vue 文件以及编译 TypeScript )
- * tests/vue/*.spec.ts ---> Vite.build() ---> tests/vue/build/*.js
+ * tests/vtu/*.spec.ts ---> Vite.build() ---> tests/vtu/build
  *
- * 脚本执行操作 - 启动 Jest 运行测试用例 ( tests/vue/build/*.js )
+ * 脚本执行操作 - 启动 Jest 运行测试用例 ( tests/vtu/build/*.js )
  */
 
 npm run vtu
@@ -97,52 +95,25 @@ npm run vtu
 
 ```js
 /**
- * 测试类型：`Integration Testing`
- * 测试目标：`Electron App`
- * 测试工具：`Spectron`、`Jest`
- *
- * 编译脚本
- * scripts/dev-runner.ts ---> esbuild.build() ---> build/dev-runner.js
- *
- * 运行脚本（ 环境变量 NODE_ENV=development、TEST=spectron ）
- * node build/dev-runner.js
- *
- * 脚本执行操作 - 启动本地服务器运行 Renderer Process ( Vue APP )
- * renderer/* ---> Vite ---> dev-server @ localhost:3000
- *
- * 脚本执行操作 - 编译打包 Main Process ( TypeScript APP )
- * main/* ---> esbuild.build() ---> build/main.js、build/preload.js
- *
- * 脚本执行操作 - 编译 Tests
- * tests/spectron/*.ts ---> esbuild.build() ---> tests/spectron/*.js
- *
- * 脚本执行操作 - 启动 Jest 调用 Spectron 运行 Electron App ( 测试应用启动文件指向 build/main.js ) 进行测试
- */
-
-npm run spectron
-```
-
-```js
-/**
  * 测试类型：`End-to-End Testing`
  * 测试目标：`Vue App @ Renderer`
- * 测试工具：`Cypress`
+ * 测试工具：`playwright`
  *
  * 编译脚本
  * scripts/dev-runner.ts ---> esbuild.build() ---> build/dev-runner.js
  *
- * 运行脚本（ 环境变量 NODE_ENV=development、TEST=cypress ）
+ * 运行脚本（ 环境变量 NODE_ENV=development、TEST=e2e ）
  * node build/dev-runner.js
  *
  * 脚本执行操作 - 启动本地服务器运行 Renderer Process ( Vue APP )
  * renderer/* ---> Vite ---> dev-server @ localhost:3000
  *
- * 脚本执行操作 - 启动 Cypress 测试（ tests/cypress/integration/*.spec.ts，测试页面指向 localhost:3000 ）
+ * 脚本执行操作 - 启动 playwright 测试（ e2e/*.spec.ts，测试页面指向 localhost:3000 ）
  *
- * 测试及构建环境下 Cypress 的使用方式存在区别：process.env.CI ? cypress run : cypress open
+ * 测试环境下 playwright 打开浏览器进行测试，构建环境下 playwright 以 headless 模式运行方式
  */
 
-npm run cypress
+npm run e2e
 ```
 
 ---

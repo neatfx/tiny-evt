@@ -32,19 +32,6 @@ async function buildMainProcess() {
     })
 }
 
-async function buildSpectronTests() {
-  return build(esbuildConfig.spectron)
-    .then(
-      () => {},
-      (err) => {
-        console.log(err)
-      }
-    )
-    .catch((e) => {
-      return e
-    })
-}
-
 async function buildVueTests() {
   return viteBuild(viteConfig.buildConfigVtu).catch((err) => {
     console.log(`\nfailed to build vue tests`)
@@ -86,21 +73,21 @@ function runElectronApp() {
   })
 }
 
-if (process.env.TEST === 'cypress') {
+if (process.env.TEST === 'e2e') {
   launchViteDevServer().then(() => {
     if (process.env.CI) {
-      const args = ['run', '--config-file', 'configs/cypress.json']
-
-      spawn('cypress', args, {
+      // 服务器 CI 环境
+      const args = ['playwright', 'test', '--project=chromium']
+      spawn('npx', args, {
         stdio: 'inherit',
         shell: process.platform === 'win32'
       }).on('close', () => {
         process.exit()
       })
     } else {
-      const args = ['open', '--config-file', 'configs/cypress.json']
-
-      spawn('cypress', args, {
+      // 本地开发环境
+      const args = ['playwright', 'test', '--headed', '--project=chromium']
+      spawn('npx', args, {
         stdio: 'inherit',
         shell: process.platform === 'win32'
       }).on('close', () => {
@@ -110,28 +97,7 @@ if (process.env.TEST === 'cypress') {
   })
 }
 
-if (process.env.TEST === 'spectron') {
-  Promise.all([launchViteDevServer(), buildMainProcess(), buildSpectronTests()])
-    .then(() => {
-      const args = [
-        '--detectOpenHandles',
-        '--config',
-        'configs/jest.config.spectron.json'
-      ]
-
-      spawn('jest', args, {
-        stdio: 'inherit',
-        shell: process.platform === 'win32'
-      }).on('close', () => {
-        process.exit()
-      })
-    })
-    .catch((err) => {
-      console.error(err)
-    })
-}
-
-if (process.env.TEST === 'components') {
+if (process.env.TEST === 'vtu') {
   buildVueTests()
     .then(() => {
       const args = ['--config', 'configs/jest.config.vtu.json']
