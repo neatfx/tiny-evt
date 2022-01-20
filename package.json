@@ -26,13 +26,30 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.17.2",
+    "@types/jest": "^27.4.0",
     "@vitejs/plugin-vue": "^2.0.1",
     "@vue/test-utils": "^2.0.0-rc.18",
     "electron": "^16.0.7",
     "electron-builder": "^22.14.5",
     "env-cmd": "^10.1.0",
+    "esbuild": "^0.14.11",
+    "install": "^0.13.0",
     "lint-staged": "^10.5.4",
+    "npm": "^8.3.1",
     "prettier": "2.0.5",
-    "vite": "^2.7.13"
+    "vite": "^2.7.13",
+    "vue-jest": "^5.0.0-alpha.10"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "ts",
+      "json",
+      "vue"
+    ],
+    "transform": {
+      ".*\\.(vue)$": "vue-jest"
+    },
+    "testURL": "http://localhost/"
   }
 }

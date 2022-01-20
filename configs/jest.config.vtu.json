@@ -1,4 +1,6 @@
 {
-  "roots": ["../tests/vtu"],
-  "testMatch": ["**/?(*.)+(spec|test).*.js"]
+  "roots": ["../tests/vtu/build"],
+  "testMatch": [
+    "**/?(*.)+(spec|test).*.js"
+  ]
 }
