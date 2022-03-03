@@ -1,6 +1,6 @@
 <template>
   <div id="container">
-    <button @click="openPreferenceWindow"> Open BrowserWindow </button>
+    <button @click="callMainProcess"> Open BrowserWindow </button>
     <br>
     <div id="graph">
       <div class="week" v-for="week in weeks" :key="week.id">
@@ -15,7 +15,7 @@
 
 <script lang='ts'>
 import { defineComponent, onMounted, ref, reactive, watch } from 'vue'
-const { ipcApi } = window
+const { electronAPI } = window
 import { GithubGraphqlApi } from '../services/github-graphql-api'
 
 export default defineComponent({
@@ -44,9 +44,9 @@ export default defineComponent({
       console.log(inputs.github_user_name)
       // fetchData(inputs.github_user_name)
     })
-    async function openPreferenceWindow() {
-      const returnValue = ipcApi.sendSync('open-about-window', 'ping')
-      console.log('[@vue -> value returned in the sync message sent to main process]', returnValue)
+    async function callMainProcess() {
+      const returnValue = electronAPI.sendSync('sync-message-to-main', 'ping')
+      console.log('[vue -> main-process]', returnValue)
     }
     onMounted(() => {
       console.log(`mounted`)
@@ -57,7 +57,7 @@ export default defineComponent({
       weeks.value = result.data.user.contributionsCollection.contributionCalendar.weeks
     }
     return {
-      openPreferenceWindow,
+      callMainProcess,
       weeks,
       inputs
     }

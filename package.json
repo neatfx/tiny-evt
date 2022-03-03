@@ -21,6 +21,7 @@
     "pre-commit": "lint-staged -c configs/.lintstagedrc"
   },
   "dependencies": {
+    "@electron/remote": "^2.0.5",
     "vue": "^3.2.25",
     "vue-router": "^4.0.5"
   },

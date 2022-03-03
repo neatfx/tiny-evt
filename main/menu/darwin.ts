@@ -1,4 +1,4 @@
-import { app, ipcMain, Menu, MenuItem } from 'electron'
+import { app, Menu, MenuItem } from 'electron'
 import type { ComponentsRouter } from '../main'
 
 export default function (cr: ComponentsRouter) {
@@ -6,9 +6,9 @@ export default function (cr: ComponentsRouter) {
     label: app.name,
     submenu: [
       {
-        label: '关于' + app.name,
+        label: '关于 ' + app.name,
         click: () => {
-          ipcMain.emit('open-about-window', 'ping')
+          cr.aboutWindow.toggle()
         }
       },
       { type: 'separator' },

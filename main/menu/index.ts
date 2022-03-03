@@ -1,6 +1,6 @@
-import darwinMenu from './menus/darwin'
-import linuxMenu from './menus/linux'
-import win32Menu from './menus/win32'
+import darwinMenu from './darwin'
+import linuxMenu from './linux'
+import win32Menu from './win32'
 
 export default (() => {
   if (process.platform === 'darwin') {

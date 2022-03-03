@@ -1,6 +1,6 @@
 declare global {
   interface Window {
-    ipcApi: IpcApi
+    electronAPI: IElectronAPI
   }
   // type GithubJson = GithubJsonDef
   // interface ImportMeta {
@@ -8,7 +8,8 @@ declare global {
   // }
 }
 
-export interface IpcApi {
+export interface IElectronAPI {
+  loadPreferences: () => Promise<void>,
   send(channel: string, ...args: any[]): void
   sendSync(channel: string, ...args: any[]): any
   receive(channel: string, listener: (...args: any[]) => void): () => void

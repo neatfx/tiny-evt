@@ -1,25 +1,20 @@
+// 自 Electron 12 以来，默认启用上下文隔离，所有应用程序推荐的安全设置
+// 由于 preload process 可访问全部 Node.js API，封装后暴露给 renderer process 进行有限制的调用以保证安全
+
 import { contextBridge, ipcRenderer } from 'electron'
 import { readFileSync } from 'fs'
 
-// expose a require window global to Spectron so it can access the core Electron APIs.
-if (process.env.NODE_ENV === 'development') {
-  window.electronRequire = window.require
-}
-
-// Expose protected methods that allow the renderer process to use
-// the ipcRenderer without exposing the entire object
-
-// whitelist channels
+// 白名单
 const validChannels = {
   send: ['async-ipc-from-renderer-to-main'],
   sendSync: [
-    'open-about-window',
-    'get-sys-info'
+    'async-message-to-main',
   ],
   receive: ['ipc_from_main']
 }
 
-contextBridge.exposeInMainWorld('ipcApi', {
+contextBridge.exposeInMainWorld('electronAPI', {
+  loadPreferences: () => ipcRenderer.invoke('load-prefs'),
   send: (channel: string, data: object) => {
     if (validChannels.send.includes(channel)) {
       ipcRenderer.send(channel, data)
@@ -29,10 +24,6 @@ contextBridge.exposeInMainWorld('ipcApi', {
     if (validChannels.sendSync.includes(channel)) {
       const result = ipcRenderer.sendSync(channel, data)
       console.log('[@preload.ipcApi.sendSync -> result]', result)
-      // console.log(result)
-      // for (const type of ['chrome', 'node', 'electron']) {
-      //   replaceText(`${type}-version`, process.versions[type])
-      // }
       return result
     }
   },
@@ -45,15 +36,13 @@ contextBridge.exposeInMainWorld('ipcApi', {
       })
     }
   },
-  // 上下文隔离 - preload 中可访问 node 提供的功能，封装之后暴露给 renderer process 使用，此处代码仅为示例
   readConfig: () => {
     const data = readFileSync('./config.json')
     return data
   }
 })
 
-// All of the Node.js APIs are available in the preload process.
-// It has the same sandbox as a Chrome extension.
+// preload process 运行于与 Chrome 扩展相同的安全沙箱环境
 window.addEventListener('DOMContentLoaded', () => {
   // const replaceText = (selector: string, text: string | undefined) => {
   //   const element = document.getElementById(selector)

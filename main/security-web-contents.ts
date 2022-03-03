@@ -32,8 +32,6 @@ import { shell } from 'electron'
 
 app.on('web-contents-created', (event, contents) => {
   contents.on('new-window', async (event, navigationUrl) => {
-    // In this example, we'll ask the operating system
-    // to open this event's url in the default browser.
     event.preventDefault()
 
     await shell.openExternal(navigationUrl)

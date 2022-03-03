@@ -29,6 +29,7 @@ export default class {
     this.window = new BrowserWindow(this.option)
     this.window.on('ready-to-show', () => {
       this.window?.hide()
+      // process.versions['chrome']
     })
 
     this.window.on('closed', () => {
