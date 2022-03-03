@@ -32,8 +32,10 @@ export default class {
       // process.versions['chrome']
     })
 
-    this.window.on('closed', () => {
-      this.window = null
+    this.window.on('close', (e) => {
+      e.preventDefault()
+      // this.window = null
+      this.window?.hide()
     })
 
     if(process.env.NODE_ENV === 'development') {
@@ -46,14 +48,15 @@ export default class {
   }
 
   async toggle() {
-    if (this.window === null) {
-      await this.init()
-    }
-    if (this.window?.isVisible()) {
-      this.window.hide()
-    } else {
-      this.window?.show()
-      // this.window.focus()
-    }
+    // if (this.window === null) {
+    //   await this.init()
+    // }else{
+      if (this.window?.isVisible()) {
+        this.window.hide()
+      } else {
+        this.window?.show()
+        // this.window.focus()
+      }
+    // }
   }
 }

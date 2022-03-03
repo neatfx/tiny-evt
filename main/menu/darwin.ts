@@ -11,6 +11,12 @@ export default function (cr: ComponentsRouter) {
           cr.aboutWindow.toggle()
         }
       },
+      {
+        label: '设置选项',
+        click: () => {
+          cr.aboutWindow.toggle()
+        }
+      },
       { type: 'separator' },
       {
         label: '退出',
