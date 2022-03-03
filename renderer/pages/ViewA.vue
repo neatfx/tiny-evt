@@ -13,17 +13,27 @@
   </div>
 </template>
 
-<script lang='jsx'>
-import { onMounted, ref, reactive, watch } from 'vue'
+<script lang='ts'>
+import { defineComponent, onMounted, ref, reactive, watch } from 'vue'
 const { ipcApi } = window
 import { GithubGraphqlApi } from '../services/github-graphql-api'
 
-export default {
+export default defineComponent({
   props: {
     github_user_name: String
   },
-  setup(props) {
-    const weeks = ref({})
+  setup(props: {
+    github_user_name: string,
+  }) {
+    const weeks= ref({} as { 
+      id: number,
+      contributionDays:{
+          id: number,
+          color: string,
+          contributionCount: number,
+          date: string
+      }[]}[])
+
     const inputs = reactive({
       github_user_name: 'neatfx'
     })
@@ -35,14 +45,14 @@ export default {
       // fetchData(inputs.github_user_name)
     })
     async function openPreferenceWindow() {
-      const returnValue = ipcApi.sendSync('open-preference-window', 'ping')
+      const returnValue = ipcApi.sendSync('open-about-window', 'ping')
       console.log('[@vue -> value returned in the sync message sent to main process]', returnValue)
     }
     onMounted(() => {
       console.log(`mounted`)
-      fetchData(props.github_user_name || 'neatfx')
+      // fetchData(props.github_user_name || 'neatfx')
     })
-    async function fetchData(github_user_name) {
+    async function fetchData(github_user_name: string) {
       const result = await new GithubGraphqlApi().getContribution(github_user_name)
       weeks.value = result.data.user.contributionsCollection.contributionCalendar.weeks
     }
@@ -52,7 +62,7 @@ export default {
       inputs
     }
   }
-}
+})
 </script>
 
 <style scoped>

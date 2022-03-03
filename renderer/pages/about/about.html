@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>关于</title>
+</head>
+
+<body>
+  <div id="img-container">
+    <div></div>
+    <img src="./icon.png"></div>
+    <div></div>
+  </div>
+  <div id="info">
+    <div><b>TinyEvt</b></div>
+    <div class="info-line first">Version: 1.0.0</div>
+    <div class="info-line">Copyright © 2022 Neatfx</div>
+    <br>
+    <div class="info-line-extra">Electron: 13.5.2</div>
+    <div class="info-line-extra">Chromium: 91.0.4472.164</div>
+    <div class="info-line-extra">Node.js: 14.16.0</div>
+    <div class="info-line-extra">V8: 9.1.269.39-electron.0</div>
+  </div>
+</body>
+<style>
+  #img-container{
+    margin-top: 15px;;
+    /* border: 1px solid red; */
+    display: grid;
+    grid-template-columns: auto 80px auto;
+  }
+  img{
+    display: block;
+    width: 80px;
+    /* border: 1px solid red; */
+  }
+  #info{
+    margin-top: 10px;
+    /* border: 1px solid red; */
+    text-align: center;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+  }
+  .first{
+    margin-top: 5px;
+  }
+  .info-line{
+    font-size:x-small;
+    padding: 3px 0;
+  }
+  .info-line-extra{
+    font-size: x-small;
+    padding: 2px 0;
+  }
+</style>
+</html>

@@ -15,6 +15,10 @@ const conf: Configuration = {
       from: 'main/resources',
       to: 'resources',
       filter: ['**/*']
+    },
+    {
+      from: 'renderer/pages/about',
+      to: 'build/renderer/about'
     }
   ],
   dmg: {

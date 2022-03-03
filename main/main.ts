@@ -6,24 +6,26 @@ import './security/web-contents'
 import Menu from './menu'
 
 import MainWindow from './windows/main'
-import PreferenceWindow from './windows/preferences'
+import AboutWindow from './windows/about'
 import AppTray from './tray'
 
 const mainWindow = new MainWindow()
+const aboutWindow = new AboutWindow()
 const tray = new AppTray()
 
 export interface ComponentsRouter {
-  preferenceWindow: PreferenceWindow
+  aboutWindow: AboutWindow
   mainWindow: MainWindow
 }
 const cr: ComponentsRouter = {
-  preferenceWindow: new PreferenceWindow(),
+  aboutWindow: aboutWindow, 
   mainWindow: mainWindow
 }
 
-app.on('ready', () => {
+app.on('ready', async () => {
   Menu(cr)
   mainWindow.init()
+  await aboutWindow.init()
   tray.init()
 })
 
@@ -46,11 +48,18 @@ ipcMain.on('async-message-to-main', (event, arg) => {
   event.reply('async-reply', 'pong')
 })
 
-ipcMain.on('open-preference-window', (event, arg) => {
+ipcMain.on('open-about-window', async (event, arg) => {
   // console.log('[channel] - "open-preference-window"')
   // console.log('[IpcMainEvent] - ', event)
   // console.log('[arg] - ', arg)
 
-  cr.preferenceWindow.toggle()
+  await cr.aboutWindow.toggle()
   event.returnValue = 'pong'
+})
+
+ipcMain.on('get-sys-info', (event, arg) => {
+  // console.log('[channel] - "open-preference-window"')
+  // console.log('[IpcMainEvent] - ', event)
+  // console.log('[arg] - ', arg)
+  event.returnValue = process.versions['chrome']
 })

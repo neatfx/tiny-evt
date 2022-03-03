@@ -28,7 +28,6 @@ export default class {
       show: false,
       webPreferences: {
         contextIsolation: true,
-        enableRemoteModule: false,
         preload: this.preloadPath
       }
     })

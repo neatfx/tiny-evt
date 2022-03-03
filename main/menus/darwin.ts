@@ -1,4 +1,4 @@
-import { app, Menu, MenuItem } from 'electron'
+import { app, ipcMain, Menu, MenuItem } from 'electron'
 import type { ComponentsRouter } from '../main'
 
 export default function (cr: ComponentsRouter) {
@@ -6,16 +6,9 @@ export default function (cr: ComponentsRouter) {
     label: app.name,
     submenu: [
       {
-        label: '关于',
-        role: 'about'
-      },
-      {
-        type: 'separator'
-      },
-      {
-        label: '发送消息至 RendererProcess',
-        click: (a, b, c) => {
-          cr.mainWindow.window?.webContents.send('ipc_from_main', '/c')
+        label: '关于' + app.name,
+        click: () => {
+          ipcMain.emit('open-about-window', 'ping')
         }
       },
       { type: 'separator' },

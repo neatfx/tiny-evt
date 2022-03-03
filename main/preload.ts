@@ -12,7 +12,10 @@ if (process.env.NODE_ENV === 'development') {
 // whitelist channels
 const validChannels = {
   send: ['async-ipc-from-renderer-to-main'],
-  sendSync: ['open-preference-window'],
+  sendSync: [
+    'open-about-window',
+    'get-sys-info'
+  ],
   receive: ['ipc_from_main']
 }
 
@@ -26,6 +29,10 @@ contextBridge.exposeInMainWorld('ipcApi', {
     if (validChannels.sendSync.includes(channel)) {
       const result = ipcRenderer.sendSync(channel, data)
       console.log('[@preload.ipcApi.sendSync -> result]', result)
+      // console.log(result)
+      // for (const type of ['chrome', 'node', 'electron']) {
+      //   replaceText(`${type}-version`, process.versions[type])
+      // }
       return result
     }
   },
@@ -43,4 +50,19 @@ contextBridge.exposeInMainWorld('ipcApi', {
     const data = readFileSync('./config.json')
     return data
   }
+})
+
+// All of the Node.js APIs are available in the preload process.
+// It has the same sandbox as a Chrome extension.
+window.addEventListener('DOMContentLoaded', () => {
+  // const replaceText = (selector: string, text: string | undefined) => {
+  //   const element = document.getElementById(selector)
+  //   console.log('ele', element)
+  //   if (element && text) element.innerText = text
+  // }
+  // // console.table(process)
+  // // console.info(process.versions)
+  // for (const type of ['chrome', 'node', 'electron']) {
+  //   replaceText(`${type}-version`, process.versions[type])
+  // }
 })
