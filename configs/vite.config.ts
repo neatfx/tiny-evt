@@ -22,11 +22,11 @@ const buildConfigVtu: UserConfig = {
   plugins: [vue()],
   root: '.',
   build: {
-    outDir: 'tests/vtu/build',
+    outDir: 'vtu/build',
     assetsDir: './',
     chunkSizeWarningLimit: 1000,
     rollupOptions: {
-      input: './tests/vtu/Navbar.spec.ts',
+      input: './vtu/Navbar.spec.ts',
 
       external: [
         // path.resolve( __dirname, 'src/some-local-file-that-should-not-be-bundled.js' ),
