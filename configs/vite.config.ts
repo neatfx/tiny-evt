@@ -1,8 +1,8 @@
 import type { UserConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
+import vueSFCCompiler from '@vitejs/plugin-vue'
 
 const serverConfig: UserConfig = {
-  plugins: [vue()],
+  plugins: [vueSFCCompiler()],
   root: 'renderer',
   server: {
     port: 3000
@@ -10,7 +10,7 @@ const serverConfig: UserConfig = {
 }
 
 const serveConfig: UserConfig = {
-  plugins: [vue()],
+  plugins: [vueSFCCompiler()],
   root: 'renderer',
   server: {
     port: 3000,
@@ -19,23 +19,25 @@ const serveConfig: UserConfig = {
 }
 
 const buildConfigVtu: UserConfig = {
-  plugins: [vue()],
+  plugins: [vueSFCCompiler()],
   root: '.',
   build: {
     outDir: 'renderer/components/__tests__/build',
     assetsDir: './',
     chunkSizeWarningLimit: 1000,
     rollupOptions: {
+      // 
       input: {
         'Navbar': 'renderer/components/__tests__/Navbar.spec.ts'
       },
       external: [
-        // path.resolve( __dirname, 'src/some-local-file-that-should-not-be-bundled.js' ),
-        // /node_modules/
+        '@vue/test-utils',
+        'vue',
+        'vue-router'  
       ],
       output: {
         entryFileNames: '[name].spec.[hash].js',
-        format: 'cjs' // related to issue
+        format: 'commonjs'
       }
     }
   }
@@ -43,7 +45,7 @@ const buildConfigVtu: UserConfig = {
 
 const buildConfig: UserConfig = {
   mode: 'production',
-  plugins: [vue()],
+  plugins: [vueSFCCompiler()],
   base: './',
   root: 'renderer',
   build: {
