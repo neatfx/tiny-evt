@@ -1,9 +1,9 @@
 <template>
   <div id='nav'>
-    <router-link to='/' :class="['/' === activeNav ? 'active' : '']"> NavA </router-link>
-    <router-link to='/b' :class="['/b' === activeNav ? 'active' : '']"> NavB </router-link>
-    <router-link to='/c' :class="['/c' === activeNav ? 'active' : '']"> NavC </router-link>
-    <router-link to='/d' :class="['/d' === activeNav ? 'active' : '']"> NavD </router-link>
+    <router-link to='/' :class="['/' === activeNav ? 'active' : '']" data-test-id="/"> NavA </router-link>
+    <router-link to='/b' :class="['/b' === activeNav ? 'active' : '']" data-test-id='/b'> NavB </router-link>
+    <router-link to='/c' :class="['/c' === activeNav ? 'active' : '']" data-test-id='/c'> NavC </router-link>
+    <router-link to='/d' :class="['/d' === activeNav ? 'active' : '']" data-test-id='/d'> NavD </router-link>
   </div>
 </template>
 
