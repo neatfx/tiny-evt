@@ -22,8 +22,8 @@ export default class {
     this.pageUrl =
       process.env.NODE_ENV === 'development'
         ? 'http://127.0.0.1:3000/#/preferences'
-        // path.join(__dirname, './renderer/index.html')
-        : path.join(__dirname, './renderer/about.html')
+        : // path.join(__dirname, './renderer/index.html')
+          path.join(__dirname, './main/about.html')
   }
   async init() {
     this.window = new BrowserWindow(this.option)
@@ -38,8 +38,8 @@ export default class {
       this.window?.hide()
     })
 
-    if(process.env.NODE_ENV === 'development') {
-      this.window.loadFile(path.join(__dirname, '../renderer/pages/about/about.html'))
+    if (process.env.NODE_ENV === 'development') {
+      this.window.loadFile(path.join(__dirname, '../main/about.html'))
       // this.window.loadURL('http://127.0.0.1:3000/#preferences')
     } else {
       // console.log('load file')
@@ -51,12 +51,12 @@ export default class {
     // if (this.window === null) {
     //   await this.init()
     // }else{
-      if (this.window?.isVisible()) {
-        this.window.hide()
-      } else {
-        this.window?.show()
-        // this.window.focus()
-      }
+    if (this.window?.isVisible()) {
+      this.window.hide()
+    } else {
+      this.window?.show()
+      // this.window.focus()
+    }
     // }
   }
 }

@@ -7,9 +7,7 @@ import { readFileSync } from 'fs'
 // 白名单
 const validChannels = {
   send: ['async-ipc-from-renderer-to-main'],
-  sendSync: [
-    'async-message-to-main',
-  ],
+  sendSync: ['async-message-to-main'],
   receive: ['ipc_from_main']
 }
 

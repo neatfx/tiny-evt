@@ -1,9 +1,8 @@
-.env.development.local
-.env-cmdrc.json
-dist/
 build/
+dist/
 node_modules/
-tests/**/*.js
-package-lock.json
-test-results/
 playwright-report/
+renderer/components/__tests__/build/
+.env-cmdrc.json
+.env.development.local
+package-lock.json

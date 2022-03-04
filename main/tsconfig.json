@@ -1,9 +1,0 @@
-{
-  "extends": "../configs/tsconfig.base",
-  "compilerOptions": {
-    "moduleResolution": "node",
-  },
-  "exclude": [
-    "resources/icons"
-  ]
-}

@@ -25,7 +25,7 @@ export interface ComponentsRouter {
 }
 
 const cr: ComponentsRouter = {
-  aboutWindow: aboutWindow, 
+  aboutWindow: aboutWindow,
   mainWindow: mainWindow
 }
 
