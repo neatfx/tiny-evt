@@ -2,10 +2,7 @@ declare global {
   interface Window {
     electronAPI: IElectronAPI
   }
-  // type GithubJson = GithubJsonDef
-  // interface ImportMeta {
-  //   env: any
-  // }
+  type GithubJson = GithubJsonDef
 }
 
 export interface IElectronAPI {
@@ -15,25 +12,25 @@ export interface IElectronAPI {
   receive(channel: string, listener: (...args: any[]) => void): () => void
 }
 
-// type GithubJsonDef = {
-//   "data": {
-//       "user": {
-//           "name": string
-//           "followers": {
-//               "totalCount": number
-//           }
-//           "contributionsCollection": {
-//               "contributionCalendar": {
-//                   "totalContributions": number
-//                   "weeks": {
-//                       "contributionDays": {
-//                           "color": string
-//                           "contributionCount": number
-//                           "date": string
-//                       }[]
-//                   }[]
-//               }
-//           }
-//       }
-//   }
-// }
+type GithubJsonDef = {
+  "data": {
+      "user": {
+          "name": string
+          "followers": {
+              "totalCount": number
+          }
+          "contributionsCollection": {
+              "contributionCalendar": {
+                  "totalContributions": number
+                  "weeks": {
+                      "contributionDays": {
+                          "color": string
+                          "contributionCount": number
+                          "date": string
+                      }[]
+                  }[]
+              }
+          }
+      }
+  }
+}

@@ -3,8 +3,8 @@
     <button @click="callMainProcess"> Open BrowserWindow </button>
     <br>
     <div id="graph">
-      <div class="week" v-for="week in weeks" :key="week.id">
-        <div v-for="day in week.contributionDays" :key="day.id">
+      <div class="week" v-for="week in weeks" :key="week.contributionDays.length">
+        <div v-for="day in week.contributionDays" :key="day.date">
           <a v-bind:style="{ background: day.color === '#ebedf0'? 'lightgrey' : day.color }"></a>
         </div>
       </div>
@@ -18,27 +18,25 @@ import { defineComponent, onMounted, ref, reactive, watch } from 'vue'
 const { electronAPI } = window
 import { GithubGraphqlApi } from '../services/github-graphql-api'
 
+type Contribute = {
+  contributionDays:{
+      color: string,
+      contributionCount: number,
+      date: string
+  }[]}[]
+
 export default defineComponent({
   props: {
-    github_user_name: String
+    github_user_name: String || undefined
   },
-  setup(props: {
-    github_user_name: string,
-  }) {
-    const weeks= ref({} as { 
-      id: number,
-      contributionDays:{
-          id: number,
-          color: string,
-          contributionCount: number,
-          date: string
-      }[]}[])
+  setup(props) {
+    const weeks= ref({} as Contribute)
 
     const inputs = reactive({
       github_user_name: 'neatfx'
     })
     watch(() => props.github_user_name, async (id) => {
-      fetchData(props.github_user_name)
+      fetchData(inputs.github_user_name)
     })
     watch(() => inputs.github_user_name, async () => {
       console.log(inputs.github_user_name)

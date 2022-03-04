@@ -8,11 +8,11 @@
 </template>
 
 <script lang="ts">
-import { computed, watch } from 'vue'
+import { defineComponent, computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
-export default {
-  setup(props) {
+export default defineComponent({
+  setup() {
     const route = useRoute()
     const currentLocation = computed(() => {
       const { matched, ...rest } = route || {fullPath: '/c'}
@@ -25,7 +25,7 @@ export default {
       activeNav: currentLocation,
     }
   }
-}
+})
 </script>
 
 <style scoped>
