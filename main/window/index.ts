@@ -28,7 +28,9 @@ export default class {
       show: false,
       webPreferences: {
         contextIsolation: true,
-        preload: this.preloadPath
+        preload: this.preloadPath,
+        nodeIntegration: true,
+        nodeIntegrationInWorker: true
       }
     })
 

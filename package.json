@@ -9,11 +9,12 @@
   },
   "main": "build/main.js",
   "scripts": {
+    "check": "vue-tsc --noEmit --skipLibCheck",
     "lint": "prettier --config configs/.prettierrc --write --list-different --parser typescript \"**/*.ts\"",
     "build-dev-runner": "cat scripts/args.esbuild.dev-runner | xargs npx esbuild",
     "browser": "npm run build-dev-runner && NODE_ENV=development TEST=browser node build/dev-runner.js",
     "dev": "npm run build-dev-runner && NODE_ENV=development TEST=electron node build/dev-runner.js",
-    "test:unit": "jest renderer/components",
+    "test:unit": "jest renderer/components/__tests__/build",
     "test:vtu": "npm run build-dev-runner && NODE_ENV=development TEST=vtu node build/dev-runner.js",
     "test:e2e": "npm run build-dev-runner && NODE_ENV=development TEST=e2e node build/dev-runner.js",
     "dist": "cat scripts/args.esbuild.app-builder | xargs npx esbuild && NODE_ENV=production node build/app-builder.js"
@@ -22,6 +23,10 @@
     "pre-commit": "lint-staged -c configs/.lintstagedrc"
   },
   "dependencies": {
+    "@vueuse/rxjs": "^7.7.1",
+    "dexie": "^3.2.1",
+    "dexie-export-import": "^1.0.3",
+    "rxjs": "^7.5.4",
     "vue": "^3.2.25",
     "vue-router": "^4.0.5"
   },

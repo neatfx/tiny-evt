@@ -15,3 +15,14 @@ ipcMain.on('get-sys-info', (event, arg) => {
   // console.log('[arg] - ', arg)
   event.returnValue = process.versions['chrome']
 })
+
+//////////////////////////////
+// 访问数据库（ 调用 db/api ）
+///////////////////////////////////
+
+ipcMain.on('reset-testing-db', (event, arg) => {
+  // console.log('[channel] - "open-preference-window"')
+  // console.log('[IpcMainEvent] - ', event)
+  // console.log('[arg] - ', arg)
+  console.log('reset-testing-db')
+})

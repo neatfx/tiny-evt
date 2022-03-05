@@ -17,8 +17,8 @@ const conf: Configuration = {
       filter: ['**/*']
     },
     {
-      from: 'renderer/pages/about',
-      to: 'build/renderer/about'
+      from: 'main/window/about.html',
+      to: 'build/'
     }
   ],
   dmg: {

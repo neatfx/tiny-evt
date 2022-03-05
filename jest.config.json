@@ -1,0 +1,19 @@
+{
+  "roots": ["./renderer/components/__tests__/build/"],
+  "testMatch": [
+    "**/?(*.)+(spec|test).*.js"
+  ],
+  "moduleFileExtensions": [
+    "ts",
+    "js",
+    "json",
+    "vue"
+  ],
+  "testEnvironment": "jsdom",
+  "transform": {
+      ".*\\.(vue)$": "@vue/vue3-jest",
+      ".*\\.(js)$": "babel-jest"
+  },
+  "collectCoverage": false,
+  "collectCoverageFrom": ["**/*.{ts,js,vue}", "!**/node_modules/**"]
+}

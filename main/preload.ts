@@ -6,17 +6,24 @@ import { readFileSync } from 'fs'
 
 // 白名单
 const validChannels = {
-  send: ['async-ipc-from-renderer-to-main'],
+  send: ['async-ipc-from-renderer-to-main', 'reset-testing-db'],
   sendSync: ['async-message-to-main'],
   receive: ['ipc_from_main']
+}
+
+function invalidElectionAPI(channel: string){
+  console.log('invalidElectionAPI: ', channel)
 }
 
 contextBridge.exposeInMainWorld('electronAPI', {
   loadPreferences: () => ipcRenderer.invoke('load-prefs'),
   send: (channel: string, data: object) => {
-    if (validChannels.send.includes(channel)) {
-      ipcRenderer.send(channel, data)
+    if (!validChannels.send.includes(channel)) {
+      invalidElectionAPI(channel)
+      return
     }
+
+    ipcRenderer.send(channel, data)
   },
   sendSync: (channel: string, data: object) => {
     if (validChannels.sendSync.includes(channel)) {
@@ -52,4 +59,17 @@ window.addEventListener('DOMContentLoaded', () => {
   // for (const type of ['chrome', 'node', 'electron']) {
   //   replaceText(`${type}-version`, process.versions[type])
   // }
+
+  var worker = new Worker('./databaseWorker.js');
+  
+  worker.onmessage = function(event){
+    console.log("Database worker process is ", event.data);
+    worker.terminate(); 
+    
+    // document.querySelector("h1").innerHTML = (event.data);
+    //console.log("worker is done working ");
+  };
+  worker.onerror = function (event){
+    console.error(event.message, event);
+  };
 })

@@ -21,9 +21,8 @@ export default class {
     }
     this.pageUrl =
       process.env.NODE_ENV === 'development'
-        ? 'http://127.0.0.1:3000/#/preferences'
-        : // path.join(__dirname, './renderer/index.html')
-          path.join(__dirname, './main/about.html')
+        ? path.join(__dirname, '../main/window/about.html')
+        : path.join(__dirname, './renderer/index.html')
   }
   async init() {
     this.window = new BrowserWindow(this.option)
@@ -39,7 +38,7 @@ export default class {
     })
 
     if (process.env.NODE_ENV === 'development') {
-      this.window.loadFile(path.join(__dirname, '../main/about.html'))
+      this.window.loadFile(path.join(__dirname, '../main/window/about.html'))
       // this.window.loadURL('http://127.0.0.1:3000/#preferences')
     } else {
       // console.log('load file')

@@ -8,13 +8,12 @@ export default function (cr: ComponentsRouter) {
       {
         label: '关于 ' + app.name,
         click: () => {
-          cr.aboutWindow.toggle()
+          cr.aboutWindow.window?.show()
         }
       },
       {
         label: '设置选项',
         click: () => {
-          cr.aboutWindow.toggle()
         }
       },
       { type: 'separator' },

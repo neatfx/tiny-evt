@@ -43,7 +43,7 @@ export default defineComponent({
       // fetchData(inputs.github_user_name)
     })
     async function callMainProcess() {
-      const returnValue = electronAPI.sendSync('sync-message-to-main', 'ping')
+      const returnValue = electronAPI.send('reset-testi-db', 'ping')
       console.log('[vue -> main-process]', returnValue)
     }
     onMounted(() => {
