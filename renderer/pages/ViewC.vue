@@ -10,9 +10,8 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from "vue";
-// const {electronAPI} = window
-import { db } from "../../main/db/db";
-import Contact from "../../main/db/tables/Contact";
+import { db } from "../db/db";
+import Contact from "../db/tables/Contact";
 
 export default defineComponent({
   data: () => {
@@ -22,7 +21,7 @@ export default defineComponent({
   },
   setup(data) {
     const friends = ref({} as Contact[]);
-    // electronAPI.send('reset-testing-db', friends)
+
     async function getContacts() {
       db.contacts.toArray((data) => {
         friends.value = data

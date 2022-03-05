@@ -1,5 +1,5 @@
 import { ipcMain } from 'electron'
-import {list} from './db/api'
+import {list} from '../renderer/db/api'
 
 ipcMain.on('async-message-to-main', (event, arg) => {
   // console.log('[channel] - "async-message-to-main"')

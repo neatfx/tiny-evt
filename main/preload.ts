@@ -48,6 +48,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
 })
 
 // preload process 运行于与 Chrome 扩展相同的安全沙箱环境
+// TODO: DB API 处理 
 window.addEventListener('DOMContentLoaded', () => {
   // const replaceText = (selector: string, text: string | undefined) => {
   //   const element = document.getElementById(selector)
