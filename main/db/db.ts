@@ -1,22 +1,25 @@
 import Dexie, { Table } from 'dexie';
+import { IContact, IEmailAddress, IPhoneNumber, IBook } from './tables/interfaces'
+import Contact from './tables/Contact'
 
-export interface Friend {
-  id?: number;
-  name: string;
-  age: number;
-}
-
-export class MySubClassedDexie extends Dexie {
-  // 'friends' is added by dexie when declaring the stores()
-  // We just tell the typing system this is the case
-  friends!: Table<Friend>; 
-
+export class AppDatabase extends Dexie {
+  // books!: Table<IBook, number>;
+  contacts!: Table<Contact, number>;
+  emails!: Table<IEmailAddress, number>;
+  phones!: Table<IPhoneNumber, number>;
+  
   constructor() {
-    super('myDatabase');
+    super('AppDatabase');
+    var db = this;
     this.version(1).stores({
-      friends: '++id, name, age' // Primary key and indexed props
+      // books: '++id, name, age',
+      contacts: '++id, firstName, lastName',
+      emails: '++id, contactId, type, email',
+      phones: '++id, contactId, type, phone',
     });
+
+    db.contacts.mapToClass(Contact);
   }
 }
 
-export const db = new MySubClassedDexie();
+export const db = new AppDatabase();

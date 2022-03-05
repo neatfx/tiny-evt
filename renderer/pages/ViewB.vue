@@ -1,6 +1,6 @@
 <template>
-  <fieldset>
-    <legend>Add new friend</legend>
+  <div>
+    <legend>Add New Item</legend>
     <label>
       Name:
       <input v-model="friendName" type="text" />
@@ -13,12 +13,13 @@
     <br />
     <button @click="addFriend">Add Friend</button>
     <p>{{ status }}</p>
-  </fieldset>
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { db } from '../../main/db/db';// 待改为 electronAPI 安全桥接访问
+import { db } from '../../main/db/db'
+import Contact from '../../main/db/tables/Contact'
 
 export default defineComponent({
   name: 'FriendAdder',
@@ -34,10 +35,10 @@ export default defineComponent({
   methods: {
     async addFriend() {
       try {
-        const id = await db.friends.add({
-          name: this.friendName,
-          age: this.friendAge,
-        });
+        const id = await db.contacts.add(new Contact(
+          this.friendName,
+          this.friendAge
+        ));
 
         this.status = `Friend ${this.friendName} successfully added. Got id ${id}`;
 

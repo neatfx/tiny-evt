@@ -1,27 +1,39 @@
 <template>
-  <ul>
-    <li v-for="friend in friends" :key="friend.id">
-      {{ friend.name }}, {{ friend.age }}
-    </li>
-  </ul>
+  <div>
+    <ul>
+      <li v-for="friend in friends" :key="friend.id">
+        {{ friend.name }}, {{ friend.age }}
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-  import { liveQuery } from "dexie";
-  import { useObservable } from "@vueuse/rxjs";
+import { defineComponent, onMounted, ref } from "vue";
+// const {electronAPI} = window
+import { db } from "../../main/db/db";
+import Contact from "../../main/db/tables/Contact";
 
-  import { db } from "../../main/db/db";
-
-  export default defineComponent({
-    name: "FriendList",
-    setup() {
-      return {
-        db,
-        items: useObservable(
-          liveQuery(() => db.friends.toArray())
-        ),
-      };
-    },
-  });
+export default defineComponent({
+  data: () => {
+    return {
+      // friends:[]
+    };
+  },
+  setup(data) {
+    const friends = ref({} as Contact[]);
+    // electronAPI.send('reset-testing-db', friends)
+    async function getContacts() {
+      db.contacts.toArray((data) => {
+        friends.value = data
+      });
+    }
+    onMounted(async () => {
+      getContacts()
+    });
+    return {
+      friends,
+    };
+  },
+});
 </script>

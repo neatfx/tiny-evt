@@ -1,4 +1,5 @@
-import { db } from './db/db'
+import { db } from './db'
+
 const lineByLine = require('n-readlines');
 
 var duplicates=0, addedRecords=0, splitter;
