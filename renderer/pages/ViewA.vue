@@ -20,7 +20,7 @@
 
 <script lang='ts'>
 import { defineComponent, onMounted, ref, reactive, watch } from 'vue'
-const { electronAPI } = window
+const { electronDarkMode, electronDatabase } = window
 import { GithubGraphqlApi } from '../services/github-graphql-api'
 
 type Contribute = {
@@ -53,7 +53,7 @@ export default defineComponent({
       // fetchData(inputs.github_user_name)
     })
     async function callMainProcess() {
-      const returnValue = electronAPI.send('reset-testing-db', 'ping')
+      const returnValue = electronDatabase.resetTesting()
       console.log('[vue -> main-process]', returnValue)
     }
     onMounted(() => {
@@ -62,12 +62,12 @@ export default defineComponent({
     })
 
     async function toggleDarkMode() {
-      const isDarkMode = await window.darkMode.toggle()
+      const isDarkMode = await window.electronDarkMode.toggle()
       themeSource.value = isDarkMode ? 'Dark' : 'Light'
     }
   
     async function resetToSystem() {
-      await window.darkMode.system()
+      await window.electronDarkMode.system()
       // document.getElementById('theme-source').innerHTML = 'System'
     }
     async function fetchData(github_user_name: string) {

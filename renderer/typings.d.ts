@@ -1,42 +1,41 @@
 declare global {
   interface Window {
-    electronAPI: IElectronAPI
-    darkMode: darkMode
+    electronDarkMode: ElectronDarkMode
+    electronDatabase: ElectronDatabase
   }
   type GithubJson = GithubJsonDef
 }
 
-export interface IElectronAPI {
+export interface ElectronDarkMode {
+  toggle: () => Promise<boolean>
+  system: () => Promise<void>
   loadPreferences: () => Promise<void>
-  send(channel: string, ...args: any[]): void
-  sendSync(channel: string, ...args: any[]): any
-  receive(channel: string, listener: (...args: any[]) => void): () => void
+  readConfig: () => Promise<void>
 }
 
-export interface darkMode {
-  toggle:  () => Promise<boolean>
-  system: () => Promise<void>
+export interface ElectronDatabase {
+  resetTesting: () => Promise<boolean>
 }
 
 type GithubJsonDef = {
   "data": {
-      "user": {
-          "name": string
-          "followers": {
-              "totalCount": number
-          }
-          "contributionsCollection": {
-              "contributionCalendar": {
-                  "totalContributions": number
-                  "weeks": {
-                      "contributionDays": {
-                          "color": string
-                          "contributionCount": number
-                          "date": string
-                      }[]
-                  }[]
-              }
-          }
+    "user": {
+      "name": string
+      "followers": {
+        "totalCount": number
       }
+      "contributionsCollection": {
+        "contributionCalendar": {
+          "totalContributions": number
+          "weeks": {
+            "contributionDays": {
+              "color": string
+              "contributionCount": number
+              "date": string
+            }[]
+          }[]
+        }
+      }
+    }
   }
 }

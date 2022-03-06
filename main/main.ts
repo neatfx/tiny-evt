@@ -1,5 +1,4 @@
 import { app, BrowserWindow } from 'electron'
-import { setIpc } from './window/main-ipc'
 
 // Menu & Window & Tray
 import Menu from './menu'
@@ -34,7 +33,6 @@ app.whenReady().then(async () => {
   aboutWindow.init()
   Menu(cr)
   tray.init()
-  setIpc()
 
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 1) mainWindow.init()

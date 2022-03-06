@@ -1,5 +1,6 @@
-import { BrowserWindow } from 'electron'
+import { BrowserWindow, ipcMain } from 'electron'
 import path from 'path'
+import { addIpcHandler } from './main-ipc'
 
 export default class {
   window: BrowserWindow | null
@@ -34,22 +35,18 @@ export default class {
     })
 
     this.window.on('ready-to-show', () => {
+      addIpcHandler()
       this.window?.show()
+    })
+
+    this.window.on('close', () =>{
+      ipcMain.removeHandler('dark-mode:toggle')
+      ipcMain.removeHandler('dark-mode:system')
+      // ipcMain.removeAllListeners()
     })
 
     process.env.NODE_ENV === 'development'
       ? this.window.loadURL(this.pageUrl)
       : this.window.loadFile(this.pageUrl)
   }
-  // async toggle() {
-  //   if (this.window === null) {
-  //    await this.init()
-  //   }
-  //   if (this.window!.isVisible()) {
-  //     this.window!.hide()
-  //   } else {
-  //     this.window!.show()
-  //     this.window!.focus()
-  //   }
-  // }
 }
