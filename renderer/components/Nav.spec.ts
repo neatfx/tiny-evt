@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 
-import Navbar from '../Navbar.vue'
+import Navbar from './Navbar.vue'
 
 describe('Navbar.vue', () => {
   test('have a NavC tab', () => {

@@ -31,5 +31,6 @@ export function addIpcHandler(){
 
   ipcMain.handle('dark-mode:system', () => {
     nativeTheme.themeSource = 'system'
+    return 'system'
   })
 }

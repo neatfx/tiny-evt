@@ -7,9 +7,6 @@
 
 <script lang="ts">
 import { onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-// const { ipcApi } = Window
-
 import Navbar from '../components/Navbar.vue'
 
 export default {
@@ -17,13 +14,8 @@ export default {
   components: {
     Navbar
   },
-  setup(props) {
-    const router = useRouter()
+  setup() {
     onMounted(() => {
-      // ipcApi.receive('ipc_from_main', (res) => {
-      //   console.log('[@vue -> message from main]', res)
-      //   router.push(res[0]) // res[0] === '/c'
-      // })
     })
     return {}
   }
@@ -34,10 +26,12 @@ export default {
 #root {
   display: grid;
   height: 100vh;
-  grid-template-rows: auto 1fr;
+  grid-template-columns: 150px 1fr;
   background-color: #282c34;
 }
 #content {
+    margin-top: 50px;
+  border: 1px solid red;
   padding: 15px;
   color: #666666;
 }

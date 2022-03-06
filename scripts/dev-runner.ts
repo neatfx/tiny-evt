@@ -32,14 +32,6 @@ async function buildMainProcess() {
     })
 }
 
-async function buildVueTests() {
-  return viteBuild(viteConfig.buildConfigVtu).catch((err) => {
-    console.log(`\nfailed to build vue tests`)
-    console.error(`\n${err}\n`)
-    process.exit(1)
-  })
-}
-
 function logPrinter(data: string[]) {
   let log = '\n'
 
@@ -95,23 +87,6 @@ if (process.env.TEST === 'e2e') {
       })
     }
   })
-}
-
-if (process.env.TEST === 'vtu') {
-  buildVueTests()
-    .then(() => {
-      const args = ['--config', 'configs/jest.config.vtu.json']
-
-      spawn('jest', args, {
-        stdio: 'inherit',
-        shell: process.platform === 'win32'
-      }).on('close', () => {
-        process.exit()
-      })
-    })
-    .catch((err) => {
-      console.error(err)
-    })
 }
 
 if (process.env.TEST === 'electron') {

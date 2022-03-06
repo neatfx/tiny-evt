@@ -53,7 +53,7 @@ export default defineComponent({
       // fetchData(inputs.github_user_name)
     })
     async function callMainProcess() {
-      const returnValue = electronDatabase.resetTesting()
+      const returnValue = await electronDatabase.resetTesting()
       console.log('[vue -> main-process]', returnValue)
     }
     onMounted(() => {
@@ -68,8 +68,7 @@ export default defineComponent({
     }
   
     async function resetToSystem() {
-      await electronDarkMode.system()
-      themeSource.value = 'System'
+      themeSource.value = await electronDarkMode.system()
     }
     async function fetchData(github_user_name: string) {
       const result = await new GithubGraphqlApi().getContribution(github_user_name)

@@ -4,7 +4,7 @@
 ///////////////////////////////////////////
 
 import { contextBridge, ipcRenderer } from 'electron'
-import { readFileSync } from 'fs'
+// import { readFileSync } from 'fs'
 
 // 白名单
 const validChannels = [
@@ -18,15 +18,15 @@ function invalidElectionAPI(channel: string) {
 }
 
 contextBridge.exposeInMainWorld('electronDarkMode', {
-  toggle: () => {
+  toggle: ():Promise<boolean> => {
     // const channel = 'dark-mode:toggle'
     // if (!validChannels.includes(channel)) {
     //   invalidElectionAPI(channel)
     //   return
     // }
-    ipcRenderer.invoke('dark-mode:toggle')
+    return ipcRenderer.invoke('dark-mode:toggle')
   },
-  system: () => ipcRenderer.invoke('dark-mode:system'),
+  system: ():Promise<string> => ipcRenderer.invoke('dark-mode:system'),
 })
 
 contextBridge.exposeInMainWorld('electronDatabase', {
@@ -36,8 +36,8 @@ contextBridge.exposeInMainWorld('electronDatabase', {
 contextBridge.exposeInMainWorld('electronPersisConf', {
   loadPreferences: () => ipcRenderer.invoke('load-prefs'),
   readConfig: () => {
-    const data = readFileSync('./config.json')
-    return data
+    // const data = readFileSync('./config.json')
+    // return data
   }
 })
 

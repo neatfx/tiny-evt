@@ -18,31 +18,6 @@ const serveConfig: UserConfig = {
   }
 }
 
-const buildConfigVtu: UserConfig = {
-  plugins: [vueSFCCompiler()],
-  root: '.',
-  build: {
-    outDir: 'renderer/components/__tests__/build',
-    assetsDir: './',
-    chunkSizeWarningLimit: 1000,
-    rollupOptions: {
-      // 
-      input: {
-        'Navbar': 'renderer/components/__tests__/Navbar.spec.ts'
-      },
-      external: [
-        '@vue/test-utils',
-        'vue',
-        'vue-router'  
-      ],
-      output: {
-        entryFileNames: '[name].spec.[hash].js',
-        format: 'commonjs'
-      }
-    }
-  }
-}
-
 const buildConfig: UserConfig = {
   mode: 'production',
   plugins: [vueSFCCompiler()],
@@ -59,6 +34,5 @@ const buildConfig: UserConfig = {
 export default {
   serveConfig,
   serverConfig,
-  buildConfig,
-  buildConfigVtu
+  buildConfig
 }

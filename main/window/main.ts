@@ -27,16 +27,23 @@ export default class {
       icon: this.iconPath,
       center: true,
       show: false,
+      titleBarStyle: 'hidden',
+      titleBarOverlay: true,
+      frame: false,
       webPreferences: {
         preload: this.preloadPath,
         // nodeIntegration: true,
         // nodeIntegrationInWorker: true
+        enableWebSQL: false,
+        nativeWindowOpen: false,
+        webgl: false,
+        devTools: false
       }
     })
 
-    this.window.on('ready-to-show', () => {
-      addIpcHandler()
+    this.window.webContents.on('did-finish-load', () => {
       this.window?.show()
+      addIpcHandler()
     })
 
     this.window.on('close', () =>{

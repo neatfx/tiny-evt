@@ -30,8 +30,10 @@ export default defineComponent({
 
 <style scoped>
 #nav {
+  border: 1px solid blue;
+  width: 150px;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
   /* column-gap: 1px; */
   background-color: #21252b;
 }

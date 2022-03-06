@@ -8,7 +8,7 @@ declare global {
 
 export interface ElectronDarkMode {
   toggle: () => Promise<boolean>
-  system: () => Promise<void>
+  system: () => Promise<string>
 }
 
 export interface ElectronDatabase {

@@ -9,14 +9,6 @@ const dev: BuildOptions = {
   external: ['electron', 'path', 'fs']
 }
 
-const spectron: BuildOptions = {
-  entryPoints: ['tests/spectron/main-window.spec.ts'],
-  outdir: 'tests/spectron',
-  minify: false,
-  bundle: true,
-  external: ['path', 'spectron', 'assert']
-}
-
 const dist: BuildOptions = {
   platform: 'node',
   entryPoints: ['main/main.ts', 'main/preload.ts'],
@@ -28,6 +20,5 @@ const dist: BuildOptions = {
 
 export default {
   dev,
-  spectron,
   dist
 }
