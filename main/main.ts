@@ -28,6 +28,7 @@ const cr: ComponentsRouter = {
   mainWindow: mainWindow
 }
 
+// app.enableSandbox()
 app.whenReady().then(async () => {
   mainWindow.init()
   aboutWindow.init()

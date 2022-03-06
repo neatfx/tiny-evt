@@ -35,13 +35,13 @@ export default class {
         // nodeIntegration: true,
         // nodeIntegrationInWorker: true
         enableWebSQL: false,
-        nativeWindowOpen: false,
+        // nativeWindowOpen: false,
         webgl: false,
         // devTools: false
       }
     })
 
-    this.window.webContents.on('did-finish-load', () => {
+    this.window.on('ready-to-show', () => {
       this.window?.show()
       addIpcHandler()
     })
@@ -53,7 +53,7 @@ export default class {
     })
 
     process.env.NODE_ENV === 'development'
-      ? this.window.loadURL(this.pageUrl)
-      : this.window.loadFile(this.pageUrl)
+      ? await this.window.loadURL(this.pageUrl)
+      : await this.window.loadFile(this.pageUrl)
   }
 }
