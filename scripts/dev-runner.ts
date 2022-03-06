@@ -1,4 +1,4 @@
-import { createServer, build as viteBuild } from 'vite'
+import { createServer } from 'vite'
 import { spawn, ChildProcessWithoutNullStreams } from 'child_process'
 import { build } from 'esbuild'
 
@@ -65,6 +65,10 @@ function runElectronApp() {
   })
 }
 
+if (process.env.TEST === 'browser') {
+  launchViteDevServer(true)
+}
+
 if (process.env.TEST === 'e2e') {
   launchViteDevServer().then(() => {
     if (process.env.CI) {
@@ -97,8 +101,4 @@ if (process.env.TEST === 'electron') {
     .catch((err) => {
       console.error(err)
     })
-}
-
-if (process.env.TEST === 'browser') {
-  launchViteDevServer(true)
 }
