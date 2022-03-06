@@ -36,6 +36,7 @@ app.whenReady().then(async () => {
 
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 1) mainWindow.init()
+    mainWindow.window?.show()
   })
 })
 

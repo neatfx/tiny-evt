@@ -1,3 +1,5 @@
+import Contact from "./db/tables/Contact"
+
 declare global {
   interface Window {
     electronDarkMode: ElectronDarkMode
@@ -12,7 +14,7 @@ export interface ElectronDarkMode {
 }
 
 export interface ElectronDatabase {
-  resetTesting: () => Promise<boolean>
+  resetTesting: () => Promise<Contact[]>
 }
 
 type GithubJsonDef = {

@@ -29,8 +29,13 @@ contextBridge.exposeInMainWorld('electronDarkMode', {
   system: ():Promise<string> => ipcRenderer.invoke('dark-mode:system'),
 })
 
+import { db } from "../../renderer/db/db"
+import Contact from '../../renderer/db/tables/Contact'
+
 contextBridge.exposeInMainWorld('electronDatabase', {
-  resetTesting: () => ipcRenderer.invoke('db:reset-testing'),
+  resetTesting: async(): Promise<Contact[]> => {
+    return await db.contacts.toArray()
+  }
 })
 
 contextBridge.exposeInMainWorld('electronPersisConf', {
@@ -45,7 +50,6 @@ contextBridge.exposeInMainWorld('electronPersisConf', {
 // preload process 运行于与 Chrome 扩展相同的安全沙箱环境
 ///////////////////////////////
 
-// import { db } from "../../renderer/db/db";
 // import Contact from "../../renderer/db/tables/Contactact";
 
 window.addEventListener('DOMContentLoaded', () => {

@@ -37,7 +37,7 @@ export default class {
         enableWebSQL: false,
         nativeWindowOpen: false,
         webgl: false,
-        devTools: false
+        // devTools: false
       }
     })
 
