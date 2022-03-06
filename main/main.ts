@@ -1,4 +1,5 @@
 import { app, BrowserWindow } from 'electron'
+import {setIpc} from './window/main-ipc' // 基于白名单控制的 IPC 通道（ 对外暴露 electronAPI ）
 
 // Menu & Window & Tray
 import Menu from './menu'
@@ -33,15 +34,15 @@ app.whenReady().then(async () => {
   aboutWindow.init()
   Menu(cr)
   tray.init()
+  setIpc()
 
   app.on('activate', function () {
-    console.log(BrowserWindow.getAllWindows())
     if (BrowserWindow.getAllWindows().length === 1) mainWindow.init()
   })
 })
 
 app.on('before-quit', () => {
-  // aboutWindow.window?.destroy() // 主动销毁隐藏窗口
+  aboutWindow.window?.destroy() // 主动销毁隐藏窗口
 })
 
 app.on('window-all-closed', () => {

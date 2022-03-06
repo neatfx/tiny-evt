@@ -51,8 +51,6 @@ export default class {
     process.env.NODE_ENV === 'development'
       ? this.window.loadURL(this.pageUrl)
       : this.window.loadFile(this.pageUrl)
-
-    setIpc()
   }
   toggle() {
     if (this.window === null) {

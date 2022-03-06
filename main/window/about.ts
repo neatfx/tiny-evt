@@ -32,7 +32,7 @@ export default class {
   async init() {
     this.window = new BrowserWindow(this.option)
     this.window.on('ready-to-show', () => {
-      // this.window?.hide()
+      this.window?.hide()
     })
 
     this.window.on('close', (e) => {
