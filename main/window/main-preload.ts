@@ -18,20 +18,15 @@ function invalidElectionAPI(channel: string) {
 }
 
 contextBridge.exposeInMainWorld('electronDarkMode', {
-  toggle: (): Promise<boolean> | void => {
-    const channel = 'dark-mode:toggle'
-    if (!validChannels.includes(channel)) {
-      invalidElectionAPI(channel)
-      return
-    }
+  toggle: () => {
+    // const channel = 'dark-mode:toggle'
+    // if (!validChannels.includes(channel)) {
+    //   invalidElectionAPI(channel)
+    //   return
+    // }
     ipcRenderer.invoke('dark-mode:toggle')
   },
   system: () => ipcRenderer.invoke('dark-mode:system'),
-  loadPreferences: () => ipcRenderer.invoke('load-prefs'),
-  readConfig: () => {
-    const data = readFileSync('./config.json')
-    return data
-  }
 })
 
 contextBridge.exposeInMainWorld('electronDatabase', {

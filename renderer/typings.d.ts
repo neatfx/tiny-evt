@@ -9,8 +9,6 @@ declare global {
 export interface ElectronDarkMode {
   toggle: () => Promise<boolean>
   system: () => Promise<void>
-  loadPreferences: () => Promise<void>
-  readConfig: () => Promise<void>
 }
 
 export interface ElectronDatabase {

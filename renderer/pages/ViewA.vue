@@ -62,13 +62,14 @@ export default defineComponent({
     })
 
     async function toggleDarkMode() {
-      const isDarkMode = await window.electronDarkMode.toggle()
+      const isDarkMode = await electronDarkMode.toggle()
+      console.log(isDarkMode)
       themeSource.value = isDarkMode ? 'Dark' : 'Light'
     }
   
     async function resetToSystem() {
-      await window.electronDarkMode.system()
-      // document.getElementById('theme-source').innerHTML = 'System'
+      await electronDarkMode.system()
+      themeSource.value = 'System'
     }
     async function fetchData(github_user_name: string) {
       const result = await new GithubGraphqlApi().getContribution(github_user_name)
