@@ -1,25 +1,19 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "useDefineForClassFields": true,
-    "module": "commonjs",
+    "module": "esnext",
     "moduleResolution": "node",
     "strict": true,
     "jsx": "preserve",
-    "sourceMap": false,
     "resolveJsonModule": false,
-    "esModuleInterop": true,
-    "lib": ["esnext", "dom"],
-    "types": [
-      "@types/jest",
-      "vite/client"
-    ]
   },
   "include": [
     "./main/**/*.ts",
-    "./renderer/components/__tests__/**/*.ts",
-    "./renderer/components/**/*.vue",
+    "./renderer/**/*",
+    "./renderer/**/*.vue",
     "./renderer/typings.d.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }

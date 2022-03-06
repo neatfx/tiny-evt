@@ -3,7 +3,11 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [
-    { path: '/', component: () => import('./pages/ViewA.vue')},
+    { path: '/',
+      component: () => import('./pages/ViewA.vue'),
+      name: "Home",
+      meta: { title: "首页", icon: "el-icon-s-home" },
+    },
     { path: '/b', component: () => import('./pages/ViewB.vue')},
     { path: '/c', component: () => import('./pages/ViewC.vue')},
     { path: '/d', component: () => import('./pages/ViewD.vue')},
