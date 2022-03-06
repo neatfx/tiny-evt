@@ -1,5 +1,4 @@
-// 自 Electron 12 以来，默认启用上下文隔离，所有应用程序推荐的安全设置
-// 由于 preload process 可访问全部 Node.js API，封装后暴露给 renderer process 进行有限制的调用以保证安全
+// 自 Electron 12 起默认启用上下文隔离，为推荐安全设置
 
 import { contextBridge, ipcRenderer } from 'electron'
 import { readFileSync } from 'fs'
@@ -52,18 +51,13 @@ contextBridge.exposeInMainWorld('darkMode', {
   system: () => ipcRenderer.invoke('dark-mode:system')
 })
 
-contextBridge.exposeInMainWorld('processVersion', {
-  get: () => ipcRenderer.invoke('process-version')
-})
-
 import { db } from "../../renderer/db/db";
 // import Contact from "../../renderer/db/tables/Contactact";
 
 // preload process 运行于与 Chrome 扩展相同的安全沙箱环境
-// TODO: DB API 处理 
+// TODO: DB API 处理
 window.addEventListener('DOMContentLoaded', () => {
   // db.contacts.toArray((data) => {
   //   console.log('main call db - ', data)
   // });
-
 })

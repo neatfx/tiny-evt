@@ -20,8 +20,10 @@ export default class {
       title: '',
       center: true,
       width: 300,
-      height: 300,
-      // resizable: false,
+      height: 260,
+      resizable: false,
+      maximizable: false,
+      minimizable: false,
       backgroundColor: '#ececec',
       webPreferences: {
         preload: this.preloadPath
