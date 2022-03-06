@@ -1,4 +1,7 @@
-// 自 Electron 12 起默认启用上下文隔离，为推荐安全设置
+////////////////////////
+// 上下文隔离
+// 自 Electron 12 起默认启用，为推荐安全设置
+///////////////////////////////////////////
 
 import { contextBridge, ipcRenderer } from 'electron'
 import { readFileSync } from 'fs'
@@ -14,8 +17,7 @@ function invalidElectionAPI(channel: string){
   console.log('invalidElectionAPI: ', channel)
 }
 
-contextBridge.exposeInMainWorld('electronAPI', {
-  loadPreferences: () => ipcRenderer.invoke('load-prefs'),
+contextBridge.exposeInMainWorld('otherAPI', {
   send: (channel: string, data: object) => {
     if (!validChannels.send.includes(channel)) {
       invalidElectionAPI(channel)
@@ -40,15 +42,19 @@ contextBridge.exposeInMainWorld('electronAPI', {
       })
     }
   },
-  readConfig: () => {
-    const data = readFileSync('./config.json')
-    return data
-  }
 })
 
 contextBridge.exposeInMainWorld('darkMode', {
   toggle: (): Promise<boolean> => ipcRenderer.invoke('dark-mode:toggle'),
   system: () => ipcRenderer.invoke('dark-mode:system')
+})
+
+contextBridge.exposeInMainWorld('electronAPI', {
+  loadPreferences: () => ipcRenderer.invoke('load-prefs'),
+  readConfig: () => {
+    const data = readFileSync('./config.json')
+    return data
+  }
 })
 
 import { db } from "../../renderer/db/db";

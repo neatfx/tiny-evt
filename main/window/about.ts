@@ -20,7 +20,7 @@ export default class {
       title: '',
       center: true,
       width: 300,
-      height: 260,
+      height: 280,
       resizable: false,
       maximizable: false,
       minimizable: false,

@@ -1,5 +1,5 @@
 import { app, BrowserWindow } from 'electron'
-import {setIpc} from './window/main-ipc' // 基于白名单控制的 IPC 通道（ 对外暴露 electronAPI ）
+import { setIpc } from './window/main-ipc'
 
 // Menu & Window & Tray
 import Menu from './menu'

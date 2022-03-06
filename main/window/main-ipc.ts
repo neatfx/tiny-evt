@@ -1,3 +1,7 @@
+/////////////
+// IPC API
+////////////////
+
 import { ipcMain, nativeTheme } from 'electron'
 import {list} from '../../renderer/db/api'
 
