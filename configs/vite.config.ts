@@ -28,7 +28,7 @@ const buildConfig: UserConfig = {
     emptyOutDir: true,
     assetsDir: './',
     rollupOptions: {}
-  }
+  },
 }
 
 export default {
