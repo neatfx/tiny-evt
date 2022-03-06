@@ -2,7 +2,7 @@ import type { BuildOptions } from 'esbuild'
 
 const dev: BuildOptions = {
   platform: 'node',
-  entryPoints: ['main/main.ts', 'main/preload.ts'],
+  entryPoints: ['main/main.ts', 'main/window/main-preload.ts', 'main/window/about-preload.ts'],
   outdir: 'build/',
   minify: false,
   bundle: true,

@@ -18,8 +18,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { db } from '../../main/db/db'
-import Contact from '../../main/db/tables/Contact'
+import { db } from '../db/db'
+import Contact from '../db/tables/Contact'
 
 export default defineComponent({
   name: 'FriendAdder',

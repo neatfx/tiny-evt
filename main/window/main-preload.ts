@@ -47,30 +47,19 @@ contextBridge.exposeInMainWorld('electronAPI', {
   }
 })
 
+contextBridge.exposeInMainWorld('darkMode', {
+  toggle: (): Promise<boolean> => ipcRenderer.invoke('dark-mode:toggle'),
+  system: () => ipcRenderer.invoke('dark-mode:system')
+})
+
+import { db } from "../../renderer/db/db";
+// import Contact from "../../renderer/db/tables/Contactact";
+
 // preload process 运行于与 Chrome 扩展相同的安全沙箱环境
 // TODO: DB API 处理 
 window.addEventListener('DOMContentLoaded', () => {
-  // const replaceText = (selector: string, text: string | undefined) => {
-  //   const element = document.getElementById(selector)
-  //   console.log('ele', element)
-  //   if (element && text) element.innerText = text
-  // }
-  // // console.table(process)
-  // // console.info(process.versions)
-  // for (const type of ['chrome', 'node', 'electron']) {
-  //   replaceText(`${type}-version`, process.versions[type])
-  // }
+  // db.contacts.toArray((data) => {
+  //   console.log('main call db - ', data)
+  // });
 
-  // var worker = new Worker('./databaseWorker.js');
-  
-  // worker.onmessage = function(event){
-  //   console.log("Database worker process is ", event.data);
-  //   worker.terminate(); 
-    
-  //   // document.querySelector("h1").innerHTML = (event.data);
-  //   //console.log("worker is done working ");
-  // };
-  // worker.onerror = function (event){
-  //   console.error(event.message, event);
-  // };
 })

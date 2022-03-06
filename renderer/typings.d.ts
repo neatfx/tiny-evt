@@ -1,6 +1,7 @@
 declare global {
   interface Window {
     electronAPI: IElectronAPI
+    darkMode: darkMode
   }
   type GithubJson = GithubJsonDef
 }
@@ -10,6 +11,11 @@ export interface IElectronAPI {
   send(channel: string, ...args: any[]): void
   sendSync(channel: string, ...args: any[]): any
   receive(channel: string, listener: (...args: any[]) => void): () => void
+}
+
+export interface darkMode {
+  toggle:  () => Promise<boolean>
+  system: () => Promise<void>
 }
 
 type GithubJsonDef = {

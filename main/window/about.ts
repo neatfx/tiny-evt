@@ -5,6 +5,7 @@ export default class {
   window: BrowserWindow | null
   option: BrowserWindowConstructorOptions
   pageUrl: string
+  preloadPath: string
   constructor() {
     this.window = null
     this.option = {
@@ -23,6 +24,10 @@ export default class {
       process.env.NODE_ENV === 'development'
         ? path.join(__dirname, '../main/window/about.html')
         : path.join(__dirname, './renderer/index.html')
+    this.preloadPath =
+      process.env.NODE_ENV === 'development'
+        ? path.join(__dirname, './window/about-preload.js')
+        : path.join(__dirname, './window/about-preload.js')
   }
   async init() {
     this.window = new BrowserWindow(this.option)
@@ -33,29 +38,23 @@ export default class {
 
     this.window.on('close', (e) => {
       e.preventDefault()
-      // this.window = null
       this.window?.hide()
     })
 
-    if (process.env.NODE_ENV === 'development') {
-      this.window.loadFile(path.join(__dirname, '../main/window/about.html'))
-      // this.window.loadURL('http://127.0.0.1:3000/#preferences')
-    } else {
-      // console.log('load file')
-      await this.window.loadFile(this.pageUrl)
-    }
-  }
-
-  async toggle() {
-    // if (this.window === null) {
-    //   await this.init()
-    // }else{
-    if (this.window?.isVisible()) {
-      this.window.hide()
-    } else {
-      this.window?.show()
-      // this.window.focus()
-    }
-    // }
+    await this.window.loadFile(this.pageUrl)
   }
 }
+
+//   // async toggle() {
+//   //   // if (this.window === null) {
+//   //   //   await this.init()
+//   //   // }else{
+//   //   if (this.window?.isVisible()) {
+//   //     this.window.hide()
+//   //   } else {
+//   //     this.window?.show()
+//   //     // this.window.focus()
+//   //   }
+//   //   // }
+//   // }
+// }

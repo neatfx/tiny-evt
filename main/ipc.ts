@@ -28,5 +28,5 @@ ipcMain.on('reset-testing-db', async(event, arg) => {
   console.log('reset-testing-db')
   let l = await list()
   console.log('ipc - ', l)
-  // event.reply(l)
+  event.reply(l)
 })

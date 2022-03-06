@@ -8,6 +8,11 @@
           <a v-bind:style="{ background: day.color === '#ebedf0'? 'lightgrey' : day.color }"></a>
         </div>
       </div>
+      
+      <p>Current theme source: <strong id="theme-source">{{themeSource}}</strong></p>
+
+      <button id="toggle-dark-mode" @click="toggleDarkMode">Toggle Dark Mode</button>
+      <button id="reset-to-system" @click="resetToSystem">Reset to System Theme</button>
       <!-- <input v-model="inputs.github_user_name"> -->
     </div>
   </div>
@@ -29,9 +34,14 @@ export default defineComponent({
   props: {
     github_user_name: String || undefined
   },
+  data() {
+    return {
+      themeSource: ''
+    }
+  },
   setup(props) {
     const weeks= ref({} as Contribute)
-
+    let themeSource = ref('')
     const inputs = reactive({
       github_user_name: 'neatfx'
     })
@@ -43,13 +53,23 @@ export default defineComponent({
       // fetchData(inputs.github_user_name)
     })
     async function callMainProcess() {
-      const returnValue = electronAPI.send('reset-testi-db', 'ping')
+      const returnValue = electronAPI.send('reset-testing-db', 'ping')
       console.log('[vue -> main-process]', returnValue)
     }
     onMounted(() => {
       console.log(`mounted`)
       // fetchData(props.github_user_name || 'neatfx')
     })
+
+    async function toggleDarkMode() {
+      const isDarkMode = await window.darkMode.toggle()
+      themeSource.value = isDarkMode ? 'Dark' : 'Light'
+    }
+  
+    async function resetToSystem() {
+      await window.darkMode.system()
+      // document.getElementById('theme-source').innerHTML = 'System'
+    }
     async function fetchData(github_user_name: string) {
       const result = await new GithubGraphqlApi().getContribution(github_user_name)
       weeks.value = result.data.user.contributionsCollection.contributionCalendar.weeks
@@ -57,7 +77,10 @@ export default defineComponent({
     return {
       callMainProcess,
       weeks,
-      inputs
+      inputs,
+      themeSource,
+      toggleDarkMode,
+      resetToSystem
     }
   }
 })

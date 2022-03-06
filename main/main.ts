@@ -2,7 +2,7 @@ import { app, BrowserWindow } from 'electron'
 
 // Menu & Window & Tray
 import Menu from './menu'
-import MainWindow from './window/index'
+import MainWindow from './window/main'
 import AboutWindow from './window/about'
 import AppTray from './tray'
 
@@ -36,21 +36,19 @@ app.whenReady().then(async () => {
   mainWindow.init()
   await aboutWindow.init()
   tray.init()
-})
 
-app.on('activate', function () {
-  // On macOS it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-
-  // console.log(BrowserWindow.getAllWindows().length)
+  app.on('activate', function (){
+    // console.log(BrowserWindow.getAllWindows().length)
+    if (BrowserWindow.getAllWindows().length === 0)   mainWindow.init()
+  })
 })
 
 app.on('before-quit', () => {
-  aboutWindow.window?.destroy() // 隐藏窗口需要主动销毁
+  aboutWindow.window?.destroy() // 主动销毁隐藏窗口
 })
 
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit() // Mac平台不会退出
+  if (process.platform !== 'darwin') app.quit()
 })
 
 app.on('activate', () => {

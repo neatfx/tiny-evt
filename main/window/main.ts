@@ -1,4 +1,4 @@
-import { BrowserWindow } from 'electron'
+import { BrowserWindow, ipcMain, nativeTheme } from 'electron'
 import path from 'path'
 
 export default class {
@@ -18,8 +18,8 @@ export default class {
         : path.join(__dirname, './renderer/index.html')
     this.preloadPath =
       process.env.NODE_ENV === 'development'
-        ? path.join(__dirname, './preload.js')
-        : path.join(__dirname, './preload.js')
+        ? path.join(__dirname, './window/main-preload.js')
+        : path.join(__dirname, './window/main-preload.js')
   }
   init() {
     this.window = new BrowserWindow({
@@ -45,6 +45,19 @@ export default class {
     process.env.NODE_ENV === 'development'
       ? this.window.loadURL(this.pageUrl)
       : this.window.loadFile(this.pageUrl)
+
+    ipcMain.handle('dark-mode:toggle', () => {
+      if (nativeTheme.shouldUseDarkColors) {
+        nativeTheme.themeSource = 'light'
+      } else {
+        nativeTheme.themeSource = 'dark'
+      }
+      return nativeTheme.shouldUseDarkColors
+    })
+  
+    ipcMain.handle('dark-mode:system', () => {
+      nativeTheme.themeSource = 'system'
+    })
   }
   toggle() {
     if (this.window === null) {
