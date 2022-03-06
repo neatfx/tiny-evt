@@ -52,6 +52,10 @@ contextBridge.exposeInMainWorld('darkMode', {
   system: () => ipcRenderer.invoke('dark-mode:system')
 })
 
+contextBridge.exposeInMainWorld('processVersion', {
+  get: () => ipcRenderer.invoke('process-version')
+})
+
 import { db } from "../../renderer/db/db";
 // import Contact from "../../renderer/db/tables/Contactact";
 

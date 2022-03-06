@@ -1,5 +1,6 @@
-import { BrowserWindow, ipcMain, nativeTheme } from 'electron'
+import { BrowserWindow } from 'electron'
 import path from 'path'
+import {setIpc} from './main-ipc' // 基于白名单控制的 IPC 通道（ 对外暴露 electronAPI ）
 
 export default class {
   window: BrowserWindow | null
@@ -38,26 +39,20 @@ export default class {
       this.window?.show()
     })
 
-    this.window.on('closed', () => {
-      this.window = null
-    })
+    // this.window.on('closed', () => {
+    //   this.window = null
+    // })
+
+    // this.window.on('close', (e) => {
+    //   e.preventDefault()
+    //   this.window?.hide()
+    // })
 
     process.env.NODE_ENV === 'development'
       ? this.window.loadURL(this.pageUrl)
       : this.window.loadFile(this.pageUrl)
 
-    ipcMain.handle('dark-mode:toggle', () => {
-      if (nativeTheme.shouldUseDarkColors) {
-        nativeTheme.themeSource = 'light'
-      } else {
-        nativeTheme.themeSource = 'dark'
-      }
-      return nativeTheme.shouldUseDarkColors
-    })
-  
-    ipcMain.handle('dark-mode:system', () => {
-      nativeTheme.themeSource = 'system'
-    })
+    setIpc()
   }
   toggle() {
     if (this.window === null) {

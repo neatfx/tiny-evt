@@ -14,9 +14,6 @@ import AppTray from './tray'
 // import './security/remote-module-filter'
 import './security-web-contents'
 
-// 基于白名单控制的 IPC 通道（ 对外暴露 electronAPI ）
-import './ipc'
-
 const mainWindow = new MainWindow()
 const aboutWindow = new AboutWindow()
 const tray = new AppTray()
@@ -32,25 +29,21 @@ const cr: ComponentsRouter = {
 }
 
 app.whenReady().then(async () => {
-  Menu(cr)
   mainWindow.init()
-  await aboutWindow.init()
+  aboutWindow.init()
+  Menu(cr)
   tray.init()
 
-  app.on('activate', function (){
-    // console.log(BrowserWindow.getAllWindows().length)
-    if (BrowserWindow.getAllWindows().length === 0)   mainWindow.init()
+  app.on('activate', function () {
+    console.log(BrowserWindow.getAllWindows())
+    if (BrowserWindow.getAllWindows().length === 1) mainWindow.init()
   })
 })
 
 app.on('before-quit', () => {
-  aboutWindow.window?.destroy() // 主动销毁隐藏窗口
+  // aboutWindow.window?.destroy() // 主动销毁隐藏窗口
 })
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit()
-})
-
-app.on('activate', () => {
-  mainWindow.toggle()
 })
