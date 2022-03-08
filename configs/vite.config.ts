@@ -27,7 +27,9 @@ const buildConfig: UserConfig = {
     outDir: '../build/renderer',
     emptyOutDir: true,
     assetsDir: './',
-    rollupOptions: {}
+    brotliSize: false, // 加速
+    rollupOptions: {
+    }
   },
 }
 
