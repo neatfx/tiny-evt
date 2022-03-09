@@ -1,28 +1,30 @@
 <template>
   <div id='nav'>
-    <router-link to='/' :class="['/' === activeNav ? 'active' : '']" data-test-id="/"> NavA </router-link>
-    <router-link to='/b' :class="['/b' === activeNav ? 'active' : '']" data-test-id='/b'> NavB </router-link>
-    <router-link to='/c' :class="['/c' === activeNav ? 'active' : '']" data-test-id='/c'> NavC </router-link>
-    <router-link to='/d' :class="['/d' === activeNav ? 'active' : '']" data-test-id='/d'> NavD </router-link>
+    <RouterLink to='/' :class="['/' === activeNav ? 'active' : '']" data-test-id="/"> NavA </RouterLink>
+    <RouterLink to='/b' :class="['/b' === activeNav ? 'active' : '']" data-test-id='/b'> NavB </RouterLink>
+    <RouterLink to='/c' :class="['/c' === activeNav ? 'active' : '']" data-test-id='/c'> NavC </RouterLink>
+    <RouterLink to='/d' :class="['/d' === activeNav ? 'active' : '']" data-test-id='/d'> NavD </RouterLink>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, computed, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, RouterLink } from "vue-router"
 
 export default defineComponent({
   setup() {
     const route = useRoute()
     const currentLocation = computed(() => {
-      const { matched, ...rest } = route || {fullPath: '/c'}
-      return rest.fullPath
+      // const { matched, ...rest } = route || {fullPath: '/c'}
+      // return rest.fullPath
+      ""
     })
-    watch(() => currentLocation, path => {
-      console.log('watch', path)
-    })
+    // watch(() => currentLocation, path => {
+    //   console.log('watch', path)
+    // })
     return {
       activeNav: currentLocation,
+      RouterLink
     }
   }
 })

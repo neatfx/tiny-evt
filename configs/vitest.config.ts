@@ -1,19 +1,14 @@
 /// <reference types="vitest" />
 
-import { defineConfig } from 'vite'
+import { UserConfig } from 'vitest'
 import Vue from '@vitejs/plugin-vue'
+import vueJsx from "@vitejs/plugin-vue-jsx"
 
-export default defineConfig({
-  plugins: [Vue({
-    template: {
-      compilerOptions: {
-        isCustomElement: (tag) => tag.includes('router-link')
-      }
-    }
-  })],
+export default {
+  plugins: [Vue(), vueJsx()],
   test: {
     globals: true,
-    environment: 'happy-dom',
+    environment: 'jsdom',
     exclude: [
       '**/node_modules/**',
       '**/dist/**',
@@ -22,4 +17,4 @@ export default defineConfig({
       '**/renderer/e2e/**'
     ]
   },
-})
+}

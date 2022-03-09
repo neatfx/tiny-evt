@@ -1,18 +1,11 @@
-import { createApp, defineAsyncComponent } from 'vue'
+import { createApp } from 'vue'
 import './styles/index.css'
+
+import App from "./App.vue";
 import router from './router'
 
-const app = createApp(
-  defineAsyncComponent({
-    loader: () => import('./layouts/App.vue'),
-    delay: 200,
-    timeout: 3000
-    // loadingComponent: PublicAPIComponent)
-    // errorComponent: PublicAPIComponent,
-  })
-)
+const app = createApp(App)
 
 app.use(router)
-router.isReady().then(() => {
-  app.mount('#app')
-})
+
+app.mount('#app')

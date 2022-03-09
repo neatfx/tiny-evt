@@ -30,8 +30,8 @@ import vueJsx from "@vitejs/plugin-vue-jsx";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
-  root: 'renderer',
+  plugins: [vue(), vueJsx()],
+  root: '../renderer',
   server: {
     port: 3000
   },
