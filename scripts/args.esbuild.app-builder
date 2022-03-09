@@ -4,6 +4,5 @@
 --external:esbuild
 --external:electron-builder
 --external:consolidate
---external:@vue/compiler-sfc
 scripts/app-builder.ts
 --outfile=build/app-builder.js

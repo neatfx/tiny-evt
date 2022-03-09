@@ -8,12 +8,10 @@ export default class {
   preloadPath: string
   constructor() {
     this.window = null
-    this.pageUrl =
-    process.env.NODE_ENV === 'development'
+    this.pageUrl = process.env.NODE_ENV === 'development'
       ? path.join(__dirname, '../main/window/about.html')
       : path.join(__dirname, './renderer/index.html')
-  this.preloadPath =
-    process.env.NODE_ENV === 'development'
+    this.preloadPath = process.env.NODE_ENV === 'development'
       ? path.join(__dirname, './window/about-preload.js')
       : path.join(__dirname, './window/about-preload.js')
     this.option = {

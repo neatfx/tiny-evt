@@ -4,8 +4,8 @@
   </div>
 </template>
 
-<script>
-// export default {
+<script lang="ts">
+export default {
 //   props: {
 //   },
 //   setup(props) {
@@ -19,7 +19,7 @@
 //       info
 //     }
 //   }
-// }
+}
 </script>
 
 <style scoped>

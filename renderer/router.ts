@@ -6,7 +6,7 @@ const router = createRouter({
     { path: '/',
       component: () => import('./pages/ViewA.vue'),
       name: "Home",
-      meta: { title: "首页", icon: "el-icon-s-home" },
+      // meta: { title: "首页", icon: "el-icon-s-home" },
     },
     { path: '/b', component: () => import('./pages/ViewB.vue')},
     { path: '/c', component: () => import('./pages/ViewC.vue')},

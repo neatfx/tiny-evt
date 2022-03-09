@@ -2,15 +2,14 @@ import { createServer } from 'vite'
 import { spawn, ChildProcessWithoutNullStreams } from 'child_process'
 import { build } from 'esbuild'
 
-import viteConfig from '../configs/vite.config'
+import viteConfig from '../vite.config'
 import esbuildConfig from '../configs/esbuild.config'
+import type { InlineConfig } from 'vitest'
 
 let electronProcess: ChildProcessWithoutNullStreams | null
 
 async function launchViteDevServer(openInBrowser = false) {
-  const server = await createServer(
-    openInBrowser ? viteConfig.serveConfig : viteConfig.serverConfig
-  )
+  const server = await createServer(viteConfig as InlineConfig)
   await server.listen()
 }
 

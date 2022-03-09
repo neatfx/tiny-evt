@@ -1,9 +1,9 @@
-import { build as viteBuild } from 'vite'
+import { build as viteBuild, InlineConfig } from 'vite'
 import { build as esbuild } from 'esbuild'
 import { build as electronBuild, Platform, CliOptions } from 'electron-builder'
 
 import esbuildConfig from '../configs/esbuild.config'
-import viteConfig from '../configs/vite.config'
+import viteConfig from '../vite.config'
 import electronBuilderConfig from '../configs/electron-builder'
 
 async function packMain() {
@@ -18,7 +18,7 @@ async function packMain() {
 
 async function packRenderer() {
   try {
-    return viteBuild(viteConfig.buildConfig)
+    return await viteBuild(viteConfig as InlineConfig)
   } catch (err) {
     console.log(`\nfailed to build renderer process`)
     console.error(`\n${err}\n`)
@@ -28,7 +28,10 @@ async function packRenderer() {
 
 const buildStart = Date.now()
 
-Promise.all([packMain(), packRenderer()])
+Promise.all([
+  packMain(), 
+  packRenderer()
+])
   .then((result) => {
     const options: CliOptions = {
       targets: Platform.current().createTarget(),

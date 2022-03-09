@@ -30,12 +30,12 @@ contextBridge.exposeInMainWorld('electronDarkMode', {
 })
 
 import { db } from "../../renderer/db/db"
-import Contact from '../../renderer/db/tables/Contact'
+// import Contact from '../../renderer/db/tables/Contact'
 
 contextBridge.exposeInMainWorld('electronDatabase', {
-  resetTesting: async(): Promise<Contact[]> => {
-    return await db.contacts.toArray()
-  }
+  // resetTesting: async(): Promise<Contact[]> => {
+  //   return await db.contacts.toArray()
+  // }
 })
 
 contextBridge.exposeInMainWorld('electronPersisConf', {
