@@ -2,7 +2,7 @@ import { createServer } from 'vite'
 import { spawn, ChildProcessWithoutNullStreams } from 'child_process'
 import { build } from 'esbuild'
 
-import viteConfig from '../vite.config'
+import viteConfig from '../configs/vite.config'
 import esbuildConfig from '../configs/esbuild.config'
 import type { InlineConfig } from 'vitest'
 
@@ -72,7 +72,7 @@ if (process.env.TEST === 'e2e') {
   launchViteDevServer().then(() => {
     if (process.env.CI) {
       // 服务器 CI 环境
-      const args = ['playwright', 'test', '--project=chromium']
+      const args = ['playwright', 'test', '--config=configs/playwright.config.ts', '--project=chromium']
       spawn('npx', args, {
         stdio: 'inherit',
         shell: process.platform === 'win32'
@@ -81,7 +81,7 @@ if (process.env.TEST === 'e2e') {
       })
     } else {
       // 本地开发环境
-      const args = ['playwright', 'test', '--headed', '--project=chromium']
+      const args = ['playwright', 'test', '--headed', '--config=configs/playwright.config.ts', '--project=chromium']
       spawn('npx', args, {
         stdio: 'inherit',
         shell: process.platform === 'win32'
