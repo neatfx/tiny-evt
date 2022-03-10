@@ -29,7 +29,7 @@ export default class {
       show: false,
       // titleBarStyle: 'hidden',
       // titleBarOverlay: true,
-      frame: false,
+      // frame: false,
       webPreferences: {
         preload: this.preloadPath,
         // nodeIntegration: true,

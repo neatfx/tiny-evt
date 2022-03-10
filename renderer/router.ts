@@ -1,15 +1,20 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+import ViewA from './views/ViewA.vue'
+import ViewB from './views/ViewB.vue'
+import ViewC from './views/ViewC.vue'
+import ViewD from './views/ViewD.vue'
+import ViewPreferences from './views/Preferences.vue'
 
 const routes = [
   { path: '/',
-    component: () => import('./views/ViewA.vue'),
+    component: ViewA,
     name: "Home",
-    // meta: { title: "首页", icon: "el-icon-s-home" },
+    meta: { title: "首页", icon: "el-icon-s-home" },
   },
-  { path: '/b', component: () => import('./views/ViewB.vue')},
-  { path: '/c', component: () => import('./views/ViewC.vue')},
-  { path: '/d', component: () => import('./views/ViewD.vue')},
-  { path: '/preferences', component: () => import('./views/Preferences.vue')}
+  { path: '/b', component: ViewB },
+  { path: '/c', component: ViewC },
+  { path: '/d', component: ViewD },
+  { path: '/preferences', component: ViewPreferences }
 ]
 const router = createRouter({
   history: createWebHashHistory(),

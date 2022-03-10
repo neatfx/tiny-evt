@@ -6,11 +6,22 @@ import {routes} from "../../router"
 import Navbar from '../Navbar.vue'
 import App from '../../App.vue'
 
-const router = createRouter({
-  history: createWebHistory(),
-  routes: routes,
-})
+// const router = createRouter({
+//   history: createWebHistory(),
+//   routes: routes,
+// })
 
+let router
+
+beforeEach(async () => {
+  router = createRouter({
+    history: createWebHistory(),
+    routes: routes,
+  })
+
+  router.push('/')
+  await router.isReady()
+})
 
 test('have a NavC tab', () => {
   const wrapper = mount(Navbar,{
@@ -21,17 +32,17 @@ test('have a NavC tab', () => {
   expect(wrapper.html()).toContain('NavC')
 })
 
-test('have a NavD tab', async() => {
+test('nav to /d', async() => {
   await router.push('/d')
 
   await router.isReady()
 
   const wrapper = mount(App,{
     global: {
-      plugins: [router]
+      plugins: [router],
     }
   })
-  console.log(wrapper.html())
-  console.log(wrapper.getComponent(RouterView).vm)
-  expect(wrapper.html()).toContain('ViewC')
+
+  // console.log(wrapper.html())
+  expect(wrapper.html()).toContain('ViewD')
 })
