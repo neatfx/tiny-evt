@@ -27,8 +27,8 @@ export default class {
       icon: this.iconPath,
       center: true,
       show: false,
-      titleBarStyle: 'hidden',
-      titleBarOverlay: true,
+      // titleBarStyle: 'hidden',
+      // titleBarOverlay: true,
       frame: false,
       webPreferences: {
         preload: this.preloadPath,
