@@ -5,7 +5,10 @@ import Vue from '@vitejs/plugin-vue'
 import vueJsx from "@vitejs/plugin-vue-jsx"
 
 export default {
-  plugins: [Vue(), vueJsx()],
+  plugins: [
+    Vue(),
+    // vueJsx()
+  ],
   test: {
     globals: true,
     environment: 'jsdom',

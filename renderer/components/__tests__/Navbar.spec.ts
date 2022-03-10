@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest"
-import { mount } from '@vue/test-utils'
-import { createRouter, createWebHistory } from 'vue-router'
+import { mount, flushPromises } from '@vue/test-utils'
+import { createRouter, createWebHistory, RouterView } from 'vue-router'
 import {routes} from "../../router"
 
 import Navbar from '../Navbar.vue'
@@ -22,7 +22,7 @@ test('have a NavC tab', () => {
 })
 
 test('have a NavD tab', async() => {
-  router.push('/d')
+  await router.push('/d')
 
   await router.isReady()
 
@@ -31,5 +31,7 @@ test('have a NavD tab', async() => {
       plugins: [router]
     }
   })
-  expect(wrapper.html()).toContain('ViewD')
+  console.log(wrapper.html())
+  console.log(wrapper.getComponent(RouterView).vm)
+  expect(wrapper.html()).toContain('ViewC')
 })

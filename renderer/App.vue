@@ -1,37 +1,37 @@
+<script setup lang="ts">
+import { RouterLink, RouterView } from "vue-router"
+// import HelloWorld from "@/components/HelloWorld.vue";
+</script>
+
 <template>
-  <div id="root">
-    <nav>
-      <RouterLink to="/" :class="['/' === activeNav ? 'active' : '']" data-test-id="/">NavA</RouterLink>
-      <RouterLink to="/b" :class="['/b' === activeNav ? 'active' : '']" data-test-id="/b">NavB</RouterLink>
-      <RouterLink to="/c" :class="['/c' === activeNav ? 'active' : '']" data-test-id="/c">NavC</RouterLink>
-      <RouterLink to="/d" :class="['/d' === activeNav ? 'active' : '']" data-test-id="/d">NavD</RouterLink>
-    </nav>
-    <RouterView id="content" />
-  </div>
+  <header>
+    <div class="wrapper">
+      <nav>
+        <RouterLink to="/" data-test-id="/">NavA</RouterLink>
+        <RouterLink to="/b" data-test-id="/b">NavB</RouterLink>
+        <RouterLink to="/c" data-test-id="/c">NavC</RouterLink>
+        <RouterLink to="/d" data-test-id="/d">NavD</RouterLink>
+      </nav>
+    </div>
+    <RouterView></RouterView>
+  </header>>
 </template>
 
-<script lang="ts">
-import { onMounted, defineComponent } from 'vue'
-import { RouterLink, RouterView } from "vue-router"
-// import Navbar from './components/Navbar.vue'
+<!-- <script lang="ts">
+import { defineComponent } from 'vue'
+// import { RouterView } from 'vue-router'
+import Navbar from './components/Navbar.vue'
 
 export default defineComponent({
   name: 'App',
   components: {
-    // Navbar,
-  },
-  // setup() {
-  //   onMounted(() => {
-  //   })
-  //   return {
-  //     activeNav: '/'
-  //   }
-  // }
+    // RouterView
+  }
 })
-</script>
+</script> -->
 
 <style scoped>
-/* @import "@/assets/base.css"; */
+@import "assets/base.css";
 #root {
   display: grid;
   height: 100vh;

@@ -15,13 +15,12 @@ export default defineComponent({
   setup() {
     const route = useRoute()
     const currentLocation = computed(() => {
-      // const { matched, ...rest } = route || {fullPath: '/c'}
-      // return rest.fullPath
-      ""
+      const { matched, ...rest } = route || {fullPath: '/c'}
+      return rest.fullPath
     })
-    // watch(() => currentLocation, path => {
-    //   console.log('watch', path)
-    // })
+    watch(() => currentLocation, path => {
+      console.log('watch', path)
+    })
     return {
       activeNav: currentLocation,
       RouterLink
