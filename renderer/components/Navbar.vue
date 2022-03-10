@@ -1,59 +1,50 @@
 <template>
-  <div id='nav'>
-    <RouterLink to='/' :class="['/' === activeNav ? 'active' : '']" data-test-id="/"> NavA </RouterLink>
-    <RouterLink to='/b' :class="['/b' === activeNav ? 'active' : '']" data-test-id='/b'> NavB </RouterLink>
-    <RouterLink to='/c' :class="['/c' === activeNav ? 'active' : '']" data-test-id='/c'> NavC </RouterLink>
-    <RouterLink to='/d' :class="['/d' === activeNav ? 'active' : '']" data-test-id='/d'> NavD </RouterLink>
-  </div>
+  <nav>
+    <RouterLink to="/" data-test-id="/">NavA</RouterLink>
+    <RouterLink to="/b" data-test-id="/b">NavB</RouterLink>
+    <RouterLink to="/c" data-test-id="/c">NavC</RouterLink>
+    <RouterLink to="/d" data-test-id="/d">NavD</RouterLink>
+  </nav>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, watch } from 'vue'
-import { useRoute, RouterLink } from "vue-router"
+import { defineComponent } from 'vue'
+import { RouterLink } from "vue-router"
 
 export default defineComponent({
-  setup() {
-    const route = useRoute()
-    const currentLocation = computed(() => {
-      const { matched, ...rest } = route || {fullPath: '/c'}
-      return rest.fullPath
-    })
-    watch(() => currentLocation, path => {
-      console.log('watch', path)
-    })
-    return {
-      activeNav: currentLocation,
-      RouterLink
-    }
+  components: {
+    RouterLink
   }
 })
 </script>
 
 <style scoped>
-#nav {
-  border: 1px solid blue;
-  width: 150px;
+nav {
   display: grid;
   grid-template-rows: repeat(4, 1fr);
-  /* column-gap: 1px; */
-  background-color: #21252b;
+  row-gap: 5px;
+  width: 120px;
+  font-size: small;
+
+  /* border: 1px solid #2d2f36; */
 }
-#nav a {
-  text-align: center;
-  color: #666666;
-  /* background-color: #21252b; */
-  text-decoration-line: none;
-  padding: 10px;
+
+nav a.router-link-exact-active {
+  color: lightgray;
+  background-color: #2d2f36;
 }
-#nav a:hover {
-   background-color: #282c34;
-   color:ghostwhite;
+
+nav a {
+  color: dimgray;
+  padding: 5px 0 5px 10px;
+  border: 1px solid gray;
+  /* border-radius: 2px; */
 }
-.active {
-  background-color: #282c34;
+nav a:hover {
+  background-color: #2d2f36;
 }
-/* .router-link-exact-active {
-    color: ghostwhite; 
-    background-color: #282c34;
-} */
+
+nav a:first-of-type {
+  /* border: 0; */
+}
 </style>

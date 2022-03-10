@@ -1,21 +1,20 @@
 <template>
-  <div id="container">
-    <button @click="callMainProcess"> Open BrowserWindow </button>
-    <br>
-    <div id="graph">
-      <div class="week" v-for="week in weeks" :key="week.contributionDays.length">
-        <div v-for="day in week.contributionDays" :key="day.date">
-          <a v-bind:style="{ background: day.color === '#ebedf0'? 'lightgrey' : day.color }"></a>
-        </div>
+  <button @click="callMainProcess">Open BrowserWindow</button>
+  <br />
+  <!-- <div id="graph">
+    <div class="week" v-for="week in weeks" :key="week.contributionDays.length">
+      <div v-for="day in week.contributionDays" :key="day.date">
+        <a v-bind:style="{ background: day.color === '#ebedf0' ? 'lightgrey' : day.color }"></a>
       </div>
-      
-      <p>Current theme source: <strong id="theme-source">{{themeSource}}</strong></p>
-
-      <button id="toggle-dark-mode" @click="toggleDarkMode">Toggle Dark Mode</button>
-      <button id="reset-to-system" @click="resetToSystem">Reset to System Theme</button>
-      <!-- <input v-model="inputs.github_user_name"> -->
     </div>
-  </div>
+    <input v-model="inputs.github_user_name">
+  </div>-->
+  <p>
+    Current theme source:
+    <strong id="theme-source">{{ themeSource }}</strong>
+  </p>
+  <button id="toggle-dark-mode" @click="toggleDarkMode">Toggle Dark Mode</button>
+  <button id="reset-to-system" @click="resetToSystem">Reset to System Theme</button>
 </template>
 
 <script lang='ts'>
@@ -24,11 +23,12 @@ const { electronDarkMode, electronDatabase } = window
 import { GithubGraphqlApi } from '../services/github-graphql-api'
 
 type Contribute = {
-  contributionDays:{
-      color: string,
-      contributionCount: number,
-      date: string
-  }[]}[]
+  contributionDays: {
+    color: string,
+    contributionCount: number,
+    date: string
+  }[]
+}[]
 
 export default defineComponent({
   props: {
@@ -40,7 +40,7 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const weeks= ref({} as Contribute)
+    const weeks = ref({} as Contribute)
     let themeSource = ref('')
     const inputs = reactive({
       github_user_name: 'neatfx'
@@ -66,7 +66,7 @@ export default defineComponent({
       console.log(isDarkMode)
       themeSource.value = isDarkMode ? 'Dark' : 'Light'
     }
-  
+
     async function resetToSystem() {
       themeSource.value = await electronDarkMode.system()
     }
@@ -87,28 +87,25 @@ export default defineComponent({
 </script>
 
 <style scoped>
-#container {
-  display: grid;
-}
 button {
-  display: grid;
-  background-color:dimgrey;
+  display: inline-block;
+  background-color: dimgrey;
   border: none;
   padding: 7px 10px;
   outline: none;
 }
 button:hover {
-  background-color:lightgrey;
+  background-color: lightgrey;
 }
 #graph {
   display: inline;
 }
-.week{
-  float: left;
+.week {
+  /* float: left; */
   margin-right: 1px;
 }
-#graph a{
-  display: block;
+#graph a {
+  /* display: block; */
   padding: 6px;
   margin-bottom: 1px;
 }
