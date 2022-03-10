@@ -43,8 +43,4 @@ nav a {
 nav a:hover {
   background-color: #2d2f36;
 }
-
-nav a:first-of-type {
-  /* border: 0; */
-}
 </style>
