@@ -3,7 +3,7 @@
  * we could call on retrieved database objects.
  */
 
-import { IContact, IEmailAddress, IPhoneNumber } from './interfaces'
+import type { IContact, IEmailAddress, IPhoneNumber } from './interfaces'
 import { db } from '../db'
 
 export default class Contact implements IContact {

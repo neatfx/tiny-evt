@@ -20,19 +20,19 @@ export default defineComponent({
     };
   },
   setup(data) {
-    const friends = ref({} as Contact[]);
+    // const friends = ref({} as Contact[]);
 
-    async function getContacts() {
-      db.contacts.toArray((data) => {
-        friends.value = data
-      });
-    }
-    onMounted(async () => {
-      getContacts()
-    });
-    return {
-      friends,
-    };
+    // async function getContacts() {
+    //   db.contacts.toArray((data) => {
+    //     friends.value = data
+    //   });
+    // }
+    // onMounted(async () => {
+    //   getContacts()
+    // });
+    // return {
+    //   friends,
+    // };
   },
 });
 </script>

@@ -1,10 +1,10 @@
 {
   "extends": "@vue/tsconfig/tsconfig.web.json",
-  "include": ["**/*", "**/*.vue"],
+  "include": ["./**/*", "./**/*.vue"],
   "exclude": ["components/**/__tests__/*"],
   "compilerOptions": {
     "composite": true,
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
       "@/*": ["./*"]
     }

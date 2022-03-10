@@ -1,5 +1,3 @@
-import Contact from "./db/tables/Contact"
-
 declare global {
   interface Window {
     electronDarkMode: ElectronDarkMode

@@ -33,21 +33,21 @@ export default defineComponent({
     };
   },
   methods: {
-    async addFriend() {
-      try {
-        const id = await db.contacts.add(new Contact(
-          this.friendName,
-          this.friendAge
-        ));
+    // async addFriend() {
+    //   try {
+    //     const id = await db.contacts.add(new Contact(
+    //       this.friendName,
+    //       this.friendAge
+    //     ));
 
-        this.status = `Friend ${this.friendName} successfully added. Got id ${id}`;
+    //     this.status = `Friend ${this.friendName} successfully added. Got id ${id}`;
 
-        this.friendName = '';
-        this.friendAge = this.defaultAge;
-      } catch (error) {
-        this.status = `Failed to add ${this.friendName}: ${error}`;
-      }
-    },
+    //     this.friendName = '';
+    //     this.friendAge = this.defaultAge;
+    //   } catch (error) {
+    //     this.status = `Failed to add ${this.friendName}: ${error}`;
+    //   }
+    // },
   },
 })
 </script>

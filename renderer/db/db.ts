@@ -1,5 +1,5 @@
-import Dexie, { Table } from 'dexie';
-import { IContact, IEmailAddress, IPhoneNumber, IBook } from './tables/interfaces'
+import { Dexie, type Table } from 'dexie';
+import type { IContact, IEmailAddress, IPhoneNumber, IBook } from './tables/interfaces'
 import Contact from './tables/Contact'
 
 export class AppDatabase extends Dexie {
