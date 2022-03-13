@@ -24,10 +24,3 @@ export interface IPhoneNumber {
   type: string;
   phone: string;
 }
-
-export interface IBook {
-  id?: number;
-  title: string;
-  author: number;
-  version: number;
-}

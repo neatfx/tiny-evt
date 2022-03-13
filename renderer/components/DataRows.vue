@@ -1,12 +1,17 @@
 <template>
   <ul>
-    <li v-for="post in items" :key="post.id">{{ post.id }} - {{ post.name }} - {{post.age}}</li>
+    <li v-for="post in items" :key="post.id">
+      <button @click="">Act-1</button>
+      <button @click="">Act-2</button>
+      {{ post.id }} - {{ post.name }} - {{ post.age }}
+      <button class="right" @click="">Act-3</button>
+    </li>
   </ul>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { db } from '../db/db'
+import { TestingDB } from '../db'
 import type Contact from '../db/tables/Contact'
 
 export default defineComponent({
@@ -18,11 +23,11 @@ export default defineComponent({
   },
   methods: {
     async getItems() {
-      this.items = await db.contacts.toArray()
+      this.items = await TestingDB.contacts.toArray()
       console.log(this.items)
     }
   },
-  async mounted(){
+  async mounted() {
     await this.getItems()
   }
 })
@@ -46,5 +51,9 @@ li:last-child {
 }
 li:hover {
   background-color: #2d2f36;
+}
+.right{
+float: right;
+margin-right: 5px;
 }
 </style>
