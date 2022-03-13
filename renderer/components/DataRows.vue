@@ -1,18 +1,19 @@
 <template>
   <ul>
     <li v-for="post in items" :key="post.id">
-      <button @click="">Act-1</button>
-      <button @click="">Act-2</button>
+      <!-- <button @click>Act-1</button>
+      <button @click>Act-2</button>-->
       {{ post.id }} - {{ post.name }} - {{ post.age }}
-      <button class="right" @click="">Act-3</button>
+      <!-- <button class="right" @click>Act-3</button> -->
     </li>
   </ul>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { TestingDB } from '../db'
+// import { TestingDB } from '../db'
 import type Contact from '../db/tables/Contact'
+import { useMainStore } from '../stores/list'
 
 export default defineComponent({
   components: {},
@@ -21,14 +22,11 @@ export default defineComponent({
       items: [] as Contact[]
     }
   },
-  methods: {
-    async getItems() {
-      this.items = await TestingDB.contacts.toArray()
-      console.log(this.items)
-    }
-  },
   async mounted() {
-    await this.getItems()
+    const itemsStore = useMainStore()
+    await itemsStore.getTestingItems()
+    console.log(itemsStore.items)
+    this.items = itemsStore.items
   }
 })
 </script>
@@ -52,8 +50,8 @@ li:last-child {
 li:hover {
   background-color: #2d2f36;
 }
-.right{
-float: right;
-margin-right: 5px;
+.right {
+  float: right;
+  margin-right: 5px;
 }
 </style>

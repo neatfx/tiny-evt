@@ -24,7 +24,9 @@ import { TestingDB } from '../db'
 import Contact from '../db/tables/Contact'
 
 export default defineComponent({
-  setup: (props) => { },
+  setup: (props) => {
+
+  },
   components: {
     DataRows
   },
