@@ -13,17 +13,22 @@
     <br />
     <button @click="addFriend">Add Friend</button>
     <p>{{ status }}</p>
+    <DataRows></DataRows>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import DataRows from "../components/DataRows.vue"
 import { db } from '../db/db'
 import Contact from '../db/tables/Contact'
 
 export default defineComponent({
   name: 'FriendAdder',
-  setup: (props)=>{},
+  setup: (props) => { },
+  components: {
+    DataRows
+  },
   data: () => {
     return {
       status: '',
