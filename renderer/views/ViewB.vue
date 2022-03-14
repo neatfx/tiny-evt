@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { reactive } from "vue";
+import { reactive, watch } from "vue";
 import DataRows from "../components/DataRows.vue"
 import { useTestingStore } from '../stores/testing'
 
+const store = useTestingStore()
 const state = reactive({
   showForm: true,
   status: '',
@@ -16,13 +17,21 @@ function toggleForm() {
 }
 
 async function addNew() {
-  const store = useTestingStore()
   await store.add(state.friendName, state.friendAge)
 
   state.status = `Friend ${state.friendName} successfully added.`;
   state.friendName = '';
   state.friendAge = state.defaultAge;
 }
+
+watch(
+  () => store.items,
+  (newValue, oldValue) => {
+    // if(newValue == oldValue)
+     console.log('view-b')
+  },
+    { deep: true }
+)
 </script>
 
 <template>

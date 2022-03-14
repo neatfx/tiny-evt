@@ -20,7 +20,9 @@ watch(
   () => store.items,
   () => {
     state.items = store.items
-  }
+    console.log('row')
+  },
+    { deep: true }
 )
 
 async function deleteItem(key: number | undefined) {
