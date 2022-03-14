@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, reactive, watch } from "vue"
-import type Contact from "@/db/tables/Contact"
-import { useTestingStore } from '../stores/testing'
+import type { Contact } from "../db"
+import { useTestingStore, } from '../stores/testing'
 
 import DataRows from "../components/DataRows.vue"
 import ViewBAddFormVue from "../components/ViewBAddForm.vue"

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type Contact from '@/db/tables/Contact'
+import type { Contact } from '@/db'
 import { ref } from 'vue';
 
 defineProps<{

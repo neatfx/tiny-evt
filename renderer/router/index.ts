@@ -1,9 +1,9 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import ViewA from './views/ViewA.vue'
-import ViewB from './views/ViewB.vue'
-import ViewC from './views/ViewC.vue'
-import ViewD from './views/ViewD.vue'
-import ViewPreferences from './views/Preferences.vue'
+import ViewA from '../views/ViewA.vue'
+import ViewB from '../views/ViewB.vue'
+import ViewC from '../views/ViewC.vue'
+import ViewD from '../views/ViewD.vue'
+import ViewPreferences from '../views/Preferences.vue'
 
 const routes = [
   { path: '/',
