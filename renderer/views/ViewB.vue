@@ -1,29 +1,23 @@
 <script setup lang="ts">
-import { onMounted, reactive, watch } from "vue";
-import type Contact from "@/db/tables/Contact";
+import { onMounted, reactive, watch } from "vue"
+import type Contact from "@/db/tables/Contact"
 import { useTestingStore } from '../stores/testing'
+
 import DataRows from "../components/DataRows.vue"
+import ViewBAddFormVue from "./ViewBAddForm.vue"
+import type  IFormFields from "./ViewBAddForm.vue"
 
 const store = useTestingStore()
 const state = reactive({
-  showForm: true,
-  status: '',
-  friendName: '',
-  friendAge: 21,
-  defaultAge: 21,
   items: [] as Contact[]
 })
 
-function toggleForm() {
-  state.showForm = !state.showForm
-}
+async function addNew(data: typeof IFormFields) {
+  await store.add(data.friendName, data.friendAge)
 
-async function addNew() {
-  await store.add(state.friendName, state.friendAge)
-
-  state.status = `Friend ${state.friendName} successfully added.`;
-  state.friendName = '';
-  state.friendAge = state.defaultAge;
+  data.status = `Friend ${data.friendName} successfully added.`;
+  data.friendName = '';
+  data.friendAge = data.defaultAge;
 }
 
 async function deleteItem(key: number | undefined) {
@@ -48,21 +42,7 @@ watch(
 </script>
 
 <template>
-  <button @click="toggleForm">Add New</button>
-  <div id="data-form" v-if="state.showForm">
-    <label>
-      Name:
-      <input v-model="state.friendName" type="text" />
-    </label>
-    <br />
-    <label>
-      Age:
-      <input v-model="state.friendAge" type="number" />
-    </label>
-    <br />
-    <button @click="addNew">Submit</button>
-    <p>{{ state.status }}</p>
-  </div>
+  <ViewBAddFormVue @add="addNew"></ViewBAddFormVue>
   <DataRows :items="state.items" @delete="deleteItem"></DataRows>
 </template>
 
