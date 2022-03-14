@@ -1,34 +1,29 @@
 <script setup lang="ts">
-import { reactive } from "vue"
 
-export interface IFormFields {
-  friendName: string;
-  friendAge: number;
-  status: string;
-  defaultAge: any;
+
+export type IFormFields = {
+  status: String;
+  friendName: String;
+  friendAge: Number;
+  defaultAge: Number;
 }
-
-const emit = defineEmits<{
-  (e: 'add', data: IFormFields | undefined): void
+defineProps({
+  show: Boolean,
+})
+defineEmits<{
+  (e: 'add', data: IFormFields): void
 }>()
 
-const state = reactive({
-  showForm: true,
+const state: IFormFields = {
   status: '',
   friendName: '',
   friendAge: 21,
   defaultAge: 21,
-})
-
-function toggle() {
-  state.showForm = !state.showForm
 }
-
 </script>
 
 <template>
-  <button @click="toggle">Add New</button>
-  <div id="data-form" v-if="state.showForm">
+  <div id="data-form" v-if="show">
     <label>
       Name:
       <input v-model="state.friendName" type="text" />
@@ -39,7 +34,7 @@ function toggle() {
       <input v-model="state.friendAge" type="number" />
     </label>
     <br />
-    <button @click="emit('add', state)">Submit</button>
+    <button @click="$emit('add', state)">Submit</button>
     <p>{{ state.status }}</p>
   </div>
 </template>

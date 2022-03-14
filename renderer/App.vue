@@ -9,7 +9,11 @@ import Navbar from './components/Navbar.vue'
       <Navbar></Navbar>
     </div>
     <div class="view-wrapper">
-      <RouterView></RouterView>
+      <RouterView v-slot="{ Component }">
+        <keep-alive>
+          <component :is="Component" />
+        </keep-alive>
+      </RouterView>
     </div>
   </div>
 </template>

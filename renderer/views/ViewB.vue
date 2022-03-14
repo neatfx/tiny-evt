@@ -5,14 +5,18 @@ import { useTestingStore } from '../stores/testing'
 
 import DataRows from "../components/DataRows.vue"
 import ViewBAddFormVue from "../components/ViewBAddForm.vue"
-import type IFormFields from "../components/ViewBAddForm.vue"
 
 const store = useTestingStore()
 const state = reactive({
+  showForm: true,
   items: [] as Contact[]
 })
 
-async function addNew(data: typeof IFormFields) {
+function toggle() {
+  state.showForm = !state.showForm
+}
+
+async function addItem(data: any) {
   await store.add(data.friendName, data.friendAge)
 
   data.status = `Friend ${data.friendName} successfully added.`;
@@ -42,7 +46,8 @@ watch(
 </script>
 
 <template>
-  <ViewBAddFormVue @add="addNew"></ViewBAddFormVue>
+  <button @click="toggle">Add New</button>
+  <ViewBAddFormVue :show="state.showForm" @add="addItem"></ViewBAddFormVue>
   <DataRows :items="state.items" @delete="deleteItem"></DataRows>
 </template>
 
@@ -56,9 +61,5 @@ button {
 }
 button:hover {
   background-color: lightgrey;
-}
-#data-form {
-  border: 1px sold lightgrey;
-  padding: 5px;
 }
 </style>
