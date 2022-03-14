@@ -24,7 +24,7 @@ export const useMainStore = defineStore('main', {
     },
     async deleteTestingItem(key: number) {
       await TestingDB.contacts.delete(key)
-      console.log(key)
+      await this.getTestingItems()
     },
   },
 })
