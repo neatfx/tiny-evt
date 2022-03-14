@@ -11,7 +11,6 @@ export const useMainStore = defineStore('main', {
   actions: {
     async getTestingItems() {
       this.items = await TestingDB.contacts.toArray()
-      // console.log(this.items)
     },
     async addTestingItems(friendName: string, friendAge: number) {
       this.items = await TestingDB.contacts.toArray()

@@ -3,12 +3,12 @@ import { reactive } from "vue";
 import DataRows from "../components/DataRows.vue"
 import { useMainStore } from '../stores/list'
 
-const state = reactive ({
-    showForm: true,
-    status: '',
-    friendName: '',
-    friendAge: 21,
-    defaultAge: 21
+const state = reactive({
+  showForm: true,
+  status: '',
+  friendName: '',
+  friendAge: 21,
+  defaultAge: 21
 })
 
 function toggleForm() {
@@ -20,8 +20,8 @@ async function addNew() {
   await itemsStore.addTestingItems(state.friendName, state.friendAge)
 
   //   this.status = `Friend ${this.friendName} successfully added. Got id ${id}`;
-  //   this.friendName = '';
-  //   this.friendAge = this.defaultAge;
+  state.friendName = '';
+  state.friendAge = state.defaultAge;
 }
 </script>
 
@@ -38,7 +38,7 @@ async function addNew() {
       <input v-model="state.friendAge" type="number" />
     </label>
     <br />
-    <button @click="addNew">Add</button>
+    <button @click="addNew">Submit</button>
     <p>{{ state.status }}</p>
   </div>
   <DataRows></DataRows>

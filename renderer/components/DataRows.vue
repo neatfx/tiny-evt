@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type Contact from '@/db/tables/Contact';
-import { computed, nextTick, onMounted, reactive, ref, type ComputedRef } from 'vue'
+import { onMounted, reactive } from 'vue'
 import { useMainStore } from '../stores/list'
 
 const state = reactive({
@@ -8,7 +8,6 @@ const state = reactive({
 })
 
 const itemsStore = useMainStore()
-
 
 onMounted(async () => {
   await itemsStore.getTestingItems()
@@ -32,7 +31,7 @@ async function deleteItem(key: number | undefined) {
       <button
         @click="deleteItem(post.id)"
         class="right"
-      >Act-3</button>
+      >Delete</button>
     </li>
   </ul>
 </template>
