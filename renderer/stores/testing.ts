@@ -9,10 +9,10 @@ export const useMainStore = defineStore('main', {
   getters: {
   },
   actions: {
-    async getTestingItems() {
+    async list() {
       this.items = await TestingDB.contacts.toArray()
     },
-    async addTestingItems(friendName: string, friendAge: number) {
+    async add(friendName: string, friendAge: number) {
       this.items = await TestingDB.contacts.toArray()
 
       await TestingDB.contacts.add(new Contact(
@@ -20,11 +20,11 @@ export const useMainStore = defineStore('main', {
         friendAge
       ))
 
-      await this.getTestingItems()
+      await this.list()
     },
-    async deleteTestingItem(key: number) {
+    async delete(key: number) {
       await TestingDB.contacts.delete(key)
-      await this.getTestingItems()
+      await this.list()
     },
   },
 })

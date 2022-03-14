@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { reactive } from "vue";
 import DataRows from "../components/DataRows.vue"
-import { useMainStore } from '../stores/list'
+import { useMainStore } from '../stores/testing'
 
 const state = reactive({
   showForm: true,
@@ -17,7 +17,7 @@ function toggleForm() {
 
 async function addNew() {
   const itemsStore = useMainStore()
-  await itemsStore.addTestingItems(state.friendName, state.friendAge)
+  await itemsStore.add(state.friendName, state.friendAge)
 
   //   this.status = `Friend ${this.friendName} successfully added. Got id ${id}`;
   state.friendName = '';

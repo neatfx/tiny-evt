@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type Contact from '@/db/tables/Contact';
 import { onMounted, reactive, shallowRef, triggerRef, watch, type ShallowRef } from 'vue'
-import { useMainStore } from '../stores/list'
+import { useMainStore } from '../stores/testing'
 
 let state = reactive({
   items: [] as Contact[]
@@ -10,7 +10,7 @@ let state = reactive({
 const itemsStore = useMainStore()
 
 onMounted(async () => {
-  await itemsStore.getTestingItems()
+  await itemsStore.list()
 
   state.items = itemsStore.items
   // console.log(state)
@@ -24,7 +24,7 @@ watch(
 )
 
 async function deleteItem(key: number | undefined) {
-  if (key) await itemsStore.deleteTestingItem(key)
+  if (key) await itemsStore.delete(key)
 }
 </script>
 
