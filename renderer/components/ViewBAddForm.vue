@@ -20,14 +20,14 @@ const state = reactive({
   defaultAge: 21,
 })
 
-function toggleForm() {
+function toggle() {
   state.showForm = !state.showForm
 }
 
 </script>
 
 <template>
-  <button @click="toggleForm">Add New</button>
+  <button @click="toggle">Add New</button>
   <div id="data-form" v-if="state.showForm">
     <label>
       Name:

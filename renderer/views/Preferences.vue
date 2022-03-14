@@ -1,14 +1,7 @@
 <script setup lang="ts">
 </script>
 
-<template>
-  <div>
-    ViewPreferences
-  </div>
-</template>
+<template>ViewPreferences</template>
 
 <style scoped>
-#nav {
-  display: none;
-}
 </style>

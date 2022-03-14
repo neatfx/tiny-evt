@@ -4,8 +4,8 @@ import type Contact from "@/db/tables/Contact"
 import { useTestingStore } from '../stores/testing'
 
 import DataRows from "../components/DataRows.vue"
-import ViewBAddFormVue from "./ViewBAddForm.vue"
-import type  IFormFields from "./ViewBAddForm.vue"
+import ViewBAddFormVue from "../components/ViewBAddForm.vue"
+import type IFormFields from "../components/ViewBAddForm.vue"
 
 const store = useTestingStore()
 const state = reactive({
