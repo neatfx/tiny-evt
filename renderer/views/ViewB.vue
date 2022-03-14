@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { reactive, watch } from "vue";
-import DataRows from "../components/DataRows.vue"
+import { onMounted, reactive, watch } from "vue";
+import type Contact from "@/db/tables/Contact";
 import { useTestingStore } from '../stores/testing'
+import DataRows from "../components/DataRows.vue"
 
 const store = useTestingStore()
 const state = reactive({
@@ -9,7 +10,8 @@ const state = reactive({
   status: '',
   friendName: '',
   friendAge: 21,
-  defaultAge: 21
+  defaultAge: 21,
+  items: [] as Contact[]
 })
 
 function toggleForm() {
@@ -24,13 +26,24 @@ async function addNew() {
   state.friendAge = state.defaultAge;
 }
 
+async function deleteItem(key: number | undefined) {
+  if (key) await store.delete(key)
+}
+
+onMounted(async () => {
+  await store.list()
+
+  state.items = store.items
+  // console.log(state)
+})
+
 watch(
   () => store.items,
   (newValue, oldValue) => {
-    // if(newValue == oldValue)
-     console.log('view-b')
+    console.log('view-b')
+    state.items = store.items
   },
-    { deep: true }
+  { deep: true }
 )
 </script>
 
@@ -50,7 +63,7 @@ watch(
     <button @click="addNew">Submit</button>
     <p>{{ state.status }}</p>
   </div>
-  <DataRows></DataRows>
+  <DataRows :items="state.items" @delete="deleteItem"></DataRows>
 </template>
 
 <style>

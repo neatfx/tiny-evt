@@ -1,43 +1,24 @@
 <script setup lang="ts">
-import type Contact from '@/db/tables/Contact';
-import { onMounted, reactive, watch } from 'vue'
-import { useTestingStore } from '../stores/testing'
+import type Contact from '@/db/tables/Contact'
 
-let state = reactive({
-  items: [] as Contact[]
-})
+defineProps<{
+  items: Contact[]
+}>()
 
-const store = useTestingStore()
-
-onMounted(async () => {
-  await store.list()
-
-  state.items = store.items
-  // console.log(state)
-})
-
-watch(
-  () => store.items,
-  () => {
-    state.items = store.items
-    console.log('row')
-  },
-    { deep: true }
-)
-
-async function deleteItem(key: number | undefined) {
-  if (key) await store.delete(key)
-}
+const emit = defineEmits<{
+  (e: 'delete', id: number | undefined): void
+  (e: 'update', value: string): void
+}>()
 </script>
 
 <template>
   <ul>
-    <li v-for="post in state.items" :key="post.id">
+    <li v-for="post in items" :key="post.id">
       <button>Act-1</button>
       <button>Act-2</button>
       {{ post.id }} - {{ post.name }} - {{ post.age }}
       <button
-        @click="deleteItem(post.id)"
+        @click="emit('delete', post.id)"
         class="right"
       >Delete</button>
     </li>
