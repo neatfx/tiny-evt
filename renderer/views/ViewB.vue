@@ -46,14 +46,22 @@ watch(
 </script>
 
 <template>
-  <button @click="toggle">Add New</button>
-  <ViewBAddFormVue :show="state.showForm" @add="addItem"></ViewBAddFormVue>
-  <DataRows :items="state.items" @delete="deleteItem"></DataRows>
+  <button class="btn-add" @click="toggle">Add New</button>
+
+  <Transition name="nested" :duration="550">
+    <div v-if="state.showForm" class="outer">
+      <div class="inner">
+        <ViewBAddFormVue @add="addItem"></ViewBAddFormVue>
+      </div>
+    </div>
+  </Transition>
+  <Transition type="transition" :duration="550">
+    <DataRows :items="state.items" @delete="deleteItem"></DataRows>
+  </Transition>
 </template>
 
-<style>
+<style scoped>
 button {
-  display: inline-block;
   background-color: dimgrey;
   border: none;
   padding: 7px 10px;
@@ -61,5 +69,26 @@ button {
 }
 button:hover {
   background-color: lightgrey;
+}
+.btn-add {
+  margin-bottom: 10px;
+}
+
+/* Transition */
+/* rules that target nested elements */
+.nested-enter-active .inner,
+.nested-leave-active .inner {
+  transition: all 0.3s ease-in-out;
+}
+
+.nested-enter-from .inner,
+.nested-leave-to .inner {
+  transform: translateX(10px);
+  opacity: 0;
+}
+
+/* delay enter of nested element for staggered effect */
+.nested-enter-active .inner {
+  transition-delay: 0.25s;
 }
 </style>

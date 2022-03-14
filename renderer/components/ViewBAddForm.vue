@@ -1,15 +1,14 @@
 <script setup lang="ts">
 
-
 export type IFormFields = {
   status: String;
   friendName: String;
   friendAge: Number;
   defaultAge: Number;
 }
-defineProps({
-  show: Boolean,
-})
+// defineProps({
+//   // show: Boolean,
+// })
 defineEmits<{
   (e: 'add', data: IFormFields): void
 }>()
@@ -23,7 +22,7 @@ const state: IFormFields = {
 </script>
 
 <template>
-  <div id="data-form" v-if="show">
+  <div class="data-form">
     <label>
       Name:
       <input v-model="state.friendName" type="text" />
@@ -39,19 +38,24 @@ const state: IFormFields = {
   </div>
 </template>
 
-<style>
+<style scoped>
 button {
-  display: inline-block;
+  display: block;
   background-color: dimgrey;
   border: none;
   padding: 7px 10px;
   outline: none;
+  margin-bottom: 10px;
 }
 button:hover {
   background-color: lightgrey;
 }
-#data-form {
-  border: 1px sold lightgrey;
+.data-form {
+  /* display: block; */
+  height: 150px;
+  /* width: 200px; */
+  border: 1px solid dimgrey;
   padding: 5px;
+  margin: 0 0 10px 0;
 }
 </style>
