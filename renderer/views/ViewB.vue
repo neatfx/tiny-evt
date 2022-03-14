@@ -16,10 +16,10 @@ function toggleForm() {
 }
 
 async function addNew() {
-  const itemsStore = useTestingStore()
-  await itemsStore.add(state.friendName, state.friendAge)
+  const store = useTestingStore()
+  await store.add(state.friendName, state.friendAge)
 
-  //   this.status = `Friend ${this.friendName} successfully added. Got id ${id}`;
+  state.status = `Friend ${state.friendName} successfully added.`;
   state.friendName = '';
   state.friendAge = state.defaultAge;
 }

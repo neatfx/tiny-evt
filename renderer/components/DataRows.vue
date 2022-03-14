@@ -7,24 +7,24 @@ let state = reactive({
   items: [] as Contact[]
 })
 
-const itemsStore = useTestingStore()
+const store = useTestingStore()
 
 onMounted(async () => {
-  await itemsStore.list()
+  await store.list()
 
-  state.items = itemsStore.items
+  state.items = store.items
   // console.log(state)
 })
 
 watch(
-  () => itemsStore.items,
+  () => store.items,
   () => {
-    state.items = itemsStore.items
+    state.items = store.items
   }
 )
 
 async function deleteItem(key: number | undefined) {
-  if (key) await itemsStore.delete(key)
+  if (key) await store.delete(key)
 }
 </script>
 
