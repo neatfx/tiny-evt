@@ -1,34 +1,41 @@
+<script setup lang="ts">
+import type Contact from '@/db/tables/Contact';
+import { computed, nextTick, onMounted, reactive, ref, type ComputedRef } from 'vue'
+import { useMainStore } from '../stores/list'
+
+const state = reactive({
+  items: [] as Contact[]
+})
+
+const itemsStore = useMainStore()
+
+
+onMounted(async () => {
+  await itemsStore.getTestingItems()
+
+  state.items = itemsStore.items
+
+  console.log(state.items)
+})
+
+async function deleteItem(key: number | undefined) {
+  if (key) await itemsStore.deleteTestingItem(key)
+}
+</script>
+
 <template>
   <ul>
-    <li v-for="post in items" :key="post.id">
+    <li v-for="post in state.items" :key="post.id">
       <button>Act-1</button>
       <button>Act-2</button>
       {{ post.id }} - {{ post.name }} - {{ post.age }}
-      <button class="right">Act-3</button>
+      <button
+        @click="deleteItem(post.id)"
+        class="right"
+      >Act-3</button>
     </li>
   </ul>
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-import type Contact from '../db/tables/Contact'
-import { useMainStore } from '../stores/list'
-
-export default defineComponent({
-  components: {},
-  data() {
-    return {
-      items: [] as Contact[]
-    }
-  },
-  async mounted() {
-    const itemsStore = useMainStore()
-    await itemsStore.getTestingItems()
-    // console.log(itemsStore.items)
-    this.items = itemsStore.items
-  }
-})
-</script>
 
 <style scoped>
 ul {
