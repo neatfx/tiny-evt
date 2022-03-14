@@ -1,8 +1,8 @@
+import { defineStore } from 'pinia'
 import { TestingDB } from '../db'
 import Contact from '../db/tables/Contact'
-import { defineStore } from 'pinia'
 
-export const useMainStore = defineStore('main', {
+export const useTestingStore = defineStore('testing', {
   state: () => ({
     items: [] as Contact[]
   }),

@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import type Contact from '@/db/tables/Contact';
-import { onMounted, reactive, shallowRef, triggerRef, watch, type ShallowRef } from 'vue'
-import { useMainStore } from '../stores/testing'
+import { onMounted, reactive, watch } from 'vue'
+import { useTestingStore } from '../stores/testing'
 
 let state = reactive({
   items: [] as Contact[]
 })
 
-const itemsStore = useMainStore()
+const itemsStore = useTestingStore()
 
 onMounted(async () => {
   await itemsStore.list()
