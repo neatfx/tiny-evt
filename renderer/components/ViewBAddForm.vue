@@ -1,7 +1,6 @@
 <script setup lang="ts">
 
 export type IFormFields = {
-  status: String;
   friendName: String;
   friendAge: Number;
   defaultAge: Number;
@@ -14,7 +13,6 @@ defineEmits<{
 }>()
 
 const state: IFormFields = {
-  status: '',
   friendName: '',
   friendAge: 21,
   defaultAge: 21,
@@ -23,18 +21,15 @@ const state: IFormFields = {
 
 <template>
   <div class="data-form">
-    <label>
+    <label class="field-name">
       Name:
       <input v-model="state.friendName" type="text" />
     </label>
-    <br />
     <label>
       Age:
       <input v-model="state.friendAge" type="number" />
     </label>
-    <br />
-    <button @click="$emit('add', state)">Submit</button>
-    <p>{{ state.status }}</p>
+    <button class="btn-submit" @click="$emit('add', state)">Submit</button>
   </div>
 </template>
 
@@ -50,12 +45,23 @@ button {
 button:hover {
   background-color: lightgrey;
 }
+.btn-submit {
+  margin-top: 15px;
+}
 .data-form {
-  /* display: block; */
-  height: 150px;
-  /* width: 200px; */
-  border: 1px solid dimgrey;
-  padding: 5px;
+  border: 1px solid grey;
+  padding: 5px 15px 0;
   margin: 0 0 10px 0;
+}
+input {
+  display: block;
+  padding: 8px 10px;
+  border: 1px solid red;
+  border: none;
+  background-color: darkgray;
+}
+input:focus {
+  outline-style: none;
+  background-color:ghostwhite;
 }
 </style>

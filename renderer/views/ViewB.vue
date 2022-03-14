@@ -12,7 +12,7 @@ const state = reactive({
   items: [] as Contact[]
 })
 
-function toggle() {
+function toggleForm() {
   state.showForm = !state.showForm
 }
 
@@ -46,18 +46,16 @@ watch(
 </script>
 
 <template>
-  <button class="btn-add" @click="toggle">Add New</button>
+  <button class="btn-add" @click="toggleForm">Add New</button>
 
-  <Transition name="nested" :duration="550">
+  <Transition name="nested" :duration="500">
     <div v-if="state.showForm" class="outer">
       <div class="inner">
         <ViewBAddFormVue @add="addItem"></ViewBAddFormVue>
       </div>
     </div>
   </Transition>
-  <Transition type="transition" :duration="550">
-    <DataRows :items="state.items" @delete="deleteItem"></DataRows>
-  </Transition>
+  <DataRows :items="state.items" @delete="deleteItem"></DataRows>
 </template>
 
 <style scoped>
@@ -78,17 +76,17 @@ button:hover {
 /* rules that target nested elements */
 .nested-enter-active .inner,
 .nested-leave-active .inner {
-  transition: all 0.3s ease-in-out;
+  transition: all 0.25s ease-in-out;
 }
 
 .nested-enter-from .inner,
 .nested-leave-to .inner {
-  transform: translateX(10px);
+  transform: translateX(20px);
   opacity: 0;
 }
 
 /* delay enter of nested element for staggered effect */
 .nested-enter-active .inner {
-  transition-delay: 0.25s;
+  transition-delay: 0.2s;
 }
 </style>

@@ -23,7 +23,7 @@ const emit = defineEmits<{
         @click="emit('delete', post.id)"
         class="right"
       >Delete</button>
-      <Transition name="slide-up" mode="in-out" class="right">
+      <Transition name="slide-up" mode="out-in" class="right">
         <button v-if="docState === 'saved'" @click="docState = 'edited'">Edit</button>
         <button v-else-if="docState === 'edited'" @click="docState = 'editing'">Save</button>
         <button v-else-if="docState === 'editing'" @click="docState = 'saved'">Cancel</button>
@@ -42,7 +42,7 @@ li {
   display: block;
   margin-left: 0;
   border-bottom: 1px solid grey;
-  padding: 6px 0 6px 5px;
+  padding: 5px 0 5px 5px;
   color: gainsboro;
 }
 li:last-child {
@@ -69,13 +69,13 @@ button:hover {
 .list-move, /* apply transition to moving elements */
 .list-enter-active,
 .list-leave-active {
-  transition: all 0.5s ease;
+  transition: all 0.2s ease;
 }
 
 .list-enter-from,
 .list-leave-to {
   opacity: 0;
-  transform: translateY(30px);
+  transform: translateX(20px);
 }
 
 /* ensure leaving items are taken out of layout flow so that moving
@@ -83,4 +83,16 @@ button:hover {
 .list-leave-active {
   position: absolute;
 }
+
+/* .slide-up-move,
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: all 0.2s ease;
+}
+
+.slide-up-enter-from,
+.slide-up-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
+} */
 </style>
