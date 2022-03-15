@@ -31,16 +31,16 @@ test('have a NavC tab', () => {
   expect(wrapper.html()).toContain('NavC')
 })
 
-test('nav to /c', async() => {
-  await router.push('/c')
+// test('nav to /c', async() => {
+//   await router.push('/c')
 
-  await router.isReady()
+//   await router.isReady()
 
-  const wrapper = mount(App,{
-    global: {
-      plugins: [router],
-    }
-  })
+//   const wrapper = mount(App,{
+//     global: {
+//       plugins: [router],
+//     }
+//   })
 
-  expect(wrapper.html()).toContain('ViewD')
-})
+//   expect(wrapper.html()).toContain('ViewD')
+// })
