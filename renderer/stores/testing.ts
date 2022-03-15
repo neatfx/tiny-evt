@@ -11,12 +11,12 @@ export const useTestingStore = defineStore('testing', {
     async list() {
       this.items = await TestingDB.contacts.toArray()
     },
-    async add(friendName: string, friendAge: number) {
+    async add(name: string, age: number) {
       this.items = await TestingDB.contacts.toArray()
 
       await TestingDB.contacts.add(new Contact(
-        friendName,
-        friendAge
+        name,
+        age
       ))
 
       await this.list()

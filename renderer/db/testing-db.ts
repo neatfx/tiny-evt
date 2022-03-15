@@ -1,12 +1,9 @@
-import type { Table } from 'dexie';
-
+import type { Table } from 'dexie'
 import { BaseDatabase } from './base-db'
-// import type { IEmailAddress, IPhoneNumber } from './tables/interfaces'
-// import Contact from './tables/Contact'
 
 /* 
- * Just for code completion and compilation - defines
- * the interface of objects stored in the table.
+ * Just for code completion and compilation
+ * defines the interface of objects stored in the table.
  */
 export interface IContact {
   id?: number; // Primary key. Optional (autoincremented)
@@ -30,9 +27,8 @@ export interface IPhoneNumber {
   phone: string;
 }
 
-/* This is a 'physical' class that is mapped to
- * the contacts table. We can have methods on it that
- * we could call on retrieved database objects.
+/* 
+ * class mapped to the contacts table
  */
 export class Contact implements IContact {
   id: number | undefined;
@@ -50,8 +46,8 @@ export class Contact implements IContact {
     // Making them non-enumerable will prevent them from being handled by indexedDB
     // when doing put() or add().
     Object.defineProperties(this, {
-      emails: {value: [], enumerable: false, writable: true },
-      phones: {value: [], enumerable: false, writable: true }
+      emails: { value: [], enumerable: false, writable: true },
+      phones: { value: [], enumerable: false, writable: true }
     });
   }
 
@@ -63,7 +59,7 @@ export class Contact implements IContact {
   }
 
   save() {
-    return TestingDB.transaction('rw', TestingDB.contacts, TestingDB.emails, TestingDB.phones, async() => {
+    return TestingDB.transaction('rw', TestingDB.contacts, TestingDB.emails, TestingDB.phones, async () => {
 
       // Add or update our selves. If add, record this.id.
       this.id = await TestingDB.contacts.put(this);
@@ -78,18 +74,21 @@ export class Contact implements IContact {
       // in our navigation properties:
       await Promise.all([
         TestingDB.emails.where('contactId').equals(this.id) // references us
-            .and(email => emailIds.indexOf(email.id!) === -1) // Not anymore in our array
-            .delete(),
-    
-            TestingDB.phones.where('contactId').equals(this.id)
-            .and(phone => phoneIds.indexOf(phone.id!) === -1)
-            .delete()
+          .and(email => emailIds.indexOf(email.id!) === -1) // Not anymore in our array
+          .delete(),
+
+        TestingDB.phones.where('contactId').equals(this.id)
+          .and(phone => phoneIds.indexOf(phone.id!) === -1)
+          .delete()
       ]);
     });
   }
 }
 
-export class TestingDatabase extends BaseDatabase {
+/* 
+ * Database class
+ */
+class TestingDatabase extends BaseDatabase {
   contacts!: Table<Contact, number>;
   emails!: Table<IEmailAddress, number>;
   phones!: Table<IPhoneNumber, number>;
@@ -107,4 +106,32 @@ export class TestingDatabase extends BaseDatabase {
   }
 }
 
-export const TestingDB = new TestingDatabase('AppDatabase', 1);
+const TestingDB = new TestingDatabase('AppDatabase', 1)
+
+/*
+ * Populating
+ */
+TestingDB.on('populate', function () {
+  // console.log('on populate')
+  // db.contacts.add({name: "someone", ang: 20 });
+})
+
+TestingDB.on('ready', () => {
+  return TestingDB.contacts.count(async (count: number) => {
+    if (count > 0) {
+      console.log("Database already populated")
+    } else {
+      console.log("Database is empty. Populating...")
+      await TestingDB.contacts.bulkAdd([
+        new Contact('zhao', 19),
+        new Contact('qian', 20),
+        new Contact('sun', 21),
+        new Contact('li', 22),
+        new Contact('zhou', 23),
+      ])
+      console.log("Done populating.")
+    }
+  })
+})
+
+export { TestingDB }
