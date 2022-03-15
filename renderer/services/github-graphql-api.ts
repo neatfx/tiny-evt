@@ -1,5 +1,28 @@
 import mockData from './mock-data'
 
+type GithubJson = {
+  data: {
+    user: {
+      name: string
+      followers: {
+        totalCount: number
+      }
+      contributionsCollection: {
+        contributionCalendar: {
+          totalContributions: number
+          weeks: {
+            contributionDays: {
+              color: string
+              contributionCount: number
+              date: string
+            }[]
+          }[]
+        }
+      }
+    }
+  }
+}
+
 export class GithubGraphqlApi {
   private config: {
     headers: Record<string, string>
@@ -69,28 +92,5 @@ export class GithubGraphqlApi {
     })
 
     return response.json()
-  }
-}
-
-type GithubJson = {
-  data: {
-    user: {
-      name: string
-      followers: {
-        totalCount: number
-      }
-      contributionsCollection: {
-        contributionCalendar: {
-          totalContributions: number
-          weeks: {
-            contributionDays: {
-              color: string
-              contributionCount: number
-              date: string
-            }[]
-          }[]
-        }
-      }
-    }
   }
 }
