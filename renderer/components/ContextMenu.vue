@@ -3,7 +3,7 @@ import { onMounted, reactive } from "vue"
 
 interface IMenuItem {
   id: number;
-  text: any;
+  text: string;
   handler: (payload: MouseEvent) => void
 }[]
 
@@ -55,6 +55,10 @@ onMounted(() => {
   // 拦截默认菜单
   document.addEventListener('contextmenu', (e) => {
     e.preventDefault()
+    console.log(e.clientX, e.clientY)
+    // update position of context menu
+    contextMenuState.left = e.clientX + 2 + 'px'
+    contextMenuState.top = e.clientY - 10 + 'px'
   })
   // 点击任意位置后隐藏右键菜单
   document.addEventListener("click", () => {
