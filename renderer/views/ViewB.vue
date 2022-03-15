@@ -4,7 +4,8 @@ import type { Contact } from "../db"
 import { useTestingStore, } from '../stores/testing'
 
 import DataRows from "../components/DataRows.vue"
-import ViewBAddFormVue from "../components/DataRowAdder.vue"
+import DataRowAdder from "../components/DataRowAdder.vue"
+import ContextMenu from "../components/ContextMenu.vue"
 
 const store = useTestingStore()
 const state = reactive({
@@ -51,11 +52,12 @@ watch(
   <Transition name="nested" :duration="500">
     <div v-if="state.showForm" class="outer">
       <div class="inner">
-        <ViewBAddFormVue @add="addItem"></ViewBAddFormVue>
+        <DataRowAdder @add="addItem"></DataRowAdder>
       </div>
     </div>
   </Transition>
   <DataRows :items="state.items" @delete="deleteItem"></DataRows>
+  <ContextMenu></ContextMenu>
 </template>
 
 <style scoped>
