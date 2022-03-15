@@ -1,6 +1,13 @@
 <script setup lang="ts">
+import { onMounted } from "vue";
 import { RouterView } from "vue-router"
 import Navbar from './components/Navbar.vue'
+
+onMounted(()=>{
+  document.addEventListener('contextmenu',(e)=>{
+    e.preventDefault()
+  })
+})
 </script>
 
 <template>

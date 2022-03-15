@@ -11,14 +11,22 @@ const docState = ref('saved')
 const emit = defineEmits<{
   (e: 'delete', id: number | undefined): void
 }>()
+
+const vContextMenu = {
+  created: (el: HTMLLIElement, binding: any) => {
+    el.oncontextmenu = (e: MouseEvent) =>{
+      console.log('contextMenu', binding)
+    }
+  }
+}
 </script>
 
 <template>
   <TransitionGroup name="list" tag="ul">
-    <li v-for="post in items" :key="post.id">
+    <li v-for="post in items" :key="post.id" v-context-menu="post.id">
       <button class="btn-left">Act-1</button>
       <button class="btn-left">Act-2</button>
-      {{ post.id }} - {{ post.name }} - {{ post.age }}
+      <a>{{ post.id }} - {{ post.name }} - {{ post.age }}</a>
       <button
         @click="emit('delete', post.id)"
         class="right"
