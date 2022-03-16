@@ -7,6 +7,7 @@ import DataRows from "../components/DataRows.vue"
 import DataRowAdder from "../components/DataRowAdder.vue"
 import ContextMenu from "../components/DataRowContextMenu.vue"
 import DataRowsFilter from '../components/DataRowsFilter.vue'
+import BaseButton from '../components/BaseButton.vue';
 
 const store = useTestingStore()
 const showDataRowAdder = ref(false)
@@ -37,7 +38,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <button class="btn-add" @click="toggleDataRowAdder">Add New</button>
+  <BaseButton class="btn-add" @click="toggleDataRowAdder" text="Add New"></BaseButton>
   <DataRowsFilter @change="filterDataRows"></DataRowsFilter>
   <Transition name="nested" :duration="500">
     <div v-if="showDataRowAdder" class="outer">
@@ -51,15 +52,6 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-button {
-  background-color: dimgrey;
-  border: none;
-  padding: 7px 10px;
-  outline: none;
-}
-button:hover {
-  background-color: lightgrey;
-}
 .btn-add {
   margin-bottom: 10px;
 }

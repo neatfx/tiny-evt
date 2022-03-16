@@ -1,13 +1,12 @@
 <script setup lang="ts">
+import BaseButton from './BaseButton.vue';
 
 export type IFormFields = {
   friendName: String;
   friendAge: Number;
   defaultAge: Number;
 }
-// defineProps({
-//   // show: Boolean,
-// })
+
 defineEmits<{
   (e: 'add', data: IFormFields): void
 }>()
@@ -29,22 +28,11 @@ const state: IFormFields = {
       Age:
       <input v-model="state.friendAge" type="number" />
     </label>
-    <button class="btn-submit" @click="$emit('add', state)">Submit</button>
+    <BaseButton class="btn-submit" @click="$emit('add', state)" text="Submit"></BaseButton>
   </div>
 </template>
 
 <style scoped>
-button {
-  display: block;
-  background-color: dimgrey;
-  border: none;
-  padding: 7px 10px;
-  outline: none;
-  margin-bottom: 10px;
-}
-button:hover {
-  background-color: lightgrey;
-}
 .btn-submit {
   margin-top: 15px;
 }

@@ -1,4 +1,6 @@
 <script setup lang='ts'>
+import BaseButton from '../components/BaseButton.vue';
+
 const { electronDarkMode } = window
 
 const state = {
@@ -20,8 +22,8 @@ async function resetToSystem() {
     <span>Current Theme:</span>
     <span id="theme-source">{{ state.themeSource }}</span>
   </div>
-  <button id="toggle-dark-mode" @click="toggleDarkMode">Toggle Dark Mode</button>
-  <button id="reset-to-system" @click="resetToSystem">Reset to System Theme</button>
+  <BaseButton id="toggle-dark-mode" @click="toggleDarkMode" text="Toggle Dark Mode"></BaseButton>
+  <BaseButton id="reset-to-system" @click="resetToSystem" text="Reset to System Theme"></BaseButton>
 </template>
 
 <style scoped>
