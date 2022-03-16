@@ -59,7 +59,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <BaseButton @click="showDataRowAdder = !showDataRowAdder" text="Filter"></BaseButton>
+  <BaseButton @click="showDataRowAdder = !showDataRowAdder" text="Status"></BaseButton>
   <Transition name="list">
     <div v-if="showDataRowAdder" class="form-wrapper inner">
       <ul v-for="item in contextMenuState.data" :key="item.id">

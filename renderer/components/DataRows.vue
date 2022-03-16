@@ -23,8 +23,8 @@ function viewRowDetail(e: MouseEvent, paylaod: number | undefined) {
 <template>
   <TransitionGroup name="list" tag="ul">
     <li v-for="post in items" :key="post.id" v-context-menu="post.id">
-      <BaseButton class="btn-left" text="Act-1"></BaseButton>
-      <BaseButton class="btn-left" text="Act-2"></BaseButton>
+      <BaseButton class="btn-left" text="Type"></BaseButton>
+      <BaseButton class="btn-left" text="Progress"></BaseButton>
       <ActionPanel></ActionPanel>
       <a @click="viewRowDetail($event, post.id)">{{ post.id }} - {{ post.name }} @ {{ post.age }}</a>
       <BaseButton @click="emit('delete', post.id)" class="right" text="Delete"></BaseButton>
@@ -35,22 +35,19 @@ function viewRowDetail(e: MouseEvent, paylaod: number | undefined) {
 
 <style scoped>
 ul {
-  border-top: 1px solid grey;
-  padding: 0;
-  margin: 0;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
 }
 li {
-  border-left: 1px solid grey;
-  border-right: 1px solid grey;
-  border-bottom: 1px solid grey;
+  border: 1px solid grey;
   padding: 5px 0 5px 5px;
+  margin-top: -1px;
 }
 li:hover {
   background-color: #2d2f36;
 }
 a {
   color: gainsboro;
+  margin: 0 10px;
 }
 .right {
   float: right;
