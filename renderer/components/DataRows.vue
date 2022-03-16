@@ -4,6 +4,7 @@ import { vContextMenu } from './contextMenu'
 import ActionButton from './DataRowEditButton.vue'
 import BaseButton from './BaseButton.vue';
 import router from '../router'
+import ActionPanel from './ActionPanel.vue'
 
 defineProps<{
   items: Contact[]
@@ -24,6 +25,7 @@ function viewRowDetail(e: MouseEvent, paylaod: number | undefined) {
     <li v-for="post in items" :key="post.id" v-context-menu="post.id">
       <BaseButton class="btn-left" text="Act-1"></BaseButton>
       <BaseButton class="btn-left" text="Act-2"></BaseButton>
+      <ActionPanel></ActionPanel>
       <a @click="viewRowDetail($event, post.id)">{{ post.id }} - {{ post.name }} @ {{ post.age }}</a>
       <BaseButton @click="emit('delete', post.id)" class="right" text="Delete"></BaseButton>
       <ActionButton></ActionButton>
@@ -33,25 +35,22 @@ function viewRowDetail(e: MouseEvent, paylaod: number | undefined) {
 
 <style scoped>
 ul {
-  border: 1px solid grey;
+  border-top: 1px solid grey;
   padding: 0;
   margin: 0;
+  box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
 }
 li {
-  display: block;
-  margin-left: 0;
+  border-left: 1px solid grey;
+  border-right: 1px solid grey;
   border-bottom: 1px solid grey;
   padding: 5px 0 5px 5px;
-  color: gainsboro;
-}
-li:last-child {
-  border-bottom: none;
 }
 li:hover {
   background-color: #2d2f36;
 }
-a{
-  display: inline-block;
+a {
+  color: gainsboro;
 }
 .right {
   float: right;

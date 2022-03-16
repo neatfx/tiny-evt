@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { onMounted, reactive } from "vue"
-import { useContextMenu } from './contextMenu'
+import { onMounted, reactive, ref } from 'vue';
+import BaseButton from './BaseButton.vue';
 
-// const { show, x, y, targetId } = useContextMenu();
-const emit = defineEmits<{
-  (e: 'delete', id: number | undefined): void
+defineEmits<{
+  (e: 'add'): void
 }>()
+
+const showDataRowAdder = ref(false);
 interface IMenuItem {
   id: number;
   text: string;
@@ -15,11 +16,10 @@ interface IMenuItem {
 const contextMenuState = reactive({
   data: {} as IMenuItem[]
 })
-
 const menuData = {
   text: [
-    "f-1",
-    "f-2",
+    "Status",
+    "DeleteDelet",
   ],
   handler: {
     checkingData() {
@@ -59,34 +59,45 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="context-menu"></div>
-  <ul v-for="item in contextMenuState.data" :key="item.id">
-    <li @click="item.handler">{{ item.text }}</li>
-  </ul>
+  <BaseButton @click="showDataRowAdder = !showDataRowAdder" text="Filter"></BaseButton>
+  <Transition name="list">
+    <div v-if="showDataRowAdder" class="form-wrapper inner">
+      <ul v-for="item in contextMenuState.data" :key="item.id">
+        <li @click="item.handler">{{ item.text }}</li>
+      </ul>
+    </div>
+  </Transition>
 </template>
 
-<style>
-.context-menu {
+<style scoped>
+.form-wrapper {
   position: fixed;
-  left: 0;
-  top: 0;
-  width: 160px;
-  height: auto;
-  background-color: dimgray;
+  margin: 0px 0 10px 0;
+  background-color: #708090;
+  box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1)
 }
-
 ul {
-  padding: 0;
-  margin: 0;
   font-size: 15px;
 }
 li {
-  list-style: none;
+  /* list-style: none; */
   padding: 5px 10px 5px;
+  /* text-align: left; */
 }
 
 li:hover {
   background-color: #0070f5;
   cursor: default;
+}
+
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.2s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+  transform: translateY(2px);
+  opacity: 0;
 }
 </style>

@@ -6,6 +6,7 @@ import { useTestingStore, } from '../stores/testing'
 import DataRowsFilter from '../components/DataRowsFilter.vue'
 import DataRowAdder from "../components/DataRowAdder.vue"
 import DataRowsSearch from "../components/DataRowsSearch.vue";
+import Pagination from "../components/Pagination.vue";
 import DataRows from "../components/DataRows.vue"
 import ContextMenu from "../components/DataRowContextMenu.vue"
 
@@ -30,9 +31,15 @@ onMounted(async () => {
 
 <template>
   <div class="action-bar">
-    <DataRowsFilter @change="filterDataRows"></DataRowsFilter>
-    <DataRowAdder @add="addItem"></DataRowAdder>
-    <DataRowsSearch></DataRowsSearch>
+    <div class="left">
+      <DataRowsFilter @change="filterDataRows"></DataRowsFilter>
+      <DataRowsSearch></DataRowsSearch>
+      <DataRowAdder @add="addItem"></DataRowAdder>
+    </div>
+    <div class="right">
+      <Pagination></Pagination>
+    </div>
+    <div class="clear"></div>
   </div>
   <DataRows :items="store.items" @delete="deleteItem"></DataRows>
   <ContextMenu @delete="deleteItem"></ContextMenu>
@@ -41,5 +48,14 @@ onMounted(async () => {
 <style scoped>
 .action-bar {
   margin-bottom: 10px;
+}
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+.clear {
+  clear: both;
 }
 </style>

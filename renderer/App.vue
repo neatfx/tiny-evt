@@ -37,7 +37,7 @@ import Navbar from './components/Navbar.vue'
   /* border: 1px solid red; */
 }
 .view-wrapper {
-  padding: 10px 5px 0;
+  padding: 10px 20px 0 5px;
 
   /* border: 1px solid red; */
 }
