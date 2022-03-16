@@ -1,27 +1,17 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue"
+import { onMounted } from "vue"
 
 import { useTestingStore, } from '../stores/testing'
 
-import DataRows from "../components/DataRows.vue"
-import DataRowAdder from "../components/DataRowAdder.vue"
-import ContextMenu from "../components/DataRowContextMenu.vue"
 import DataRowsFilter from '../components/DataRowsFilter.vue'
-import BaseButton from '../components/BaseButton.vue';
+import DataRowAdder from "../components/DataRowAdder.vue"
+import DataRows from "../components/DataRows.vue"
+import ContextMenu from "../components/DataRowContextMenu.vue"
 
 const store = useTestingStore()
-const showDataRowAdder = ref(false)
-
-function toggleDataRowAdder() {
-  showDataRowAdder.value = !showDataRowAdder.value
-}
 
 async function addItem(data: any) {
   await store.add(data.friendName, data.friendAge)
-
-  data.status = `Friend ${data.friendName} successfully added.`;
-  data.friendName = '';
-  data.friendAge = data.defaultAge;
 }
 
 async function deleteItem(key: number | undefined) {
@@ -38,39 +28,16 @@ onMounted(async () => {
 </script>
 
 <template>
-  <BaseButton class="btn-add" @click="toggleDataRowAdder" text="Add New"></BaseButton>
-  <DataRowsFilter @change="filterDataRows"></DataRowsFilter>
-  <Transition name="nested" :duration="500">
-    <div v-if="showDataRowAdder" class="outer">
-      <div class="inner">
-        <DataRowAdder @add="addItem"></DataRowAdder>
-      </div>
-    </div>
-  </Transition>
+  <div class="action-bar">
+    <DataRowsFilter @change="filterDataRows"></DataRowsFilter>
+    <DataRowAdder @add="addItem"></DataRowAdder>
+  </div>
   <DataRows :items="store.items" @delete="deleteItem"></DataRows>
   <ContextMenu @delete="deleteItem"></ContextMenu>
 </template>
 
 <style scoped>
-.btn-add {
+.action-bar {
   margin-bottom: 10px;
-}
-
-/* Transition */
-/* rules that target nested elements */
-.nested-enter-active .inner,
-.nested-leave-active .inner {
-  transition: all 0.25s ease-in-out;
-}
-
-.nested-enter-from .inner,
-.nested-leave-to .inner {
-  transform: translateX(20px);
-  opacity: 0;
-}
-
-/* delay enter of nested element for staggered effect */
-.nested-enter-active .inner {
-  transition-delay: 0.2s;
 }
 </style>

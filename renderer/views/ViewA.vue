@@ -58,16 +58,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-button {
-  display: inline-block;
-  background-color: dimgrey;
-  border: none;
-  padding: 7px 10px;
-  outline: none;
-}
-button:hover {
-  background-color: lightgrey;
-}
 #graph {
   display: inline;
 }

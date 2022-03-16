@@ -18,7 +18,7 @@ const emit = defineEmits<{
     <li v-for="post in items" :key="post.id" v-context-menu="post.id">
       <BaseButton class="btn-left" text="Act-1"></BaseButton>
       <BaseButton class="btn-left" text="Act-2"></BaseButton>
-      <a>{{ post.id }} - {{ post.name }} - {{ post.age }}</a>
+      <a>{{ post.id }} - {{ post.name }} @ {{ post.age }}</a>
       <BaseButton @click="emit('delete', post.id)" class="right" text="Delete"></BaseButton>
       <ActionButton></ActionButton>
     </li>

@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import BaseButton from './BaseButton.vue';
 
 export type IFormFields = {
   friendName: String;
   friendAge: Number;
-  defaultAge: Number;
 }
 
 defineEmits<{
@@ -12,44 +12,38 @@ defineEmits<{
 }>()
 
 const state: IFormFields = {
-  friendName: '',
+  friendName: 'someone',
   friendAge: 21,
-  defaultAge: 21,
 }
+const showDataRowAdder = ref(false)
+
 </script>
 
 <template>
-  <div class="data-form">
+  <BaseButton @click="showDataRowAdder = !showDataRowAdder" text="Add"></BaseButton>
+  <div v-if="showDataRowAdder" class="form-wrapper">
     <label class="field-name">
       Name:
       <input v-model="state.friendName" type="text" />
     </label>
+    <br>
     <label>
       Age:
       <input v-model="state.friendAge" type="number" />
     </label>
+    <br>
     <BaseButton class="btn-submit" @click="$emit('add', state)" text="Submit"></BaseButton>
+    <BaseButton @click="showDataRowAdder = false" text="Close"></BaseButton>
   </div>
 </template>
 
 <style scoped>
+.form-wrapper {
+  padding: 15px;
+  margin: 10px 0 10px 0;
+  background-color:slategray;
+}
 .btn-submit {
   margin-top: 15px;
-}
-.data-form {
-  border: 1px solid grey;
-  padding: 5px 15px 0;
-  margin: 0 0 10px 0;
-}
-input {
-  display: block;
-  padding: 8px 10px;
-  border: 1px solid red;
-  border: none;
-  background-color: darkgray;
-}
-input:focus {
-  outline-style: none;
-  background-color:ghostwhite;
 }
 </style>
