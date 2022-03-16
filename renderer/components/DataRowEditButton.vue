@@ -22,7 +22,7 @@ const dataRowState = ref('saved')
 }
 .slide-up-enter-from,
 .slide-up-leave-to {
-  opacity: 0;
+  opacity: 0.2;
   transform: translateX(10px);
 }
 </style>

@@ -39,6 +39,7 @@ const showDataRowAdder = ref(false)
 
 <style scoped>
 .form-wrapper {
+  position: fixed;
   padding: 15px;
   margin: 10px 0 10px 0;
   background-color:slategray;
