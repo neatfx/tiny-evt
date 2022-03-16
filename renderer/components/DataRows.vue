@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Contact } from '@/db'
 import { ref } from 'vue';
+import { vContextMenu } from './contextMenu'
 
 defineProps<{
   items: Contact[]
@@ -11,14 +12,6 @@ const docState = ref('saved')
 const emit = defineEmits<{
   (e: 'delete', id: number | undefined): void
 }>()
-
-const vContextMenu = {
-  created: (el: HTMLLIElement, binding: any) => {
-    el.oncontextmenu = (e: MouseEvent) =>{
-      console.log('contextMenu', binding)
-    }
-  }
-}
 </script>
 
 <template>
@@ -27,10 +20,7 @@ const vContextMenu = {
       <button class="btn-left">Act-1</button>
       <button class="btn-left">Act-2</button>
       <a>{{ post.id }} - {{ post.name }} - {{ post.age }}</a>
-      <button
-        @click="emit('delete', post.id)"
-        class="right"
-      >Delete</button>
+      <button @click="emit('delete', post.id)" class="right">Delete</button>
       <Transition name="slide-up" mode="out-in" class="right">
         <button v-if="docState === 'saved'" @click="docState = 'edited'">Edit</button>
         <button v-else-if="docState === 'edited'" @click="docState = 'editing'">Save</button>

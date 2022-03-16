@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import { onMounted, reactive } from "vue"
+import { onMounted, onUpdated, reactive } from "vue"
+import { useContextMenu } from './contextMenu'
+
+const { show, x, y } = useContextMenu();
 
 interface IMenuItem {
   id: number;
@@ -8,9 +11,9 @@ interface IMenuItem {
 }[]
 
 const contextMenuState = reactive({
-  show: "block",
-  left: "0px",
-  top: "0px",
+  // show: show,
+  // left: x.value,
+  // top: y.value + 'px',
   data: {} as IMenuItem[]
 })
 
@@ -46,24 +49,16 @@ function createMenu(binding: { text: any; handler: any; }) {
     };
     menuList.push(menuObj);
   }
-  console.log(menuList)
+  // console.log(menuList)
   contextMenuState.data = menuList
 }
 
 onMounted(() => {
   createMenu(menuData)
-  // 拦截默认菜单
-  document.addEventListener('contextmenu', (e) => {
-    e.preventDefault()
-    console.log(e.clientX, e.clientY)
-    // update position of context menu
-    contextMenuState.left = e.clientX + 2 + 'px'
-    contextMenuState.top = e.clientY - 10 + 'px'
-  })
-  // 点击任意位置后隐藏右键菜单
-  document.addEventListener("click", () => {
-    contextMenuState.show = "none"
-  })
+})
+
+onUpdated(()=>{
+  // console.log(show.value,x.value,y.value)
 })
 </script>
 
@@ -71,9 +66,9 @@ onMounted(() => {
   <div
     class="context-menu"
     :style="{
-      display: contextMenuState.show,
-      top: contextMenuState.top,
-      left: contextMenuState.left
+      display: show,
+      top: y+ 'px',
+      left: x+ 'px'
     }"
   >
     <ul v-for="item in contextMenuState.data" :key="item.id">
