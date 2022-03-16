@@ -28,7 +28,7 @@ export const vContextMenu = {
   mounted: (el: HTMLLIElement, binding: any) => {
     el.oncontextmenu = (e: MouseEvent) => {
       update(e)
-      if (binding) show.value = 'block'
+      show.value = 'block'
       console.log('contextMenu', x.value, y.value, el, binding.value)
     }
   }

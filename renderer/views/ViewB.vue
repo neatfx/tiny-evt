@@ -5,7 +5,7 @@ import { useTestingStore, } from '../stores/testing'
 
 import DataRows from "../components/DataRows.vue"
 import DataRowAdder from "../components/DataRowAdder.vue"
-import ContextMenu from "../components/ContextMenu.vue"
+import ContextMenu from "../components/DataRowContextMenu.vue"
 
 const store = useTestingStore()
 const state = reactive({

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUpdated, reactive } from "vue"
+import { onMounted, reactive } from "vue"
 import { useContextMenu } from './contextMenu'
 
 const { show, x, y } = useContextMenu();
@@ -11,9 +11,6 @@ interface IMenuItem {
 }[]
 
 const contextMenuState = reactive({
-  // show: show,
-  // left: x.value,
-  // top: y.value + 'px',
   data: {} as IMenuItem[]
 })
 
@@ -55,10 +52,6 @@ function createMenu(binding: { text: any; handler: any; }) {
 
 onMounted(() => {
   createMenu(menuData)
-})
-
-onUpdated(()=>{
-  // console.log(show.value,x.value,y.value)
 })
 </script>
 
