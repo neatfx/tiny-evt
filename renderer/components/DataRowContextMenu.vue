@@ -2,8 +2,10 @@
 import { onMounted, reactive } from "vue"
 import { useContextMenu } from './contextMenu'
 
-const { show, x, y } = useContextMenu();
-
+const { show, x, y, targetId } = useContextMenu();
+const emit = defineEmits<{
+  (e: 'delete', id: number | undefined): void
+}>()
 interface IMenuItem {
   id: number;
   text: string;
@@ -25,6 +27,7 @@ const menuData = {
     },
     deleteById() {
       console.log("从数据库中删除数据");
+      emit('delete', targetId.value)
     }
   }
 }

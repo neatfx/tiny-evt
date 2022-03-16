@@ -6,6 +6,7 @@ import { useTestingStore, } from '../stores/testing'
 import DataRows from "../components/DataRows.vue"
 import DataRowAdder from "../components/DataRowAdder.vue"
 import ContextMenu from "../components/DataRowContextMenu.vue"
+import DataRowsFilter from '../components/DataRowsFilter.vue'
 
 const store = useTestingStore()
 const showDataRowAdder = ref(false)
@@ -26,6 +27,10 @@ async function deleteItem(key: number | undefined) {
   if (key) await store.delete(key)
 }
 
+function filterDataRows(e) {
+  console.log(e.target.value)
+}
+
 onMounted(async () => {
   await store.list()
 })
@@ -33,7 +38,7 @@ onMounted(async () => {
 
 <template>
   <button class="btn-add" @click="toggleDataRowAdder">Add New</button>
-
+  <DataRowsFilter @change="filterDataRows"></DataRowsFilter>
   <Transition name="nested" :duration="500">
     <div v-if="showDataRowAdder" class="outer">
       <div class="inner">
@@ -42,7 +47,7 @@ onMounted(async () => {
     </div>
   </Transition>
   <DataRows :items="store.items" @delete="deleteItem"></DataRows>
-  <ContextMenu></ContextMenu>
+  <ContextMenu @delete="deleteItem"></ContextMenu>
 </template>
 
 <style scoped>

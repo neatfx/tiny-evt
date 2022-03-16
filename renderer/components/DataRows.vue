@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import type { Contact } from '@/db'
-import { ref } from 'vue';
 import { vContextMenu } from './contextMenu'
+import ActionButton from './DataRowEditButton.vue'
+import BaseButton from './BaseButton.vue';
 
 defineProps<{
   items: Contact[]
 }>()
 
-const docState = ref('saved')
 const emit = defineEmits<{
   (e: 'delete', id: number | undefined): void
 }>()
@@ -16,15 +16,11 @@ const emit = defineEmits<{
 <template>
   <TransitionGroup name="list" tag="ul">
     <li v-for="post in items" :key="post.id" v-context-menu="post.id">
-      <button class="btn-left">Act-1</button>
-      <button class="btn-left">Act-2</button>
+      <BaseButton class="btn-left" text="Act-1"></BaseButton>
+      <BaseButton class="btn-left" text="Act-2"></BaseButton>
       <a>{{ post.id }} - {{ post.name }} - {{ post.age }}</a>
-      <button @click="emit('delete', post.id)" class="right">Delete</button>
-      <Transition name="slide-up" mode="out-in" class="right">
-        <button v-if="docState === 'saved'" @click="docState = 'edited'">Edit</button>
-        <button v-else-if="docState === 'edited'" @click="docState = 'editing'">Save</button>
-        <button v-else-if="docState === 'editing'" @click="docState = 'saved'">Cancel</button>
-      </Transition>
+      <BaseButton @click="emit('delete', post.id)" class="right" text="Delete"></BaseButton>
+      <ActionButton></ActionButton>
     </li>
   </TransitionGroup>
 </template>
@@ -48,16 +44,6 @@ li:last-child {
 li:hover {
   background-color: #2d2f36;
 }
-button {
-  background-color: dimgrey;
-  border: none;
-  padding: 7px 10px;
-  outline: none;
-  margin-right: 5px;
-}
-button:hover {
-  background-color: lightgrey;
-}
 .right {
   float: right;
 }
@@ -80,16 +66,4 @@ button:hover {
 .list-leave-active {
   position: absolute;
 }
-
-/* .slide-up-move,
-.slide-up-enter-active,
-.slide-up-leave-active {
-  transition: all 0.2s ease;
-}
-
-.slide-up-enter-from,
-.slide-up-leave-to {
-  opacity: 0;
-  transform: translateY(10px);
-} */
 </style>
