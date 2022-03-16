@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { onMounted, reactive, watch } from "vue"
-import type { Contact } from "../db"
+import { onMounted, ref } from "vue"
+
 import { useTestingStore, } from '../stores/testing'
 
 import DataRows from "../components/DataRows.vue"
@@ -8,13 +8,10 @@ import DataRowAdder from "../components/DataRowAdder.vue"
 import ContextMenu from "../components/DataRowContextMenu.vue"
 
 const store = useTestingStore()
-const state = reactive({
-  showForm: true,
-  items: [] as Contact[]
-})
+const showDataRowAdder = ref(false)
 
-function toggleForm() {
-  state.showForm = !state.showForm
+function toggleDataRowAdder() {
+  showDataRowAdder.value = !showDataRowAdder.value
 }
 
 async function addItem(data: any) {
@@ -31,32 +28,20 @@ async function deleteItem(key: number | undefined) {
 
 onMounted(async () => {
   await store.list()
-
-  state.items = store.items
-  // console.log(state)
 })
-
-watch(
-  () => store.items,
-  (newValue, oldValue) => {
-    console.log('view-b')
-    state.items = store.items
-  },
-  { deep: true }
-)
 </script>
 
 <template>
-  <button class="btn-add" @click="toggleForm">Add New</button>
+  <button class="btn-add" @click="toggleDataRowAdder">Add New</button>
 
   <Transition name="nested" :duration="500">
-    <div v-if="state.showForm" class="outer">
+    <div v-if="showDataRowAdder" class="outer">
       <div class="inner">
         <DataRowAdder @add="addItem"></DataRowAdder>
       </div>
     </div>
   </Transition>
-  <DataRows :items="state.items" @delete="deleteItem"></DataRows>
+  <DataRows :items="store.items" @delete="deleteItem"></DataRows>
   <ContextMenu></ContextMenu>
 </template>
 

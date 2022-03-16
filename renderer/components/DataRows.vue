@@ -8,7 +8,6 @@ defineProps<{
 }>()
 
 const docState = ref('saved')
-
 const emit = defineEmits<{
   (e: 'delete', id: number | undefined): void
 }>()
