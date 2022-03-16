@@ -5,13 +5,14 @@
         <a v-bind:style="{ background: day.color === '#ebedf0' ? 'lightgrey' : day.color }"></a>
       </div>
     </div>
-    <input v-model="inputs.github_user_name">
+    <BaseInput v-model="inputs.github_user_name"></BaseInput>
   </div>
 </template>
 
 <script lang='ts'>
 import { defineComponent, onMounted, ref, reactive, watch } from 'vue'
 import { GithubGraphqlApi } from '../services/github-graphql-api'
+import BaseInput from '../components/BaseInput.vue';
 
 type Contribute = {
   contributionDays: {

@@ -5,6 +5,7 @@ import { useTestingStore, } from '../stores/testing'
 
 import DataRowsFilter from '../components/DataRowsFilter.vue'
 import DataRowAdder from "../components/DataRowAdder.vue"
+import DataRowsSearch from "../components/DataRowsSearch.vue";
 import DataRows from "../components/DataRows.vue"
 import ContextMenu from "../components/DataRowContextMenu.vue"
 
@@ -31,6 +32,7 @@ onMounted(async () => {
   <div class="action-bar">
     <DataRowsFilter @change="filterDataRows"></DataRowsFilter>
     <DataRowAdder @add="addItem"></DataRowAdder>
+    <DataRowsSearch></DataRowsSearch>
   </div>
   <DataRows :items="store.items" @delete="deleteItem"></DataRows>
   <ContextMenu @delete="deleteItem"></ContextMenu>

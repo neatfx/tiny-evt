@@ -63,8 +63,8 @@ onMounted(() => {
     class="context-menu"
     :style="{
       display: show,
-      top: y+ 'px',
-      left: x+ 'px'
+      top: y + 'px',
+      left: x + 'px'
     }"
   >
     <ul v-for="item in contextMenuState.data" :key="item.id">
@@ -81,6 +81,7 @@ onMounted(() => {
   width: 160px;
   height: auto;
   background-color: dimgray;
+  box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
 }
 
 ul {

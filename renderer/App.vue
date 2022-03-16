@@ -23,8 +23,6 @@ import Navbar from './components/Navbar.vue'
 
 #app {
   /* border: 1px solid green; */
-  height: 100vh;
-  background-color: #333842;
 }
 
 .wrapper {

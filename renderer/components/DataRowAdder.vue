@@ -26,12 +26,12 @@ const showDataRowAdder = ref(false)
       Name:
       <input v-model="state.friendName" type="text" />
     </label>
-    <br>
+    <br />
     <label>
       Age:
       <input v-model="state.friendAge" type="number" />
     </label>
-    <br>
+    <br />
     <BaseButton class="btn-submit" @click="$emit('add', state)" text="Submit"></BaseButton>
     <BaseButton @click="showDataRowAdder = false" text="Close"></BaseButton>
   </div>
@@ -42,7 +42,8 @@ const showDataRowAdder = ref(false)
   position: fixed;
   padding: 15px;
   margin: 10px 0 10px 0;
-  background-color:slategray;
+  background-color: slategray;
+  box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
 }
 .btn-submit {
   margin-top: 15px;
