@@ -3,6 +3,7 @@ import type { Contact } from '@/db'
 import { vContextMenu } from './contextMenu'
 import ActionButton from './DataRowEditButton.vue'
 import BaseButton from './BaseButton.vue';
+import router from '../router'
 
 defineProps<{
   items: Contact[]
@@ -11,6 +12,11 @@ defineProps<{
 const emit = defineEmits<{
   (e: 'delete', id: number | undefined): void
 }>()
+
+function viewRowDetail(e: MouseEvent, paylaod: number | undefined) {
+  console.log(e, paylaod)
+  router.push('/c')
+}
 </script>
 
 <template>
@@ -18,7 +24,7 @@ const emit = defineEmits<{
     <li v-for="post in items" :key="post.id" v-context-menu="post.id">
       <BaseButton class="btn-left" text="Act-1"></BaseButton>
       <BaseButton class="btn-left" text="Act-2"></BaseButton>
-      <a>{{ post.id }} - {{ post.name }} @ {{ post.age }}</a>
+      <a @click="viewRowDetail($event, post.id)">{{ post.id }} - {{ post.name }} @ {{ post.age }}</a>
       <BaseButton @click="emit('delete', post.id)" class="right" text="Delete"></BaseButton>
       <ActionButton></ActionButton>
     </li>
@@ -43,6 +49,9 @@ li:last-child {
 }
 li:hover {
   background-color: #2d2f36;
+}
+a{
+  display: inline-block;
 }
 .right {
   float: right;

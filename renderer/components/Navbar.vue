@@ -1,9 +1,9 @@
 <template>
   <nav>
-    <RouterLink to="/" data-test-id="/">NavA</RouterLink>
-    <RouterLink to="/b" data-test-id="/b">NavB</RouterLink>
-    <RouterLink to="/c" data-test-id="/c">NavC</RouterLink>
-    <RouterLink to="/d" data-test-id="/d">NavD</RouterLink>
+    <RouterLink to="/" data-test-id="/">Insights</RouterLink>
+    <RouterLink to="/b" data-test-id="/b">DataRows</RouterLink>
+    <!-- <RouterLink to="/c" data-test-id="/c">NavC</RouterLink> -->
+    <RouterLink to="/d" data-test-id="/d">Preferences</RouterLink>
   </nav>
 </template>
 
