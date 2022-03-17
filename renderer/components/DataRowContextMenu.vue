@@ -73,7 +73,7 @@ onMounted(() => {
   </div>
 </template>
 
-<style>
+<style scoped>
 .context-menu {
   position: fixed;
   left: 0;

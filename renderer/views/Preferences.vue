@@ -5,10 +5,10 @@ import FolderPanel from '../components/FolderPanel.vue';
 </script>
 
 <template>
-  <FolderPanel>
+  <FolderPanel title="View">
     <PrefDarkMode></PrefDarkMode>
   </FolderPanel>
-  <FolderPanel>
+  <FolderPanel title="Database">
     <DBExportImport></DBExportImport>
   </FolderPanel>
 </template>

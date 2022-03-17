@@ -35,12 +35,15 @@ function viewRowDetail(e: MouseEvent, paylaod: number | undefined) {
 
 <style scoped>
 ul {
+  padding: 0;
+  margin: 0;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
 }
 li {
   border: 1px solid grey;
   padding: 5px 0 5px 5px;
   margin-top: -1px;
+  list-style: none;
 }
 li:hover {
   background-color: #2d2f36;

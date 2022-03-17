@@ -27,20 +27,8 @@ async function resetToSystem() {
 </template>
 
 <style scoped>
-button {
-  display: inline-block;
-  background-color: dimgrey;
-  border: none;
-  padding: 7px 10px;
-  margin: 0 2px;
-  outline: none;
-}
-button:hover {
-  background-color: lightgrey;
-}
 #theme-info {
-  padding: 10px;
-  border: 1px solid gray;
+  padding: 4px 5px;
   margin: 0 0 5px 2px;
 }
 </style>

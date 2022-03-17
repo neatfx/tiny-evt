@@ -86,7 +86,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <h5>Database Name - {{ TestingDB.name }}</h5>
+  <div>Database Name - {{ TestingDB.name }}</div>
   <ul>
     <li v-for="table in tables" :key="table.id">
       <span>Table: {{ table.id }} - Primary Key: {{ table.primKey }} - Row count: {{ table.count }}</span>
@@ -99,21 +99,19 @@ onMounted(async () => {
 
 <style scoped>
 #dropzone {
-  border: 1px dashed grey;
-  border-radius: 10px;
-  width: 250px;
+  border: 2px dotted silver;
+  border-radius: 6px;
   padding: 30px 20px;
-  margin: 20px 0;
-  color: grey;
+  margin: 20px 0 0;
   text-align: center;
 }
-ul {
-  box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
+ul{
+  padding: 0;
 }
 li {
   border: 1px solid grey;
   padding: 5px 0 5px 5px;
   margin-top: -1px;
+  list-style: none;
 }
 </style>

@@ -37,6 +37,7 @@ nav a {
   color: dimgray;
   padding: 5px 0 5px 10px;
   border: 1px solid gray;
+  cursor: default;
   /* border-radius: 2px; */
 }
 nav a:hover {
