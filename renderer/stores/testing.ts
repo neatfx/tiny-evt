@@ -3,7 +3,8 @@ import { TestingDB, Contact } from '../db'
 
 export const useTestingStore = defineStore('testing', {
   state: () => ({
-    items: [] as Contact[]
+    items: [] as Contact[],
+    tags: [] as String[]
   }),
   getters: {
   },
@@ -25,5 +26,8 @@ export const useTestingStore = defineStore('testing', {
       await TestingDB.contacts.delete(key)
       await this.list()
     },
+    async getUniqueTags(){
+      this.tags = await TestingDB.contacts.orderBy('tags').uniqueKeys();
+    }
   },
 })

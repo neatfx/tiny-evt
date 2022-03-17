@@ -1,9 +1,8 @@
 <template>
   <nav>
     <RouterLink to="/" data-test-id="/">Insights</RouterLink>
-    <RouterLink to="/b" data-test-id="/b">DataRows</RouterLink>
-    <!-- <RouterLink to="/c" data-test-id="/c">NavC</RouterLink> -->
-    <RouterLink to="/d" data-test-id="/d">Preferences</RouterLink>
+    <RouterLink to="/data-rows" data-test-id="/b">DataRows</RouterLink>
+    <RouterLink to="/preferences" data-test-id="/d">Preferences</RouterLink>
   </nav>
 </template>
 

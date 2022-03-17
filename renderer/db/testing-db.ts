@@ -27,6 +27,24 @@ export interface IPhoneNumber {
   phone: string;
 }
 
+export interface IBook {
+  id?: number; // Primary key. Optional (autoincremented)
+  name: string;
+  coverUrl: string;
+  author: string;
+  created: Date;
+  
+  subname?: string;
+  translator?: string;
+  tag?: string[];
+  publishing?: string;
+  published?: Date;
+  designed?: string;
+  price?: number;
+  from?: string;
+  description?:string;
+}
+
 /* 
  * class mapped to the contacts table
  */
@@ -92,6 +110,7 @@ class TestingDatabase extends BaseDatabase {
   contacts!: Table<Contact, number>;
   emails!: Table<IEmailAddress, number>;
   phones!: Table<IPhoneNumber, number>;
+  books!: Table<IBook, number>;
 
   constructor(name: string, schemaVersion?: number) {
     super(name, schemaVersion);
