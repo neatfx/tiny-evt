@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue';
-import BaseButton from './BaseButton.vue';
+import FolderPanel from './FolderPanel.vue';
 
 defineEmits<{
   (e: 'add'): void
@@ -62,45 +62,26 @@ onMounted(() => {
 </script>
 
 <template>
-  <BaseButton @click="showDataRowAdder = !showDataRowAdder" text="Filter"></BaseButton>
-  <Transition name="list">
-    <div v-if="showDataRowAdder" class="form-wrapper inner">
+  <FolderPanel title="Filter" :isInlineFixed="true" :isActionMenu="true">
       <ul v-for="item in contextMenuState.data" :key="item.id">
         <li @click="item.handler">{{ item.text }}</li>
       </ul>
-    </div>
-  </Transition>
+  </FolderPanel>
 </template>
 
 <style scoped>
-.form-wrapper {
-  position: fixed;
-  margin: 0px 0 10px 0;
-  background-color: #708090;
-  box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
-}
 ul {
   font-size: 15px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 li {
-  /* list-style: none; */
-  padding: 5px 10px 5px;
-  /* text-align: left; */
+  padding: 5px 10px;
 }
 
 li:hover {
   background-color: #0070f5;
   cursor: default;
-}
-
-.list-enter-active,
-.list-leave-active {
-  transition: all 0.2s ease;
-}
-
-.list-enter-from,
-.list-leave-to {
-  transform: translateY(2px);
-  opacity: 0;
 }
 </style>

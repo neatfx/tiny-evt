@@ -4,22 +4,24 @@ import { ref } from 'vue';
 defineProps<{
   title: string;
   isInlineFixed: boolean;
+  isActionMenu:boolean;
 }>()
 const expanded = ref(true);
+const defaultPanelClass = ref('default-panel')
 const inlinePanelClass = ref('inline-panel')
-const defaultPanelClass = ref('panel')
+const defaultPanelBodyClass = ref('default-panel-body')
 const fixedPanelBodyClass = ref('fixed-panel-body')
-const defaultPanelBodyClass = ref('panel-body')
-const basePanelBodyClass = ref('base-panel-body')
+const menuPanelBodyClass = ref('menu-panel-body')
+const notMenuPanelBodyClass = ref('not-menu-panel-body')
 </script>
 
 <template>
-  <div class="panel" :class="isInlineFixed ? inlinePanelClass : defaultPanelClass">
+  <div class="panel" :class="[defaultPanelClass, isInlineFixed ? inlinePanelClass : '']">
     <div class="panel-bar" @click="expanded = !expanded">{{ title }}</div>
     <Transition name="list">
       <div
         v-if="expanded"
-        :class="[basePanelBodyClass, isInlineFixed ? fixedPanelBodyClass : defaultPanelBodyClass]"
+        :class="[defaultPanelBodyClass, isInlineFixed ? fixedPanelBodyClass : '', isActionMenu ? menuPanelBodyClass : notMenuPanelBodyClass]"
       >
         <slot></slot>
       </div>
@@ -28,31 +30,33 @@ const basePanelBodyClass = ref('base-panel-body')
 </template>
 
 <style scoped>
-.panel {
+.default-panel {
   margin-bottom: 10px;
 }
 .inline-panel {
   display: inline-block;
   margin-bottom: 10px;
 }
+/*  */
 .panel-bar {
   display: inline-block;
   padding: 4px 20px;
   background-color: darkgray;
 }
-
-.fixed-panel-body {
-  position: fixed;
-}
-.panel-body {
-  position: static;
-}
-.base-panel-body {
-  padding: 15px;
+/*  */
+.default-panel-body {
   background-color: grey;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
 }
-
+.fixed-panel-body {
+  position: fixed;
+}
+.menu-panel-body {
+  padding: 0px;
+}
+.not-menu-panel-body {
+  padding: 15px;
+}
 /*  */
 .list-enter-active,
 .list-leave-active {

@@ -4,7 +4,7 @@ import { vContextMenu } from './contextMenu'
 import ActionButton from './DataRowEditButton.vue'
 import BaseButton from './BaseButton.vue';
 import router from '../router'
-import ActionPanel from './ActionPanel.vue'
+import ActionPanel from './FolderPanelX.vue'
 
 defineProps<{
   items: Contact[]

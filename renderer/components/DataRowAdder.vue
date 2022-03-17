@@ -19,7 +19,7 @@ const state: IFormFields = {
 </script>
 
 <template>
-  <FolderPanel title="Add" isInlineFixed>
+  <FolderPanel title="Add" :isInlineFixed="true" :isActionMenu="false">
     <label class="field-name">
       Name:
       <input v-model="state.friendName" type="text" />
