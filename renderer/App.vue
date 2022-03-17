@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { RouterView } from "vue-router"
+import { useContextMenu } from './components/contextMenu'
+
 import Navbar from './components/Navbar.vue'
+
+useContextMenu();
 </script>
 
 <template>

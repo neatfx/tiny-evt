@@ -13,7 +13,7 @@ type Table = {
 }
 let tables = ref<Table[]>([])
 let fileBlob: Blob;
-const enableImportBtn = ref(false)
+const disabled = ref(true)
 
 async function exportDatabase() {
   try {
@@ -65,7 +65,7 @@ async function ondrop(ev: any) {
     peakImportInfo(file)
 
     fileBlob = file
-    enableImportBtn.value = true
+    disabled.value = false
   } catch (error) {
     console.error('' + error);
   }
@@ -93,7 +93,7 @@ onMounted(async () => {
     </li>
   </ul>
   <BaseButton text="Export Database" @click="exportDatabase"></BaseButton>
-  <BaseButton v-if="enableImportBtn" text="Import Database" @click="importDatabase"></BaseButton>
+  <BaseButton :disabled="disabled" text="Import Database" @click="importDatabase"></BaseButton>
   <div id="dropzone" @dragover="ondragover" @drop="ondrop">Drop Dexie JSON file here.</div>
 </template>
 
