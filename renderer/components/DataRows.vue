@@ -16,7 +16,7 @@ const emit = defineEmits<{
 
 function viewRowDetail(e: MouseEvent, paylaod: number | undefined) {
   console.log(e, paylaod)
-  router.push('/c')
+  router.push('/data-row-detail')
 }
 </script>
 

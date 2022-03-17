@@ -27,7 +27,7 @@ export const useTestingStore = defineStore('testing', {
       await this.list()
     },
     async getUniqueTags(){
-      this.tags = await TestingDB.contacts.orderBy('tags').uniqueKeys();
+      // this.tags = await TestingDB.contacts.orderBy('tags').uniqueKeys();
     }
   },
 })

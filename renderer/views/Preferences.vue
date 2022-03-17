@@ -1,46 +1,12 @@
 <script setup lang='ts'>
-import BaseButton from '../components/BaseButton.vue';
-
-const { electronDarkMode } = window
-
-const state = {
-  themeSource: ''
-}
-
-async function toggleDarkMode() {
-  const isDarkMode = await electronDarkMode.toggle()
-  state.themeSource = isDarkMode ? 'Dark' : 'Light'
-}
-
-async function resetToSystem() {
-  state.themeSource = await electronDarkMode.system()
-}
+import DBExportImport from '../components/PrefDBExportImport.vue';
+import PrefDarkMode from '../components/PrefDarkMode.vue'
 </script>
 
 <template>
-  <div id="theme-info">
-    <span>Current Theme:</span>
-    <span id="theme-source">{{ state.themeSource }}</span>
-  </div>
-  <BaseButton id="toggle-dark-mode" @click="toggleDarkMode" text="Toggle Dark Mode"></BaseButton>
-  <BaseButton id="reset-to-system" @click="resetToSystem" text="Reset to System Theme"></BaseButton>
+  <PrefDarkMode></PrefDarkMode>
+  <DBExportImport></DBExportImport>
 </template>
 
 <style scoped>
-button {
-  display: inline-block;
-  background-color: dimgrey;
-  border: none;
-  padding: 7px 10px;
-  margin: 0 2px;
-  outline: none;
-}
-button:hover {
-  background-color: lightgrey;
-}
-#theme-info {
-  padding: 10px;
-  border: 1px solid gray;
-  margin: 0 0 5px 2px;
-}
 </style>
