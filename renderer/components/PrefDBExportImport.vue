@@ -11,9 +11,20 @@ type Table = {
   count: number;
   primKey: string;
 }
+type PeakInfo = {
+  fileName: string
+  databaseName: string
+  databaseVersion: number
+  tables: {
+    id: string,
+    name: string,
+    rawCount: number
+  }[]
+}
 let tables = ref<Table[]>([])
-let fileBlob: Blob;
+let peakInfo = ref<PeakInfo>()
 const disabled = ref(true)
+let fileBlob: Blob
 
 async function exportDatabase() {
   try {
@@ -38,14 +49,19 @@ function progressCallback(progress: ExportProgress): boolean {
   return progress.done
 }
 
-async function peakImportInfo(blob: Blob) {
+async function peakImportInfo(blob: any) {
   const importMeta = await peakImportFile(blob);
 
-  console.log("Database name:", importMeta.data.databaseName);
-  console.log("Database version:", importMeta.data.databaseVersion);
-  console.log("Tables:", importMeta.data.tables.map(t =>
-    `${t.name} (${t.rowCount} rows)`
-  ).join('\n\t'));
+  peakInfo.value = {
+    fileName: blob.name,
+    databaseName: importMeta.data.databaseName,
+    databaseVersion: importMeta.data.databaseVersion,
+    tables: await Promise.all(importMeta.data.tables.map(async table => ({
+      id: table.name,
+      name: table.name,
+      rawCount: table.rowCount,
+    })))
+  }
 }
 
 function ondragover(event: any) {
@@ -61,7 +77,7 @@ async function ondrop(ev: any) {
   const file = ev.dataTransfer.files[0];
   try {
     if (!file) throw new Error(`Only files can be dropped here`);
-    console.log("Importing " + file.name);
+
     peakImportInfo(file)
 
     fileBlob = file
@@ -86,31 +102,57 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div>Database Name - {{ TestingDB.name }}</div>
-  <ul>
-    <li v-for="table in tables" :key="table.id">
-      <span>Table: {{ table.id }} - Primary Key: {{ table.primKey }} - Row count: {{ table.count }}</span>
-    </li>
-  </ul>
-  <BaseButton text="Export Database" @click="exportDatabase"></BaseButton>
-  <BaseButton :disabled="disabled" text="Import Database" @click="importDatabase"></BaseButton>
-  <div id="dropzone" @dragover="ondragover" @drop="ondrop">Drop Dexie JSON file here.</div>
+  <div class="wrapper">
+    <div class="export-wrapper">
+      <div>Database name: {{ TestingDB.name }}</div>
+      <ul>
+        <li v-for="table in tables" :key="table.id">
+          <span>Table: {{ table.id }} - Primary Key: {{ table.primKey }} - Row count: {{ table.count }}</span>
+        </li>
+      </ul>
+      <BaseButton text="Export Database" @click="exportDatabase"></BaseButton>
+    </div>
+    <div class="import-wrapper">
+      <div id="dropzone" @dragover="ondragover" @drop="ondrop">Drop Dexie JSON file here.</div>
+      <div>File name: {{ peakInfo?.fileName }}</div>
+      <div>Database name: {{ peakInfo?.databaseName }}</div>
+      <div>Database version: {{ peakInfo?.databaseVersion }}</div>
+      <ul>
+        <li v-for="table in peakInfo?.tables" :key="table.id">
+          <span>Table: {{ table.name }} - Row count: {{ table.rawCount }}</span>
+        </li>
+      </ul>
+      <BaseButton :disabled="disabled" text="Import Database" @click="importDatabase"></BaseButton>
+    </div>
+  </div>
 </template>
 
 <style scoped>
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  height: auto;
+}
+.export-wrapper,
+.import-wrapper {
+  padding: 20px;
+  /* border: 1px solid darkgray; */
+  border-radius: 2px;
+}
 #dropzone {
   border: 2px dotted silver;
   border-radius: 6px;
-  padding: 30px 20px;
-  margin: 20px 0 0;
+  padding: 50px 20px;
+  margin: 0 0 20px;
   text-align: center;
 }
-ul{
+ul {
   padding: 0;
 }
 li {
-  border: 1px solid grey;
-  padding: 5px 0 5px 5px;
+  border: 1px solid darkgray;
+  padding: 5px 10px;
   margin-top: -1px;
   list-style: none;
 }

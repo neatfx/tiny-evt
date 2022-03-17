@@ -9,7 +9,7 @@ const expanded = ref(true);
 
 <template>
   <div class="panel-wrapper">
-    <div class="panel-bar" @click="expanded = !expanded">{{title}}</div>
+    <div class="panel-bar" @click="expanded = !expanded">{{ title }}</div>
     <Transition name="list">
       <div v-if="expanded" class="content-wrapper">
         <slot></slot>
@@ -19,11 +19,12 @@ const expanded = ref(true);
 </template>
 
 <style scoped>
-.panel-wrapper{
+.panel-wrapper {
   margin-bottom: 10px;
 }
-.panel-bar{
-  padding:2px 10px;
+.panel-bar {
+  display: inline-block;
+  padding: 4px 20px;
   background-color: darkgray;
 }
 .content-wrapper {
