@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 defineProps<{
   title: string;
   isInlineFixed: boolean;
   isActionMenu:boolean;
+  // isExpanded: boolean;
 }>()
 const expanded = ref(true);
 const defaultPanelClass = ref('default-panel')
@@ -13,6 +14,9 @@ const defaultPanelBodyClass = ref('default-panel-body')
 const fixedPanelBodyClass = ref('fixed-panel-body')
 const menuPanelBodyClass = ref('menu-panel-body')
 const notMenuPanelBodyClass = ref('not-menu-panel-body')
+onMounted(()=>{
+
+})
 </script>
 
 <template>

@@ -10,7 +10,7 @@ function typing(e) {
 </script>
 <template>
   <BaseInput text="" @change="typing" />
-  <BaseButton class="btn-left" text="Search"></BaseButton>
+  <BaseButton class="" text="Search"></BaseButton>
 </template>
 <style scoped>
 input {
@@ -20,7 +20,6 @@ input {
   background-color: grey;
 }
 input:focus {
-  /* border-style: none; */
   outline: none;
 }
 </style>

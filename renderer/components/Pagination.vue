@@ -2,8 +2,8 @@
 import BaseButton from './BaseButton.vue';
 </script>
 <template>
-    <BaseButton class="btn-left" text="<"></BaseButton>
-    <BaseButton class="btn-left" text=">"></BaseButton>
+    <BaseButton class="" text="<"></BaseButton>
+    <BaseButton class="" text=">"></BaseButton>
 </template>
 <style scoped>
 </style>
