@@ -8,7 +8,6 @@ defineProps<{
 }>()
 const expanded = ref(true);
 const expandedAsActionMenu = ref(false);
-const defaultPanelClass = ref('default-panel')
 const inlinePanelClass = ref('inline-panel')
 const defaultPanelBodyClass = ref('default-panel-body')
 const fixedPanelBodyClass = ref('fixed-panel-body')
@@ -30,7 +29,7 @@ function toggle() {
 
 <template>
   <div
-    :class="[defaultPanelClass, isInlineFixed ? inlinePanelClass : '']"
+    :class="[isInlineFixed ? inlinePanelClass : '']"
     @click.stop
   >
     <!-- panel-header -->
@@ -53,12 +52,8 @@ function toggle() {
 </template>
 
 <style scoped>
-.default-panel {
-  margin-bottom: 10px;
-}
 .inline-panel {
   display: inline-block;
-  margin-bottom: 10px;
 }
 .header{
   display: inline-block;

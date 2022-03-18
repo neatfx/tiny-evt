@@ -8,7 +8,7 @@ useContextMenu();
 </script>
 
 <template>
-  <div class="wrapper">
+  <div class="app-wrapper">
     <div class="nav-wrapper">
       <Navbar></Navbar>
     </div>
@@ -29,7 +29,7 @@ useContextMenu();
   /* border: 1px solid green; */
 }
 
-.wrapper {
+.app-wrapper {
   display: grid;
   grid-template-columns: 135px 1fr;
   height: 100vh;

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import ActionButton from './DataRowEditButton.vue'
+import DataRowEditButton from './DataRowEditButton.vue'
 import BaseButton from './BaseButton.vue';
-import ActionPanel from './FolderPanelX.vue'
+import DataRowStatus from './DataRowStatus.vue'
 import BaseDataRows from './BaseDataRows.vue'
 
 defineProps(['items'])
@@ -15,20 +15,17 @@ const emit = defineEmits<{
 <template>
   <BaseDataRows :items="$props.items">
     <template #item="{ id, name, age }">
-      <BaseButton class text="Type"></BaseButton>
-      <BaseButton class text="Progress"></BaseButton>
-      <ActionPanel></ActionPanel>
-      <div class="title" @click="emit('open-detail', id)">{{ id }} - {{ name }} @ {{ age }}</div>
+      <DataRowStatus></DataRowStatus>
+      <DataRowStatus></DataRowStatus>
+      <span class="title" @click="emit('open-detail', id)">{{ id }} - {{ name }} @ {{ age }}</span>
       <BaseButton @click="emit('delete', id)" class="right" text="Delete"></BaseButton>
-      <ActionButton></ActionButton>
+      <DataRowEditButton></DataRowEditButton>
     </template>
   </BaseDataRows>
 </template>
 
 <style scoped>
 .title {
-  display: inline-block;
-  /* position: fixed; */
   /* width: 100%; */
   /* border: 1px solid red; */
 }

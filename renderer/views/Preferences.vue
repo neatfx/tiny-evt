@@ -5,15 +5,15 @@ import FolderPanel from '../components/FolderPanel.vue';
 </script>
 
 <template>
-  <FolderPanel>
+  <FolderPanel class="panel">
     <template #header>
-      <div class="header">View</div>
+      <div class="header">System</div>
     </template>
     <template #body>
       <PrefDarkMode></PrefDarkMode>
     </template>
   </FolderPanel>
-  <FolderPanel>
+  <FolderPanel class="panel">
     <template #header>
       <div class="header">Database</div>
     </template>
@@ -24,8 +24,11 @@ import FolderPanel from '../components/FolderPanel.vue';
 </template>
 
 <style scoped>
+.panel{
+  margin-bottom: 10px;
+}
 .header {
-  padding: 4px 20px;
+  padding: 4px 15px;
   background-color: darkgray;
 }
 </style>

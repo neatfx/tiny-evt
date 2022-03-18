@@ -55,7 +55,7 @@ onMounted(async () => {
 
 <style scoped>
 .action-bar {
-  /* margin-bottom: 10px; */
+  margin-bottom: 10px;
 }
 .left {
   float: left;

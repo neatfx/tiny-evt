@@ -18,15 +18,20 @@ async function resetToSystem() {
 </script>
 
 <template>
-  <div id="theme-info">
-    <span>Current Theme:</span>
-    <span id="theme-source">{{ state.themeSource }}</span>
+  <div class="wrapper">
+    <div id="theme-info">
+      <span>Current Theme:</span>
+      <span id="theme-source">{{ state.themeSource }}</span>
+    </div>
+    <BaseButton id="toggle-dark-mode" @click="toggleDarkMode" text="Toggle Dark Mode"></BaseButton>
+    <BaseButton id="reset-to-system" @click="resetToSystem" text="Reset to System Theme"></BaseButton>
   </div>
-  <BaseButton id="toggle-dark-mode" @click="toggleDarkMode" text="Toggle Dark Mode"></BaseButton>
-  <BaseButton id="reset-to-system" @click="resetToSystem" text="Reset to System Theme"></BaseButton>
 </template>
 
 <style scoped>
+.wrapper{
+  padding: 20px;
+}
 #theme-info {
   padding: 4px 5px;
   margin: 0 0 5px 2px;
