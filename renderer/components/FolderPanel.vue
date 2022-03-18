@@ -1,30 +1,34 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 
 defineProps<{
   title?: string;
   isInlineFixed?: boolean;
-  isActionMenu?:boolean;
-  // isExpanded: boolean;
+  isActionMenu?: boolean;
 }>()
 const expanded = ref(true);
+const expandedAsActionMenu = ref(false);
 const defaultPanelClass = ref('default-panel')
 const inlinePanelClass = ref('inline-panel')
 const defaultPanelBodyClass = ref('default-panel-body')
 const fixedPanelBodyClass = ref('fixed-panel-body')
 const menuPanelBodyClass = ref('menu-panel-body')
 const notMenuPanelBodyClass = ref('not-menu-panel-body')
-onMounted(()=>{
-
-})
 </script>
 
 <template>
   <div class="panel" :class="[defaultPanelClass, isInlineFixed ? inlinePanelClass : '']">
-    <div class="panel-bar" @click="expanded = !expanded">{{ title || 'Panel' }}</div>
-    <Transition name="list">
+    <!-- panel-header -->
+    <div
+      v-if="isActionMenu"
+      class="panel-bar"
+      @click="expandedAsActionMenu = !expandedAsActionMenu"
+    >{{ title || 'Panel' }}</div>
+    <div v-else class="panel-bar" @click="expanded = !expanded">{{ title || 'Panel' }}</div>
+    <!-- panel-body -->
+    <Transition name="panel-body">
       <div
-        v-if="expanded"
+        v-if="isActionMenu ? expandedAsActionMenu : expanded"
         :class="[defaultPanelBodyClass, isInlineFixed ? fixedPanelBodyClass : '', isActionMenu ? menuPanelBodyClass : notMenuPanelBodyClass]"
       >
         <slot></slot>
@@ -59,16 +63,17 @@ onMounted(()=>{
   padding: 0px;
 }
 .not-menu-panel-body {
-  padding: 15px;
+  padding: 0px;
 }
-/*  */
-.list-enter-active,
-.list-leave-active {
+
+/* Transition */
+.panel-body-enter-active,
+.panel-body-leave-active {
   transition: all 0.2s ease;
 }
 
-.list-enter-from,
-.list-leave-to {
+.panel-body-enter-from,
+.panel-body-leave-to {
   transform: translateY(2px);
   opacity: 0;
 }
