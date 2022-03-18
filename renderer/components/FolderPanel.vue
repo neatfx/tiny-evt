@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, watch, watchEffect } from 'vue';
+import { ref, watchEffect } from 'vue';
 
 defineProps<{
   title?: string;
@@ -30,24 +30,23 @@ function toggle() {
 
 <template>
   <div
-    class="panel"
     :class="[defaultPanelClass, isInlineFixed ? inlinePanelClass : '']"
     @click.stop
   >
     <!-- panel-header -->
-    <div
-      v-if="isActionMenu"
-      class="panel-bar"
-      @click="expandedAsActionMenu = !expandedAsActionMenu"
-    >{{ title || 'Panel' }}</div>
-    <div v-else class="panel-bar" @click="expanded = !expanded">{{ title || 'Panel' }}</div>
+    <div v-if="isActionMenu" @click="toggle" class="header">
+      <slot name="header">{{ title || 'Panel' }}</slot>
+    </div>
+    <div v-else @click="expanded = !expanded" class="header">
+      <slot name="header">{{ title || 'Panel' }}</slot>
+    </div>
     <!-- panel-body -->
     <Transition name="panel-body">
       <div
         v-if="isActionMenu ? expandedAsActionMenu : expanded"
         :class="[defaultPanelBodyClass, isInlineFixed ? fixedPanelBodyClass : '', isActionMenu ? menuPanelBodyClass : notMenuPanelBodyClass]"
       >
-        <slot></slot>
+        <slot name="body"></slot>
       </div>
     </Transition>
   </div>
@@ -61,13 +60,9 @@ function toggle() {
   display: inline-block;
   margin-bottom: 10px;
 }
-/*  */
-.panel-bar {
+.header{
   display: inline-block;
-  padding: 4px 20px;
-  background-color: darkgray;
 }
-/*  */
 .default-panel-body {
   background-color: grey;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);

@@ -15,24 +15,28 @@ const state: IFormFields = {
   friendName: 'someone',
   friendAge: 21,
 }
-
 </script>
 
 <template>
   <FolderPanel title="Add" :isInlineFixed="true" :isActionMenu="true">
-    <div class="panel-body">
-      <label class="field-name">
-        Name:
-        <input v-model="state.friendName" type="text" />
-      </label>
-      <br />
-      <label>
-        Age:
-        <input v-model="state.friendAge" type="number" />
-      </label>
-      <br />
-      <BaseButton class="btn-submit" @click="$emit('add', state)" text="Submit"></BaseButton>
-    </div>
+    <template #header>
+      <BaseButton text="Add New"></BaseButton>
+    </template>
+    <template #body>
+      <div class="panel-body">
+        <label class="field-name">
+          Name:
+          <input v-model="state.friendName" type="text" />
+        </label>
+        <br />
+        <label>
+          Age:
+          <input v-model="state.friendAge" type="number" />
+        </label>
+        <br />
+        <BaseButton class="btn-submit" @click="$emit('add', state)" text="Submit"></BaseButton>
+      </div>
+    </template>
   </FolderPanel>
 </template>
 
