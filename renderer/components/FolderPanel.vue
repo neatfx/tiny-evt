@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref, watch, watchEffect } from 'vue';
 
 defineProps<{
   title?: string;
@@ -14,10 +14,26 @@ const defaultPanelBodyClass = ref('default-panel-body')
 const fixedPanelBodyClass = ref('fixed-panel-body')
 const menuPanelBodyClass = ref('menu-panel-body')
 const notMenuPanelBodyClass = ref('not-menu-panel-body')
+
+watchEffect(() => {
+  if (expandedAsActionMenu.value) {
+    window.addEventListener("click", toggle)
+  } else {
+    window.removeEventListener("click", toggle)
+  }
+})
+
+function toggle() {
+  expandedAsActionMenu.value = !expandedAsActionMenu.value
+}
 </script>
 
 <template>
-  <div class="panel" :class="[defaultPanelClass, isInlineFixed ? inlinePanelClass : '']">
+  <div
+    class="panel"
+    :class="[defaultPanelClass, isInlineFixed ? inlinePanelClass : '']"
+    @click.stop
+  >
     <!-- panel-header -->
     <div
       v-if="isActionMenu"
@@ -57,7 +73,7 @@ const notMenuPanelBodyClass = ref('not-menu-panel-body')
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
 }
 .fixed-panel-body {
-  position: fixed;
+  position: absolute;
 }
 .menu-panel-body {
   padding: 0px;
