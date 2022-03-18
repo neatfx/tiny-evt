@@ -2,9 +2,9 @@
 import { onMounted, ref } from 'vue';
 
 defineProps<{
-  title: string;
-  isInlineFixed: boolean;
-  isActionMenu:boolean;
+  title?: string;
+  isInlineFixed?: boolean;
+  isActionMenu?:boolean;
   // isExpanded: boolean;
 }>()
 const expanded = ref(true);
@@ -21,7 +21,7 @@ onMounted(()=>{
 
 <template>
   <div class="panel" :class="[defaultPanelClass, isInlineFixed ? inlinePanelClass : '']">
-    <div class="panel-bar" @click="expanded = !expanded">{{ title }}</div>
+    <div class="panel-bar" @click="expanded = !expanded">{{ title || 'Panel' }}</div>
     <Transition name="list">
       <div
         v-if="expanded"
