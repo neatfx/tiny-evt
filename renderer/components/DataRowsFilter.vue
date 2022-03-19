@@ -66,7 +66,7 @@ onMounted(() => {
 <template>
   <FolderPanel title="Filter" :isInlineFixed="true" :isActionMenu="true">
     <template #header>
-      <BaseButton text="Filter"></BaseButton>
+      <BaseButton>Filter</BaseButton>
     </template>
     <template #body>
       <ul v-for="item in contextMenuState.data" :key="item.id">

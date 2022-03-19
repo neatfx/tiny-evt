@@ -1,11 +1,10 @@
 <script setup lang="ts">
-defineProps<{
-  text: string
-}>()
 </script>
 
 <template>
-  <button>{{ text }}</button>
+  <button>
+    <slot></slot>
+  </button>
 </template>
 
 <style scoped>

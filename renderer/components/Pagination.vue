@@ -2,8 +2,8 @@
 import BaseButton from './BaseButton.vue';
 </script>
 <template>
-    <BaseButton class="" text="<"></BaseButton>
-    <BaseButton class="" text=">"></BaseButton>
+    <BaseButton class="">Prev</BaseButton>
+    <BaseButton class="">Next</BaseButton>
 </template>
 <style scoped>
 </style>

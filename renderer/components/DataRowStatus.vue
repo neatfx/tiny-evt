@@ -4,11 +4,16 @@ import { onMounted, reactive, ref } from 'vue';
 import FolderPanel from './FolderPanel.vue';
 import BaseButton from './BaseButton.vue';
 
+import DocumentationIcon from "./icons/IconDocumentation.vue";
+import ToolingIcon from "./icons/IconTooling.vue";
+import EcosystemIcon from "./icons/IconEcosystem.vue";
+import CommunityIcon from "./icons/IconCommunity.vue";
+import SupportIcon from "./icons/IconSupport.vue";
+
 defineEmits<{
   (e: 'add'): void
 }>()
 
-const showDataRowAdder = ref(false);
 interface IMenuItem {
   id: number;
   text: string;
@@ -57,16 +62,14 @@ function createMenu(binding: { text: any; handler: any; }) {
 
 onMounted(() => {
   createMenu(menuData)
-  window.addEventListener("click", () => {
-    //  if(showDataRowAdder.value) showDataRowAdder.value = false
-  })
 })
 </script>
 
 <template>
   <FolderPanel :isInlineFixed="true" :isActionMenu="true">
     <template #header>
-      <BaseButton text="Status"></BaseButton>
+      <!-- <BaseButton text="Status"></BaseButton> -->
+      <ToolingIcon class="icon"/>
     </template>
     <template #body>
       <ul v-for="item in contextMenuState.data" :key="item.id">
@@ -77,6 +80,10 @@ onMounted(() => {
 </template>
 
 <style scoped>
+.icon{
+position:static;
+/* margin-top: 15px; */
+}
 ul {
   font-size: 15px;
   list-style: none;

@@ -23,8 +23,8 @@ async function resetToSystem() {
       <span>Current Theme:</span>
       <span id="theme-source">{{ state.themeSource }}</span>
     </div>
-    <BaseButton id="toggle-dark-mode" @click="toggleDarkMode" text="Toggle Dark Mode"></BaseButton>
-    <BaseButton id="reset-to-system" @click="resetToSystem" text="Reset to System Theme"></BaseButton>
+    <BaseButton id="toggle-dark-mode" @click="toggleDarkMode">Toggle Dark Mode</BaseButton>
+    <BaseButton id="reset-to-system" @click="resetToSystem">Reset to System Theme</BaseButton>
   </div>
 </template>
 

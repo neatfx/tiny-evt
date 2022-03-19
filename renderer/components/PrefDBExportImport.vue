@@ -110,7 +110,7 @@ onMounted(async () => {
           <span>Table: {{ table.id }} - Primary Key: {{ table.primKey }} - Row count: {{ table.count }}</span>
         </li>
       </ul>
-      <BaseButton text="Export Database" @click="exportDatabase"></BaseButton>
+      <BaseButton @click="exportDatabase">Export Database</BaseButton>
     </div>
     <div class="import-wrapper">
       <div id="dropzone" @dragover="ondragover" @drop="ondrop">Drop Dexie JSON file here.</div>
@@ -122,7 +122,7 @@ onMounted(async () => {
           <span>Table: {{ table.name }} - Row count: {{ table.rawCount }}</span>
         </li>
       </ul>
-      <BaseButton :disabled="disabled" text="Import Database" @click="importDatabase"></BaseButton>
+      <BaseButton :disabled="disabled" @click="importDatabase">Import Database</BaseButton>
     </div>
   </div>
 </template>

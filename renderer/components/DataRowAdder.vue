@@ -20,7 +20,7 @@ const state: IFormFields = {
 <template>
   <FolderPanel title="Add" :isInlineFixed="true" :isActionMenu="true">
     <template #header>
-      <BaseButton text="Add New"></BaseButton>
+      <BaseButton>Add New</BaseButton>
     </template>
     <template #body>
       <div class="panel-body">
@@ -34,7 +34,7 @@ const state: IFormFields = {
           <input v-model="state.friendAge" type="number" />
         </label>
         <br />
-        <BaseButton class="btn-submit" @click="$emit('add', state)" text="Submit"></BaseButton>
+        <BaseButton class="btn-submit" @click="$emit('add', state)">Submit</BaseButton>
       </div>
     </template>
   </FolderPanel>

@@ -10,7 +10,7 @@ function typing(e) {
 </script>
 <template>
   <BaseInput text="" @change="typing" />
-  <BaseButton class="" text="Search"></BaseButton>
+  <BaseButton class="">Search</BaseButton>
 </template>
 <style scoped>
 input {
