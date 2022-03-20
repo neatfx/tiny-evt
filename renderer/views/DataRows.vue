@@ -16,8 +16,8 @@ import ContextMenu from "../components/DataRowContextMenu.vue"
 const { offset, limit, total } = usePagination()
 const store = useTestingStore()
 
-function filterDataRows(e) {
-  console.log(e.target.value)
+function filterDataRows(label: string) {
+  console.log(label)
 }
 
 async function addItem(data: any) {
