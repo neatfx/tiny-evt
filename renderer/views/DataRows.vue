@@ -1,18 +1,19 @@
 <script setup lang="ts">
 import { watchEffect } from "vue"
 
-import { useTestingStore, } from '../stores/testing'
 import router from '../router'
+import { useTestingStore, } from '../stores/testing'
 
 import DataRowsFilter from '../components/DataRowsFilter.vue'
-import DataRowAdder from "../components/DataRowAdder.vue"
 import DataRowsSearch from "../components/DataRowsSearch.vue";
+import DataRowAdder from "../components/DataRowAdder.vue"
 import Pagination from "../components/Pagination.vue";
-import DataRows from "../components/DataRows.vue"
-import ContextMenu from "../components/DataRowContextMenu.vue"
 import { usePagination } from '../components/pagination';
 
-const { offset, limit } = usePagination()
+import DataRows from "../components/DataRows.vue"
+import ContextMenu from "../components/DataRowContextMenu.vue"
+
+const { offset, limit, total } = usePagination()
 const store = useTestingStore()
 
 function filterDataRows(e) {
@@ -32,9 +33,13 @@ async function deleteItem(key: number | undefined) {
   if (key) await store.delete(key)
 }
 
-watchEffect(async()=>{
-   console.log('getData')
-  await store.list(offset.value, limit.value) 
+watchEffect(async () => {
+  await store.count();
+  total.value = store.total;
+})
+
+watchEffect(async () => {
+  await store.list(offset.value, limit.value);
 })
 </script>
 

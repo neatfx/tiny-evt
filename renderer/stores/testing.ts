@@ -8,12 +8,16 @@ import { TestingDB, Contact } from '../db'
 export const useTestingStore = defineStore('testing', {
   state: () => ({
     items: [] as Contact[],
+    total: 0,
     tags: [] as String[],
     panel: ref<boolean>(true)
   }),
   getters: {
   },
   actions: {
+    async count() {
+      this.total = await TestingDB.contacts.count()
+    },
     async list(offset: number = 0, limit: number = 10) {
       this.items = await TestingDB.contacts.offset(offset).limit(limit).toArray()
     },
