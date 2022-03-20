@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue';
+import { onMounted, ref, watchEffect } from 'vue';
+import { useCurrentExpandedPanel } from './folderPanel'
 
 defineProps<{
   title?: string;
   isInlineFixed?: boolean;
   isActionMenu?: boolean;
 }>()
+
 const expanded = ref(true);
 const expandedAsActionMenu = ref(false);
 const inlinePanelClass = ref('inline-panel')
@@ -13,27 +15,36 @@ const defaultPanelBodyClass = ref('default-panel-body')
 const fixedPanelBodyClass = ref('fixed-panel-body')
 const menuPanelBodyClass = ref('menu-panel-body')
 const notMenuPanelBodyClass = ref('not-menu-panel-body')
+const panel = ref<HTMLElement>()
+const body = ref(null)
+const { currentExpandedPanel } = useCurrentExpandedPanel()
 
-watchEffect(() => {
-  if (expandedAsActionMenu.value) {
-    window.addEventListener("click", toggle)
-  } else {
-    window.removeEventListener("click", toggle)
-  }
-})
-
-function toggle() {
+function toggle(e: Event) {
+    //  currentExpandedPanel.get(panel.value).status = false
   expandedAsActionMenu.value = !expandedAsActionMenu.value
+  // currentExpandedPanel.forEach((v,key)=>{
+
+  // })
+  // if (currentExpandedPanel.get(e.target)) {
+  //   currentExpandedPanel.set(panel.value, expandedAsActionMenu)
+  // }
+
 }
+onMounted(() => {
+  window.addEventListener("click", (e) => {
+    e.stopPropagation()
+    // console.log(e.target, currentExpandedPanel.value.el)
+    // currentExpandedPanel.value.el = panel.value
+    // currentExpandedPanel.value.status = expandedAsActionMenu
+    expandedAsActionMenu.value = false
+  })
+})
 </script>
 
 <template>
-  <div
-    :class="[isInlineFixed ? inlinePanelClass : '']"
-    @click.stop
-  >
+  <div :class="[isInlineFixed ? inlinePanelClass : '']">
     <!-- panel-header -->
-    <div v-if="isActionMenu" @click="toggle" class="header">
+    <div v-if="isActionMenu" @click.stop="toggle" class="header" ref="panel">
       <slot name="header">{{ title || 'Panel' }}</slot>
     </div>
     <div v-else @click="expanded = !expanded" class="header">
@@ -42,6 +53,7 @@ function toggle() {
     <!-- panel-body -->
     <Transition name="panel-body">
       <div
+        ref="body"
         v-if="isActionMenu ? expandedAsActionMenu : expanded"
         :class="[defaultPanelBodyClass, isInlineFixed ? fixedPanelBodyClass : '', isActionMenu ? menuPanelBodyClass : notMenuPanelBodyClass]"
       >
@@ -55,7 +67,7 @@ function toggle() {
 .inline-panel {
   display: inline-block;
 }
-.header{
+.header {
   display: inline-block;
 }
 .default-panel-body {

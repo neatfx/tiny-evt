@@ -57,9 +57,6 @@ function createMenu(binding: { text: any; handler: any; }) {
 
 onMounted(() => {
   createMenu(menuData)
-  window.addEventListener("click", () => {
-    //  if(showDataRowAdder.value) showDataRowAdder.value = false
-  })
 })
 </script>
 

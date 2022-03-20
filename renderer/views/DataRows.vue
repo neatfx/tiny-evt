@@ -10,7 +10,9 @@ import DataRowsSearch from "../components/DataRowsSearch.vue";
 import Pagination from "../components/Pagination.vue";
 import DataRows from "../components/DataRows.vue"
 import ContextMenu from "../components/DataRowContextMenu.vue"
+import { usePagination } from '../components/pagination';
 
+const { offset, limit, total, pages } = usePagination()
 const store = useTestingStore()
 
 function filterDataRows(e) {
@@ -29,11 +31,17 @@ function openDetail(rowId: number | undefined) {
 async function deleteItem(key: number | undefined) {
   if (key) await store.delete(key)
 }
-
+async function getData() {
+  console.log('getData')
+  await store.list(offset.value, limit.value)
+}
+async function onPaginationChange() {
+  getData()
+}
 onMounted(async () => {
-  setTimeout(async() => {
-  await store.list()
-  },500)
+  setTimeout(async () => {
+    getData()
+  }, 100)
 })
 </script>
 
@@ -45,7 +53,7 @@ onMounted(async () => {
       <DataRowAdder @add="addItem"></DataRowAdder>
     </div>
     <div class="right">
-      <Pagination></Pagination>
+      <Pagination @change="onPaginationChange"></Pagination>
     </div>
     <div class="clear"></div>
   </div>

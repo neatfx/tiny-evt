@@ -2,13 +2,8 @@
 import { onMounted, reactive, ref } from 'vue';
 
 import FolderPanel from './FolderPanel.vue';
-import BaseButton from './BaseButton.vue';
 
-import DocumentationIcon from "./icons/IconDocumentation.vue";
-import ToolingIcon from "./icons/IconTooling.vue";
 import EcosystemIcon from "./icons/IconEcosystem.vue";
-import CommunityIcon from "./icons/IconCommunity.vue";
-import SupportIcon from "./icons/IconSupport.vue";
 
 defineEmits<{
   (e: 'add'): void
@@ -68,8 +63,7 @@ onMounted(() => {
 <template>
   <FolderPanel :isInlineFixed="true" :isActionMenu="true">
     <template #header>
-      <!-- <BaseButton text="Status"></BaseButton> -->
-      <ToolingIcon class="icon"/>
+      <EcosystemIcon class="icon"/>
     </template>
     <template #body>
       <ul v-for="item in contextMenuState.data" :key="item.id">
