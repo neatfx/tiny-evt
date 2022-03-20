@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted } from "vue"
+import { watchEffect } from "vue"
 
 import { useTestingStore, } from '../stores/testing'
 import router from '../router'
@@ -12,7 +12,7 @@ import DataRows from "../components/DataRows.vue"
 import ContextMenu from "../components/DataRowContextMenu.vue"
 import { usePagination } from '../components/pagination';
 
-const { offset, limit, total, pages } = usePagination()
+const { offset, limit } = usePagination()
 const store = useTestingStore()
 
 function filterDataRows(e) {
@@ -31,17 +31,10 @@ function openDetail(rowId: number | undefined) {
 async function deleteItem(key: number | undefined) {
   if (key) await store.delete(key)
 }
-async function getData() {
-  console.log('getData')
-  await store.list(offset.value, limit.value)
-}
-async function onPaginationChange() {
-  getData()
-}
-onMounted(async () => {
-  setTimeout(async () => {
-    getData()
-  }, 100)
+
+watchEffect(async()=>{
+   console.log('getData')
+  await store.list(offset.value, limit.value) 
 })
 </script>
 
@@ -53,7 +46,7 @@ onMounted(async () => {
       <DataRowAdder @add="addItem"></DataRowAdder>
     </div>
     <div class="right">
-      <Pagination @change="onPaginationChange"></Pagination>
+      <Pagination></Pagination>
     </div>
     <div class="clear"></div>
   </div>
