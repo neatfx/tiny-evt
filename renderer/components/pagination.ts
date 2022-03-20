@@ -4,6 +4,9 @@ const total = ref(0)
 const page = ref(1)
 const offset = ref(0)
 const limit = ref(5)
+const pages = computed(() => {
+  return Math.ceil(total.value / limit.value)
+})
 
 function head() {
   console.log('head')
@@ -25,7 +28,6 @@ function next() {
   if (page.value < pages.value) {
     page.value = page.value + 1
     offset.value = limit.value * (page.value - 1)
-    console.log(offset.value)
   }
 }
 function end() {
@@ -35,13 +37,7 @@ function end() {
   offset.value = total.value - total.value % limit.value
 }
 
-const pages = computed(() => {
-  if (total.value % limit.value === 0) {
-    return total.value / limit.value
-  } else {
-    return Math.floor(total.value / limit.value) + 1
-  }
-})
+
 
 onMounted(() => {
 
