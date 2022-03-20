@@ -22,6 +22,17 @@ function filterDataRows(e) {
 
 async function addItem(data: any) {
   await store.add(data.friendName, data.friendAge)
+  await countItems()
+  await listItems()
+}
+
+async function countItems() {
+  await store.count();
+  total.value = store.total;
+}
+
+async function listItems() {
+  await store.list(offset.value, limit.value);
 }
 
 function openDetail(rowId: number | undefined) {
@@ -30,16 +41,17 @@ function openDetail(rowId: number | undefined) {
 }
 
 async function deleteItem(key: number | undefined) {
-  if (key) await store.delete(key, offset.value, limit.value)
+  if (key) await store.delete(key)
+  await countItems()
+  await listItems()
 }
 
 watchEffect(async () => {
-  await store.count();
-  total.value = store.total;
+  await countItems()
 })
 
 watchEffect(async () => {
-  await store.list(offset.value, limit.value);
+  await listItems()
 })
 </script>
 
