@@ -31,9 +31,9 @@ export const useTestingStore = defineStore('testing', {
 
       await this.list()
     },
-    async delete(key: number) {
+    async delete(key: number, offset: number = 0, limit: number = 10) {
       await TestingDB.contacts.delete(key)
-      await this.list()
+      await this.list(offset, limit)
     },
     async getUniqueTags() {
       // this.tags = await TestingDB.contacts.orderBy('tags').uniqueKeys();

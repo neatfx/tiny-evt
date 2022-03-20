@@ -7,6 +7,7 @@ const limit = ref(5)
 
 function head() {
   console.log('head')
+
   offset.value = 0
   page.value = 1
 }
@@ -21,7 +22,7 @@ function prev() {
 function next() {
   console.log('next')
 
-  if (page.value <= pages.value) {
+  if (page.value < pages.value) {
     page.value = page.value + 1
     offset.value = limit.value * (page.value - 1)
     console.log(offset.value)
@@ -38,7 +39,7 @@ const pages = computed(() => {
   if (total.value % limit.value === 0) {
     return total.value / limit.value
   } else {
-    return parseInt((total.value / limit.value).toFixed()) + 1
+    return Math.floor(total.value / limit.value) + 1
   }
 })
 

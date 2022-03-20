@@ -30,7 +30,7 @@ function openDetail(rowId: number | undefined) {
 }
 
 async function deleteItem(key: number | undefined) {
-  if (key) await store.delete(key)
+  if (key) await store.delete(key, offset.value, limit.value)
 }
 
 watchEffect(async () => {
