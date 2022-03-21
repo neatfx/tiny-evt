@@ -22,7 +22,7 @@ async function filter(sex: string) {
 }
 
 async function addItem(data: any) {
-  await store.add(data.friendName, data.friendAge, 'F')
+  await store.add(data.friendName, data.friendAge, 'F', 'user')
 }
 
 function openDetail(rowId: number | undefined) {
@@ -35,13 +35,15 @@ async function deleteItem(key: number | undefined) {
 }
 
 watch([page], async () => {
+  // if(filters.){}
   await store.page()
 })
 
 onMounted(async () => {
   await store.page()
-  await store.getUniqueTags()
-  console.log(store.tags)
+  await store.getUniqueSex()
+  await store.getUniqueRole()
+  console.log(store.filters)
 })
 
 </script>
@@ -49,7 +51,7 @@ onMounted(async () => {
 <template>
   <div class="action-bar">
     <div class="left">
-      <DataRowsFilter :items="store.tags" @filter-sex="filter"></DataRowsFilter>
+      <DataRowsFilter :items="store.filters.sex" @filter-sex="filter"></DataRowsFilter>
       <DataRowsSearch></DataRowsSearch>
       <DataRowAdder @add="addItem"></DataRowAdder>
     </div>

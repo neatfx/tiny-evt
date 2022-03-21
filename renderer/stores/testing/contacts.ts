@@ -10,7 +10,10 @@ export const useContactsStore = defineStore('contact', {
   state: () => ({
     items: [] as Contact[],
     total: 0,
-    tags: [] as IndexableTypeArray,
+    filters: {
+      sex: [] as IndexableTypeArray,
+      role: [] as IndexableTypeArray,
+    }
   }),
   getters: {},
   actions: {
@@ -20,11 +23,12 @@ export const useContactsStore = defineStore('contact', {
     async list() {
       this.items = await TestingDB.contacts.offset(offset.value).limit(limit.value).toArray()
     },
-    async add(name: string, age: number, sex: string) {
+    async add(name: string, age: number, sex: string, role: string) {
       await TestingDB.contacts.add(new Contact(
         name,
         age,
-        sex
+        sex,
+        role
       ))
 
       await this.page()
@@ -34,17 +38,25 @@ export const useContactsStore = defineStore('contact', {
 
       await this.page()
     },
-    async getUniqueTags() {
+    async getUniqueSex() {
       await TestingDB.contacts.orderBy('sex').uniqueKeys((keysArray) => {
-        this.tags = keysArray
+        this.filters.sex = keysArray
+      });
+    },
+    async getUniqueRole() {
+      await TestingDB.contacts.orderBy('role').uniqueKeys((keysArray) => {
+        this.filters.role = keysArray
       });
     },
     async filter(sex: string) {
       offset.value = 0;
-      
+
       this.items = await TestingDB.contacts.filter(function (contact) {
-        return contact.sex === sex;
+        return contact.sex === sex
+          && contact.age === 30;
       }).offset(offset.value).limit(limit.value).toArray()
+
+      total.value = this.items.length
     },
     async page() {
       await this.count()

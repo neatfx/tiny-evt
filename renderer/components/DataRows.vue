@@ -14,10 +14,11 @@ const emit = defineEmits<{
 
 <template>
   <BaseDataRows :items="$props.items">
-    <template #item="{ id, name, age }">
+    <template #item="{ id, name, age, sex, role}">
         <div class="left">
-          <DataRowStatus class></DataRowStatus>
-          <div class="title" @click="emit('open-detail', id)">{{ id }} - {{ name }} @ {{ age }}</div>
+          <div class="id">{{ id }}</div>
+          <DataRowStatus></DataRowStatus>
+          <div class="title" @click="emit('open-detail', id)">{{ name }} - {{ age }} - {{sex}} - {{role}}</div>
         </div>
         <div class="right">
           <BaseButton @click="emit('delete', id)" text="Delete">
@@ -30,9 +31,12 @@ const emit = defineEmits<{
 </template>
 
 <style scoped>
+.id{
+  padding: 0 10px 0 5px;
+}
 .left {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: auto 1fr auto;
   justify-self: left;
 }
 .icon {

@@ -65,7 +65,7 @@ onMounted(() => {
   <FolderPanel :isInlineFixed="true" :isActionMenu="true">
     <template #header>
       <!-- <EcosystemIcon class="icon"/> -->
-      <BaseButton>Status</BaseButton>
+      <BaseButton>Role</BaseButton>
     </template>
     <template #body>
       <ul v-for="item in contextMenuState.data" :key="item.id">
