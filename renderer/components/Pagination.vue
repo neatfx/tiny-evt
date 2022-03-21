@@ -3,16 +3,17 @@ import BaseButton from './BaseButton.vue';
 import { usePagination } from './pagination';
 
 const { total, pages, page, head, prev, next, end } = usePagination()
-
+const arrow = '<'
+const first = 'Head'
 </script>
 
 <template>
-    <BaseButton @click="head">First</BaseButton>
-    <BaseButton @click="prev">Prev</BaseButton>
-    <BaseButton disabled>{{ page }} / {{ pages }}</BaseButton>
     <BaseButton disabled>{{ total }} Rows</BaseButton>
-    <BaseButton @click="next">Next</BaseButton>
-    <BaseButton @click="end">Last</BaseButton>
+    <BaseButton @click="head"  v-html="first"></BaseButton>
+    <BaseButton @click="prev" v-html="arrow"></BaseButton>
+    <BaseButton disabled>{{ page }} / {{ pages }}</BaseButton>
+    <BaseButton @click="next">></BaseButton>
+    <BaseButton @click="end">End</BaseButton>
 </template>
 <style scoped>
 </style>
