@@ -1,4 +1,4 @@
-import { computed, ref, watchEffect } from "vue"
+import { computed, ref } from "vue"
 
 const total = ref(0)
 const limit = ref(5)
