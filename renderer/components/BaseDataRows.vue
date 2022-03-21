@@ -8,7 +8,7 @@ defineProps(['items'])
   <TransitionGroup name="list" tag="ul">
     <li v-if="!items.length">Loading...</li>
     <li v-for="item in items" :key="item.id" v-context-menu="item.id">
-      <slot name="item" v-bind="item"/>
+      <slot name="item" v-bind="item" />
     </li>
   </TransitionGroup>
 </template>
@@ -24,6 +24,7 @@ li {
   padding: 5px 0 5px 5px;
   margin-top: -1px;
   list-style: none;
+  width: 100%; /* 行动态效果 patch */
 }
 li:hover {
   background-color: #2d2f36;

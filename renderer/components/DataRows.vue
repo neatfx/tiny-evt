@@ -15,17 +15,32 @@ const emit = defineEmits<{
 <template>
   <BaseDataRows :items="$props.items">
     <template #item="{ id, name, age }">
-      <DataRowStatus></DataRowStatus>
-      <span class="title" @click="emit('open-detail', id)">{{ id }} - {{ name }} @ {{ age }}</span>
-      <BaseButton @click="emit('delete', id)" class="right" text="Delete">
-        <span>Delete</span>
-      </BaseButton>
-      <DataRowEditButton></DataRowEditButton>
+      <div class="row">
+        <div class="left">
+          <DataRowStatus class></DataRowStatus>
+          <div class="title" @click="emit('open-detail', id)">{{ id }} - {{ name }} @ {{ age }}</div>
+        </div>
+        <div class="right">
+          <BaseButton @click="emit('delete', id)" text="Delete">
+            <span>Delete</span>
+          </BaseButton>
+          <DataRowEditButton class></DataRowEditButton>
+        </div>
+      </div>
     </template>
   </BaseDataRows>
 </template>
 
 <style scoped>
+.row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+.left {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  justify-self: left;
+}
 .icon {
   /* margin-top: 15px; */
   display: inline-block;
@@ -35,10 +50,10 @@ const emit = defineEmits<{
   top: -12px;
 }
 .title {
-  /* width: 100%; */
-  /* border: 1px solid red; */
+  background-color: blanchedalmond;
+  padding: 2px 10px;
 }
 .right {
-  float: right;
+  justify-self: end;
 }
 </style>
