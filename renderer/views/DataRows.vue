@@ -16,12 +16,13 @@ import ContextMenu from "../components/DataRowContextMenu.vue"
 const store = useContactsStore()
 const { page } = usePagination()
 
-function filterDataRows(label: string) {
-  console.log(label)
+async function filter(sex: string) {
+  console.log('filter-sex: ', sex)
+  await store.filter(sex)
 }
 
 async function addItem(data: any) {
-  await store.add(data.friendName, data.friendAge)
+  await store.add(data.friendName, data.friendAge, 'F')
 }
 
 function openDetail(rowId: number | undefined) {
@@ -33,12 +34,14 @@ async function deleteItem(key: number | undefined) {
   if (key) await store.delete(key)
 }
 
-watch([page],async () => {
+watch([page], async () => {
   await store.page()
 })
 
 onMounted(async () => {
   await store.page()
+  await store.getUniqueTags()
+  console.log(store.tags)
 })
 
 </script>
@@ -46,7 +49,7 @@ onMounted(async () => {
 <template>
   <div class="action-bar">
     <div class="left">
-      <DataRowsFilter @change="filterDataRows"></DataRowsFilter>
+      <DataRowsFilter :items="store.tags" @filter-sex="filter"></DataRowsFilter>
       <DataRowsSearch></DataRowsSearch>
       <DataRowAdder @add="addItem"></DataRowAdder>
     </div>

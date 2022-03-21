@@ -54,10 +54,12 @@ export class Contact implements IContact {
   age!: number;
   emails!: IEmailAddress[];
   phones!: IPhoneNumber[];
+  sex: string;
 
-  constructor(name: string, age: number, id?: number) {
+  constructor(name: string, age: number, sex: string, id?: number) {
     this.name = name;
     this.age = age;
+    this.sex = sex;
     if (id) this.id = id;
 
     // Define navigation properties.
@@ -116,7 +118,7 @@ class TestingDatabase extends BaseDatabase {
     super(name, schemaVersion);
     var db = this;
     this.conditionalVersion(1, {
-      contacts: '++id, firstName, lastName',
+      contacts: '++id, firstName, lastName, sex',
       emails: '++id, contactId, type, email',
       phones: '++id, contactId, type, phone',
     });
@@ -132,14 +134,14 @@ const TestingDB = new TestingDatabase('AppDatabase', 1)
  */
 async function populateContacts() {
   await TestingDB.contacts.bulkAdd([
-    new Contact('zhao', 10),
-    new Contact('qian', 20),
-    new Contact('sun', 30),
-    new Contact('li', 40),
-    new Contact('zhou', 50),
-    new Contact('wu', 60),
-    new Contact('zheng', 70),
-    new Contact('wang', 80),
+    new Contact('zhao', 10, 'F'),
+    new Contact('qian', 20, 'M'),
+    new Contact('sun', 30, 'F'),
+    new Contact('li', 40, 'F'),
+    new Contact('zhou', 50, 'F'),
+    new Contact('wu', 60, 'M'),
+    new Contact('zheng', 70, 'F'),
+    new Contact('wang', 80, 'M'),
   ])
 }
 

@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { TestingDB, Contact } from '../../db'
 import { usePagination } from '../../components/pagination';
+import type { IndexableTypeArray } from 'dexie';
 // import { mande } from 'mande'
 
 const { total, offset, limit } = usePagination()
@@ -9,7 +10,7 @@ export const useContactsStore = defineStore('contact', {
   state: () => ({
     items: [] as Contact[],
     total: 0,
-    tags: [] as String[],
+    tags: [] as IndexableTypeArray,
   }),
   getters: {},
   actions: {
@@ -19,10 +20,11 @@ export const useContactsStore = defineStore('contact', {
     async list() {
       this.items = await TestingDB.contacts.offset(offset.value).limit(limit.value).toArray()
     },
-    async add(name: string, age: number) {
+    async add(name: string, age: number, sex: string) {
       await TestingDB.contacts.add(new Contact(
         name,
-        age
+        age,
+        sex
       ))
 
       await this.page()
@@ -33,7 +35,16 @@ export const useContactsStore = defineStore('contact', {
       await this.page()
     },
     async getUniqueTags() {
-      // this.tags = await TestingDB.contacts.orderBy('tags').uniqueKeys();
+      await TestingDB.contacts.orderBy('sex').uniqueKeys((keysArray) => {
+        this.tags = keysArray
+      });
+    },
+    async filter(sex: string) {
+      offset.value = 0;
+      
+      this.items = await TestingDB.contacts.filter(function (contact) {
+        return contact.sex === sex;
+      }).offset(offset.value).limit(limit.value).toArray()
     },
     async page() {
       await this.count()
