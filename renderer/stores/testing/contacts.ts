@@ -53,13 +53,6 @@ export const useContactsStore = defineStore('contact', {
       console.log(obj)
       this.items = await TestingDB.contacts
         .where(obj)
-        // .filter(
-        //   contact => {
-        //     // let sexB = sex === '' ? true : contact.sex === sex;
-        //     // let roleB = role === '' ? true: contact.role === role;
-        //     // return sexB || roleB
-        //     return true
-        //   })
         .offset(offset.value).limit(limit.value).toArray()
 
       total.value = this.items.length
