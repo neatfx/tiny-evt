@@ -48,6 +48,7 @@ async function deleteItem(key: number | undefined) {
 
 watchEffect(async () => {
   await countItems()
+    // await listItems()
 })
 
 watchEffect(async () => {

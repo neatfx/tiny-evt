@@ -26,7 +26,7 @@ function next() {
 }
 function end() {
   page.value = pages.value
-  offset.value = total.value - total.value % limit.value
+  offset.value = limit.value * (page.value - 1)
 }
 
 export function usePagination() {
