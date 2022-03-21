@@ -7,11 +7,12 @@ const { total, pages, page, head, prev, next, end } = usePagination()
 </script>
 
 <template>
-    <BaseButton disabled>P {{ page }} / {{ pages }} Pages / {{ total }} Rows</BaseButton>
-    <BaseButton @click="head">Head</BaseButton>
+    <BaseButton @click="head">First</BaseButton>
     <BaseButton @click="prev">Prev</BaseButton>
+    <BaseButton disabled>{{ page }} / {{ pages }}</BaseButton>
+    <BaseButton disabled>{{ total }} Rows</BaseButton>
     <BaseButton @click="next">Next</BaseButton>
-    <BaseButton @click="end">End</BaseButton>
+    <BaseButton @click="end">Last</BaseButton>
 </template>
 <style scoped>
 </style>
