@@ -17,7 +17,7 @@ export function useContextMenu() {
     // 拦截默认菜单
     window.addEventListener('contextmenu', (e) => {
       e.preventDefault()
-      console.log('all',e.target, target.value)
+      // console.log('all',e.target, target.value)
       if (e.target !== target.value) show.value = "none"
     })
     // 点击任意位置后隐藏右键菜单
@@ -35,7 +35,7 @@ export const vContextMenu = {
       target.value = el
       update(e, binding.value)
       show.value = 'block'
-      console.log('contextMenu', x.value, y.value, el, binding.value)
+      // console.log('contextMenu', x.value, y.value, el, binding.value)
     }
   }
 }

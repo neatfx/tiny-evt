@@ -15,7 +15,6 @@ const emit = defineEmits<{
 <template>
   <BaseDataRows :items="$props.items">
     <template #item="{ id, name, age }">
-      <div class="row">
         <div class="left">
           <DataRowStatus class></DataRowStatus>
           <div class="title" @click="emit('open-detail', id)">{{ id }} - {{ name }} @ {{ age }}</div>
@@ -26,16 +25,11 @@ const emit = defineEmits<{
           </BaseButton>
           <DataRowEditButton class></DataRowEditButton>
         </div>
-      </div>
     </template>
   </BaseDataRows>
 </template>
 
 <style scoped>
-.row {
-  display: grid;
-  grid-template-columns: 1fr auto;
-}
 .left {
   display: grid;
   grid-template-columns: 1fr auto;
