@@ -20,7 +20,7 @@ const state: IFormFields = {
 <template>
   <FolderPanel title="Add" :isInlineFixed="true" :isActionMenu="true">
     <template #header>
-      <BaseButton>Add New</BaseButton>
+      <BaseButton>New</BaseButton>
     </template>
     <template #body>
       <div class="panel-body">

@@ -1,12 +1,12 @@
-import { computed, ref } from "vue"
+import { computed, ref, watchEffect } from "vue"
 
 const total = ref(0)
-const page = ref(1)
-const offset = ref(0)
 const limit = ref(5)
+const offset = ref(0)
 const pages = computed(() => {
   return Math.ceil(total.value / limit.value)
 })
+const page = ref(1)
 
 function head() {
   page.value = 1

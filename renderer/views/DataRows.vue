@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { watchEffect } from "vue"
+import { onMounted, watch } from "vue"
 
 import router from '../router'
 import { useContactsStore } from '../stores'
@@ -13,8 +13,8 @@ import { usePagination } from '../components/pagination';
 import DataRows from "../components/DataRows.vue"
 import ContextMenu from "../components/DataRowContextMenu.vue"
 
-const { offset, limit, total } = usePagination()
 const store = useContactsStore()
+const { page } = usePagination()
 
 function filterDataRows(label: string) {
   console.log(label)
@@ -22,17 +22,6 @@ function filterDataRows(label: string) {
 
 async function addItem(data: any) {
   await store.add(data.friendName, data.friendAge)
-  await countItems()
-  await listItems()
-}
-
-async function countItems() {
-  await store.count();
-  total.value = store.total;
-}
-
-async function listItems() {
-  await store.list(offset.value, limit.value);
 }
 
 function openDetail(rowId: number | undefined) {
@@ -42,18 +31,16 @@ function openDetail(rowId: number | undefined) {
 
 async function deleteItem(key: number | undefined) {
   if (key) await store.delete(key)
-  await countItems()
-  await listItems()
 }
 
-watchEffect(async () => {
-  await countItems()
-    // await listItems()
+watch([page],async () => {
+  await store.page()
 })
 
-watchEffect(async () => {
-  await listItems()
+onMounted(async () => {
+  await store.page()
 })
+
 </script>
 
 <template>
