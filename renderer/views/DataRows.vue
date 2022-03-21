@@ -16,9 +16,12 @@ import ContextMenu from "../components/DataRowContextMenu.vue"
 const store = useContactsStore()
 const { page } = usePagination()
 
-async function filter(sex: string) {
-  console.log('filter-sex: ', sex)
-  await store.filter(sex)
+async function filterSex(sex: string) {
+  await store.filter(sex, '')
+}
+
+async function filterRole(role: string) {
+  await store.filter('', role)
 }
 
 async function addItem(data: any) {
@@ -51,7 +54,8 @@ onMounted(async () => {
 <template>
   <div class="action-bar">
     <div class="left">
-      <DataRowsFilter :items="store.filters.sex" @filter-sex="filter"></DataRowsFilter>
+      <DataRowsFilter :items="store.filters.sex" @filter-sex="filterSex"></DataRowsFilter>
+      <DataRowsFilter :items="store.filters.role" @filter-sex="filterRole"></DataRowsFilter>
       <DataRowsSearch></DataRowsSearch>
       <DataRowAdder @add="addItem"></DataRowAdder>
     </div>

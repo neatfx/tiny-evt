@@ -48,12 +48,13 @@ export const useContactsStore = defineStore('contact', {
         this.filters.role = keysArray
       });
     },
-    async filter(sex: string) {
+    async filter(sex: string, role: string) {
       offset.value = 0;
-
+      console.log(sex, role)
       this.items = await TestingDB.contacts.filter(function (contact) {
-        return contact.sex === sex
-          && contact.age === 30;
+        return sex !== '' ? contact.sex === sex : true
+      }).filter(function (contact) {
+        return role !== '' ? contact.role === role : true;
       }).offset(offset.value).limit(limit.value).toArray()
 
       total.value = this.items.length
