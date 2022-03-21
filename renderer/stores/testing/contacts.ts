@@ -1,16 +1,13 @@
 import { defineStore } from 'pinia'
 import { ref, type Ref } from 'vue'
-import { TestingDB, Contact } from '../db'
+import { TestingDB, Contact } from '../../db'
 // import { mande } from 'mande'
 
-// const api = mande('/api/users')
-
-export const useTestingStore = defineStore('testing', {
+export const useContactsStore = defineStore('contact', {
   state: () => ({
     items: [] as Contact[],
     total: 0,
     tags: [] as String[],
-    panel: ref<boolean>(true)
   }),
   getters: {
   },
@@ -34,10 +31,6 @@ export const useTestingStore = defineStore('testing', {
     },
     async getUniqueTags() {
       // this.tags = await TestingDB.contacts.orderBy('tags').uniqueKeys();
-    },
-    async updateExpandedPanel(newRef: Ref<boolean>) {
-      // this.tags = await TestingDB.contacts.orderBy('tags').uniqueKeys();
-      // this.panel = newRef
     }
   },
 })

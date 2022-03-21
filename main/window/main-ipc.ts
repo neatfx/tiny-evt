@@ -24,4 +24,8 @@ export function addIpcHandler(){
     nativeTheme.themeSource = 'system'
     return 'system'
   })
+
+  ipcMain.handle('file:save-db', () => {
+    return 'file:save-db'
+  })
 }

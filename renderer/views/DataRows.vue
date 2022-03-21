@@ -2,7 +2,7 @@
 import { watchEffect } from "vue"
 
 import router from '../router'
-import { useTestingStore, } from '../stores/testing'
+import { useContactsStore } from '../stores'
 
 import DataRowsFilter from '../components/DataRowsFilter.vue'
 import DataRowsSearch from "../components/DataRowsSearch.vue";
@@ -14,7 +14,7 @@ import DataRows from "../components/DataRows.vue"
 import ContextMenu from "../components/DataRowContextMenu.vue"
 
 const { offset, limit, total } = usePagination()
-const store = useTestingStore()
+const store = useContactsStore()
 
 function filterDataRows(label: string) {
   console.log(label)
