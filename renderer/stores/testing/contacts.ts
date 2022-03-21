@@ -48,14 +48,19 @@ export const useContactsStore = defineStore('contact', {
         this.filters.role = keysArray
       });
     },
-    async filter(sex: string, role: string) {
+    async filter(obj: object) {
       offset.value = 0;
-      console.log(sex, role)
-      this.items = await TestingDB.contacts.filter(function (contact) {
-        return sex !== '' ? contact.sex === sex : true
-      }).filter(function (contact) {
-        return role !== '' ? contact.role === role : true;
-      }).offset(offset.value).limit(limit.value).toArray()
+      console.log(obj)
+      this.items = await TestingDB.contacts
+        .where(obj)
+        // .filter(
+        //   contact => {
+        //     // let sexB = sex === '' ? true : contact.sex === sex;
+        //     // let roleB = role === '' ? true: contact.role === role;
+        //     // return sexB || roleB
+        //     return true
+        //   })
+        .offset(offset.value).limit(limit.value).toArray()
 
       total.value = this.items.length
     },

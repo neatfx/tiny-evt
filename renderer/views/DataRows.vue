@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, watch } from "vue"
+import { onMounted, ref, watch } from "vue"
 
 import router from '../router'
 import { useContactsStore } from '../stores'
@@ -12,16 +12,28 @@ import { usePagination } from '../components/pagination';
 
 import DataRows from "../components/DataRows.vue"
 import ContextMenu from "../components/DataRowContextMenu.vue"
+import BaseButton from "../components/BaseButton.vue"
 
 const store = useContactsStore()
 const { page } = usePagination()
+const filterRef = ref<{
+  sex?: string
+  role?: string
+}>({})
 
 async function filterSex(sex: string) {
-  await store.filter(sex, '')
+  filterRef.value.sex = sex
+  await store.filter(filterRef.value)
 }
 
 async function filterRole(role: string) {
-  await store.filter('', role)
+  filterRef.value.role = role
+  await store.filter(filterRef.value)
+}
+
+async function resetFilter() {
+  filterRef.value = {}
+  await store.page()
 }
 
 async function addItem(data: any) {
@@ -56,6 +68,7 @@ onMounted(async () => {
     <div class="left">
       <DataRowsFilter :items="store.filters.sex" @filter-sex="filterSex"></DataRowsFilter>
       <DataRowsFilter :items="store.filters.role" @filter-sex="filterRole"></DataRowsFilter>
+      <BaseButton @click="resetFilter">Reset Filter</BaseButton>
       <DataRowsSearch></DataRowsSearch>
       <DataRowAdder @add="addItem"></DataRowAdder>
     </div>
