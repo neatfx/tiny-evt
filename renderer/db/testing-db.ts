@@ -33,7 +33,7 @@ export interface IBook {
   coverUrl: string;
   author: string;
   created: Date;
-  
+
   subname?: string;
   translator?: string;
   tag?: string[];
@@ -42,7 +42,7 @@ export interface IBook {
   designed?: string;
   price?: number;
   from?: string;
-  description?:string;
+  description?: string;
 }
 
 /* 
@@ -130,9 +130,22 @@ const TestingDB = new TestingDatabase('AppDatabase', 1)
 /*
  * Populating
  */
-TestingDB.on('populate', function () {
+async function populateContacts() {
+  await TestingDB.contacts.bulkAdd([
+    new Contact('zhao', 10),
+    new Contact('qian', 20),
+    new Contact('sun', 30),
+    new Contact('li', 40),
+    new Contact('zhou', 50),
+    new Contact('wu', 60),
+    new Contact('zheng', 70),
+    new Contact('wang', 80),
+  ])
+}
+
+TestingDB.on('populate', async function () {
   // console.log('on populate')
-  // db.contacts.add({name: "someone", ang: 20 });
+  await populateContacts()
 })
 
 TestingDB.on('ready', () => {
@@ -141,13 +154,8 @@ TestingDB.on('ready', () => {
       console.log("Database already populated")
     } else {
       console.log("Database is empty. Populating...")
-      await TestingDB.contacts.bulkAdd([
-        new Contact('zhao', 19),
-        new Contact('qian', 20),
-        new Contact('sun', 21),
-        new Contact('li', 22),
-        new Contact('zhou', 23),
-      ])
+
+      await populateContacts()
       console.log("Done populating.")
     }
   })
