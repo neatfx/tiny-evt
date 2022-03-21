@@ -1,1 +1,1 @@
-export * from './testing-db'
+export * from './testing'

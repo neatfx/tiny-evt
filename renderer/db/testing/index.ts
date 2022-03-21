@@ -1,5 +1,5 @@
 import type { Table } from 'dexie'
-import { BaseDatabase } from './base-db'
+import { BaseDatabase } from '../base-db'
 
 /* 
  * Just for code completion and compilation

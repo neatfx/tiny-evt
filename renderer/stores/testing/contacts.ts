@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-import { ref, type Ref } from 'vue'
 import { TestingDB, Contact } from '../../db'
 // import { mande } from 'mande'
 
