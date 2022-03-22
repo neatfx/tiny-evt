@@ -4,6 +4,7 @@ import { onMounted, ref, watch, watchEffect } from "vue"
 import router from '../router'
 import { useContactsStore } from '../stores'
 
+import UniFilter from '../components/UniFilter.vue'
 import DataRowsFilter from '../components/DataRowsFilter.vue'
 import DataRowsSearch from "../components/DataRowsSearch.vue";
 import DataRowAdder from "../components/DataRowAdder.vue"
@@ -58,6 +59,7 @@ watchEffect(async () => {
 <template>
   <div class="action-bar">
     <div class="left">
+      <UniFilter :items="store.filters"></UniFilter>
       <DataRowsFilter :items="store.filters.sex" @filter-sex="filterSex"></DataRowsFilter>
       <DataRowsFilter :items="store.filters.role" @filter-sex="filterRole"></DataRowsFilter>
       <BaseButton @click="resetFilter">Reset Filter</BaseButton>
