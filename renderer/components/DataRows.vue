@@ -32,7 +32,9 @@ const emit = defineEmits<{
 
 <style scoped>
 .id{
-  padding: 0 10px 0 5px;
+  width: 25px;
+  text-align: center;
+  padding: 2px 10px 0 5px;
 }
 .left {
   display: grid;
