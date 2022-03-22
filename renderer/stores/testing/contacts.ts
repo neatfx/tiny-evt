@@ -1,7 +1,10 @@
 import { defineStore } from 'pinia'
-import { TestingDB, Contact } from '../../db'
-import { usePagination } from '../../components/pagination';
+import { TestingDB} from '../../db'
 import type { IndexableTypeArray } from 'dexie';
+import { Contact } from '../../db/testing/contacts';
+
+import { usePagination } from '../../components/pagination';
+
 // import { mande } from 'mande'
 
 const { total, offset, limit } = usePagination()
