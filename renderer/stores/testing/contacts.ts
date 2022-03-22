@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { TestingDB} from '../../db'
 import type { IndexableTypeArray } from 'dexie';
-import { Contact } from '../../db/testing/contacts';
+import { Contact } from '../../db/testing/contact';
 
 import { usePagination } from '../../components/pagination';
 

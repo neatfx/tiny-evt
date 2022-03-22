@@ -5,8 +5,9 @@
 import { BaseDatabase } from '../base-db'
 import type { Table } from 'dexie'
 import type { IEmailAddress, IPhoneNumber, IBook } from './definition'
-import { Contact } from './contacts';
+import { Contact } from './contact';
 import { handlePopulate } from './population'
+import { Book } from './book';
 
 class TestingDatabase extends BaseDatabase {
   contacts!: Table<Contact, number>;
@@ -21,9 +22,11 @@ class TestingDatabase extends BaseDatabase {
       contacts: '++id, firstName, lastName, sex, role',
       emails: '++id, contactId, type, email',
       phones: '++id, contactId, type, phone',
+      books: '++id, name, author, *categories, publishing'
     });
 
     db.contacts.mapToClass(Contact);
+    db.books.mapToClass(Book);
   }
 }
 

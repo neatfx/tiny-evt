@@ -28,13 +28,13 @@ export interface IPhoneNumber {
 export interface IBook {
   id?: number; // Primary key. Optional (autoincremented)
   name: string;
-  coverUrl: string;
+  coverUrl?: string;
   author: string;
   created: Date;
 
   subname?: string;
   translator?: string;
-  tag?: string[];
+  categories?: string[];
   publishing?: string;
   published?: Date;
   designed?: string;
