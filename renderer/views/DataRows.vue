@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from "vue"
+import { onMounted, ref, watch, watchEffect } from "vue"
 
 import router from '../router'
 import { useContactsStore } from '../stores'
@@ -23,17 +23,14 @@ const filterRef = ref<{
 
 async function filterSex(sex: string) {
   filterRef.value.sex = sex
-  await store.filter(filterRef.value)
 }
 
 async function filterRole(role: string) {
   filterRef.value.role = role
-  await store.filter(filterRef.value)
 }
 
 async function resetFilter() {
   filterRef.value = {}
-  await store.page()
 }
 
 async function addItem(data: any) {
@@ -49,15 +46,25 @@ async function deleteItem(key: number | undefined) {
 }
 
 watch([page], async () => {
-  // if(filters.){}
-  await store.page()
+  if (Object.keys(filterRef.value).length) {
+    await store.filter(filterRef.value)
+  } else {
+    await store.page()
+  }
 })
 
-onMounted(async () => {
+watchEffect(async () => {
+  if (Object.keys(filterRef.value).length) {
+    await store.filter(filterRef.value)
+  } else {
+    await store.page()
+  }
+})
+
+watchEffect(async () => {
   await store.page()
   await store.getUniqueSex()
   await store.getUniqueRole()
-  console.log(store.filters)
 })
 
 </script>
