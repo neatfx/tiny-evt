@@ -41,8 +41,7 @@ async function addItem(data: any) {
 }
 
 function openDetail(rowId: number | undefined) {
-  console.log(rowId)
-  router.push('/data-row-detail')
+  router.push('/data-row-detail/' + rowId)
 }
 
 async function deleteItem(key: number | undefined) {
