@@ -26,8 +26,8 @@ function removeFilter(key: string) {
     role?: string
   } = {}
 
-  if(filterRef.value.sex)obj['sex'] = filterRef.value.sex
-  if(filterRef.value.role)obj['role'] = filterRef.value.role
+  if (filterRef.value.sex) obj['sex'] = filterRef.value.sex
+  if (filterRef.value.role) obj['role'] = filterRef.value.role
 
   switch (key) {
     case 'sex':
@@ -100,8 +100,12 @@ function ref(arg0: {}) {
     <ul id="filter-tags-wrapper" v-if="Object.keys(filterRef).length">
       <li v-for="(v, k) in filterRef" :key="k" class="filter-item">
         <span class="filter-type">{{ k }}</span>
+        <span class="filter-type">is</span>
         <span class="filter-tag">{{ v }}</span>
-        <span class="btn-delete" @click="removeFilter(k)">X</span>
+        <span class="btn-delete" @click="removeFilter(k)">
+          <!-- <span class="icon-cross"></span> -->
+          X
+        </span>
       </li>
     </ul>
   </div>
@@ -127,6 +131,7 @@ function ref(arg0: {}) {
 #filter-tags-wrapper {
   display: grid;
   grid-template-columns: auto;
+  grid-auto-flow: column;
   gap: 10px;
   list-style: none;
   justify-content: left;
@@ -144,19 +149,25 @@ li {
 }
 .filter-type {
   display: inline-block;
-  padding: 1px 10px;
+  padding: 2px 10px;
   margin-right: 1px;
   background-color: darkkhaki;
 }
 .filter-tag {
   display: inline-block;
-  padding: 1px 10px;
+  padding: 2px 10px 2px;
   background-color: cadetblue;
 }
 .btn-delete {
   display: inline-block;
-  padding: 1px 10px;
+  padding: 2px 10px 2px 10px;
   margin-left: 1px;
   background-color: indianred;
+}
+.icon-cross {
+  /* font-size:large; */
+  /* display: inline-block; */
+  transition-property: all;
+  transform: rotate(45deg);
 }
 </style>
