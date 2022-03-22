@@ -59,7 +59,7 @@ watchEffect(async () => {
 <template>
   <div class="action-bar">
     <div class="left">
-      <UniFilter :items="store.filters"></UniFilter>
+      <UniFilter :items="store.filters" @filter-sex="filterSex" @filter-role="filterRole"></UniFilter>
       <DataRowsFilter :items="store.filters.sex" @filter-sex="filterSex"></DataRowsFilter>
       <DataRowsFilter :items="store.filters.role" @filter-sex="filterRole"></DataRowsFilter>
       <BaseButton @click="resetFilter">Reset Filter</BaseButton>
