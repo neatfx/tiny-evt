@@ -2,6 +2,7 @@
  * Just for code completion and compilation
  * defines the interface of objects stored in the table.
  */
+
 export interface IContact {
   id?: number; // Primary key. Optional (autoincremented)
   name: string;

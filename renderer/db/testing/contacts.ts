@@ -1,6 +1,7 @@
 /* 
  * class mapped to the contacts table
  */
+
 import type { IContact, IEmailAddress, IPhoneNumber } from './definition'
 import { TestingDB } from './index'
 

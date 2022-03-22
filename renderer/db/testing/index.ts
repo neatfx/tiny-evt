@@ -2,11 +2,11 @@
  * Database class
  */
 
-import type { Table } from 'dexie'
 import { BaseDatabase } from '../base-db'
-import { Contact } from './contacts';
+import type { Table } from 'dexie'
 import type { IEmailAddress, IPhoneNumber, IBook } from './definition'
-import { populateContacts } from './population'
+import { Contact } from './contacts';
+import { handlePopulate } from './population'
 
 class TestingDatabase extends BaseDatabase {
   contacts!: Table<Contact, number>;
@@ -29,25 +29,6 @@ class TestingDatabase extends BaseDatabase {
 
 const TestingDB = new TestingDatabase('AppDatabase', 1)
 
-/*
- * Populating
- */
-TestingDB.on('populate', async function () {
-  console.log('event("populate")')
-  await populateContacts()
-})
-
-TestingDB.on('ready', () => {
-  return TestingDB.contacts.count(async (count: number) => {
-    if (count > 0) {
-      console.log("Database already populated")
-    } else {
-      console.log("Database is empty. Populating...")
-
-      await populateContacts()
-      console.log("Done populating.")
-    }
-  })
-})
+handlePopulate() // 数据初始化
 
 export { TestingDB }
