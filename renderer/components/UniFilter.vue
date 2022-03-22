@@ -3,13 +3,17 @@ import { ref } from 'vue';
 
 import FolderPanel from './FolderPanel.vue';
 import BaseButton from './BaseButton.vue';
+import type { IndexableTypeArray } from 'dexie';
 
 const emit = defineEmits<{
   (e: 'filter-sex', sex: string): void
   (e: 'filter-role', sex: string): void
 }>()
 const props = defineProps<{
-  items: Array<any>
+  items: {
+    sex: IndexableTypeArray
+    role: IndexableTypeArray
+  }
 }>()
 const seletedFilter = ref('')
 
@@ -24,10 +28,10 @@ function onFilterItemClick(filterType: string, filterValue: string) {
   switch (filterType) {
     case 'sex':
       emit('filter-sex', filterValue)
+      seletedFilter.value = ''
       break;
     case 'role':
       emit('filter-role', filterValue)
-    default:
       seletedFilter.value = ''
       break;
   }
@@ -38,19 +42,19 @@ function onFilterItemClick(filterType: string, filterValue: string) {
 <template>
   <FolderPanel title="Filter" :isInlineFixed="true" :isActionMenu="true">
     <template #header>
-      <BaseButton>Filter</BaseButton>
+      <BaseButton>Rows Filter</BaseButton>
     </template>
     <template #body>
       <ul>
-        <li v-for="(k, v) in props.items" :key="k" @click="showFinalFilter(v.toString())">{{ v }}</li>
+        <li v-for="(v, k) in props.items" :key="k" @click="showFinalFilter(k)">{{ k }}</li>
       </ul>
     </template>
   </FolderPanel>
   <ul v-if="'sex' === seletedFilter" class="final-filter">
-    <li v-for="(k, v) in props.items.sex" :key="k" @click="onFilterItemClick('sex', k)">{{ k }}</li>
+    <li v-for="(v, k) in props.items.sex" :key="k" @click="onFilterItemClick('sex', v.toString())">{{ v }}</li>
   </ul>
   <ul v-if="'role' === seletedFilter" class="final-filter">
-    <li v-for="(k, v) in props.items.role" :key="k" @click="onFilterItemClick('role', k)">{{ k }}</li>
+    <li v-for="(v, k) in props.items.role" :key="k" @click="onFilterItemClick('role', v.toString())">{{ v }}</li>
   </ul>
 </template>
 

@@ -18,13 +18,9 @@ const contextMenuState = reactive({
 
 const menuData = {
   text: [
-    "Status",
     "Delete",
   ],
   handler: {
-    checkingData() {
-      console.log("设置状态");
-    },
     deleteById() {
       console.log("从数据库中删除数据");
       emit('delete', targetId.value)
@@ -49,7 +45,7 @@ function createMenu(binding: { text: any; handler: any; }) {
     };
     menuList.push(menuObj);
   }
-  // console.log(menuList)
+  
   contextMenuState.data = menuList
 }
 
