@@ -9,6 +9,7 @@ import DataRowsSearch from "../components/DataRowsSearch.vue";
 import DataRowAdder from "../components/DataRowAdder.vue"
 import Pagination from "../components/Pagination.vue";
 import { usePagination } from '../components/pagination';
+import { useFilter } from '../components/filter'
 
 import DataRows from "../components/DataRows.vue"
 import ContextMenu from "../components/DataRowContextMenu.vue"
@@ -16,22 +17,7 @@ import BaseButton from "../components/BaseButton.vue"
 
 const store = useContactsStore()
 const { page } = usePagination()
-const filterRef = ref<{
-  sex?: string
-  role?: string
-}>({})
-
-async function filterSex(sex: string) {
-  filterRef.value.sex = sex
-}
-
-async function filterRole(role: string) {
-  filterRef.value.role = role
-}
-
-async function resetFilter() {
-  filterRef.value = {}
-}
+const { filterRef, resetFilter, filterRole, filterSex } = useFilter()
 
 async function addItem(data: any) {
   await store.add(data.friendName, data.friendAge, 'F', 'user')
