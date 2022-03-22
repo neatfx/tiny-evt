@@ -5,7 +5,7 @@ import router from '../router'
 import { useContactsStore } from '../stores'
 
 import { useFilter } from '../components/filter'
-import UniFilter from '../components/UniFilter.vue'
+import DataRowsFilter from '../components/DataRowsFilter.vue'
 import BaseButton from "../components/BaseButton.vue"
 import DataRowsSearch from "../components/DataRowsSearch.vue";
 import DataRowAdder from "../components/DataRowAdder.vue"
@@ -86,7 +86,7 @@ function ref(arg0: {}) {
   <div class="action-bar">
     <div>
       <div class="left">
-        <UniFilter :items="store.filters" @filter-sex="filterSex" @filter-role="filterRole"></UniFilter>
+        <DataRowsFilter :items="store.filters" @filter-sex="filterSex" @filter-role="filterRole"></DataRowsFilter>
         <BaseButton @click="resetFilter">Reset Filter</BaseButton>
         <DataRowsSearch></DataRowsSearch>
         <DataRowAdder @add="addItem"></DataRowAdder>
