@@ -21,14 +21,6 @@ const { page } = usePagination()
 const { filterRef, resetFilter, filterRole, filterSex } = useFilter()
 
 function removeFilter(key: string) {
-
-  // Object.assign({}, filterRef.value)
-  // let newObj = []
-  // Object.keys(filterRef.value).map((value, index, obj) => {
-  //   if (value !== key) newObj.push({ value: }]
-  // })
-  // console.log(newObj,'newObj',obj)
-
   let obj: {
     sex?: string
     role?: string
