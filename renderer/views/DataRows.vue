@@ -20,6 +20,36 @@ const store = useContactsStore()
 const { page } = usePagination()
 const { filterRef, resetFilter, filterRole, filterSex } = useFilter()
 
+function removeFilter(key: string) {
+
+  // Object.assign({}, filterRef.value)
+  // let newObj = []
+  // Object.keys(filterRef.value).map((value, index, obj) => {
+  //   if (value !== key) newObj.push({ value: }]
+  // })
+  // console.log(newObj,'newObj',obj)
+
+  let obj: {
+    sex?: string
+    role?: string
+  } = {}
+
+  if(filterRef.value.sex)obj['sex'] = filterRef.value.sex
+  if(filterRef.value.role)obj['role'] = filterRef.value.role
+
+  switch (key) {
+    case 'sex':
+      delete obj.sex
+      break;
+    case 'role':
+      delete obj.role
+      break;
+  }
+
+  // console.log(obj)
+  filterRef.value = obj
+}
+
 async function addItem(data: any) {
   await store.add(data.friendName, data.friendAge, 'F', 'user')
 }
@@ -54,6 +84,10 @@ watchEffect(async () => {
   await store.getUniqueRole()
 })
 
+
+function ref(arg0: {}) {
+  throw new Error("Function not implemented.")
+}
 </script>
 
 <template>
@@ -72,10 +106,10 @@ watchEffect(async () => {
       <div class="clear"></div>
     </div>
     <ul id="filter-tags-wrapper" v-if="Object.keys(filterRef).length">
-      <li v-for="(k, v) in filterRef" :key="k" class="filter-item">
-        <span class="filter-type">{{ v }}</span>
-        <span class="filter-tag">{{ k }}</span>
-        <span class="btn-delete">X</span>
+      <li v-for="(v, k) in filterRef" :key="k" class="filter-item">
+        <span class="filter-type">{{ k }}</span>
+        <span class="filter-tag">{{ v }}</span>
+        <span class="btn-delete" @click="removeFilter(k)">X</span>
       </li>
     </ul>
   </div>
