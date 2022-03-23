@@ -53,12 +53,14 @@ export const useContactsStore = defineStore('contact', {
     },
     async filter(obj: object) {
       offset.value = 0;
-      console.log(obj)
+      // console.log(obj)
+
+      total.value = await TestingDB.contacts
+      .where(obj).count()
+
       this.items = await TestingDB.contacts
         .where(obj)
         .offset(offset.value).limit(limit.value).toArray()
-
-      total.value = this.items.length
     },
     async page() {
       await this.count()
