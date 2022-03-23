@@ -17,7 +17,7 @@ import DataRows from "../components/DataRows.vue"
 import ContextMenu from "../components/DataRowContextMenu.vue"
 
 const store = useContactsStore()
-const { page } = usePagination()
+const { page, offset } = usePagination()
 const { filterRef, resetFilter, filterRole, filterSex } = useFilter()
 
 function removeFilter(key: string) {
@@ -64,6 +64,10 @@ watch([page], async () => {
 
 watchEffect(async () => {
   if (Object.keys(filterRef.value).length) {
+
+    offset.value = 0
+    page.value = 1
+    
     await store.filter(filterRef.value)
   } else {
     await store.refreshPage()
