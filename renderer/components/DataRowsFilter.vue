@@ -68,15 +68,16 @@ ul {
 }
 li {
   padding: 5px 10px;
+  background-color: grey;
 }
 
 li:hover {
-  background-color: #0070f5;
+  background-color: lightgray;
   cursor: default;
 }
 /*  */
 .final-filter {
   position: fixed;
-  background-color: aqua;
+  background-color: lightgray;
 }
 </style>
