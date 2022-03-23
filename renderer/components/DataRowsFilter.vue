@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref, watchEffect } from 'vue';
 
 import FolderPanel from './FolderPanel.vue';
 import BaseButton from './BaseButton.vue';
@@ -38,7 +38,12 @@ function onFilterItemClick(e: MouseEvent, filterType: string, filterValue: strin
   }
 }
 
-watch(seletedFilter, () => {
+// 处理一二级菜单可同时展开问题
+function onListFilterTypes() {
+  if (seletedFilter.value !== '') seletedFilter.value = ""
+}
+
+watchEffect(() => {
   window.addEventListener("click", (event) => {
     if (event.target !== filtersMenu.value) {
       seletedFilter.value = ""
@@ -48,7 +53,12 @@ watch(seletedFilter, () => {
 </script>
 
 <template>
-  <FolderPanel title="Filter" :isInlineFixed="true" :isActionMenu="true">
+  <FolderPanel
+    title="Filter"
+    :isInlineFixed="true"
+    :isActionMenu="true"
+    v-on:menu-expanded="onListFilterTypes"
+  >
     <template #header>
       <BaseButton>Rows Filter</BaseButton>
     </template>

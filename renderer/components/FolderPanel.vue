@@ -1,11 +1,15 @@
 <script setup lang="ts">
-import { onMounted, ref, watchEffect } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { useCurrentExpandedPanel } from './folderPanel'
 
 defineProps<{
   title?: string;
   isInlineFixed?: boolean;
   isActionMenu?: boolean;
+}>()
+
+const emit = defineEmits<{
+  (e: 'menu-expanded'): void
 }>()
 
 const expanded = ref(true);
@@ -20,7 +24,7 @@ const body = ref(null)
 const { currentExpandedPanel } = useCurrentExpandedPanel()
 
 function toggle(e: Event) {
-    //  currentExpandedPanel.get(panel.value).status = false
+  //  currentExpandedPanel.get(panel.value).status = false
   expandedAsActionMenu.value = !expandedAsActionMenu.value
   // currentExpandedPanel.forEach((v,key)=>{
 
@@ -30,6 +34,9 @@ function toggle(e: Event) {
   // }
 
 }
+watch(expandedAsActionMenu, () => {
+  if (expandedAsActionMenu.value) emit('menu-expanded')
+})
 onMounted(() => {
   window.addEventListener("click", (e) => {
     e.stopPropagation()
