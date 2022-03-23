@@ -13,7 +13,7 @@ import Pagination from "../components/Pagination.vue";
 import { usePagination } from '../components/pagination';
 import DataRowsViewOptions from '../components/data-row/DataRowsViewOptions.vue'
 
-import DataRows from "../components/data-row/DataRows.vue"
+import ContactRows from "../components/data-row/ContactRows.vue"
 import ContextMenu from "../components/data-row/DataRowContextMenu.vue"
 import FilterTags from "../components/data-row/FilterTags.vue"
 
@@ -85,7 +85,7 @@ watchEffect(async () => {
     </div>
     <FilterTags :items="workingFilters"></FilterTags>
   </div>
-  <DataRows :items="store.items" @open-detail="openDetail" @delete="deleteItem"></DataRows>
+  <ContactRows :items="store.items" @open-detail="openDetail" @delete="deleteItem"></ContactRows>
   <ContextMenu @delete="deleteItem"></ContextMenu>
 </template>
 
