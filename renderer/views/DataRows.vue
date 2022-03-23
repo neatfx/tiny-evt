@@ -58,7 +58,7 @@ watch([page], async () => {
   if (Object.keys(filterRef.value).length) {
     await store.filter(filterRef.value)
   } else {
-    await store.page()
+    await store.refreshPage()
   }
 })
 
@@ -66,14 +66,13 @@ watchEffect(async () => {
   if (Object.keys(filterRef.value).length) {
     await store.filter(filterRef.value)
   } else {
-    await store.page()
+    await store.refreshPage()
   }
 })
 
 watchEffect(async () => {
-  await store.page()
-  await store.getUniqueSex()
-  await store.getUniqueRole()
+  await store.refreshPage()
+  await store.getFiltersMeta()
 })
 
 
