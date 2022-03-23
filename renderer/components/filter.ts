@@ -1,16 +1,16 @@
 import { ref } from "vue"
 
-const filterRef = ref<{
+const workingFilters = ref<{
   sex?: string
   role?: string
 }>({})
 
 function filterSex(sex: string) {
-  filterRef.value.sex = sex
+  workingFilters.value.sex = sex
 }
 
 function filterRole(role: string) {
-  filterRef.value.role = role
+  workingFilters.value.role = role
 }
 
 function removeFilter(key: string) {
@@ -19,8 +19,8 @@ function removeFilter(key: string) {
     role?: string
   } = {}
 
-  if (filterRef.value.sex) obj['sex'] = filterRef.value.sex
-  if (filterRef.value.role) obj['role'] = filterRef.value.role
+  if (workingFilters.value.sex) obj['sex'] = workingFilters.value.sex
+  if (workingFilters.value.role) obj['role'] = workingFilters.value.role
 
   switch (key) {
     case 'sex':
@@ -32,13 +32,13 @@ function removeFilter(key: string) {
   }
 
   // console.log(obj)
-  filterRef.value = obj
+  workingFilters.value = obj
 }
 
 function resetFilter() {
-  filterRef.value = {}
+  workingFilters.value = {}
 }
 
 export function useFilter() {
-  return { filterRef, removeFilter, resetFilter, filterSex, filterRole }
+  return { workingFilters, removeFilter, resetFilter, filterSex, filterRole }
 }

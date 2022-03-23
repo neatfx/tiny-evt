@@ -13,7 +13,7 @@ watch(pages, () => {
   if (offset.value === total.value && page.value > 1) {
     console.log('x')
     page.value = page.value - 1
-    offset.value = offset.value - limit.value ;
+    offset.value = offset.value - limit.value;
   }
 })
 
@@ -38,6 +38,11 @@ function end() {
   offset.value = limit.value * (page.value - 1)
 }
 
+function reset() {
+  offset.value = 0
+  page.value = 1
+}
+
 export function usePagination() {
-  return { offset, limit, total, pages, page, head, prev, next, end }
+  return { offset, limit, total, pages, page, head, prev, next, end, reset }
 }

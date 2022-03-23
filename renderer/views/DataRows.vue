@@ -15,10 +15,10 @@ import DataRowsViewOptions from '../components/DataRowsViewOptions.vue'
 
 import DataRows from "../components/DataRows.vue"
 import ContextMenu from "../components/DataRowContextMenu.vue"
+import FilterTags from "../components/FilterTags.vue"
 
 const store = useContactsStore()
-const { page, offset } = usePagination()
-const { filterRef, resetFilter, filterRole, filterSex, removeFilter } = useFilter()
+const { workingFilters, resetFilter, filterRole, filterSex } = useFilter()
 
 async function addItem(data: any) {
   await store.add(data.friendName, data.friendAge, 'F', 'user')
@@ -34,26 +34,23 @@ async function deleteItem(key: number | undefined) {
 
 function resetAllFilters() {
   resetFilter()
-
-  offset.value = 0
-  page.value = 1
+  usePagination().reset()
 }
 
-watch([page], async () => {
-  if (Object.keys(filterRef.value).length) {
-    await store.filter(filterRef.value)
+watch([usePagination().page], async () => {
+  if (Object.keys(workingFilters.value).length) {
+    await store.filter(workingFilters.value)
   } else {
     await store.refreshPage()
   }
 })
 
 watchEffect(async () => {
-  if (Object.keys(filterRef.value).length) {
+  if (Object.keys(workingFilters.value).length) {
 
-    offset.value = 0
-    page.value = 1
+    usePagination().reset()
 
-    await store.filter(filterRef.value)
+    await store.filter(workingFilters.value)
   } else {
     await store.refreshPage()
   }
@@ -80,17 +77,7 @@ watchEffect(async () => {
       </div>
       <div class="clear"></div>
     </div>
-    <ul id="filter-tags-wrapper" v-if="Object.keys(filterRef).length">
-      <li v-for="(v, k) in filterRef" :key="k" class="filter-item">
-        <span class="filter-type">{{ k }}</span>
-        <span class="filter-type">is</span>
-        <span class="filter-tag">{{ v }}</span>
-        <span class="btn-delete" @click="removeFilter(k)">
-          <!-- <span class="icon-cross"></span> -->
-          X
-        </span>
-      </li>
-    </ul>
+    <FilterTags :items="workingFilters"></FilterTags>
   </div>
   <DataRows :items="store.items" @open-detail="openDetail" @delete="deleteItem"></DataRows>
   <ContextMenu @delete="deleteItem"></ContextMenu>
@@ -108,49 +95,5 @@ watchEffect(async () => {
 }
 .clear {
   clear: both;
-}
-
-/* 过滤器标签 */
-#filter-tags-wrapper {
-  display: grid;
-  grid-template-columns: auto;
-  grid-auto-flow: column;
-  gap: 10px;
-  list-style: none;
-  justify-content: left;
-  padding: 10px;
-  border: 1px solid grey;
-}
-ul {
-}
-li {
-  float: left;
-  /* background-color: cadetblue; */
-}
-.filter-item {
-  margin-right: 10px;
-}
-.filter-type {
-  display: inline-block;
-  padding: 2px 10px;
-  margin-right: 1px;
-  background-color: darkkhaki;
-}
-.filter-tag {
-  display: inline-block;
-  padding: 2px 10px 2px;
-  background-color: cadetblue;
-}
-.btn-delete {
-  display: inline-block;
-  padding: 2px 10px 2px 10px;
-  margin-left: 1px;
-  background-color: indianred;
-}
-.icon-cross {
-  /* font-size:large; */
-  /* display: inline-block; */
-  transition-property: all;
-  transform: rotate(45deg);
 }
 </style>
