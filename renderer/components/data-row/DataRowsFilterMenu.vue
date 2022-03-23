@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref, watchEffect } from 'vue';
 
-import FolderPanel from './FolderPanel.vue';
-import BaseButton from './BaseButton.vue';
+import FolderPanel from '../FolderPanel.vue';
+import BaseButton from '../BaseButton.vue';
 import type { IndexableTypeArray } from 'dexie';
 
 const emit = defineEmits<{

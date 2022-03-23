@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import DataRowEditButton from './DataRowEditButton.vue'
-import BaseButton from './BaseButton.vue';
+import BaseButton from '../BaseButton.vue';
 import DataRowStatus from './DataRowStatus.vue'
 import BaseDataRows from './BaseDataRows.vue'
 

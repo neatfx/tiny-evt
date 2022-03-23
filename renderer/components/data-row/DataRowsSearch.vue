@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import BaseInput from './BaseInput.vue';
-import BaseButton from './BaseButton.vue';
+import BaseInput from '../BaseInput.vue';
+import BaseButton from '../BaseButton.vue';
 
 const search = ref<string>()
 function typing(e) {

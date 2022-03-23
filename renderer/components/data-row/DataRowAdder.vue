@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import BaseButton from './BaseButton.vue';
-import FolderPanel from './FolderPanel.vue';
+import BaseButton from '../BaseButton.vue';
+import FolderPanel from '../FolderPanel.vue';
 
 export type IFormFields = {
   friendName: String;

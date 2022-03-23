@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { vContextMenu } from './contextMenu'
+import { vContextMenu } from '../contextMenu'
 
 defineProps(['items'])
 </script>

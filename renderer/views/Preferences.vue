@@ -1,6 +1,6 @@
 <script setup lang='ts'>
-import DBExportImport from '../components/PrefDBExportImport.vue';
-import PrefDarkMode from '../components/PrefDarkMode.vue'
+import DatabaseImportAndExport from '../components/preferences/DatabaseImportAndExport.vue';
+import DarkMode from '../components/preferences/DarkMode.vue'
 import FolderPanel from '../components/FolderPanel.vue';
 </script>
 
@@ -10,7 +10,7 @@ import FolderPanel from '../components/FolderPanel.vue';
       <div class="header">System</div>
     </template>
     <template #body>
-      <PrefDarkMode></PrefDarkMode>
+      <DarkMode></DarkMode>
     </template>
   </FolderPanel>
   <FolderPanel class="panel">
@@ -18,7 +18,7 @@ import FolderPanel from '../components/FolderPanel.vue';
       <div class="header">Database</div>
     </template>
     <template #body>
-      <DBExportImport></DBExportImport>
+      <DatabaseImportAndExport></DatabaseImportAndExport>
     </template>
   </FolderPanel>
 </template>

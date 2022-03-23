@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { TestingDB } from '../db'
-import BaseButton from './BaseButton.vue';
+import { TestingDB } from '../../db'
+import BaseButton from '../BaseButton.vue';
 import { importDB, exportDB, importInto, peakImportFile } from "dexie-export-import";
 import type { ExportProgress } from 'dexie-export-import/dist/export';
 

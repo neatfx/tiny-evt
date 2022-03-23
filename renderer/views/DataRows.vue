@@ -4,18 +4,18 @@ import { watch, watchEffect } from "vue"
 import router from '../router'
 import { useContactsStore } from '../stores'
 
-import { useFilter } from '../components/filter'
-import DataRowsFilter from '../components/DataRowsFilter.vue'
+import { useFilter } from '../components/data-row/filter'
+import DataRowsFilterMenu from '../components/data-row/DataRowsFilterMenu.vue'
 import BaseButton from "../components/BaseButton.vue"
-import DataRowsSearch from "../components/DataRowsSearch.vue";
-import DataRowAdder from "../components/DataRowAdder.vue"
+import DataRowsSearch from "../components/data-row/DataRowsSearch.vue";
+import DataRowAdder from "../components/data-row/DataRowAdder.vue"
 import Pagination from "../components/Pagination.vue";
 import { usePagination } from '../components/pagination';
-import DataRowsViewOptions from '../components/DataRowsViewOptions.vue'
+import DataRowsViewOptions from '../components/data-row/DataRowsViewOptions.vue'
 
-import DataRows from "../components/DataRows.vue"
-import ContextMenu from "../components/DataRowContextMenu.vue"
-import FilterTags from "../components/FilterTags.vue"
+import DataRows from "../components/data-row/DataRows.vue"
+import ContextMenu from "../components/data-row/DataRowContextMenu.vue"
+import FilterTags from "../components/data-row/FilterTags.vue"
 
 const store = useContactsStore()
 const { workingFilters, resetFilter, filterRole, filterSex } = useFilter()
@@ -72,7 +72,7 @@ watchEffect(async () => {
   <div class="action-bar">
     <div>
       <div class="left">
-        <DataRowsFilter :items="store.filters" @filter-sex="filterSex" @filter-role="filterRole"></DataRowsFilter>
+        <DataRowsFilterMenu :items="store.filters" @filter-sex="filterSex" @filter-role="filterRole"></DataRowsFilterMenu>
         <BaseButton @click="resetAllFilters">Reset Filter</BaseButton>
         <DataRowsSearch></DataRowsSearch>
         <DataRowAdder @add="addItem"></DataRowAdder>

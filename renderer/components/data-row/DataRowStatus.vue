@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue';
 
-import FolderPanel from './FolderPanel.vue';
+import FolderPanel from '../FolderPanel.vue';
 
-import EcosystemIcon from "./icons/IconEcosystem.vue";
-import BaseButton from "./BaseButton.vue";
+import EcosystemIcon from "../icons/IconEcosystem.vue";
+import BaseButton from "../BaseButton.vue";
 
 defineEmits<{
   (e: 'add'): void

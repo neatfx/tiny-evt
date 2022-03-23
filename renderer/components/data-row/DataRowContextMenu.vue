@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, reactive } from "vue"
-import { useContextMenu } from './contextMenu'
+import { useContextMenu } from '../contextMenu'
 
 const { show, x, y, targetId } = useContextMenu();
 const emit = defineEmits<{
