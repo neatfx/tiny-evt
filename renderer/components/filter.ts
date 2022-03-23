@@ -31,7 +31,6 @@ function removeFilter(key: string) {
       break;
   }
 
-  // console.log(obj)
   workingFilters.value = obj
 }
 

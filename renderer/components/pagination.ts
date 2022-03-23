@@ -9,9 +9,7 @@ const pages = computed(() => {
 const page = ref(1)
 
 watch(pages, () => {
-  console.log('pages', offset.value, total.value)
   if (offset.value === total.value && page.value > 1) {
-    console.log('x')
     page.value = page.value - 1
     offset.value = offset.value - limit.value;
   }
