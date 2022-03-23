@@ -45,6 +45,12 @@ watch([usePagination().page], async () => {
   }
 })
 
+watch(workingFilters, () => {
+  if (Object.keys(workingFilters.value).length === 0) {
+    usePagination().reset()
+  }
+})
+
 watchEffect(async () => {
   if (Object.keys(workingFilters.value).length) {
 
