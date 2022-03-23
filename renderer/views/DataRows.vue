@@ -18,29 +18,7 @@ import ContextMenu from "../components/DataRowContextMenu.vue"
 
 const store = useContactsStore()
 const { page, offset } = usePagination()
-const { filterRef, resetFilter, filterRole, filterSex } = useFilter()
-
-function removeFilter(key: string) {
-  let obj: {
-    sex?: string
-    role?: string
-  } = {}
-
-  if (filterRef.value.sex) obj['sex'] = filterRef.value.sex
-  if (filterRef.value.role) obj['role'] = filterRef.value.role
-
-  switch (key) {
-    case 'sex':
-      delete obj.sex
-      break;
-    case 'role':
-      delete obj.role
-      break;
-  }
-
-  // console.log(obj)
-  filterRef.value = obj
-}
+const { filterRef, resetFilter, filterRole, filterSex, removeFilter } = useFilter()
 
 async function addItem(data: any) {
   await store.add(data.friendName, data.friendAge, 'F', 'user')
@@ -52,6 +30,13 @@ function openDetail(rowId: number | undefined) {
 
 async function deleteItem(key: number | undefined) {
   if (key) await store.delete(key)
+}
+
+function resetAllFilters() {
+  resetFilter()
+
+  offset.value = 0
+  page.value = 1
 }
 
 watch([page], async () => {
@@ -67,7 +52,7 @@ watchEffect(async () => {
 
     offset.value = 0
     page.value = 1
-    
+
     await store.filter(filterRef.value)
   } else {
     await store.refreshPage()
@@ -78,11 +63,6 @@ watchEffect(async () => {
   await store.refreshPage()
   await store.getFiltersMeta()
 })
-
-
-function ref(arg0: {}) {
-  throw new Error("Function not implemented.")
-}
 </script>
 
 <template>
@@ -90,7 +70,7 @@ function ref(arg0: {}) {
     <div>
       <div class="left">
         <DataRowsFilter :items="store.filters" @filter-sex="filterSex" @filter-role="filterRole"></DataRowsFilter>
-        <BaseButton @click="resetFilter">Reset Filter</BaseButton>
+        <BaseButton @click="resetAllFilters">Reset Filter</BaseButton>
         <DataRowsSearch></DataRowsSearch>
         <DataRowAdder @add="addItem"></DataRowAdder>
       </div>
