@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { watch, watchEffect } from "vue"
 
-// import router from '../router'
 import { useContactsStore } from '../stores'
 
 import { useFilter } from '../components/data-row/filter'
@@ -14,7 +13,6 @@ import { usePagination } from '../components/pagination';
 import DataRowsViewOptions from '../components/data-row/contact-rows/ContactRowsViewOptions.vue'
 
 import ContactRows from "../components/data-row/contact-rows/ContactRows.vue"
-// import ContextMenu from "../components/data-row/RowContextMenu.vue"
 import FilterTags from "../components/data-row/FilterTags.vue"
 
 const store = useContactsStore()
@@ -23,14 +21,6 @@ const { workingFilters, resetFilter, filterRole, filterSex } = useFilter()
 async function addItem(data: any) {
   await store.add(data.friendName, data.friendAge, 'F', 'user')
 }
-
-// function openDetail(rowId: number | undefined) {
-//   router.push('/data-row-detail/' + rowId)
-// }
-
-// async function deleteItem(key: number | undefined) {
-//   if (key) await store.delete(key)
-// }
 
 function resetAllFilters() {
   resetFilter()
