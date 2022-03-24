@@ -4,11 +4,13 @@ import { ref, watchEffect } from 'vue';
 import FolderPanel from '../FolderPanel.vue';
 import BaseButton from '../BaseButton.vue';
 import type { IndexableTypeArray } from 'dexie';
+import { useFilter } from './filter'
 
-const emit = defineEmits<{
-  (e: 'filter-sex', sex: string): void
-  (e: 'filter-role', sex: string): void
-}>()
+const { workingFilters, filterRole, filterSex } = useFilter()
+// const emit = defineEmits<{
+//   (e: 'filter-sex', sex: string): void
+//   (e: 'filter-role', sex: string): void
+// }>()
 const props = defineProps<{
   items: {
     sex: IndexableTypeArray
@@ -28,11 +30,13 @@ function onFilterItemClick(e: MouseEvent, filterType: string, filterValue: strin
   // console.log('click', filterType)
   switch (filterType) {
     case 'sex':
-      emit('filter-sex', filterValue)
+      // emit('filter-sex', filterValue)
+      filterSex(filterValue)
       seletedFilter.value = ''
       break;
     case 'role':
-      emit('filter-role', filterValue)
+      // emit('filter-role', filterValue)
+      filterRole(filterValue)
       seletedFilter.value = ''
       break;
   }

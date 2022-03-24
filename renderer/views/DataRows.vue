@@ -13,7 +13,7 @@ import FilterTags from "../components/data-row/FilterTags.vue"
 import ContactRows from "../components/data-row/contact-rows/ContactRows.vue"
 
 const store = useContactsStore()
-const { workingFilters, filterRole, filterSex } = useFilter()
+const { workingFilters } = useFilter()
 
 watch([usePagination().page], async () => {
   if (Object.keys(workingFilters.value).length) {
@@ -49,13 +49,13 @@ watchEffect(async () => {
 <template>
   <div class="action-bar">
     <div class="left">
-      <DataRowsFilterMenu :items="store.filters" @filter-sex="filterSex" @filter-role="filterRole"></DataRowsFilterMenu>
+      <DataRowsFilterMenu :items="store.filters"></DataRowsFilterMenu>
       <DataRowsSearch></DataRowsSearch>
       <DataRowAdder></DataRowAdder>
     </div>
     <div class="right">
       <Pagination></Pagination>
-      <DataRowsViewOptions :items="store.filters.sex" @filter-sex="filterSex"></DataRowsViewOptions>
+      <DataRowsViewOptions :items="store.filters.sex"></DataRowsViewOptions>
     </div>
     <div class="clear"></div>
     <FilterTags :items="workingFilters"></FilterTags>
