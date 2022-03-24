@@ -19,20 +19,21 @@ const filtersMenu = ref<EventTarget | null>()
 const { currentExpandedPanel } = useFolderPanel()
 
 function showFinalFilter(e: MouseEvent, filterType: string) {
+  // if (seletedFilter.value !== '') seletedFilter.value = ""
   seletedFilter.value = filterType
   filtersMenu.value = e.target
 
-  if (seletedFilter.value !== '') {
-    if (currentExpandedPanel.value) {
-      currentExpandedPanel.value()
-    } else {
-      currentExpandedPanel.value = () => {
-        seletedFilter.value = ''
-      }
-    }
-  } else {
-    currentExpandedPanel.value = null
-  }
+  // if (seletedFilter.value !== '') {
+  //   if (currentExpandedPanel.value) {
+  //     currentExpandedPanel.value()
+  //   } else {
+  //     currentExpandedPanel.value = () => {
+  //       seletedFilter.value = ''
+  //     }
+  //   }
+  // } else {
+  //   currentExpandedPanel.value = null
+  // }
 }
 
 function onFilterItemClick(e: MouseEvent, filterType: string, filterValue: string) {
@@ -49,19 +50,20 @@ function onFilterItemClick(e: MouseEvent, filterType: string, filterValue: strin
 }
 
 // 处理一二级菜单可同时展开问题
-function onListFilterTypes() {
-  if (seletedFilter.value !== '') seletedFilter.value = ""
-}
+// function onListFilterTypes() {
+//   console.log('sssss')
+//   if (seletedFilter.value !== '') seletedFilter.value = ""
+// }
 
 watchEffect(() => {
-  window.addEventListener("click", (e) => {
-    if (e.target !== filtersMenu.value) {
-      seletedFilter.value = ''
-      if (currentExpandedPanel.value) {
-        currentExpandedPanel.value()
-      }
-    }
-  })
+  // window.addEventListener("click", (e) => {
+  //   if (e.target === filtersMenu.value) {
+  //     seletedFilter.value = ''
+  //     // if (currentExpandedPanel.value) {
+  //     //   currentExpandedPanel.value()
+  //     // }
+  //   }
+  // })
 })
 </script>
 
@@ -70,7 +72,6 @@ watchEffect(() => {
     title="Filter"
     :isInlineFixed="true"
     :isActionMenu="true"
-    v-on:menu-expanded="onListFilterTypes"
   >
     <template #header>
       <BaseButton>Rows Filter</BaseButton>
@@ -81,14 +82,14 @@ watchEffect(() => {
       </ul>
     </template>
   </FolderPanel>
-  <ul v-if="'sex' === seletedFilter" class="final-filter" @click.stop>
+  <ul v-if="'sex' === seletedFilter" class="final-filter">
     <li
       v-for="(v, k) in props.items.sex"
       :key="k"
       @click="onFilterItemClick($event, 'sex', v.toString())"
     >{{ v }}</li>
   </ul>
-  <ul v-if="'role' === seletedFilter" class="final-filter" @click.stop>
+  <ul v-if="'role' === seletedFilter" class="final-filter">
     <li
       v-for="(v, k) in props.items.role"
       :key="k"

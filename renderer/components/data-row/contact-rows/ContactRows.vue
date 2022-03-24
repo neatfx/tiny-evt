@@ -1,23 +1,16 @@
 <script setup lang="ts">
-import DataRowEditButton from '../../EditButton.vue'
-import BaseButton from '../../BaseButton.vue';
-import DataRowStatus from './ContactRowStatus.vue'
-import BaseDataRows from '../BaseRows.vue'
-import ContextMenu from "../RowContextMenu.vue"
-
 import router from '../../../router'
 import { useContactsStore } from '../../../stores'
 
-defineProps(['items'])
-// const emit = defineEmits<{
-//   (e: 'delete', id: number | undefined): void
-//   (e: 'open-detail', id: number | undefined): void
-// }>()
-const store = useContactsStore()
+import BaseDataRows from '../BaseRows.vue'
+import DataRowStatus from './ContactRowStatus.vue'
+import DataRowEditButton from '../../EditButton.vue'
+import BaseButton from '../../BaseButton.vue';
+import ContextMenu from "../RowContextMenu.vue"
+import { vContextMenu } from '../../contextMenu'
 
-// async function addItem(data: any) {
-//   await store.add(data.friendName, data.friendAge, 'F', 'user')
-// }
+defineProps(['items'])
+const store = useContactsStore()
 
 function openDetail(rowId: number | undefined) {
   router.push('/data-row-detail/' + rowId)
@@ -31,7 +24,7 @@ async function deleteItem(key: number | undefined) {
 <template>
   <BaseDataRows :items="$props.items">
     <template #item="{ id, name, age, sex, role }">
-      <div class="row">
+      <div class="row" v-context-menu="id">
         <div class="left">
           <div class="id">{{ id }}</div>
           <DataRowStatus></DataRowStatus>

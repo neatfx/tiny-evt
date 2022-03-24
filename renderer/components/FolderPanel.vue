@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, watch, watchEffect } from 'vue';
-import { useFolderPanel } from './folderPanel'
+import { ref, watchEffect } from 'vue';
 
 defineProps<{
   title?: string;
@@ -15,30 +14,17 @@ const defaultPanelBodyClass = ref('default-panel-body')
 const fixedPanelBodyClass = ref('fixed-panel-body')
 const menuPanelBodyClass = ref('menu-panel-body')
 const notMenuPanelBodyClass = ref('not-menu-panel-body')
-const { currentExpandedPanel } = useFolderPanel()
 const target = ref<EventTarget | null>(null)
 
 function toggle(e: MouseEvent) {
   target.value = e.target
   expandedAsActionMenu.value = !expandedAsActionMenu.value
-  if (currentExpandedPanel.value) {
-    currentExpandedPanel.value()
-  } else {
-    currentExpandedPanel.value = () => {
-      expandedAsActionMenu.value = false
-    }
-  }
 }
 
 watchEffect(() => {
   window.addEventListener("click", (e) => {
-    console.log(e.target, target.value)
-    if (e.target !== target.value) {
-      expandedAsActionMenu.value = false
-      if (currentExpandedPanel.value) {
-        currentExpandedPanel.value()
-      }
-    }
+    // console.log(e.target, target.value)
+    if (e.target !== target.value) expandedAsActionMenu.value = false
   })
 })
 </script>
