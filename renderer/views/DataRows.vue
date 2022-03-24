@@ -19,7 +19,7 @@ watch([usePagination().page], async () => {
   if (Object.keys(workingFilters.value).length) {
     await store.filter(workingFilters.value)
   } else {
-    await store.refreshPage()
+    await store.fetchPagedRows()
   }
 })
 
@@ -36,13 +36,13 @@ watchEffect(async () => {
 
     await store.filter(workingFilters.value)
   } else {
-    await store.refreshPage()
+    await store.fetchPagedRows()
   }
 })
 
 watchEffect(async () => {
-  await store.refreshPage()
-  await store.getFiltersMeta()
+  await store.fetchPagedRows()
+  await store.fetchFiltersMeta()
 })
 </script>
 

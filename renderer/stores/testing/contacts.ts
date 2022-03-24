@@ -34,14 +34,14 @@ export const useContactsStore = defineStore('contact', {
         role
       ))
 
-      await this.refreshPage()
+      await this.fetchPagedRows()
     },
     async delete(key: number) {
       await TestingDB.contacts.delete(key)
 
-      await this.refreshPage()
+      await this.fetchPagedRows()
     },
-    async getFiltersMeta() {
+    async fetchFiltersMeta() {
       await TestingDB.contacts.orderBy('sex').uniqueKeys((keysArray) => {
         this.filters.sex = keysArray
       });
@@ -50,16 +50,14 @@ export const useContactsStore = defineStore('contact', {
       });
     },
     async filter(obj: object) {
-      // offset.value = 0;
       // console.log(obj)
-
       total.value = await TestingDB.contacts
       .where(obj).count()
       this.items = await TestingDB.contacts
         .where(obj)
         .offset(offset.value).limit(limit.value).toArray()
     },
-    async refreshPage() {
+    async fetchPagedRows() {
       await this.count()
       await this.list()
       total.value = this.total

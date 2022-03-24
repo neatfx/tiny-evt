@@ -9,7 +9,7 @@ defineProps(['items'])
 <template>
   <ul id="filter-tags-wrapper" v-if="Object.keys(items).length">
     <li>
-      <BaseButton @click="resetFilter">Reset Filter</BaseButton>
+      <BaseButton @click="resetFilter">Remove All Filters</BaseButton>
     </li>
     <li v-for="(v, k) in items" :key="k" class="filter-item">
       <span class="filter-type">{{ k }}</span>
