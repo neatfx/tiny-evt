@@ -4,26 +4,23 @@ import BaseButton from "../BaseButton.vue"
 
 const { removeFilter, resetFilter } = useFilter()
 defineProps(['items'])
-
-function resetAllFilters() {
-  resetFilter()
-  // usePagination().reset()
-}
 </script>
 
 <template>
-    <ul id="filter-tags-wrapper" v-if="Object.keys(items).length">
-      <li>      <BaseButton @click="resetAllFilters">Reset Filter</BaseButton></li>
-      <li v-for="(v, k) in items" :key="k" class="filter-item">
-        <span class="filter-type">{{ k }}</span>
-        <span class="filter-type">is</span>
-        <span class="filter-value">{{ v }}</span>
-        <span class="btn-delete" @click="removeFilter(k.toString())">
-          <!-- <span class="icon-cross"></span> -->
-          X
-        </span>
-      </li>
-    </ul>
+  <ul id="filter-tags-wrapper" v-if="Object.keys(items).length">
+    <li>
+      <BaseButton @click="resetFilter">Reset Filter</BaseButton>
+    </li>
+    <li v-for="(v, k) in items" :key="k" class="filter-item">
+      <span class="filter-type">{{ k }}</span>
+      <span class="filter-type">is</span>
+      <span class="filter-value">{{ v }}</span>
+      <span class="btn-delete" @click="removeFilter(k.toString())">
+        <!-- <span class="icon-cross"></span> -->
+        X
+      </span>
+    </li>
+  </ul>
 </template>
 
 <style scoped>
