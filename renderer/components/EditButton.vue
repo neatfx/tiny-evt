@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import BaseButton from '../BaseButton.vue';
+import BaseButton from './BaseButton.vue';
 
 const dataRowState = ref('saved')
 </script>

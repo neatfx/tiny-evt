@@ -5,16 +5,16 @@ import router from '../router'
 import { useContactsStore } from '../stores'
 
 import { useFilter } from '../components/data-row/filter'
-import DataRowsFilterMenu from '../components/data-row/DataRowsFilterMenu.vue'
+import DataRowsFilterMenu from '../components/data-row/RowsFilterMenu.vue'
 import BaseButton from "../components/BaseButton.vue"
 import DataRowsSearch from "../components/data-row/DataRowsSearch.vue";
-import DataRowAdder from "../components/data-row/DataRowAdder.vue"
+import DataRowAdder from "../components/data-row/contact-rows/ContactRowAdder.vue"
 import Pagination from "../components/Pagination.vue";
 import { usePagination } from '../components/pagination';
-import DataRowsViewOptions from '../components/data-row/DataRowsViewOptions.vue'
+import DataRowsViewOptions from '../components/data-row/contact-rows/ContactRowsViewOptions.vue'
 
-import ContactRows from "../components/data-row/ContactRows.vue"
-import ContextMenu from "../components/data-row/DataRowContextMenu.vue"
+import ContactRows from "../components/data-row/contact-rows/ContactRows.vue"
+import ContextMenu from "../components/data-row/RowContextMenu.vue"
 import FilterTags from "../components/data-row/FilterTags.vue"
 
 const store = useContactsStore()

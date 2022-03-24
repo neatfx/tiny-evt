@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import DataRowEditButton from './DataRowEditButton.vue'
-import BaseButton from '../BaseButton.vue';
-import DataRowStatus from './DataRowStatus.vue'
-import BaseDataRows from './BaseDataRows.vue'
+import DataRowEditButton from '../../EditButton.vue'
+import BaseButton from '../../BaseButton.vue';
+import DataRowStatus from './ContactRowStatus.vue'
+import BaseDataRows from '../BaseRows.vue'
 
 defineProps(['items'])
 

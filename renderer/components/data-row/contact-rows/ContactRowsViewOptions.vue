@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { onMounted, reactive, ref } from 'vue';
+import { onMounted } from 'vue';
 
-import FolderPanel from '../FolderPanel.vue';
-import BaseButton from '../BaseButton.vue';
+import FolderPanel from '../../FolderPanel.vue';
+import BaseButton from '../../BaseButton.vue';
 import type { IndexableTypeArray } from 'dexie';
 
 const emit = defineEmits<{
@@ -14,7 +14,7 @@ const props = defineProps<{
 }>()
 
 onMounted(() => {
-  console.log(props.items)
+  // console.log(props.items)
 })
 </script>
 
