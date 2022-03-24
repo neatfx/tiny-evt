@@ -1,15 +1,11 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue';
-import { useCurrentExpandedPanel } from './folderPanel'
+import { onMounted, ref, watch, watchEffect } from 'vue';
+import { useFolderPanel } from './folderPanel'
 
 defineProps<{
   title?: string;
   isInlineFixed?: boolean;
   isActionMenu?: boolean;
-}>()
-
-const emit = defineEmits<{
-  (e: 'menu-expanded'): void
 }>()
 
 const expanded = ref(true);
@@ -19,31 +15,30 @@ const defaultPanelBodyClass = ref('default-panel-body')
 const fixedPanelBodyClass = ref('fixed-panel-body')
 const menuPanelBodyClass = ref('menu-panel-body')
 const notMenuPanelBodyClass = ref('not-menu-panel-body')
-const panel = ref<HTMLElement>()
-const body = ref(null)
-const { currentExpandedPanel } = useCurrentExpandedPanel()
+const { currentExpandedPanel } = useFolderPanel()
+const target = ref<EventTarget | null>(null)
 
-function toggle(e: Event) {
-  //  currentExpandedPanel.get(panel.value).status = false
+function toggle(e: MouseEvent) {
+  target.value = e.target
   expandedAsActionMenu.value = !expandedAsActionMenu.value
-  // currentExpandedPanel.forEach((v,key)=>{
-
-  // })
-  // if (currentExpandedPanel.get(e.target)) {
-  //   currentExpandedPanel.set(panel.value, expandedAsActionMenu)
-  // }
-
+  if (currentExpandedPanel.value) {
+    currentExpandedPanel.value()
+  } else {
+    currentExpandedPanel.value = () => {
+      expandedAsActionMenu.value = false
+    }
+  }
 }
-watch(expandedAsActionMenu, () => {
-  if (expandedAsActionMenu.value) emit('menu-expanded')
-})
-onMounted(() => {
+
+watchEffect(() => {
   window.addEventListener("click", (e) => {
-    e.stopPropagation()
-    // console.log(e.target, currentExpandedPanel.value.el)
-    // currentExpandedPanel.value.el = panel.value
-    // currentExpandedPanel.value.status = expandedAsActionMenu
-    expandedAsActionMenu.value = false
+    console.log(e.target, target.value)
+    if (e.target !== target.value) {
+      expandedAsActionMenu.value = false
+      if (currentExpandedPanel.value) {
+        currentExpandedPanel.value()
+      }
+    }
   })
 })
 </script>
@@ -51,7 +46,7 @@ onMounted(() => {
 <template>
   <div :class="[isInlineFixed ? inlinePanelClass : '']">
     <!-- panel-header -->
-    <div v-if="isActionMenu" @click.stop="toggle" class="header" ref="panel">
+    <div v-if="isActionMenu" @click="toggle" class="header">
       <slot name="header">{{ title || 'Panel' }}</slot>
     </div>
     <div v-else @click="expanded = !expanded" class="header">
@@ -60,7 +55,6 @@ onMounted(() => {
     <!-- panel-body -->
     <Transition name="panel-body">
       <div
-        ref="body"
         v-if="isActionMenu ? expandedAsActionMenu : expanded"
         :class="[defaultPanelBodyClass, isInlineFixed ? fixedPanelBodyClass : '', isActionMenu ? menuPanelBodyClass : notMenuPanelBodyClass]"
       >

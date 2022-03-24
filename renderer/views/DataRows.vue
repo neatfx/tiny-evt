@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { watch, watchEffect } from "vue"
+import { ref, watch, watchEffect } from "vue"
 import { useContactsStore } from '../stores'
 
 import { useFilter } from '../components/data-row/filter'
@@ -14,6 +14,7 @@ import ContactRows from "../components/data-row/contact-rows/ContactRows.vue"
 
 const store = useContactsStore()
 const { workingFilters } = useFilter()
+const openedPanel = ref<Function|null>(null)
 
 watch([usePagination().page], async () => {
   if (Object.keys(workingFilters.value).length) {

@@ -8,7 +8,6 @@ export type IFormFields = {
   friendName: String;
   friendAge: Number;
 }
-
 const state: IFormFields = {
   friendName: 'someone',
   friendAge: 21,

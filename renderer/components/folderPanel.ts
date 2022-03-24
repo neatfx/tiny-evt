@@ -1,10 +1,7 @@
-import { onMounted, reactive, ref } from "vue"
+import { ref } from "vue"
 
-const currentExpandedPanel = new Map<
-  HTMLElement|null,
-  any
->()
+const currentExpandedPanel = ref<Function | null>(null)
 
-export function useCurrentExpandedPanel() {
+export function useFolderPanel() {
   return { currentExpandedPanel }
 }

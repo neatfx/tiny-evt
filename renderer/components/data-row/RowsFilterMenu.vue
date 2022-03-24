@@ -5,12 +5,9 @@ import FolderPanel from '../FolderPanel.vue';
 import BaseButton from '../BaseButton.vue';
 import type { IndexableTypeArray } from 'dexie';
 import { useFilter } from './filter'
+import { useFolderPanel } from '../folderPanel'
 
-const { workingFilters, filterRole, filterSex } = useFilter()
-// const emit = defineEmits<{
-//   (e: 'filter-sex', sex: string): void
-//   (e: 'filter-role', sex: string): void
-// }>()
+const { filterRole, filterSex } = useFilter()
 const props = defineProps<{
   items: {
     sex: IndexableTypeArray
@@ -19,23 +16,32 @@ const props = defineProps<{
 }>()
 const seletedFilter = ref('')
 const filtersMenu = ref<EventTarget | null>()
+const { currentExpandedPanel } = useFolderPanel()
 
 function showFinalFilter(e: MouseEvent, filterType: string) {
-  // console.log(filterType)
   seletedFilter.value = filterType
   filtersMenu.value = e.target
+
+  if (seletedFilter.value !== '') {
+    if (currentExpandedPanel.value) {
+      currentExpandedPanel.value()
+    } else {
+      currentExpandedPanel.value = () => {
+        seletedFilter.value = ''
+      }
+    }
+  } else {
+    currentExpandedPanel.value = null
+  }
 }
 
 function onFilterItemClick(e: MouseEvent, filterType: string, filterValue: string) {
-  // console.log('click', filterType)
   switch (filterType) {
     case 'sex':
-      // emit('filter-sex', filterValue)
       filterSex(filterValue)
       seletedFilter.value = ''
       break;
     case 'role':
-      // emit('filter-role', filterValue)
       filterRole(filterValue)
       seletedFilter.value = ''
       break;
@@ -48,9 +54,12 @@ function onListFilterTypes() {
 }
 
 watchEffect(() => {
-  window.addEventListener("click", (event) => {
-    if (event.target !== filtersMenu.value) {
-      seletedFilter.value = ""
+  window.addEventListener("click", (e) => {
+    if (e.target !== filtersMenu.value) {
+      seletedFilter.value = ''
+      if (currentExpandedPanel.value) {
+        currentExpandedPanel.value()
+      }
     }
   })
 })
@@ -72,14 +81,14 @@ watchEffect(() => {
       </ul>
     </template>
   </FolderPanel>
-  <ul v-if="'sex' === seletedFilter" class="final-filter">
+  <ul v-if="'sex' === seletedFilter" class="final-filter" @click.stop>
     <li
       v-for="(v, k) in props.items.sex"
       :key="k"
       @click="onFilterItemClick($event, 'sex', v.toString())"
     >{{ v }}</li>
   </ul>
-  <ul v-if="'role' === seletedFilter" class="final-filter">
+  <ul v-if="'role' === seletedFilter" class="final-filter" @click.stop>
     <li
       v-for="(v, k) in props.items.role"
       :key="k"
