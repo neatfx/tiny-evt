@@ -5,7 +5,6 @@ import FolderPanel from '../FolderPanel.vue';
 import BaseButton from '../BaseButton.vue';
 import type { IndexableTypeArray } from 'dexie';
 import { useFilter } from './filter'
-import { useFolderPanel } from '../folderPanel'
 
 const { filterRole, filterSex } = useFilter()
 const props = defineProps<{
@@ -16,24 +15,11 @@ const props = defineProps<{
 }>()
 const seletedFilter = ref('')
 const filtersMenu = ref<EventTarget | null>()
-const { currentExpandedPanel } = useFolderPanel()
 
+// 显示二级菜单
 function showFinalFilter(e: MouseEvent, filterType: string) {
-  // if (seletedFilter.value !== '') seletedFilter.value = ""
   seletedFilter.value = filterType
   filtersMenu.value = e.target
-
-  // if (seletedFilter.value !== '') {
-  //   if (currentExpandedPanel.value) {
-  //     currentExpandedPanel.value()
-  //   } else {
-  //     currentExpandedPanel.value = () => {
-  //       seletedFilter.value = ''
-  //     }
-  //   }
-  // } else {
-  //   currentExpandedPanel.value = null
-  // }
 }
 
 function onFilterItemClick(e: MouseEvent, filterType: string, filterValue: string) {
@@ -49,35 +35,23 @@ function onFilterItemClick(e: MouseEvent, filterType: string, filterValue: strin
   }
 }
 
-// 处理一二级菜单可同时展开问题
-// function onListFilterTypes() {
-//   console.log('sssss')
-//   if (seletedFilter.value !== '') seletedFilter.value = ""
-// }
-
+// 隐藏二级菜单
 watchEffect(() => {
-  // window.addEventListener("click", (e) => {
-  //   if (e.target === filtersMenu.value) {
-  //     seletedFilter.value = ''
-  //     // if (currentExpandedPanel.value) {
-  //     //   currentExpandedPanel.value()
-  //     // }
-  //   }
-  // })
+  window.addEventListener("click", (e) => {
+    if (e.target !== filtersMenu.value) {
+      seletedFilter.value = ''
+    }
+  })
 })
 </script>
 
 <template>
-  <FolderPanel
-    title="Filter"
-    :isInlineFixed="true"
-    :isActionMenu="true"
-  >
+  <FolderPanel title="Filter" :isInlineFixed="true" :isActionMenu="true">
     <template #header>
       <BaseButton>Rows Filter</BaseButton>
     </template>
     <template #body>
-      <ul>
+      <ul class="filters-list">
         <li v-for="(v, k) in props.items" :key="k" @click="showFinalFilter($event, k)">{{ k }}</li>
       </ul>
     </template>
@@ -117,6 +91,9 @@ li:hover {
   cursor: default;
 }
 /*  */
+.filters-list {
+  z-index: 990;
+}
 .final-filter {
   position: fixed;
   background-color: lightgray;
