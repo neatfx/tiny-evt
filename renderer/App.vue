@@ -36,12 +36,12 @@ useContextMenu();
   /* border: 1px solid blue; */
 }
 .nav-wrapper {
-  padding: 10px;
+  padding: 10px 0 10px 10px;
 
   /* border: 1px solid red; */
 }
 .view-wrapper {
-  padding: 10px 20px 0 5px;
+  padding: 10px 10px 10px 5px;
 
   /* border: 1px solid red; */
 }

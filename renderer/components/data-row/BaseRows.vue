@@ -27,7 +27,9 @@ li {
 
   display: grid;
   grid-template-columns: 1fr auto;
-  width: 100%; /* 行动态效果 patch */
+  /* justify-content: stretch; */
+  /* width: 100%;  */
+  /* 行动态效果 patch */
 }
 li:hover {
   background-color: #2d2f36;

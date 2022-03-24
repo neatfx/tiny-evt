@@ -34,7 +34,6 @@ async function deleteItem(key: number | undefined) {
       <div class="left">
         <div class="id">{{ id }}</div>
         <DataRowStatus></DataRowStatus>
-        <!-- <div class="title" @click="emit('open-detail', id)">{{ name }} - {{ age }} - {{sex}} - {{role}}</div> -->
         <div class="title" @click="openDetail(id)">{{ name }} - {{ age }} - {{ sex }} - {{ role }}</div>
       </div>
       <div class="right">
@@ -45,7 +44,7 @@ async function deleteItem(key: number | undefined) {
       </div>
     </template>
   </BaseDataRows>
-    <ContextMenu @delete="deleteItem"></ContextMenu>
+  <ContextMenu @delete="deleteItem"></ContextMenu>
 </template>
 
 <style scoped>
