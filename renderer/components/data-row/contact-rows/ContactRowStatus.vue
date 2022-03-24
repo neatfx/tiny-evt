@@ -20,16 +20,15 @@ const contextMenuState = reactive({
 })
 const menuData = {
   text: [
-    "Status",
-    "DeleteDeleteDeleteDeleteDelete",
+    "item-2",
+    "item-2",
   ],
   handler: {
     checkingData() {
-      console.log("设置状态");
+      console.log("item-1");
     },
     deleteById() {
-      console.log("从数据库中删除数据");
-      // emit('delete', targetId.value)
+      console.log("item-2");
     }
   }
 }
@@ -75,9 +74,9 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.icon{
-position:static;
-/* margin-top: 15px; */
+.icon {
+  position: static;
+  /* margin-top: 15px; */
 }
 ul {
   font-size: 15px;

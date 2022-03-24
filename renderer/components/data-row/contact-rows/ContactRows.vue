@@ -61,6 +61,7 @@ async function deleteItem(key: number | undefined) {
 }
 .left {
   display: grid;
+  grid-template-columns: 1fr 1fr auto;
   grid-auto-flow: column;
   /* border: 1px solid red; */
 }
