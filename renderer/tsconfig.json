@@ -6,7 +6,8 @@
     "composite": true,
     "baseUrl": "./",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@comps/*": ["./components/*"]
     },
     "types": ["vite/client"]
   }

@@ -22,11 +22,14 @@
 //   },
 // }
 
-import { fileURLToPath, URL } from "url";
-
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
+import path from 'path'
+
+function _resolve(dir: string) {
+  return path.resolve(__dirname, dir);
+}
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -40,7 +43,12 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      // "@": fileURLToPath(new URL("renderer", import.meta.url)),
-    },
-  },
+      '@': _resolve('../renderer'),
+      '@assets': _resolve('../renderer/assets'),
+      '@comps': _resolve('../renderer/components'),
+      '@utils': _resolve('../renderer/utils'),
+      '@router': _resolve('../renderer/router'),
+      '@store': _resolve('../renderer/store'),
+    }
+  }
 });

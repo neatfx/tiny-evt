@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import router from '../../../router'
-import { useContactsStore } from '../../../stores'
+import router from '@/router'
+import { useContactsStore } from '@/stores'
 
-import BaseDataRows from '../BaseRows.vue'
-import DataRowStatus from './ContactRowStatus.vue'
-import DataRowEditButton from '../../EditButton.vue'
-import BaseButton from '../../BaseButton.vue';
-import ContextMenu from "../RowContextMenu.vue"
-import { vContextMenu } from '../../contextMenu'
+import BaseDataRows from '@comps/data-row/BaseRows.vue'
+import DataRowStatus from '@comps/data-row/contact-rows/ContactRowStatus.vue'
+import DataRowEditButton from '@comps/EditButton.vue'
+import BaseButton from '@comps/BaseButton.vue';
+import ContextMenu from "@comps/data-row/RowContextMenu.vue"
+import { vContextMenu } from '@comps/contextMenu'
 
 defineProps(['items'])
 const store = useContactsStore()
