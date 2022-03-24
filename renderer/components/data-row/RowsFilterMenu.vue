@@ -22,6 +22,16 @@ function showFinalFilter(e: MouseEvent, filterType: string) {
   filtersMenu.value = e.target
 }
 
+// 隐藏二级菜单
+watchEffect(() => {
+  window.addEventListener("click", (e) => {
+    if (e.target !== filtersMenu.value) {
+      seletedFilter.value = ''
+    }
+  })
+})
+
+// 处理二级菜单点击事件
 function onFilterItemClick(e: MouseEvent, filterType: string, filterValue: string) {
   switch (filterType) {
     case 'sex':
@@ -34,15 +44,6 @@ function onFilterItemClick(e: MouseEvent, filterType: string, filterValue: strin
       break;
   }
 }
-
-// 隐藏二级菜单
-watchEffect(() => {
-  window.addEventListener("click", (e) => {
-    if (e.target !== filtersMenu.value) {
-      seletedFilter.value = ''
-    }
-  })
-})
 </script>
 
 <template>
