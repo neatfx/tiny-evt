@@ -6,7 +6,7 @@ const dataRowState = ref('saved')
 </script>
 
 <template>
-  <Transition name="slide-up" mode="out-in" class="right">
+  <Transition name="slide-up" mode="out-in">
     <BaseButton v-if="dataRowState === 'saved'" @click="dataRowState = 'edited'">Edit</BaseButton>
     <BaseButton v-else-if="dataRowState === 'edited'" @click="dataRowState = 'editing'">Save</BaseButton>
     <BaseButton v-else-if="dataRowState === 'editing'" @click="dataRowState = 'saved'">Cancel</BaseButton>

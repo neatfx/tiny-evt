@@ -24,19 +24,9 @@ li {
   padding: 5px 0 5px 5px;
   margin-top: -1px;
   list-style: none;
-
-  display: grid;
-  grid-template-columns: 1fr auto;
-  /* justify-content: stretch; */
-  /* width: 100%;  */
-  /* 行动态效果 patch */
 }
 li:hover {
   background-color: #2d2f36;
-}
-a {
-  color: gainsboro;
-  margin: 0 10px;
 }
 
 /* Transition */
@@ -49,7 +39,7 @@ a {
 .list-enter-from,
 .list-leave-to {
   opacity: 0;
-  transform: translateY(-10px);
+  transform: translateY(-5px);
 }
 
 /* ensure leaving items are taken out of layout flow so that moving
