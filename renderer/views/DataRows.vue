@@ -15,10 +15,6 @@ import ContactRows from "../components/data-row/contact-rows/ContactRows.vue"
 const store = useContactsStore()
 const { workingFilters, filterRole, filterSex } = useFilter()
 
-async function addItem(data: any) {
-  await store.add(data.friendName, data.friendAge, 'F', 'user')
-}
-
 watch([usePagination().page], async () => {
   if (Object.keys(workingFilters.value).length) {
     await store.filter(workingFilters.value)
@@ -55,7 +51,7 @@ watchEffect(async () => {
     <div class="left">
       <DataRowsFilterMenu :items="store.filters" @filter-sex="filterSex" @filter-role="filterRole"></DataRowsFilterMenu>
       <DataRowsSearch></DataRowsSearch>
-      <DataRowAdder @add="addItem"></DataRowAdder>
+      <DataRowAdder></DataRowAdder>
     </div>
     <div class="right">
       <Pagination></Pagination>

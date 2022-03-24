@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useContactsStore } from '../../../stores'
+
 import BaseButton from '../../BaseButton.vue';
 import FolderPanel from '../../FolderPanel.vue';
 
@@ -7,13 +9,14 @@ export type IFormFields = {
   friendAge: Number;
 }
 
-defineEmits<{
-  (e: 'add', data: IFormFields): void
-}>()
-
 const state: IFormFields = {
   friendName: 'someone',
   friendAge: 21,
+}
+const store = useContactsStore()
+
+async function addItem(data: any) {
+  await store.add(data.friendName, data.friendAge, 'F', 'user')
 }
 </script>
 
@@ -34,7 +37,7 @@ const state: IFormFields = {
           <input v-model="state.friendAge" type="number" />
         </label>
         <br />
-        <BaseButton class="btn-submit" @click="$emit('add', state)">Submit</BaseButton>
+        <BaseButton class="btn-submit" @click="addItem(state)">Submit</BaseButton>
       </div>
     </template>
   </FolderPanel>
