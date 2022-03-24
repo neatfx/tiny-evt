@@ -21,7 +21,7 @@ onMounted(() => {
 <template>
   <FolderPanel title="Filter" :isInlineFixed="true" :isActionMenu="true">
     <template #header>
-      <BaseButton>View Options</BaseButton>
+      <BaseButton>Rows View Options</BaseButton>
     </template>
     <template #body>
       <ul v-for="item in props.items" :key="item.toString">

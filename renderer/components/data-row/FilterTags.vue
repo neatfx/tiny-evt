@@ -1,12 +1,19 @@
 <script setup lang="ts">
 import { useFilter } from './filter'
+import BaseButton from "../BaseButton.vue"
 
-const { removeFilter } = useFilter()
+const { removeFilter, resetFilter } = useFilter()
 defineProps(['items'])
+
+function resetAllFilters() {
+  resetFilter()
+  // usePagination().reset()
+}
 </script>
 
 <template>
     <ul id="filter-tags-wrapper" v-if="Object.keys(items).length">
+      <li>      <BaseButton @click="resetAllFilters">Reset Filter</BaseButton></li>
       <li v-for="(v, k) in items" :key="k" class="filter-item">
         <span class="filter-type">{{ k }}</span>
         <span class="filter-type">is</span>

@@ -1,30 +1,22 @@
 <script setup lang="ts">
 import { watch, watchEffect } from "vue"
-
 import { useContactsStore } from '../stores'
 
 import { useFilter } from '../components/data-row/filter'
 import DataRowsFilterMenu from '../components/data-row/RowsFilterMenu.vue'
-import BaseButton from "../components/BaseButton.vue"
 import DataRowsSearch from "../components/data-row/DataRowsSearch.vue";
 import DataRowAdder from "../components/data-row/contact-rows/ContactRowAdder.vue"
 import Pagination from "../components/Pagination.vue";
 import { usePagination } from '../components/pagination';
 import DataRowsViewOptions from '../components/data-row/contact-rows/ContactRowsViewOptions.vue'
-
-import ContactRows from "../components/data-row/contact-rows/ContactRows.vue"
 import FilterTags from "../components/data-row/FilterTags.vue"
+import ContactRows from "../components/data-row/contact-rows/ContactRows.vue"
 
 const store = useContactsStore()
-const { workingFilters, resetFilter, filterRole, filterSex } = useFilter()
+const { workingFilters, filterRole, filterSex } = useFilter()
 
 async function addItem(data: any) {
   await store.add(data.friendName, data.friendAge, 'F', 'user')
-}
-
-function resetAllFilters() {
-  resetFilter()
-  usePagination().reset()
 }
 
 watch([usePagination().page], async () => {
@@ -60,19 +52,16 @@ watchEffect(async () => {
 
 <template>
   <div class="action-bar">
-    <div>
-      <div class="left">
-        <DataRowsFilterMenu :items="store.filters" @filter-sex="filterSex" @filter-role="filterRole"></DataRowsFilterMenu>
-        <BaseButton @click="resetAllFilters">Reset Filter</BaseButton>
-        <DataRowsSearch></DataRowsSearch>
-        <DataRowAdder @add="addItem"></DataRowAdder>
-      </div>
-      <div class="right">
-        <Pagination></Pagination>
-        <DataRowsViewOptions :items="store.filters.sex" @filter-sex="filterSex"></DataRowsViewOptions>
-      </div>
-      <div class="clear"></div>
+    <div class="left">
+      <DataRowsFilterMenu :items="store.filters" @filter-sex="filterSex" @filter-role="filterRole"></DataRowsFilterMenu>
+      <DataRowsSearch></DataRowsSearch>
+      <DataRowAdder @add="addItem"></DataRowAdder>
     </div>
+    <div class="right">
+      <Pagination></Pagination>
+      <DataRowsViewOptions :items="store.filters.sex" @filter-sex="filterSex"></DataRowsViewOptions>
+    </div>
+    <div class="clear"></div>
     <FilterTags :items="workingFilters"></FilterTags>
   </div>
   <ContactRows :items="store.items"></ContactRows>
