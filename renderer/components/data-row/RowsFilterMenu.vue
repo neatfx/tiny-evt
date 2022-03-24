@@ -92,6 +92,7 @@ watchEffect(() => {
 ul {
   font-size: 15px;
   list-style: none;
+  width: 87px;
   margin: 0;
   padding: 0;
   z-index: 900;
