@@ -27,17 +27,17 @@ defineProps(['items'])
 /* 过滤器标签 */
 #filter-tags-wrapper {
   display: grid;
-  grid-template-columns: auto;
+  /* grid-template-columns: auto; */
   grid-auto-flow: column;
   gap: 10px;
   list-style: none;
   justify-content: left;
   padding: 10px;
+  margin: 0;
   border: 1px solid grey;
 }
 li {
-  float: left;
-  /* background-color: cadetblue; */
+  background-color: cadetblue;
 }
 .filter-item {
   margin-right: 10px;

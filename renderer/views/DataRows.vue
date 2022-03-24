@@ -48,32 +48,30 @@ watchEffect(async () => {
 
 <template>
   <div class="action-bar">
-    <div class="left">
-      <DataRowsFilterMenu :items="store.filters"></DataRowsFilterMenu>
-      <DataRowsSearch></DataRowsSearch>
-      <DataRowAdder></DataRowAdder>
+    <div class="opt-row">
+      <div class="left">
+        <DataRowsFilterMenu :items="store.filters"></DataRowsFilterMenu>
+        <DataRowsSearch></DataRowsSearch>
+        <DataRowAdder></DataRowAdder>
+      </div>
+      <div class="right">
+        <Pagination></Pagination>
+        <DataRowsViewOptions :items="store.filters.sex"></DataRowsViewOptions>
+      </div>
     </div>
-    <div class="right">
-      <Pagination></Pagination>
-      <DataRowsViewOptions :items="store.filters.sex"></DataRowsViewOptions>
-    </div>
-    <div class="clear"></div>
-    <FilterTags :items="workingFilters"></FilterTags>
+    <FilterTags class="filter-tags" :items="workingFilters"></FilterTags>
   </div>
   <ContactRows :items="store.items"></ContactRows>
 </template>
 
 <style scoped>
 .action-bar {
-  margin-bottom: 10px;
+  display: grid;
+  gap: 10px;
+  margin-bottom: 11px;
 }
-.left {
-  float: left;
-}
-.right {
-  float: right;
-}
-.clear {
-  clear: both;
+.opt-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
 }
 </style>

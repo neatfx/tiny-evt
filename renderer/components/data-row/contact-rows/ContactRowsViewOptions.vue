@@ -46,4 +46,7 @@ li:hover {
   background-color: #0070f5;
   cursor: default;
 }
+button{
+  margin-right: 0;
+}
 </style>
