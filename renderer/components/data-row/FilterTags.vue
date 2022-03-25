@@ -63,9 +63,12 @@ li {
 }
 .btn-delete {
   display: inline-block;
-  padding: 0px 10px 0px 10px;
+  padding: 0px 9px 0px 10px;
   margin-left: 2px;
   background-color: rosybrown;
+}
+.btn-delete:hover {
+  background-color: lightcoral;
 }
 .cross {
   font-size: large;
