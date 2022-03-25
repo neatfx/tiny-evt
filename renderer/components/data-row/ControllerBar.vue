@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import DataRowsFilterMenu from '@comps/data-row/RowsFilterMenu.vue'
-import DataRowsSearch from "@comps/data-row/DataRowsSearch.vue";
+import DataRowsFilterMenu from '@/components/data-row/FilterMenu.vue'
+import DataRowsSearch from "@comps/data-row/Search.vue";
 import DataRowAdder from "@comps/data-row/contacts/ContactRowAdder.vue"
 import Pagination from "@comps/Pagination.vue";
 import DataRowsViewOptions from '@comps/data-row/contacts/ContactRowsViewOptions.vue'

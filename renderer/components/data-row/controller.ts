@@ -11,7 +11,7 @@ interface IController {
   fetchFiltersMeta: Function
 }
 
-export function useDataRowsOpt(store: IController) {
+export function useDataRowsController(store: IController) {
   watch([usePagination().page], async () => {
     if (Object.keys(workingFilters.value).length) {
       await store.filter(workingFilters.value)

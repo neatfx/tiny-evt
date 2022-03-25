@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { useContactsStore } from '../stores'
-import { useDataRowsOpt } from '@comps/data-row/data-rows-controller'
+import { useDataRowsController } from '@/components/data-row/controller'
 
 import ControllerBar from '@comps/data-row/ControllerBar.vue';
 import ContactRows from "@comps/data-row/contacts/ContactRows.vue"
 
 const store = useContactsStore()
-const { workingFilters } = useDataRowsOpt(store)
+const { workingFilters } = useDataRowsController(store)
 </script>
 
 <template>
