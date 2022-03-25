@@ -1,4 +1,4 @@
-import mockData from './mock-data'
+// import mockData from './mock-data'
 
 type GithubJson = {
   data: {
@@ -50,7 +50,7 @@ export class GithubGraphqlApi {
 
   public getContribution = async (user_name: String): Promise<GithubJson> => {
     if (import.meta.env.VITE_APP_ENV !== 'development') {
-      return Promise.resolve(mockData)
+      // return Promise.resolve(mockData)
     }
 
     if (!import.meta.env.VITE_GITHUB_TOKEN) {
