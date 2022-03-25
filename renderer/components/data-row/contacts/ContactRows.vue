@@ -34,7 +34,7 @@ async function deleteItem(key: number | undefined) {
         </div>
         <div class="right">
           <DataRowEditButton></DataRowEditButton>
-          <BaseButton @click="deleteItem(id)" text="Delete">
+          <BaseButton v-if="store.view.delete" @click="deleteItem(id)" text="Delete">
             <span>Delete</span>
           </BaseButton>
         </div>

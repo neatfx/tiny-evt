@@ -1,30 +1,14 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
-
 import FolderPanel from '@comps/FolderPanel.vue';
 import BaseButton from '@comps/BaseButton.vue';
-import type { IndexableTypeArray } from 'dexie';
 
-const emit = defineEmits<{
-  (e: 'filter-sex', sex: string): void
-}>()
+import { useContactsStore } from '@/stores'
 
-const props = defineProps<{
-  items: IndexableTypeArray
-}>()
+const store = useContactsStore()
 
-const items = {
-  field_1: 'field_1',
-  field_2: 'field_2',
-  field_3: 'field_3',
-  field_4: 'field_4',
-  field_5: 'field_5',
-
+function toggle(field: string) {
+  store.view.delete = !store.view.delete
 }
-
-onMounted(() => {
-  // console.log(props.items)
-})
 </script>
 
 <template>
@@ -34,9 +18,9 @@ onMounted(() => {
     </template>
     <template #body>
       <ul class="filter-tags-wrapper">
-        <li v-for="(v, k) in items" :key="k">
+        <li v-for="(v, k) in store.view" :key="k">
           <div class="filter-type"></div>
-          <div class="filter-value">{{ v }}</div>
+          <BaseButton @click="toggle(k)">{{ k }}</BaseButton>
         </li>
       </ul>
     </template>

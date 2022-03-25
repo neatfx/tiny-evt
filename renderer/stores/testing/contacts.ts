@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { TestingDB} from '../../db'
+import { TestingDB } from '../../db'
 import type { IndexableTypeArray } from 'dexie';
 import { Contact } from '../../db/testing/contact';
 
@@ -16,6 +16,10 @@ export const useContactsStore = defineStore('contact', {
     filters: {
       sex: [] as IndexableTypeArray,
       role: [] as IndexableTypeArray,
+    },
+    view: {
+      delete: true,
+      edit: true
     }
   }),
   getters: {},
@@ -52,7 +56,7 @@ export const useContactsStore = defineStore('contact', {
     async filter(obj: object) {
       // console.log(obj)
       total.value = await TestingDB.contacts
-      .where(obj).count()
+        .where(obj).count()
       this.items = await TestingDB.contacts
         .where(obj)
         .offset(offset.value).limit(limit.value).toArray()
