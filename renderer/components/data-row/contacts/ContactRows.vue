@@ -41,7 +41,7 @@ async function deleteItem(key: number | undefined) {
       </div>
     </template>
   </BaseDataRows>
-  <ContextMenu @delete="deleteItem(targetId)"></ContextMenu>
+  <ContextMenu @view="openDetail(targetId)" @delete="deleteItem(targetId)"></ContextMenu>
 </template>
 
 <style scoped>

@@ -2,36 +2,25 @@
 import { onMounted, reactive } from "vue"
 import { useContextMenu } from './contextMenu'
 
+const props = defineProps<{
+  menuData: { [x: string]: () => void; }
+}>()
 interface IMenuItem {
-  id: number;
   text: string;
   handler: (payload?: any) => void
 }
-const { show, x, y } = useContextMenu();
-const props = defineProps(['menuData'])
 const contextMenuState = reactive({
-  data: {} as IMenuItem[]
+  data: [] as IMenuItem[]
 })
+const { show, x, y } = useContextMenu();
 
-function createMenu(binding: { text: any; handler: any; }) {
-  const textArray = binding.text;
-  const handlerObj = binding.handler;
-  const handlerArray = [];
-  const menuList = [];
-
-  for (const key in handlerObj) {
-    handlerArray.push(handlerObj[key]);
+function createMenu(data: { [x: string]: () => void; }) {
+  for (const key in data) {
+    contextMenuState.data.push({
+      text: key,
+      handler: data[key]
+    })
   }
-  for (let i = 0; i < textArray.length; i++) {
-    const menuObj = {
-      id: i + 1,
-      text: textArray[i],
-      handler: handlerArray[i],
-    };
-    menuList.push(menuObj);
-  }
-
-  contextMenuState.data = menuList
 }
 
 onMounted(() => {
@@ -50,7 +39,7 @@ onMounted(() => {
       left: x + 'px'
     }"
   >
-    <li v-for="item in contextMenuState.data" :key="item.id" @click="item.handler">{{ item.text }}</li>
+    <li v-for="item in contextMenuState.data" :key="item.text" @click="item.handler">{{ item.text }}</li>
   </TransitionGroup>
 </template>
 

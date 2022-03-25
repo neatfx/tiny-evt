@@ -2,17 +2,12 @@
 import ContextMenu from '@comps/ContextMenu.vue'
 
 const emit = defineEmits<{
+  (e: 'view'): void
   (e: 'delete'): void
 }>()
 const menuData = {
-  text: [
-    "Delete",
-  ],
-  handler: {
-    deleteById() {
-      emit('delete')
-    }
-  }
+  View: () => emit('view'),
+  Delete: () => emit('delete')
 }
 </script>
 
