@@ -40,11 +40,14 @@ watchEffect(() => {
     </div>
     <!-- panel-body -->
     <Transition name="panel-body">
+      <div>
       <div
         v-if="isActionMenu ? expandedAsActionMenu : expanded"
         :class="[defaultPanelBodyClass, isInlineFixed ? fixedPanelBodyClass : '', isActionMenu ? menuPanelBodyClass : notMenuPanelBodyClass]"
       >
         <slot name="body"></slot>
+      </div>
+      <slot name="menu"></slot>
       </div>
     </Transition>
   </div>

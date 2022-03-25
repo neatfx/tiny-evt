@@ -15,6 +15,7 @@ const props = defineProps<{
 }>()
 const seletedFilter = ref('')
 const filtersMenu = ref<EventTarget | null>()
+const leftPos = ref(10)
 
 // 显示二级菜单
 function showFinalFilter(e: MouseEvent, filterType: string) {
@@ -56,21 +57,23 @@ function onFilterItemClick(e: MouseEvent, filterType: string, filterValue: strin
         <li v-for="(v, k) in props.items" :key="k" @click="showFinalFilter($event, k)">{{ k }}</li>
       </ul>
     </template>
+    <template #menu>
+      <ul v-if="'sex' === seletedFilter" class="final-filter">
+        <li
+          v-for="(v, k) in props.items.sex"
+          :key="k"
+          @click="onFilterItemClick($event, 'sex', v.toString())"
+        >{{ v }}</li>
+      </ul>
+      <ul v-if="'role' === seletedFilter" class="final-filter">
+        <li
+          v-for="(v, k) in props.items.role"
+          :key="k"
+          @click="onFilterItemClick($event, 'role', v.toString())"
+        >{{ v }}</li>
+      </ul>
+    </template>
   </FolderPanel>
-  <ul v-if="'sex' === seletedFilter" class="final-filter">
-    <li
-      v-for="(v, k) in props.items.sex"
-      :key="k"
-      @click="onFilterItemClick($event, 'sex', v.toString())"
-    >{{ v }}</li>
-  </ul>
-  <ul v-if="'role' === seletedFilter" class="final-filter">
-    <li
-      v-for="(v, k) in props.items.role"
-      :key="k"
-      @click="onFilterItemClick($event, 'role', v.toString())"
-    >{{ v }}</li>
-  </ul>
 </template>
 
 <style scoped>
@@ -96,7 +99,7 @@ li:hover {
   z-index: 990;
 }
 .final-filter {
-  position: fixed;
+  position: absolute;
   background-color: lightgray;
 }
 </style>
