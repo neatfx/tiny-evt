@@ -9,11 +9,17 @@ const first = 'Head'
 
 <template>
     <BaseButton disabled>{{ total }} Rows</BaseButton>
-    <BaseButton @click="head"  v-html="first"></BaseButton>
+    <BaseButton @click="head" v-html="first"></BaseButton>
     <BaseButton @click="prev" v-html="arrow"></BaseButton>
     <BaseButton disabled>{{ page }} / {{ pages }}</BaseButton>
     <BaseButton @click="next">></BaseButton>
-    <BaseButton @click="end">End</BaseButton>
+    <BaseButton @click="end" class="tail">End</BaseButton>
 </template>
 <style scoped>
+button {
+    margin-right: 2px;
+}
+.tail {
+    margin-right: 0px;
+}
 </style>

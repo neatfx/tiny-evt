@@ -49,7 +49,7 @@ function onFilterItemClick(e: MouseEvent, filterType: string, filterValue: strin
 <template>
   <FolderPanel title="Filter" :isInlineFixed="true" :isActionMenu="true">
     <template #header>
-      <BaseButton>Rows Filter</BaseButton>
+      <BaseButton>Filter</BaseButton>
     </template>
     <template #body>
       <ul class="filters-list">

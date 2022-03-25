@@ -21,7 +21,7 @@ onMounted(() => {
 <template>
   <FolderPanel title="Filter" :isInlineFixed="true" :isActionMenu="true">
     <template #header>
-      <BaseButton>Rows View Options</BaseButton>
+      <BaseButton>View</BaseButton>
     </template>
     <template #body>
       <ul v-for="item in props.items" :key="item.toString">
@@ -45,8 +45,5 @@ li {
 li:hover {
   background-color: #0070f5;
   cursor: default;
-}
-button{
-  margin-right: 0;
 }
 </style>
