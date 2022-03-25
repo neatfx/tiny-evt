@@ -1,32 +1,17 @@
 <script setup lang="ts">
 import { onMounted, reactive } from "vue"
-import { useContextMenu } from '../contextMenu'
+import { useContextMenu } from './contextMenu'
 
-const { show, x, y, targetId } = useContextMenu();
-const emit = defineEmits<{
-  (e: 'delete', id: number | undefined): void
-}>()
 interface IMenuItem {
   id: number;
   text: string;
-  handler: (payload: MouseEvent) => void
-}[]
-
+  handler: (payload?: any) => void
+}
+const { show, x, y } = useContextMenu();
+const props = defineProps(['menuData'])
 const contextMenuState = reactive({
   data: {} as IMenuItem[]
 })
-
-const menuData = {
-  text: [
-    "Delete",
-  ],
-  handler: {
-    deleteById() {
-      console.log("从数据库中删除数据");
-      emit('delete', targetId.value)
-    }
-  }
-}
 
 function createMenu(binding: { text: any; handler: any; }) {
   const textArray = binding.text;
@@ -39,23 +24,25 @@ function createMenu(binding: { text: any; handler: any; }) {
   }
   for (let i = 0; i < textArray.length; i++) {
     const menuObj = {
+      id: i + 1,
       text: textArray[i],
       handler: handlerArray[i],
-      id: i + 1
     };
     menuList.push(menuObj);
   }
-  
+
   contextMenuState.data = menuList
 }
 
 onMounted(() => {
-  createMenu(menuData)
+  createMenu(props.menuData)
 })
 </script>
 
 <template>
-  <div
+  <TransitionGroup
+    name="list"
+    tag="ul"
     class="context-menu"
     :style="{
       display: show,
@@ -63,10 +50,8 @@ onMounted(() => {
       left: x + 'px'
     }"
   >
-    <ul v-for="item in contextMenuState.data" :key="item.id">
-      <li @click="item.handler">{{ item.text }}</li>
-    </ul>
-  </div>
+    <li v-for="item in contextMenuState.data" :key="item.id" @click="item.handler">{{ item.text }}</li>
+  </TransitionGroup>
 </template>
 
 <style scoped>

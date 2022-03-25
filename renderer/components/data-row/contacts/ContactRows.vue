@@ -6,17 +6,19 @@ import BaseDataRows from '@comps/data-row/BaseRows.vue'
 import DataRowStatus from '@comps/data-row/contacts/ContactRowStatus.vue'
 import DataRowEditButton from '@comps/EditButton.vue'
 import BaseButton from '@comps/BaseButton.vue';
-import ContextMenu from "@comps/data-row/RowContextMenu.vue"
-import { vContextMenu } from '@comps/contextMenu'
+import ContextMenu from "@/components/data-row/RowsContextMenu.vue"
+import { vContextMenu, useContextMenu } from '@comps/contextMenu'
 
 defineProps(['items'])
 const store = useContactsStore()
+const { targetId } = useContextMenu();
 
 function openDetail(rowId: number | undefined) {
   router.push('/data-row-detail/' + rowId)
 }
 
 async function deleteItem(key: number | undefined) {
+  // console.log('Delete item by ID ', key)
   if (key) await store.delete(key)
 }
 </script>
@@ -39,7 +41,7 @@ async function deleteItem(key: number | undefined) {
       </div>
     </template>
   </BaseDataRows>
-  <ContextMenu @delete="deleteItem"></ContextMenu>
+  <ContextMenu @delete="deleteItem(targetId)"></ContextMenu>
 </template>
 
 <style scoped>
