@@ -13,37 +13,59 @@ const props = defineProps<{
   items: IndexableTypeArray
 }>()
 
+const items = {
+  field_1: 'field_1',
+  field_2: 'field_2',
+  field_3: 'field_3',
+  field_4: 'field_4',
+  field_5: 'field_5',
+
+}
+
 onMounted(() => {
   // console.log(props.items)
 })
 </script>
 
 <template>
-  <FolderPanel title="Filter" :isInlineFixed="true" :isActionMenu="true">
+  <FolderPanel title="Filter" :isInlineFixed="true" :isActionMenu="false">
     <template #header>
       <BaseButton>View</BaseButton>
     </template>
     <template #body>
-      <ul v-for="item in props.items" :key="item.toString">
-        <li @click="emit('filter-sex', item.toString())">{{ item }}</li>
+      <ul class="filter-tags-wrapper">
+        <li v-for="(v, k) in items" :key="k">
+          <div class="filter-type"></div>
+          <div class="filter-value">{{ v }}</div>
+        </li>
       </ul>
     </template>
   </FolderPanel>
 </template>
 
 <style scoped>
-ul {
-  font-size: 15px;
+.filter-tags-wrapper {
+  display: grid;
+  /* grid-auto-flow: column; */
+  gap: 10px;
   list-style: none;
-  margin: 0;
-  padding: 0;
+  justify-content: left;
+  padding: 10px;
+  margin: 0px 0 0 0;
 }
 li {
-  padding: 5px 10px;
+  display: grid;
+  grid-template-columns: 3px auto;
+  gap: 2px;
+  border: 1px solid d;
+  padding: 2px;
 }
-
-li:hover {
-  background-color: #0070f5;
-  cursor: default;
+.filter-type {
+  /* margin-right: 5px; */
+  background-color: greenyellow;
+}
+.filter-value {
+  padding: 0px 15px;
+  background-color: gainsboro;
 }
 </style>

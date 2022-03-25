@@ -1,29 +1,30 @@
 <script setup lang="ts">
 import { ref, watchEffect } from 'vue';
 
-defineProps<{
+const props = defineProps<{
   title?: string;
   isInlineFixed?: boolean;
   isActionMenu?: boolean;
+  defaultExpanded?: boolean;
 }>()
-
 const expanded = ref(true);
 const expandedAsActionMenu = ref(false);
-const inlinePanelClass = ref('inline-panel')
-const defaultPanelBodyClass = ref('default-panel-body')
-const fixedPanelBodyClass = ref('fixed-panel-body')
-const menuPanelBodyClass = ref('menu-panel-body')
-const notMenuPanelBodyClass = ref('not-menu-panel-body')
 const target = ref<EventTarget | null>(null)
+const defaultPanelBodyClass = ref('default-panel-body')
+const inlinePanelClass = ref('inline-panel')
+const fixedPanelBodyClass = ref('fixed-panel-body')
 
 function toggle(e: MouseEvent) {
-  target.value = e.target
-  expandedAsActionMenu.value = !expandedAsActionMenu.value
+  if (props.isActionMenu) {
+    target.value = e.target
+    expandedAsActionMenu.value = !expandedAsActionMenu.value
+  } else {
+    expanded.value = !expanded.value
+  }
 }
 
 watchEffect(() => {
   window.addEventListener("click", (e) => {
-    // console.log(e.target, target.value)
     if (e.target !== target.value) expandedAsActionMenu.value = false
   })
 })
@@ -35,19 +36,19 @@ watchEffect(() => {
     <div v-if="isActionMenu" @click="toggle" class="header">
       <slot name="header">{{ title || 'Panel' }}</slot>
     </div>
-    <div v-else @click="expanded = !expanded" class="header">
+    <div v-else @click="toggle" class="header">
       <slot name="header">{{ title || 'Panel' }}</slot>
     </div>
     <!-- panel-body -->
     <Transition name="panel-body">
       <div>
-      <div
-        v-if="isActionMenu ? expandedAsActionMenu : expanded"
-        :class="[defaultPanelBodyClass, isInlineFixed ? fixedPanelBodyClass : '', isActionMenu ? menuPanelBodyClass : notMenuPanelBodyClass]"
-      >
-        <slot name="body"></slot>
-      </div>
-      <slot name="menu"></slot>
+        <div
+          v-if="isActionMenu ? expandedAsActionMenu : expanded"
+          :class="[defaultPanelBodyClass, isInlineFixed ? fixedPanelBodyClass : '']"
+        >
+          <slot name="body"></slot>
+        </div>
+        <slot name="menu"></slot>
       </div>
     </Transition>
   </div>
@@ -66,12 +67,6 @@ watchEffect(() => {
 }
 .fixed-panel-body {
   position: absolute;
-}
-.menu-panel-body {
-  padding: 0px;
-}
-.not-menu-panel-body {
-  padding: 0px;
 }
 
 /* Transition */

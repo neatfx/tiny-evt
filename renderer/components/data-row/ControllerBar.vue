@@ -12,7 +12,7 @@ defineProps(['filters', 'workingFilters'])
   <div class="control-bar">
     <div class="opt-row">
       <div class="left">
-        <DataRowsViewOptions :items="filters"></DataRowsViewOptions>
+        <DataRowsViewOptions :items="workingFilters"></DataRowsViewOptions>
         <DataRowsFilterMenu :items="filters"></DataRowsFilterMenu>
         <DataRowsSearch></DataRowsSearch>
         <DataRowAdder></DataRowAdder>
