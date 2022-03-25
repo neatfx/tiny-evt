@@ -1,51 +1,70 @@
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue';
+import { ref, watchEffect, type Ref } from 'vue';
 
 const props = defineProps<{
   title?: string;
-  isInlineFixed?: boolean;
-  isActionMenu?: boolean;
-  defaultExpanded?: boolean;
+  isPopMenu?: boolean;
+  isInlinePanel?: boolean;
 }>()
-const expanded = ref(true);
-const expandedAsActionMenu = ref(false);
-const target = ref<EventTarget | null>(null)
-const defaultPanelBodyClass = ref('default-panel-body')
+const showPanel = ref(true);
+const showMenu = ref(false);
+const showInlinePanel = ref(false);
+
 const inlinePanelClass = ref('inline-panel')
+const defaultPanelBodyClass = ref('default-panel-body')
 const fixedPanelBodyClass = ref('fixed-panel-body')
 
+const target = ref<EventTarget | null>(null)
+
 function toggle(e: MouseEvent) {
-  if (props.isActionMenu) {
+  if (props.isPopMenu) {
     target.value = e.target
-    expandedAsActionMenu.value = !expandedAsActionMenu.value
+    showMenu.value = !showMenu.value
   } else {
-    expanded.value = !expanded.value
+    showPanel.value = !showPanel.value
+    showInlinePanel.value = !showInlinePanel.value
+  }
+}
+
+function switchShowRefForBody(): Ref<boolean> {
+  if (props.isPopMenu) {
+    return showMenu
+  } else if (props.isInlinePanel) {
+    return showInlinePanel
+  } else {
+    return showPanel
+  }
+}
+
+function switchClassRefForBody(): Ref<string> {
+  if (props.isPopMenu) {
+    return fixedPanelBodyClass
+  } else if (props.isInlinePanel) {
+    return fixedPanelBodyClass
+  } else {
+    return defaultPanelBodyClass
   }
 }
 
 watchEffect(() => {
   window.addEventListener("click", (e) => {
-    if (e.target !== target.value) expandedAsActionMenu.value = false
+    if (e.target !== target.value) {
+      showMenu.value = false
+    }
   })
 })
 </script>
 
 <template>
-  <div :class="[isInlineFixed ? inlinePanelClass : '']">
+  <div :class="[(isPopMenu || isInlinePanel) ? inlinePanelClass : '']">
     <!-- panel-header -->
-    <div v-if="isActionMenu" @click="toggle" class="header">
-      <slot name="header">{{ title || 'Panel' }}</slot>
-    </div>
-    <div v-else @click="toggle" class="header">
+    <div @click="toggle" class="header">
       <slot name="header">{{ title || 'Panel' }}</slot>
     </div>
     <!-- panel-body -->
     <Transition name="panel-body">
       <div>
-        <div
-          v-if="isActionMenu ? expandedAsActionMenu : expanded"
-          :class="[defaultPanelBodyClass, isInlineFixed ? fixedPanelBodyClass : '']"
-        >
+        <div v-if="switchShowRefForBody().value" :class="['default-panel-body', switchClassRefForBody().value]">
           <slot name="body"></slot>
         </div>
         <slot name="menu"></slot>

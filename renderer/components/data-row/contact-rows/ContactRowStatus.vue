@@ -60,7 +60,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <FolderPanel :isInlineFixed="true" :isActionMenu="true">
+  <FolderPanel :isPopMenu="true">
     <template #header>
       <!-- <EcosystemIcon class="icon"/> -->
       <BaseButton>Role</BaseButton>

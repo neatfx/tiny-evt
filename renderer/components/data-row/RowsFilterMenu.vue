@@ -48,7 +48,7 @@ function onFilterItemClick(e: MouseEvent, filterType: string, filterValue: strin
 </script>
 
 <template>
-  <FolderPanel title="Filter" :isInlineFixed="true" :isActionMenu="true">
+  <FolderPanel title="Filter" :isPopMenu="true">
     <template #header>
       <BaseButton>Filter</BaseButton>
     </template>

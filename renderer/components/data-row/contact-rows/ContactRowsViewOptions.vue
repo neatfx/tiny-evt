@@ -28,7 +28,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <FolderPanel title="Filter" :isInlineFixed="true" :isActionMenu="false">
+  <FolderPanel title="Filter" :isInlinePanel="true">
     <template #header>
       <BaseButton>View</BaseButton>
     </template>

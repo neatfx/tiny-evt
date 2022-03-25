@@ -20,7 +20,7 @@ async function addItem(data: any) {
 </script>
 
 <template>
-  <FolderPanel title="Add" :isInlineFixed="true" :isActionMenu="true">
+  <FolderPanel title="Add" :isInlinePanel="true">
     <template #header>
       <BaseButton>New</BaseButton>
     </template>
