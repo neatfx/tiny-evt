@@ -1,7 +1,7 @@
 <script setup lang='ts'>
-import DatabaseImportAndExport from '../components/preferences/DatabaseImportAndExport.vue';
-import DarkMode from '../components/preferences/DarkMode.vue'
-import FolderPanel from '../components/FolderPanel.vue';
+import DatabaseImportAndExport from '@comps/preferences/DatabaseImportAndExport.vue';
+import DarkMode from '@comps/preferences/DarkMode.vue'
+import FolderPanel from '@comps/FolderPanel.vue';
 </script>
 
 <template>

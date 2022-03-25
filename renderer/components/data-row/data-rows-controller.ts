@@ -1,13 +1,10 @@
 import { watch, watchEffect } from "vue"
 
-// import { useContactsStore } from '../../stores'
 import { useFilter } from '@comps/data-row/filter'
 import { usePagination } from '@comps/pagination'
-import type { Store } from "pinia"
-import type { IndexableTypeArray } from 'dexie';
-import { Contact } from '../../db/testing/contact';
+import type { IndexableTypeArray } from 'dexie'
+import type { Contact } from '../../db/testing/contact'
 
-// const store = useContactsStore()
 const { workingFilters } = useFilter()
 
 export function useDataRowsOpt (store: {
