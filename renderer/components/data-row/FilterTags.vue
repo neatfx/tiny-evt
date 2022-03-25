@@ -14,7 +14,9 @@ defineProps(['items'])
         <div class="filter-type">{{ k }}</div>
         <span class="filter-is">is</span>
         <span class="filter-value">{{ v }}</span>
-        <span class="btn-delete" @click="removeFilter(k.toString())">X</span>
+        <span class="btn-delete" @click="removeFilter(k.toString())">
+          <span class="cross">+</span>
+        </span>
       </li>
     </ul>
   </div>
@@ -61,13 +63,13 @@ li {
 }
 .btn-delete {
   display: inline-block;
-  padding: 2px 10px 2px 10px;
+  padding: 0px 10px 0px 10px;
   margin-left: 2px;
   background-color: rosybrown;
 }
-.icon-cross {
-  /* font-size:large; */
-  /* display: inline-block; */
+.cross {
+  font-size: large;
+  display: inline-block;
   transition-property: all;
   transform: rotate(45deg);
 }
