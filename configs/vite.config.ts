@@ -48,7 +48,7 @@ export default defineConfig({
       '@comps': _resolve('../renderer/components'),
       '@utils': _resolve('../renderer/utils'),
       '@router': _resolve('../renderer/router'),
-      '@store': _resolve('../renderer/store'),
+      '@stores': _resolve('../renderer/stores'),
     }
   }
 });
