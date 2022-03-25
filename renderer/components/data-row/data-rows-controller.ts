@@ -2,19 +2,16 @@ import { watch, watchEffect } from "vue"
 
 import { useFilter } from '@comps/data-row/filter'
 import { usePagination } from '@comps/pagination'
-import type { IndexableTypeArray } from 'dexie'
-import type { Contact } from '../../db/testing/contact'
 
 const { workingFilters } = useFilter()
 
-export function useDataRowsOpt (store: {
-  items: Contact[],
-  total: number,
-  filters: {
-    sex: IndexableTypeArray,
-    role: IndexableTypeArray,
-  }
-}) {
+interface IController {
+  filter: Function,
+  fetchPagedRows: Function,
+  fetchFiltersMeta: Function
+}
+
+export function useDataRowsOpt(store: IController) {
   watch([usePagination().page], async () => {
     if (Object.keys(workingFilters.value).length) {
       await store.filter(workingFilters.value)
@@ -45,5 +42,5 @@ export function useDataRowsOpt (store: {
     await store.fetchFiltersMeta()
   })
 
-  return {store, workingFilters}
+  return { workingFilters }
 }
