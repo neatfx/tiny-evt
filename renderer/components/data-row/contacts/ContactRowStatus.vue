@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { onMounted, reactive } from 'vue';
 
-import FolderPanel from '../../FolderPanel.vue';
+import FolderPanel from '@comps/FolderPanel.vue';
 
-import BaseButton from "../../BaseButton.vue";
+import BaseButton from "@comps/BaseButton.vue";
 
 defineEmits<{
   (e: 'add'): void

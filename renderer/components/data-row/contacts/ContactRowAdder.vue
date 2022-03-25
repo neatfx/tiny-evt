@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useContactsStore } from '../../../stores'
+import { useContactsStore } from '@stores'
 
 import BaseButton from '../../BaseButton.vue';
 import FolderPanel from '../../FolderPanel.vue';

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
 
-import FolderPanel from '../../FolderPanel.vue';
-import BaseButton from '../../BaseButton.vue';
+import FolderPanel from '@comps/FolderPanel.vue';
+import BaseButton from '@comps/BaseButton.vue';
 import type { IndexableTypeArray } from 'dexie';
 
 const emit = defineEmits<{

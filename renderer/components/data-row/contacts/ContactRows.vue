@@ -3,7 +3,7 @@ import router from '@/router'
 import { useContactsStore } from '@/stores'
 
 import BaseDataRows from '@comps/data-row/BaseRows.vue'
-import DataRowStatus from '@comps/data-row/contact-rows/ContactRowStatus.vue'
+import DataRowStatus from '@comps/data-row/contacts/ContactRowStatus.vue'
 import DataRowEditButton from '@comps/EditButton.vue'
 import BaseButton from '@comps/BaseButton.vue';
 import ContextMenu from "@comps/data-row/RowContextMenu.vue"
