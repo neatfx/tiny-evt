@@ -33,7 +33,7 @@ async function deleteItem(key: number | undefined) {
           <div class="title" @click="openDetail(id)">{{ name }} - {{ age }} - {{ sex }} - {{ role }}</div>
         </div>
         <div class="right">
-          <DataRowEditButton></DataRowEditButton>
+          <DataRowEditButton v-if="store.view.edit"></DataRowEditButton>
           <BaseButton v-if="store.view.delete" @click="deleteItem(id)" text="Delete">
             <span>Delete</span>
           </BaseButton>

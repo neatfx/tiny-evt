@@ -3,23 +3,32 @@ import FolderPanel from '@comps/FolderPanel.vue';
 import BaseButton from '@comps/BaseButton.vue';
 
 import { useContactsStore } from '@/stores'
+import { ref } from 'vue';
 
 const store = useContactsStore()
-
+const on = ref('on')
+const off = ref('off')
 function toggle(field: string) {
-  store.view.delete = !store.view.delete
+  switch (field) {
+    case 'delete':
+      store.view.delete = !store.view.delete
+      break;
+    case 'edit':
+      store.view.edit = !store.view.edit
+      break;
+  }
 }
 </script>
 
 <template>
-  <FolderPanel title="Filter" :isInlinePanel="true">
+  <FolderPanel :isInlinePanel="true">
     <template #header>
       <BaseButton>View</BaseButton>
     </template>
     <template #body>
-      <ul class="filter-tags-wrapper">
+      <ul class="wrapper">
         <li v-for="(v, k) in store.view" :key="k">
-          <div class="filter-type"></div>
+          <div :class="['status-color-base', v ? on : off]"></div>
           <BaseButton @click="toggle(k)">{{ k }}</BaseButton>
         </li>
       </ul>
@@ -28,9 +37,9 @@ function toggle(field: string) {
 </template>
 
 <style scoped>
-.filter-tags-wrapper {
+.wrapper {
   display: grid;
-  /* grid-auto-flow: column; */
+  grid-auto-flow: column;
   gap: 10px;
   list-style: none;
   justify-content: left;
@@ -39,17 +48,15 @@ function toggle(field: string) {
 }
 li {
   display: grid;
-  grid-template-columns: 3px auto;
-  gap: 2px;
+  grid-template-columns: 5px auto;
+  gap: 0px;
   border: 1px solid d;
   padding: 2px;
 }
-.filter-type {
-  /* margin-right: 5px; */
+.on {
   background-color: greenyellow;
 }
-.filter-value {
-  padding: 0px 15px;
-  background-color: gainsboro;
+.off {
+  background-color: goldenrod;
 }
 </style>
