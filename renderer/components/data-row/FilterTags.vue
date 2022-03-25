@@ -7,19 +7,21 @@ defineProps(['items'])
 </script>
 
 <template>
-  <div class="wrapper" v-if="Object.keys(items).length">
-    <BaseButton @click="resetFilter">Clear All Filters</BaseButton>
-    <ul class="filter-tags-wrapper">
-      <li v-for="(v, k) in items" :key="k">
-        <div class="filter-type">{{ k }}</div>
-        <span class="filter-is">is</span>
-        <span class="filter-value">{{ v }}</span>
-        <span class="btn-delete" @click="removeFilter(k.toString())">
-          <span class="cross">+</span>
-        </span>
-      </li>
-    </ul>
-  </div>
+  <TransitionGroup name="list">
+    <div class="wrapper" v-if="Object.keys(items).length">
+      <BaseButton @click="resetFilter">Clear All Filters</BaseButton>
+      <ul class="filter-tags-wrapper">
+        <li v-for="(v, k) in items" :key="k">
+          <div class="filter-type">{{ k }}</div>
+          <span class="filter-is">is</span>
+          <span class="filter-value">{{ v }}</span>
+          <span class="btn-delete" @click="removeFilter(k.toString())">
+            <span class="cross">+</span>
+          </span>
+        </li>
+      </ul>
+    </div>
+  </TransitionGroup>
 </template>
 
 <style scoped>
@@ -75,5 +77,24 @@ li {
   display: inline-block;
   transition-property: all;
   transform: rotate(45deg);
+}
+
+/* Transition */
+.list-move, /* apply transition to moving elements */
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.2s ease-in-out;
+}
+
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+/* ensure leaving items are taken out of layout flow so that moving
+   animations can be calculated correctly. */
+.list-leave-active {
+  position: absolute;
 }
 </style>

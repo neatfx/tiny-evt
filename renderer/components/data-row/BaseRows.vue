@@ -31,13 +31,13 @@ li:hover {
 .list-move, /* apply transition to moving elements */
 .list-enter-active,
 .list-leave-active {
-  transition: all 0.2s ease-out;
+  transition: all 0.2s ease-in-out;
 }
 
 .list-enter-from,
 .list-leave-to {
   opacity: 0;
-  transform: translateY(-5px);
+  transform: translateY(-10px);
 }
 
 /* ensure leaving items are taken out of layout flow so that moving
