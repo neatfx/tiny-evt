@@ -4,7 +4,7 @@
 
 import { BaseDatabase } from '../base-db'
 import type { Table } from 'dexie'
-import type { IEmailAddress, IPhoneNumber, IBook } from './definition'
+import type { IEmailAddress, IPhoneNumber, IBook } from './type-defs'
 import { Contact } from './contact';
 import { handlePopulate } from './population'
 import { Book } from './book';

@@ -2,7 +2,7 @@
  * class mapped to the contacts table
  */
 
-import type { IContact, IEmailAddress, IPhoneNumber } from './definition'
+import type { IContact, IEmailAddress, IPhoneNumber } from './type-defs'
 import { TestingDB } from './index'
 
 export class Contact implements IContact {

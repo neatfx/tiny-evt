@@ -2,7 +2,7 @@
  * class mapped to the contacts table
  */
 
-import type { IBook } from './definition'
+import type { IBook } from './type-defs'
 import { TestingDB } from './index'
 
 export class Book implements IBook {
