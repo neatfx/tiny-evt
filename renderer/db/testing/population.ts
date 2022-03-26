@@ -7,22 +7,46 @@ import { Contact } from './contact';
 import { Book } from './book';
 
 async function populateBooks() {
-  const book1 = new Book('Under the Dome', 'Stephen King')
-  book1.categories = ['sci-fi', 'thriller']
-  book1.nameWords = ['dome']
+  const book1 = new Book('流浪地球', '刘慈欣')
+  book1.categories = ['sci-fi']
+  book1.nameWords = ['流浪', '地球']
+  book1.publishing = '长江文艺出版社'
+  book1.published = '2000'
 
   const book2 = new Book('胶东雄狮', '彦庆杰')
-  book2.categories = ['history']
+  book2.categories = ['历史']
   book2.publishing = '黄河出版社'
-  book2.nameWords = ['胶东','雄狮']
+  book2.nameWords = ['胶东', '雄狮']
 
   const book3 = new Book('三体', '刘慈欣')
   book3.categories = ['sci-fi']
-  book3.publishing = '四川出版社'
+  book3.publishing = '重庆出版社'
   book3.nameWords = ['三体']
+  book3.published = '2006'
+
+  const book4 = new Book('三体2:黑暗森林', '刘慈欣')
+  book4.categories = ['sci-fi']
+  book4.publishing = '重庆出版社'
+  book4.published = '2008'
+  book4.nameWords = ['三体', '黑暗', '森林']
+
+  const book5 = new Book('三体3:死神永生', '刘慈欣')
+  book5.categories = ['sci-fi']
+  book5.publishing = '重庆出版社'
+  book5.nameWords = ['三体', '死神', '永生']
+  book5.published = '2010'
+
+  const book6 = new Book('中国近代史', '徐中约')
+  book6.categories = ['历史', '中国', '近代史']
+  book6.publishing = '后浪出版社'
+  book6.nameWords = ['中国', '近代史']
+
+  const book7 = new Book('Under the Dome', 'Stephen King')
+  book7.categories = ['sci-fi', 'thriller']
+  book7.nameWords = ['dome']
 
   await TestingDB.books.bulkAdd([
-    book1, book2, book3
+    book1, book2, book3, book4, book5, book6, book7
   ])
 }
 

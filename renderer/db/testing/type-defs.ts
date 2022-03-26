@@ -36,7 +36,7 @@ export interface IBook {
   translator?: string;
   categories?: string[];
   publishing?: string;
-  published?: Date;
+  published?: string;
   designed?: string;
   price?: number;
   from?: string;
