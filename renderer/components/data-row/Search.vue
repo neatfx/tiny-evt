@@ -6,12 +6,14 @@ import { useContactsStore } from '@/stores'
 
 const store = useContactsStore()
 const search = ref('')
-watch(search, async(newKeyWords) =>{
-  await store.search(newKeyWords)
+watch(search, async (newKeyWords) => {
+  if (search.value.length) {
+    await store.search(newKeyWords)
+  }
 })
 </script>
 <template>
-  <BaseInput v-model="search"/>
+  <BaseInput v-model="search" />
   <BaseButton>Search</BaseButton>
 </template>
 <style scoped>
