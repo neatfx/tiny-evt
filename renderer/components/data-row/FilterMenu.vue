@@ -44,7 +44,11 @@ function onFilterItemClick(e: MouseEvent, filterType: string, filterValue: strin
     </template>
     <template #body>
       <ul class="filters-list">
-        <li v-for="(v, k) in props.items" :key="k" @click="showFinalFilter($event, k.toString(), v)">{{ k }}</li>
+        <li
+          v-for="(v, k) in props.items"
+          :key="k"
+          @click="showFinalFilter($event, k.toString(), v)"
+        >{{ k }}</li>
       </ul>
     </template>
     <template #menu>
@@ -85,5 +89,6 @@ li:hover {
 .final-filter {
   position: absolute;
   background-color: lightgray;
+  box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
 }
 </style>

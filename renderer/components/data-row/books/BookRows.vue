@@ -59,14 +59,13 @@ async function deleteItem(key: number | undefined) {
 }
 .left {
   display: grid;
-  /* grid-template-columns: 1fr 1fr 160px 150px 1fr ; */
-  justify-self: left;
+  grid-template-columns: 40px 1fr minmax(0, 300px) auto auto auto;
   grid-auto-flow: column;
   /* border: 1px solid red; */
 }
 .title {
-  background-color: bisque;
-  padding: 2px;
+  background-color:darkgray;
+  padding: 2px 10px;
   margin-right: 5px;
 }
 .right {
