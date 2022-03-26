@@ -9,9 +9,9 @@ import { Book } from './book';
 async function populateBooks() {
   const book1 = new Book('流浪地球', '刘慈欣')
   book1.categories = ['sci-fi']
-  book1.nameWords = ['流浪', '地球']
   book1.publishing = '长江文艺出版社'
   book1.published = '2000'
+  book1.nameWords = ['流浪', '地球']
 
   const book2 = new Book('胶东雄狮', '彦庆杰')
   book2.categories = ['历史']
@@ -21,8 +21,8 @@ async function populateBooks() {
   const book3 = new Book('三体', '刘慈欣')
   book3.categories = ['sci-fi']
   book3.publishing = '重庆出版社'
-  book3.nameWords = ['三体']
   book3.published = '2006'
+  book3.nameWords = ['三体']
 
   const book4 = new Book('三体2:黑暗森林', '刘慈欣')
   book4.categories = ['sci-fi']
@@ -33,8 +33,8 @@ async function populateBooks() {
   const book5 = new Book('三体3:死神永生', '刘慈欣')
   book5.categories = ['sci-fi']
   book5.publishing = '重庆出版社'
-  book5.nameWords = ['三体', '死神', '永生']
   book5.published = '2010'
+  book5.nameWords = ['三体', '死神', '永生']
 
   const book6 = new Book('中国近代史', '徐中约')
   book6.categories = ['历史', '中国', '近代史']
@@ -43,6 +43,8 @@ async function populateBooks() {
 
   const book7 = new Book('Under the Dome', 'Stephen King')
   book7.categories = ['sci-fi', 'thriller']
+  book7.publishing = '斯克里布纳之子公司'
+  book7.published = '2009年11月10日'
   book7.nameWords = ['dome']
 
   await TestingDB.books.bulkAdd([

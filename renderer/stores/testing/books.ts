@@ -4,14 +4,13 @@ import type { IndexableTypeArray } from 'dexie';
 import { Book } from '../../db/testing/book';
 
 import { usePagination } from '../../components/pagination';
-
-// import { mande } from 'mande'
+import type { IBook } from '@/db/testing/type-defs';
 
 const { total, offset, limit } = usePagination()
 
 export const useBooksStore = defineStore('books', {
   state: () => ({
-    items: [] as Book[],
+    items: [] as IBook[],
     total: 0,
     filters: {
       categories: [] as IndexableTypeArray,
@@ -48,15 +47,15 @@ export const useBooksStore = defineStore('books', {
     async fetchFiltersMeta() {
       await TestingDB.books.orderBy('categories').uniqueKeys((keysArray) => {
         this.filters.categories = keysArray
-        console.log(keysArray)
+        // console.log(keysArray)
       });
       await TestingDB.books.orderBy('publishing').uniqueKeys((keysArray) => {
         this.filters.publishing = keysArray
-        console.log(keysArray)
+        // console.log(keysArray)
       });
     },
     async filter(obj: object) {
-      // console.log(obj)
+      console.log(obj)
       total.value = await TestingDB.books
         .where(obj).count()
       this.items = await TestingDB.books

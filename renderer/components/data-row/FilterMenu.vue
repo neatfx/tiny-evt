@@ -31,7 +31,6 @@ watchEffect(() => {
 
 // 处理二级菜单点击事件
 function onFilterItemClick(e: MouseEvent, filterType: string, filterValue: string) {
-  // console.log(filterType, filterValue)
   filter(filterType, filterValue)
   seletedFilter.value = ''
 }

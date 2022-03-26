@@ -3,7 +3,7 @@ import { useFilter } from './filter'
 import BaseButton from "../BaseButton.vue"
 
 const { removeFilter, resetFilter } = useFilter()
-const props = defineProps(['items'])
+defineProps(['items'])
 </script>
 
 <template>

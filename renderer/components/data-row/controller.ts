@@ -13,26 +13,37 @@ interface IController {
 
 export function useDataRowsController(store: IController) {
   watch([usePagination().page], async () => {
-    console.log(workingFilters.value)
-    if (Object.keys(workingFilters.value).length) {
-      await store.filter(workingFilters.value)
+    // console.log('Controller: ', workingFilters.value)
+    if (workingFilters.value.size) {
+
+      const obj = {}
+      for (let key of workingFilters.value.keys()) {
+        obj[key] = workingFilters.value.get(key)
+      }
+      // console.log(obj)
+      await store.filter(obj)
     } else {
       await store.fetchPagedRows()
     }
   })
 
-  watch(workingFilters, () => {
-    if (Object.keys(workingFilters.value).length === 0) {
+  watch(workingFilters.value, () => {
+    if (workingFilters.value.size === 0) {
       usePagination().reset()
     }
   })
 
   watchEffect(async () => {
-    if (Object.keys(workingFilters.value).length) {
+    if (workingFilters.value.size) {
 
       usePagination().reset()
 
-      await store.filter(workingFilters.value)
+      const obj = {}
+      for (let key of workingFilters.value.keys()) {
+        obj[key] = workingFilters.value.get(key)
+      }
+      // console.log(obj)
+      await store.filter(obj)
     } else {
       await store.fetchPagedRows()
     }
