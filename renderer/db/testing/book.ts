@@ -11,6 +11,7 @@ export class Book implements IBook {
   author!: string;
   categories?: string[] | undefined;
   publishing?: string | undefined;
+  nameWords?: string[] | undefined;
   created!: Date;
 
   constructor(name: string, author:string, id?: number) {

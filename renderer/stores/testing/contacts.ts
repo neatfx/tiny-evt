@@ -66,5 +66,19 @@ export const useContactsStore = defineStore('contact', {
       await this.list()
       total.value = this.total
     },
+    async search() {
+      TestingDB.transaction('rw', TestingDB.books, function () {
+        // TestingDB.books.add({
+        //   name: "三体 黑暗森林",
+        //   author: "刘慈欣"
+        // });
+
+        TestingDB.books.where("nameWords").startsWithIgnoreCase("三").distinct().toArray(function (books) {
+          console.log("Found " + books.length + " books.", books);
+        });
+      }).catch(function (e: { stack: any; }) {
+        console.log(e.stack || e);
+      });
+    }
   },
 })

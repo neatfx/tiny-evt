@@ -9,13 +9,20 @@ import { Book } from './book';
 async function populateBooks() {
   const book1 = new Book('Under the Dome', 'Stephen King')
   book1.categories = ['sci-fi', 'thriller']
+  book1.nameWords = ['dome']
 
   const book2 = new Book('胶东雄狮', '彦庆杰')
-  book1.categories = ['history']
-  book1.publishing = '黄河出版社'
+  book2.categories = ['history']
+  book2.publishing = '黄河出版社'
+  book2.nameWords = ['胶东','雄狮']
+
+  const book3 = new Book('三体', '刘慈欣')
+  book3.categories = ['sci-fi']
+  book3.publishing = '四川出版社'
+  book3.nameWords = ['三体']
 
   await TestingDB.books.bulkAdd([
-    book1, book2
+    book1, book2, book3
   ])
 }
 

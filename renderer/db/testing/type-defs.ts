@@ -30,8 +30,8 @@ export interface IBook {
   name: string;
   coverUrl?: string;
   author: string;
-  created: Date;
 
+  created?: Date;
   subname?: string;
   translator?: string;
   categories?: string[];
@@ -41,4 +41,6 @@ export interface IBook {
   price?: number;
   from?: string;
   description?: string;
+
+  nameWords?: string[];
 }
