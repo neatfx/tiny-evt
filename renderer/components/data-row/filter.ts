@@ -1,17 +1,38 @@
-import { ref } from "vue"
+import { reactive, ref } from "vue"
 
-const workingFilters = ref<Map<string, string>>(new Map())
+const workingFilters = reactive<{
+  categories: Set<String>,
+  publishing: Set<String>,
+}>({
+  categories: new Set(),
+  publishing: new Set()
+})
 
 function filter(type: string, value: string) {
-  workingFilters.value.set(type, value)
+  switch (type) {
+    case 'categories':
+      workingFilters.categories.add(value)
+      break;
+    case 'publishing':
+      workingFilters.publishing.add(value);
+      break;
+  }
 }
 
-function removeFilter(key: string) {
-  workingFilters.value.delete(key)
+function removeFilter(type: string, value: string) {
+  switch (type) {
+    case 'categories':
+      workingFilters.categories.delete(value)
+      break;
+    case 'publishing':
+      workingFilters.publishing.delete(value);
+      break;
+  }
 }
 
 function resetFilter() {
-  workingFilters.value.clear()
+  workingFilters.categories.clear()
+  workingFilters.publishing.clear()
 }
 
 export function useFilter() {

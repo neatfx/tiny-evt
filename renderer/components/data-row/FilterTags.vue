@@ -15,7 +15,7 @@ defineProps(['items'])
           <div class="filter-type">{{ v[0] }}</div>
           <span class="filter-is">is</span>
           <span class="filter-value">{{ v[1]}}</span>
-          <span class="btn-delete" @click="removeFilter(v[0])">
+          <span class="btn-delete" @click="removeFilter(v[0], v[0])">
             <span class="cross">+</span>
           </span>
         </li>

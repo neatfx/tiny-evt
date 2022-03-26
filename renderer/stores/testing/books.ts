@@ -55,26 +55,32 @@ export const useBooksStore = defineStore('books', {
       });
     },
     async filter(filter: {
-      publishing: string,
+      publishing: string[],
       categories: string[]
     }) {
       console.log(filter)
-      filter = {
-        categories: ['历史', 'thriller', 'sci-fi'],
-        publishing: '黄河出版社',
-      }
+      // filter = {
+      //   categories: ['历史', 'thriller', 'sci-fi'],
+      //   publishing: '黄河出版社',
+      // }
       total.value = await TestingDB.books
-        .where('categories').anyOf(filter.categories)
+        .where('categories').anyOf(Array.from(filter.categories))
         .and((c) => {
-          if (filter.publishing === '') return true
-          return c.publishing === filter.publishing
+          if (filter.publishing.length == 0) {
+            return true
+          } else {
+             return filter.publishing[0] === c.publishing
+          }
         })
         .count()
       this.items = await TestingDB.books
-        .where('categories').anyOf(filter.categories)
+        .where('categories').anyOf(Array.from(filter.categories))
         .and((c) => {
-          if (filter.publishing === '') return true
-          return c.publishing === filter.publishing
+          if (filter.publishing.length == 0) {
+            return true
+          } else {
+             return filter.publishing.includes(c.publishing)
+          }
         })
         .offset(offset.value).limit(limit.value).toArray()
     },
