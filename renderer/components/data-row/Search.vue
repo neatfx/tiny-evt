@@ -1,19 +1,18 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import BaseInput from '../BaseInput.vue';
 import BaseButton from '../BaseButton.vue';
 import { useContactsStore } from '@/stores'
 
 const store = useContactsStore()
-const search = ref<string>()
-function go() {
-  // console.log(e)
-  store.search()
-}
+const search = ref('')
+watch(search, async(newKeyWords) =>{
+  await store.search(newKeyWords)
+})
 </script>
 <template>
-  <BaseInput text="" @change="typing"/>
-  <BaseButton @click="go">Search</BaseButton>
+  <BaseInput v-model="search"/>
+  <BaseButton>Search</BaseButton>
 </template>
 <style scoped>
 input {

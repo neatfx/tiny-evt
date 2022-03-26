@@ -66,9 +66,9 @@ export const useContactsStore = defineStore('contact', {
       await this.list()
       total.value = this.total
     },
-    async search() {
+    async search(ketwords: string) {
       TestingDB.transaction('rw', TestingDB.books, function () {
-        TestingDB.books.where("nameWords").startsWithIgnoreCase("三").distinct().toArray(function (books) {
+        TestingDB.books.where("nameWords").startsWithIgnoreCase(ketwords).distinct().toArray(function (books) {
           console.log("Found " + books.length + " books.", books);
         });
       }).catch(function (e: { stack: any; }) {
