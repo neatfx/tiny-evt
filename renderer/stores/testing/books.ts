@@ -14,8 +14,8 @@ export const useBooksStore = defineStore('books', {
     items: [] as Book[],
     total: 0,
     filters: {
-      sex: [] as IndexableTypeArray,
-      role: [] as IndexableTypeArray,
+      categories: [] as IndexableTypeArray,
+      publishing: [] as IndexableTypeArray,
     },
     view: {
       delete: true,
@@ -46,11 +46,13 @@ export const useBooksStore = defineStore('books', {
       await this.fetchPagedRows()
     },
     async fetchFiltersMeta() {
-      await TestingDB.books.orderBy('sex').uniqueKeys((keysArray) => {
-        this.filters.sex = keysArray
+      await TestingDB.books.orderBy('categories').uniqueKeys((keysArray) => {
+        this.filters.categories = keysArray
+        console.log(keysArray)
       });
-      await TestingDB.books.orderBy('role').uniqueKeys((keysArray) => {
-        this.filters.role = keysArray
+      await TestingDB.books.orderBy('publishing').uniqueKeys((keysArray) => {
+        this.filters.publishing = keysArray
+        console.log(keysArray)
       });
     },
     async filter(obj: object) {

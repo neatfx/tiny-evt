@@ -1,43 +1,19 @@
 import { ref } from "vue"
 
-const workingFilters = ref<{
-  sex?: string
-  role?: string
-}>({})
+const workingFilters = ref<Map<string, string>>(new Map())
 
-function filterSex(sex: string) {
-  workingFilters.value.sex = sex
-}
-
-function filterRole(role: string) {
-  workingFilters.value.role = role
+function filter(type: string, value: string) {
+  workingFilters.value.set(type, value)
 }
 
 function removeFilter(key: string) {
-  let obj: {
-    sex?: string
-    role?: string
-  } = {}
-
-  if (workingFilters.value.sex) obj['sex'] = workingFilters.value.sex
-  if (workingFilters.value.role) obj['role'] = workingFilters.value.role
-
-  switch (key) {
-    case 'sex':
-      delete obj.sex
-      break;
-    case 'role':
-      delete obj.role
-      break;
-  }
-
-  workingFilters.value = obj
+  workingFilters.value.delete(key)
 }
 
 function resetFilter() {
-  workingFilters.value = {}
+  workingFilters.value.clear()
 }
 
 export function useFilter() {
-  return { workingFilters, removeFilter, resetFilter, filterSex, filterRole }
+  return { workingFilters, removeFilter, resetFilter, filter }
 }

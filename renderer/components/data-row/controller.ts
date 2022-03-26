@@ -13,6 +13,7 @@ interface IController {
 
 export function useDataRowsController(store: IController) {
   watch([usePagination().page], async () => {
+    console.log(workingFilters.value)
     if (Object.keys(workingFilters.value).length) {
       await store.filter(workingFilters.value)
     } else {

@@ -22,7 +22,7 @@ class TestingDatabase extends BaseDatabase {
       contacts: '++id, firstName, lastName, sex, role',
       emails: '++id, contactId, type, email',
       phones: '++id, contactId, type, phone',
-      books: '++id, name, author, *categories, publishing, *nameWords'
+      books: '++id, name, author, *categories, *publishing, *nameWords'
     });
 
     db.contacts.mapToClass(Contact);

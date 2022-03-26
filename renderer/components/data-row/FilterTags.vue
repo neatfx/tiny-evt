@@ -3,19 +3,19 @@ import { useFilter } from './filter'
 import BaseButton from "../BaseButton.vue"
 
 const { removeFilter, resetFilter } = useFilter()
-defineProps(['items'])
+const props = defineProps(['items'])
 </script>
 
 <template>
   <TransitionGroup name="list">
-    <div class="wrapper" v-if="Object.keys(items).length">
+    <div class="wrapper" v-if="items.size">
       <BaseButton @click="resetFilter">Clear All Filters</BaseButton>
       <ul class="filter-tags-wrapper">
         <li v-for="(v, k) in items" :key="k">
-          <div class="filter-type">{{ k }}</div>
+          <div class="filter-type">{{ v[0] }}</div>
           <span class="filter-is">is</span>
-          <span class="filter-value">{{ v }}</span>
-          <span class="btn-delete" @click="removeFilter(k.toString())">
+          <span class="filter-value">{{ v[1]}}</span>
+          <span class="btn-delete" @click="removeFilter(v[0])">
             <span class="cross">+</span>
           </span>
         </li>

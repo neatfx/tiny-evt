@@ -3,24 +3,21 @@ import { ref, watchEffect } from 'vue';
 
 import FolderPanel from '../FolderPanel.vue';
 import BaseButton from '../BaseButton.vue';
-import type { IndexableTypeArray } from 'dexie';
+
 import { useFilter } from './filter'
 
-const { filterRole, filterSex } = useFilter()
-const props = defineProps<{
-  items: {
-    sex: IndexableTypeArray
-    role: IndexableTypeArray
-  }
-}>()
+const { filter } = useFilter()
+const props = defineProps(['items'])
 const seletedFilter = ref('')
 const filtersMenu = ref<EventTarget | null>()
-const leftPos = ref(10)
+const currentSubMenuData = ref({})
 
 // 显示二级菜单
-function showFinalFilter(e: MouseEvent, filterType: string) {
+function showFinalFilter(e: MouseEvent, filterType: string, subData) {
   seletedFilter.value = filterType
   filtersMenu.value = e.target
+  // console.log(subData)
+  currentSubMenuData.value = subData
 }
 
 // 隐藏二级菜单
@@ -34,16 +31,9 @@ watchEffect(() => {
 
 // 处理二级菜单点击事件
 function onFilterItemClick(e: MouseEvent, filterType: string, filterValue: string) {
-  switch (filterType) {
-    case 'sex':
-      filterSex(filterValue)
-      seletedFilter.value = ''
-      break;
-    case 'role':
-      filterRole(filterValue)
-      seletedFilter.value = ''
-      break;
-  }
+  // console.log(filterType, filterValue)
+  filter(filterType, filterValue)
+  seletedFilter.value = ''
 }
 </script>
 
@@ -54,24 +44,19 @@ function onFilterItemClick(e: MouseEvent, filterType: string, filterValue: strin
     </template>
     <template #body>
       <ul class="filters-list">
-        <li v-for="(v, k) in props.items" :key="k" @click="showFinalFilter($event, k)">{{ k }}</li>
+        <li v-for="(v, k) in props.items" :key="k" @click="showFinalFilter($event, k, v)">{{ k }}</li>
       </ul>
     </template>
     <template #menu>
-      <ul v-if="'sex' === seletedFilter" class="final-filter">
-        <li
-          v-for="(v, k) in props.items.sex"
-          :key="k"
-          @click="onFilterItemClick($event, 'sex', v.toString())"
-        >{{ v }}</li>
-      </ul>
-      <ul v-if="'role' === seletedFilter" class="final-filter">
-        <li
-          v-for="(v, k) in props.items.role"
-          :key="k"
-          @click="onFilterItemClick($event, 'role', v.toString())"
-        >{{ v }}</li>
-      </ul>
+      <div>
+        <ul v-if="Object.keys(items).includes(seletedFilter)" class="final-filter">
+          <li
+            v-for="(v, k) in currentSubMenuData"
+            :key="k"
+            @click="onFilterItemClick($event, seletedFilter, v)"
+          >{{ v }}</li>
+        </ul>
+      </div>
     </template>
   </FolderPanel>
 </template>
@@ -80,13 +65,12 @@ function onFilterItemClick(e: MouseEvent, filterType: string, filterValue: strin
 ul {
   font-size: 15px;
   list-style: none;
-  width: 87px;
   margin: 0;
   padding: 0;
   z-index: 900;
 }
 li {
-  padding: 5px 10px;
+  padding: 5px 15px;
   background-color: grey;
 }
 
