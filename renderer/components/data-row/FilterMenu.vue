@@ -13,7 +13,7 @@ const filtersMenu = ref<EventTarget | null>()
 const currentSubMenuData = ref({})
 
 // 显示二级菜单
-function showFinalFilter(e: MouseEvent, filterType: string, subData) {
+function showFinalFilter(e: MouseEvent, filterType: string, subData: object) {
   seletedFilter.value = filterType
   filtersMenu.value = e.target
   // console.log(subData)
@@ -44,7 +44,7 @@ function onFilterItemClick(e: MouseEvent, filterType: string, filterValue: strin
     </template>
     <template #body>
       <ul class="filters-list">
-        <li v-for="(v, k) in props.items" :key="k" @click="showFinalFilter($event, k, v)">{{ k }}</li>
+        <li v-for="(v, k) in props.items" :key="k" @click="showFinalFilter($event, k.toString(), v)">{{ k }}</li>
       </ul>
     </template>
     <template #menu>
