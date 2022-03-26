@@ -20,8 +20,8 @@ const contextMenuState = reactive({
 })
 const menuData = {
   text: [
-    "item-2",
-    "item-2",
+    "已读",
+    "未读",
   ],
   handler: {
     checkingData() {
@@ -63,7 +63,7 @@ onMounted(() => {
   <FolderPanel :isPopMenu="true">
     <template #header>
       <!-- <EcosystemIcon class="icon"/> -->
-      <BaseButton>Role</BaseButton>
+      <BaseButton>已读</BaseButton>
     </template>
     <template #body>
       <ul v-for="item in contextMenuState.data" :key="item.id">

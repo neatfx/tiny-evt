@@ -48,7 +48,7 @@ li {
 }
 .filter-type {
   display: inline-block;
-  padding: 2px 15px;
+  padding: 2px 15px 2px;
   margin-right: 2px;
   background-color: slategray;
 }
@@ -65,12 +65,12 @@ li {
 }
 .btn-delete {
   display: inline-block;
-  padding: 0px 9px 0px 10px;
+  padding: 0px 9px 1px 10px;
   margin-left: 2px;
   background-color: lightcoral;
 }
 .cross {
-  font-size: large;
+  font-size: medium;
   display: inline-block;
   transition-property: all;
   transform: rotate(45deg);

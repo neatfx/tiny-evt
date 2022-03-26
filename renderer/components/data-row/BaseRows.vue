@@ -19,7 +19,7 @@ ul {
 }
 li {
   border: 1px solid grey;
-  padding: 5px 0 5px 5px;
+  padding: 5px 0 5px 3px;
   margin-top: -1px;
   list-style: none;
 }

@@ -51,7 +51,7 @@ async function deleteItem(key: number | undefined) {
 .row {
   display: grid;
   grid-auto-flow: column;
-  justify-items: left;
+  /* justify-content: left; */
 }
 .id {
   text-align: center;
@@ -61,11 +61,12 @@ async function deleteItem(key: number | undefined) {
   display: grid;
   grid-template-columns: 40px 1fr minmax(0, 300px) auto auto auto;
   grid-auto-flow: column;
+  justify-self: left;
   /* border: 1px solid red; */
 }
 .title {
-  background-color:darkgray;
-  padding: 2px 10px;
+  background-color: darkgray;
+  padding: 4px 10px;
   margin-right: 5px;
 }
 .right {
