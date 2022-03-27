@@ -59,10 +59,6 @@ export const useBooksStore = defineStore('books', {
       categories: string[]
     }) {
       console.log(filter)
-      // filter = {
-      //   categories: ['历史', 'thriller', 'sci-fi'],
-      //   publishing: '黄河出版社',
-      // }
       total.value = await TestingDB.books
         .where('categories').anyOf(Array.from(filter.categories))
         .and((c) => {
