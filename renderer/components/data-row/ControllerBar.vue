@@ -3,7 +3,7 @@ import DataRowsFilterMenu from '@/components/data-row/FilterMenu.vue'
 import DataRowsSearch from "@comps/data-row/Search.vue";
 import DataRowAdder from "@comps/data-row/contacts/ContactRowAdder.vue"
 import Pagination from "@comps/Pagination.vue";
-import DataRowsViewOptions from '@comps/data-row/contacts/ContactRowsViewOptions.vue'
+import DataRowsViewOptions from '@/components/data-row/ViewOptions.vue'
 import FilterTags from "@comps/data-row/FilterTags.vue"
 
 defineProps(['views', 'filters', 'workingFilters'])
