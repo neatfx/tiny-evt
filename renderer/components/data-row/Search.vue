@@ -2,13 +2,15 @@
 import { ref, watch } from 'vue';
 import BaseInput from '../BaseInput.vue';
 import BaseButton from '../BaseButton.vue';
-import { useContactsStore } from '@/stores'
+import { useBooksStore } from '@/stores'
 
-const store = useContactsStore()
+const store = useBooksStore()
 const search = ref('')
 watch(search, async (newKeyWords) => {
   if (search.value.length) {
     await store.search(newKeyWords)
+  } else {
+    await store.list()
   }
 })
 </script>

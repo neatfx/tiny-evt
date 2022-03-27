@@ -91,14 +91,19 @@ export const useBooksStore = defineStore('books', {
       await this.list()
       total.value = this.total
     },
-    async search(ketwords: string) {
-      TestingDB.transaction('rw', TestingDB.books, function () {
-        TestingDB.books.where("nameWords").startsWithIgnoreCase(ketwords).distinct().toArray(function (books) {
-          console.log("Found " + books.length + " books.", books);
-        });
-      }).catch(function (e: { stack: any; }) {
-        console.log(e.stack || e);
-      });
+    async search(keywords: string) {
+      // let self = this
+
+      // TestingDB.transaction('rw', TestingDB.books, function () {
+      //   TestingDB.books.where("nameWords").startsWithIgnoreCase(ketwords).distinct().toArray( (books) => {
+      //     console.log("Found " + books.length + " books.", books);
+      //     self.items = books
+      //   });
+      // }).catch(function (e: { stack: any; }) {
+      //   console.log(e.stack || e);
+      // });
+
+      this.items = await TestingDB.books.where("nameWords").startsWithIgnoreCase(keywords).distinct().toArray();
     }
   },
 })
