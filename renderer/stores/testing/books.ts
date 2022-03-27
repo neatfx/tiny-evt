@@ -54,28 +54,32 @@ export const useBooksStore = defineStore('books', {
         // console.log(keysArray)
       });
     },
-    async filter(filter: {
-      publishing: string[],
-      categories: string[]
-    }) {
+    async filter(filter: Map<string, Set<string>>) {
       console.log(filter)
       total.value = await TestingDB.books
-        .where('categories').anyOf(filter.categories)
-        .and((c) => {
-          if (filter.publishing.length == 0) {
-            return true
+        .filter((book) => {
+          if (filter.has('publishing') && filter.get('publishing')?.size) {
+            return filter.get('publishing')?.has(book.publishing!) !== undefined
           } else {
-             return filter.publishing.includes(c.publishing!)
+            return true
+          }
+        })
+        .and((book) => {
+          if (filter.has('categories') && filter.get('categories')?.size) {
+            return filter.get('categories')?.has(book.categories!) !== undefined
+          } else {
+            return true
           }
         })
         .count()
+      // Data
       this.items = await TestingDB.books
-        .where('categories').anyOf(filter.categories)
-        .and((c) => {
-          if (filter.publishing.length == 0) {
-            return true
+        .where('categories').anyOf(Array.from(filter.get('categories')!))
+        .and((book) => {
+          if (filter.has('publishing') && filter.get('publishing')?.size) {
+            return filter.get('publishing')?.has(book.publishing!)
           } else {
-             return filter.publishing.includes(c.publishing!)
+            return true
           }
         })
         .offset(offset.value).limit(limit.value).toArray()

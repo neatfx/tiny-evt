@@ -1,20 +1,28 @@
 import { reactive, ref } from "vue"
 
-const workingFilters = reactive<{ type: string, value: string }[]>([])
+const filtersCount = ref(0)
+const workingFilters = reactive<Map<string, Set<string>>>(new Map())
 
-function filter(obj: { type: string, value: string }) {
-  workingFilters.push(obj)
+function filter(type: string, value: string) {
+  if (!workingFilters.get(type)) {
+    workingFilters.set(type, new Set())
+  }
+  workingFilters.get(type)?.add(value)
+  filtersCount.value = filtersCount.value + 1
 }
 
 function removeFilter(type: string, value: string) {
-  const index = workingFilters.indexOf({ type: type, value: value })
-  if (index) workingFilters.splice(index, 1)
+  if (workingFilters.get(type)) {
+    workingFilters.get(type)?.delete(value)
+    filtersCount.value = filtersCount.value - 1
+  }
 }
 
 function resetFilter() {
-  workingFilters.length = 0
+  workingFilters.clear()
+  filtersCount.value = 0
 }
 
 export function useFilter() {
-  return { workingFilters, removeFilter, resetFilter, filter }
+  return { workingFilters, filtersCount, removeFilter, resetFilter, filter }
 }
