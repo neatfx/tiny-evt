@@ -28,7 +28,13 @@ let fileBlob: Blob
 
 async function exportDatabase() {
   try {
-    const blob = await exportDB(TestingDB, { prettyJson: true, progressCallback });
+    const blob = await exportDB(TestingDB, {
+      prettyJson: true,
+      progressCallback: progressCallback,
+      filter: (table, value, key) => {
+        return true
+      }
+    });
     console.log(blob)
   } catch (error) {
     console.error('' + error);
