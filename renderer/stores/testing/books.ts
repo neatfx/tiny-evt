@@ -57,25 +57,33 @@ export const useBooksStore = defineStore('books', {
     async filter(filter: Map<string, Set<string>>) {
       // console.log(filter)
       total.value = await TestingDB.books
-        .where('categories').anyOf(Array.from(filter.get('categories')!))
+        .where('categories').anyOf(Array.from(filter.get('categories') || this.filters.categories))
         .and((book) => {
-          if (filter.has('publishing') && filter.get('publishing')?.size) {
-            return filter.get('publishing')?.has(book.publishing!)
+          if (!filter.get('publishing')) {
+            return this.filters.publishing.indexOf((book.publishing!)) === -1 ? false : true
           } else {
-            return true
+            const result = filter.get('publishing')?.has(book.publishing!)
+            if (result) { return true } else {
+              return false
+            }
           }
         })
+        .distinct()
         .count()
-      // Data
+
       this.items = await TestingDB.books
-        .where('categories').anyOf(Array.from(filter.get('categories')!))
+        .where('categories').anyOf(Array.from(filter.get('categories') || this.filters.categories))
         .and((book) => {
-          if (filter.has('publishing') && filter.get('publishing')?.size) {
-            return filter.get('publishing')?.has(book.publishing!)
+          if (!filter.get('publishing')) {
+            return this.filters.publishing.indexOf((book.publishing!)) === -1 ? false : true
           } else {
-            return true
+            const result = filter.get('publishing')?.has(book.publishing!)
+            if (result) { return true } else {
+              return false
+            }
           }
         })
+        .distinct()
         .offset(offset.value).limit(limit.value).toArray()
     },
     async fetchPagedRows() {

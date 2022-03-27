@@ -13,9 +13,8 @@ defineProps<{
     <div class="wrapper" v-if="items.size">
       <BaseButton @click="resetFilter">Clear All Filters</BaseButton>
       <ul class="filter-tags-wrapper" v-for="key in items.keys()" :key="key">
+        <li class="type-li"><span class="filter-type">{{ key }}</span></li>
         <li v-for="v in items.get(key)" :key="key + v">
-          <div class="filter-type">{{ key }}</div>
-          <span class="filter-is">is</span>
           <span class="filter-value">{{ v }}</span>
           <span class="btn-delete" @click="removeFilter(key, v)">
             <span class="cross">+</span>
@@ -48,17 +47,15 @@ li {
   padding: 2px;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
 }
+.type-li{
+  padding: 0;
+  border: 0;
+}
 .filter-type {
   display: inline-block;
-  padding: 2px 15px 2px;
-  margin-right: 2px;
-  background-color: slategray;
-}
-.filter-is {
-  display: inline-block;
-  padding: 2px 10px;
-  margin-right: 2px;
-  background-color: grey;
+  padding: 5px 10px 5px;
+  margin-right: 0px;
+  background-color:teal;
 }
 .filter-value {
   display: inline-block;
