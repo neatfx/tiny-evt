@@ -11,40 +11,48 @@ interface IController {
   fetchFiltersMeta: Function
 }
 
+function transformFilterData(workingFilters: {
+  type: string;
+  value: string;
+}[]): {
+  categories: string[],
+  publishing: string[]
+} {
+
+  const categories = new Set<string>()
+  const publishing = new Set<string>()
+
+  workingFilters.forEach(element => {
+    if (element.type === 'categories') categories.add(element.value)
+    if (element.type === 'publishing') publishing.add(element.value)
+  });
+
+  return {
+    categories: Array.from(categories),
+    publishing: Array.from(publishing)
+  }
+}
+
 export function useDataRowsController(store: IController) {
   watch([usePagination().page], async () => {
-    // console.log('Controller: ', workingFilters.value)
-    if (workingFilters.categories.size || workingFilters.publishing.size) {
-
-      const obj = {
-        categories: Array.from(workingFilters.categories),
-        publishing: Array.from(workingFilters.publishing)
-      }
-
-      await store.filter(obj)
+    if (workingFilters.length) {
+      await store.filter(transformFilterData(workingFilters))
     } else {
       await store.fetchPagedRows()
     }
   })
 
-  watch([workingFilters.categories, workingFilters.publishing], () => {
-    if (workingFilters.categories.size == 0 && workingFilters.publishing.size == 0) {
+  watch([workingFilters], () => {
+    if (workingFilters.length == 0) {
       usePagination().reset()
     }
   })
 
   watchEffect(async () => {
-    if (workingFilters.categories.size || workingFilters.publishing.size) {
-
+    if (workingFilters.length) {
       usePagination().reset()
 
-      const obj = {
-        categories: Array.from(workingFilters.categories),
-        publishing: Array.from(workingFilters.publishing)
-      }
-
-      console.log(obj)
-      await store.filter(obj)
+      await store.filter(transformFilterData(workingFilters))
     } else {
       await store.fetchPagedRows()
     }
