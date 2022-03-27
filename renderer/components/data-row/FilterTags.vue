@@ -6,6 +6,10 @@ const { removeFilter, resetFilter } = useFilter()
 defineProps<{
   items: Map<string, Set<string>>
 }>()
+let dic: Map<string, string> = new Map([
+  ['categories', '分类'],
+  ['publishing', '出版社']
+])
 </script>
 
 <template>
@@ -13,7 +17,9 @@ defineProps<{
     <div class="wrapper" v-if="items.size">
       <BaseButton @click="resetFilter">Clear All Filters</BaseButton>
       <ul class="filter-tags-wrapper" v-for="key in items.keys()" :key="key">
-        <li class="type-li"><span class="filter-type">{{ key }}</span></li>
+        <li class="type-li">
+          <span class="filter-type">{{ dic.get(key) }}</span>
+        </li>
         <li v-for="v in items.get(key)" :key="key + v">
           <span class="filter-value">{{ v }}</span>
           <span class="btn-delete" @click="removeFilter(key, v)">
@@ -47,7 +53,7 @@ li {
   padding: 2px;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
 }
-.type-li{
+.type-li {
   padding: 0;
   border: 0;
 }
@@ -55,7 +61,7 @@ li {
   display: inline-block;
   padding: 5px 10px 5px;
   margin-right: 0px;
-  background-color:teal;
+  background-color: teal;
 }
 .filter-value {
   display: inline-block;
