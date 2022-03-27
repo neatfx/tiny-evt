@@ -10,7 +10,7 @@ const { workingFilters } = useDataRowsController(store)
 </script>
 
 <template>
-  <ControllerBar :filters="store.filters" :workingFilters="workingFilters"></ControllerBar>
+  <ControllerBar :views="store.view" :filters="store.filters" :workingFilters="workingFilters"></ControllerBar>
   <BookRows :items="store.items"></BookRows>
 </template>
 

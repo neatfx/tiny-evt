@@ -6,13 +6,13 @@ import Pagination from "@comps/Pagination.vue";
 import DataRowsViewOptions from '@comps/data-row/contacts/ContactRowsViewOptions.vue'
 import FilterTags from "@comps/data-row/FilterTags.vue"
 
-defineProps(['filters', 'workingFilters'])
+defineProps(['views', 'filters', 'workingFilters'])
 </script>
 <template>
   <div class="control-bar">
     <div class="opt-row">
       <div class="left">
-        <DataRowsViewOptions :items="workingFilters"></DataRowsViewOptions>
+        <DataRowsViewOptions :views="views"></DataRowsViewOptions>
         <DataRowsFilterMenu :items="filters"></DataRowsFilterMenu>
         <DataRowsSearch></DataRowsSearch>
         <DataRowAdder></DataRowAdder>

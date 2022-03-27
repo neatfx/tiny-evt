@@ -28,16 +28,16 @@ async function deleteItem(key: number | undefined) {
     <template #item="{ id, name, author, categories, publishing }">
       <div class="row" v-context-menu="id">
         <div class="left">
-          <div class="id">{{ id }}</div>
-          <DataRowStatus></DataRowStatus>
-          <div class="title" @click="openDetail(id)">{{ '《 ' + name + ' 》' }}</div>
-          <div class="title">{{ author }}</div>
-          <div class="title">{{ categories }}</div>
-          <div class="title">{{ publishing || "N" }}</div>
+          <div v-if="store.view.fields.id" class="id">{{ id }}</div>
+          <DataRowStatus v-if="store.view.fields.status"></DataRowStatus>
+          <div v-if="store.view.fields.name" class="title" @click="openDetail(id)">{{ '《 ' + name + ' 》' }}</div>
+          <div v-if="store.view.fields.author" class="title">{{ author }}</div>
+          <div v-if="store.view.fields.categories" class="title">{{ categories }}</div>
+          <div v-if="store.view.fields.publishing" class="title">{{ publishing || "N" }}</div>
         </div>
         <div class="right">
-          <DataRowEditButton v-if="store.view.edit"></DataRowEditButton>
-          <BaseButton v-if="store.view.delete" @click="deleteItem(id)" text="Delete">
+          <DataRowEditButton v-if="store.view.control.edit"></DataRowEditButton>
+          <BaseButton v-if="store.view.control.delete" @click="deleteItem(id)" text="Delete">
             <span>Delete</span>
           </BaseButton>
         </div>

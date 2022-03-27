@@ -17,8 +17,18 @@ export const useBooksStore = defineStore('books', {
       publishing: [] as IndexableTypeArray,
     },
     view: {
-      delete: true,
-      edit: true
+      control:{
+        delete: true,
+        edit: true,
+      },
+      fields: {
+        id: true,
+        status: true,
+        name: true,
+        author: true,
+        categories: true,
+        publishing: true
+      }
     }
   }),
   getters: {},
