@@ -25,10 +25,10 @@
     "*.{js,vue}": "eslint"
   },
   "dependencies": {
-    "@node-rs/jieba": "^1.6.0",
     "dexie": "^3.2.1",
     "dexie-export-import": "^1.0.3",
     "pinia": "^2.0.12",
+    "segmentit": "^2.0.3",
     "vue": "^3.2.25",
     "vue-router": "^4.0.5"
   },
