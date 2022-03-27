@@ -2,14 +2,11 @@
 import { useFilter } from './filter'
 import BaseButton from "../BaseButton.vue"
 
-const { removeFilter, resetFilter } = useFilter()
+const { removeFilter, resetFilter, trans } = useFilter()
 defineProps<{
   items: Map<string, Set<string>>
 }>()
-let dic: Map<string, string> = new Map([
-  ['categories', '分类'],
-  ['publishing', '出版社']
-])
+
 </script>
 
 <template>
@@ -18,7 +15,7 @@ let dic: Map<string, string> = new Map([
       <BaseButton @click="resetFilter">Clear All Filters</BaseButton>
       <ul class="filter-tags-wrapper" v-for="key in items.keys()" :key="key">
         <li class="type-li">
-          <span class="filter-type">{{ dic.get(key) }}</span>
+          <span class="filter-type">{{ trans(key) }}</span>
         </li>
         <li v-for="v in items.get(key)" :key="key + v">
           <span class="filter-value">{{ v }}</span>

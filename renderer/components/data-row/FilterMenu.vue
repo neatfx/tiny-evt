@@ -6,7 +6,7 @@ import BaseButton from '../BaseButton.vue';
 
 import { useFilter } from './filter'
 
-const { filter } = useFilter()
+const { filter, trans } = useFilter()
 const props = defineProps(['items'])
 const seletedFilter = ref('')
 const filtersMenu = ref<EventTarget | null>()
@@ -47,7 +47,7 @@ function onFilterItemClick(e: MouseEvent, filterType: string, filterValue: strin
           v-for="(v, k) in props.items"
           :key="k"
           @click="showFinalFilter($event, k.toString(), v)"
-        >{{ k }}</li>
+        >{{ trans(k.toString()) }}</li>
       </ul>
     </template>
     <template #menu>

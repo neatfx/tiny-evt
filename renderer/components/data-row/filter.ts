@@ -2,6 +2,10 @@ import { reactive, ref } from "vue"
 
 const filtersCount = ref(0)
 const workingFilters = reactive<Map<string, Set<string>>>(new Map())
+const dic: Map<string, string> = new Map([
+  ['categories', '分类'],
+  ['publishing', '出版社']
+])
 
 function filter(type: string, value: string) {
   if (!workingFilters.get(type)) {
@@ -24,6 +28,10 @@ function resetFilter() {
   filtersCount.value = 0
 }
 
+function trans(source: string) {
+  return dic.get(source)
+}
+
 export function useFilter() {
-  return { workingFilters, filtersCount, removeFilter, resetFilter, filter }
+  return { workingFilters, filtersCount, removeFilter, resetFilter, filter, trans }
 }
