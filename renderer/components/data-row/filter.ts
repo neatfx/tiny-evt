@@ -14,6 +14,7 @@ function filter(type: string, value: string) {
 function removeFilter(type: string, value: string) {
   if (workingFilters.get(type)) {
     workingFilters.get(type)?.delete(value)
+    if (workingFilters.get(type)?.size === 0) workingFilters.delete(type)
     filtersCount.value = filtersCount.value - 1
   }
 }

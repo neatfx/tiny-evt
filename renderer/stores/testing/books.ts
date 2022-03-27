@@ -57,16 +57,10 @@ export const useBooksStore = defineStore('books', {
     async filter(filter: Map<string, Set<string>>) {
       console.log(filter)
       total.value = await TestingDB.books
-        .filter((book) => {
-          if (filter.has('publishing') && filter.get('publishing')?.size) {
-            return filter.get('publishing')?.has(book.publishing!) !== undefined
-          } else {
-            return true
-          }
-        })
+        .where('categories').anyOf(Array.from(filter.get('categories')!))
         .and((book) => {
-          if (filter.has('categories') && filter.get('categories')?.size) {
-            return filter.get('categories')?.has(book.categories!) !== undefined
+          if (filter.has('publishing') && filter.get('publishing')?.size) {
+            return filter.get('publishing')?.has(book.publishing!)
           } else {
             return true
           }

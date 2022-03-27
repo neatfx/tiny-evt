@@ -1,46 +1,23 @@
 <script setup lang="ts">
 import { useFilter } from './filter'
 import BaseButton from "../BaseButton.vue"
-import { computed } from 'vue';
 
 const { removeFilter, resetFilter } = useFilter()
-const props = defineProps(['items'])
-// const filters = computed(() => {
-//   const categories = new Set<string>()
-//   const publishing = new Set<string>()
-//   const mixedFilters = []
-
-//   props.items.forEach((element: { type: string; value: string; }) => {
-//     if (element.type === 'categories') categories.add(element.value)
-//     if (element.type === 'publishing') publishing.add(element.value)
-//   });
-
-//   for (let item of categories.values()) {
-//     mixedFilters.push({
-//       categories: item
-//     })
-//   }
-//   for (let item of publishing.values()) {
-//     mixedFilters.push({
-//       publishing: item
-//     })
-//   }
-
-//   console.log(mixedFilters)
-//   return mixedFilters
-// })
+defineProps<{
+  items: Map<string, Set<string>>
+}>()
 </script>
 
 <template>
   <TransitionGroup name="list">
-    <div class="wrapper" v-if="items.length">
+    <div class="wrapper" v-if="items.size">
       <BaseButton @click="resetFilter">Clear All Filters</BaseButton>
-      <ul class="filter-tags-wrapper">
-        <li v-for="(v, k) in items" :key="k">
-          <div class="filter-type">{{ Object.keys(v)[0] }}</div>
+      <ul class="filter-tags-wrapper" v-for="key in items.keys()" :key="key">
+        <li v-for="v in items.get(key)" :key="key + v">
+          <div class="filter-type">{{ key }}</div>
           <span class="filter-is">is</span>
-          <span class="filter-value">{{ Object.values(v)[0] }}</span>
-          <span class="btn-delete" @click="removeFilter(Object.keys(v)[0], Object.values(v)[0])">
+          <span class="filter-value">{{ v }}</span>
+          <span class="btn-delete" @click="removeFilter(key, v)">
             <span class="cross">+</span>
           </span>
         </li>
