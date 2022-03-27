@@ -17,7 +17,7 @@ export const useBooksStore = defineStore('books', {
       publishing: [] as IndexableTypeArray,
     },
     view: {
-      control:{
+      control: {
         delete: true,
         edit: true,
       },
@@ -39,16 +39,16 @@ export const useBooksStore = defineStore('books', {
     async list() {
       this.items = await TestingDB.books.offset(offset.value).limit(limit.value).toArray()
     },
-    // async add(name: string, age: number, sex: string, role: string) {
-    //   await TestingDB.books.add(new Book(
-    //     name,
-    //     age,
-    //     sex,
-    //     role
-    //   ))
+    async add(name: string, author: string, categories?: string[], publishing?: string) {
+      await TestingDB.books.add(new Book(
+        name,
+        author,
+        categories,
+        publishing,
+      ))
 
-    //   await this.fetchPagedRows()
-    // },
+      await this.fetchPagedRows()
+    },
     async delete(key: number) {
       await TestingDB.books.delete(key)
 

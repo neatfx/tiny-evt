@@ -15,9 +15,11 @@ export class Book implements IBook {
   nameWords?: string[] | undefined;
   created!: Date;
 
-  constructor(name: string, author:string, id?: number) {
+  constructor(name: string, author: string, categories?: string[], publishing?: string, id?: number) {
     this.name = name;
     this.author = author;
+    this.categories = categories;
+    this.publishing = publishing;
     this.created = new Date()
     if (id) this.id = id;
 
@@ -31,10 +33,10 @@ export class Book implements IBook {
   }
 
   // async loadEmailsAndPhones() {
-    // [this.emails, this.phones] = await Promise.all([
-    //   TestingDB.emails.where('contactId').equals(this.id!).toArray(),
-    //   TestingDB.phones.where('contactId').equals(this.id!).toArray()
-    // ]);
+  // [this.emails, this.phones] = await Promise.all([
+  //   TestingDB.emails.where('contactId').equals(this.id!).toArray(),
+  //   TestingDB.phones.where('contactId').equals(this.id!).toArray()
+  // ]);
   // }
 
   // save() {

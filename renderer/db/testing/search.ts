@@ -1,15 +1,24 @@
 /*
-* Full-text search based on multi-valued indexes and Dexie hooks.
+* Hooks for Search
 */
 
 import { TestingDB } from './index';
 import type { IBook } from "./type-defs";
+import { Segment, useDefault } from 'segmentit'
 
-// db.version(1).stores({ emails: "++id,subject,from,*to,*cc,*bcc,message,*messageWords" });
+const segmentit = useDefault(new Segment());
 
-TestingDB.books.hook("creating", function (primKey, obj, trans) {
-  if (typeof obj.name == 'string') obj.nameWords = getAllWords(obj.name);
-})
+function hookCreating() {
+  TestingDB.books.hook("creating", function (primKey, obj, trans) {
+    if (typeof obj.name == 'string') obj.nameWords = segmentit.doSegment(obj.name, {
+      simple: true,
+      stripPunctuation: true
+    });
+    console.log(primKey, obj, trans)
+    obj.nameWords = obj.nameWords?.concat([obj.author])
+    if (obj.categories) obj.nameWords = obj.nameWords?.concat([...obj.categories])
+  })
+}
 
 // TestingDB.books.hook("updating", function (mods: IBook, primKey, obj, trans) {
 //   if (mods.hasOwnProperty("name")) {
@@ -23,15 +32,6 @@ TestingDB.books.hook("creating", function (primKey, obj, trans) {
 //   }
 // })
 
-function getAllWords(text: string) {
-  /// <param name="text" type="String"></param>
-  var allWordsIncludingDups = text.split(' ');
-  var wordSet = allWordsIncludingDups.reduce(function (prev: { [key: string]: boolean }, current) {
-    prev[current] = true;
-    return prev;
-  }, {});
-  return Object.keys(wordSet);
+export function handleHook() {
+  hookCreating()
 }
-
-// Open database to allow application code using it.
-// TestingDB.open();

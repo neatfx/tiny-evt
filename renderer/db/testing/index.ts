@@ -8,6 +8,7 @@ import type { IEmailAddress, IPhoneNumber, IBook } from './type-defs'
 import { Contact } from './contact';
 import { handlePopulate } from './population'
 import { Book } from './book';
+import { handleHook } from './search'
 
 class TestingDatabase extends BaseDatabase {
   contacts!: Table<Contact, number>;
@@ -33,5 +34,6 @@ class TestingDatabase extends BaseDatabase {
 const TestingDB = new TestingDatabase('AppDatabase', 1)
 
 handlePopulate() // 数据初始化
+handleHook() // Hook For Search
 
 export { TestingDB }
