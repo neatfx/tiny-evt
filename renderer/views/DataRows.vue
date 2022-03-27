@@ -3,7 +3,7 @@ import { useBooksStore } from '../stores'
 import { useDataRowsController } from '@/components/data-row/controller'
 
 import ControllerBar from '@comps/data-row/ControllerBar.vue';
-import BookRows from "@comps/data-row/books/BookRows.vue"
+import BookRows from "@/components/data-row/BookRows.vue"
 
 const store = useBooksStore()
 const { workingFilters } = useDataRowsController(store)

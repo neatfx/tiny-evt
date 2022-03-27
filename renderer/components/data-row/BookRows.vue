@@ -3,7 +3,7 @@ import router from '@/router'
 import { useBooksStore } from '@/stores'
 
 import BaseDataRows from '@comps/data-row/BaseRows.vue'
-import DataRowStatus from '@comps/data-row/contacts/ContactRowStatus.vue'
+import DataRowStatus from '@/components/data-row/ContactRowStatus.vue'
 import DataRowEditButton from '@comps/EditButton.vue'
 import BaseButton from '@comps/BaseButton.vue';
 import ContextMenu from "@/components/data-row/RowsContextMenu.vue"
