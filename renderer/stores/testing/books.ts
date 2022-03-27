@@ -69,7 +69,7 @@ export const useBooksStore = defineStore('books', {
           if (filter.publishing.length == 0) {
             return true
           } else {
-             return filter.publishing[0] === c.publishing
+             return filter.publishing.includes(c.publishing!)
           }
         })
         .count()
@@ -79,7 +79,7 @@ export const useBooksStore = defineStore('books', {
           if (filter.publishing.length == 0) {
             return true
           } else {
-             return filter.publishing.includes(c.publishing)
+             return filter.publishing.includes(c.publishing!)
           }
         })
         .offset(offset.value).limit(limit.value).toArray()
