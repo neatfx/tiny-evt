@@ -8,13 +8,13 @@ defineProps(['items'])
 
 <template>
   <TransitionGroup name="list">
-    <div class="wrapper" v-if="items.size">
+    <div class="wrapper" v-if="items.length">
       <BaseButton @click="resetFilter">Clear All Filters</BaseButton>
       <ul class="filter-tags-wrapper">
         <li v-for="(v, k) in items" :key="k">
-          <div class="filter-type">{{ v[0] }}</div>
+          <div class="filter-type">{{ v.type }}</div>
           <span class="filter-is">is</span>
-          <span class="filter-value">{{ v[1]}}</span>
+          <span class="filter-value">{{ v.value }}</span>
           <span class="btn-delete" @click="removeFilter(v[0], v[0])">
             <span class="cross">+</span>
           </span>

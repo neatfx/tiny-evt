@@ -60,7 +60,7 @@ export const useBooksStore = defineStore('books', {
     }) {
       console.log(filter)
       total.value = await TestingDB.books
-        .where('categories').anyOf(Array.from(filter.categories))
+        .where('categories').anyOf(filter.categories)
         .and((c) => {
           if (filter.publishing.length == 0) {
             return true
@@ -70,7 +70,7 @@ export const useBooksStore = defineStore('books', {
         })
         .count()
       this.items = await TestingDB.books
-        .where('categories').anyOf(Array.from(filter.categories))
+        .where('categories').anyOf(filter.categories)
         .and((c) => {
           if (filter.publishing.length == 0) {
             return true
