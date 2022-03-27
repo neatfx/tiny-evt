@@ -1,9 +1,8 @@
 <script setup lang="ts">
+import DataRowsViewOptions from '@/components/data-row/ViewOptions.vue'
 import DataRowsFilterMenu from '@/components/data-row/FilterMenu.vue'
 import DataRowsSearch from "@comps/data-row/Search.vue";
-import DataRowAdder from "@/components/data-row/RowAdder.vue"
 import Pagination from "@comps/Pagination.vue";
-import DataRowsViewOptions from '@/components/data-row/ViewOptions.vue'
 import FilterTags from "@comps/data-row/FilterTags.vue"
 
 defineProps(['views', 'filters', 'workingFilters'])
@@ -15,7 +14,7 @@ defineProps(['views', 'filters', 'workingFilters'])
         <DataRowsViewOptions :views="views"></DataRowsViewOptions>
         <DataRowsFilterMenu :items="filters"></DataRowsFilterMenu>
         <DataRowsSearch></DataRowsSearch>
-        <DataRowAdder></DataRowAdder>
+        <slot name="adder"></slot>
       </div>
       <div class="right">
         <Pagination></Pagination>
