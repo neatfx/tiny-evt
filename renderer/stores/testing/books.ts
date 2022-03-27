@@ -55,7 +55,7 @@ export const useBooksStore = defineStore('books', {
       });
     },
     async filter(filter: Map<string, Set<string>>) {
-      console.log(filter)
+      // console.log(filter)
       total.value = await TestingDB.books
         .where('categories').anyOf(Array.from(filter.get('categories')!))
         .and((book) => {

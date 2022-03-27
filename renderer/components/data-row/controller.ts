@@ -20,8 +20,8 @@ export function useDataRowsController(store: IController) {
     }
   })
 
-  watch([filtersCount], async() => {
-    if (filtersCount) {
+  watch([filtersCount], async () => {
+    if (filtersCount.value > 0) {
       usePagination().reset()
 
       await store.filter(workingFilters)
@@ -29,16 +29,6 @@ export function useDataRowsController(store: IController) {
       await store.fetchPagedRows()
     }
   })
-
-  // watchEffect(async () => {
-  //   if (filtersCount) {
-  //     usePagination().reset()
-
-  //     await store.filter(workingFilters)
-  //   } else {
-  //     await store.fetchPagedRows()
-  //   }
-  // })
 
   watchEffect(async () => {
     await store.fetchPagedRows()
