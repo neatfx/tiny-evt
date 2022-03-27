@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useContactsStore } from '@stores'
 
-import BaseButton from '../../BaseButton.vue';
-import FolderPanel from '../../FolderPanel.vue';
+import BaseButton from '../BaseButton.vue';
+import FolderPanel from '../FolderPanel.vue';
 
 export type IFormFields = {
   friendName: String;

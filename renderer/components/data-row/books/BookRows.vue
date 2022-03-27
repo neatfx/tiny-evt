@@ -6,7 +6,7 @@ import BaseDataRows from '@comps/data-row/BaseRows.vue'
 import DataRowStatus from '@comps/data-row/contacts/ContactRowStatus.vue'
 import DataRowEditButton from '@comps/EditButton.vue'
 import BaseButton from '@comps/BaseButton.vue';
-import ContextMenu from "@/components/data-row/contacts/ContactRowsContextMenu.vue"
+import ContextMenu from "@/components/data-row/RowsContextMenu.vue"
 import { vContextMenu, useContextMenu } from '@comps/contextMenu'
 
 defineProps(['items'])
