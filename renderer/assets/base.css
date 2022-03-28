@@ -1,13 +1,29 @@
+@font-face {
+  font-family: "思源宋体";
+  src: local('./SourceHanSerifSC-VF.otf.woff2') format("woff2");
+  font-weight: normal;
+  font-display: fallback;
+}
+
+@font-face {
+  font-family: myFirstFont;
+  src: local(Consolas);
+  font-weight: bold;
+}
+
 body {
   margin: 0;
   background-color: #333842;
   transition: color 0.5s, background-color 0.5s;
   line-height: 1.6;
-  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: '思源宋体', -apple-system;
   font-size: 14px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   cursor:default;
   -webkit-user-select:none;
   user-select:none;
+}
+button{
+  font-family: '思源宋体';
 }
