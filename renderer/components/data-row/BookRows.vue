@@ -17,6 +17,11 @@ function openDetail(rowId: number | undefined) {
   router.push('/data-row-detail/' + rowId)
 }
 
+async function updateItem(key: number | undefined) {
+  // console.log('Delete item by ID ', key)
+  if (key) await store.update(key)
+}
+
 async function deleteItem(key: number | undefined) {
   // console.log('Delete item by ID ', key)
   if (key) await store.delete(key)
@@ -36,7 +41,7 @@ async function deleteItem(key: number | undefined) {
           <div v-if="store.view.fields.publishing" class="title">{{ publishing || "N" }}</div>
         </div>
         <div class="right">
-          <DataRowEditButton v-if="store.view.control.edit"></DataRowEditButton>
+          <DataRowEditButton v-if="store.view.control.edit" @click="updateItem(id)"></DataRowEditButton>
           <BaseButton v-if="store.view.control.delete" @click="deleteItem(id)" text="Delete">
             <span>Delete</span>
           </BaseButton>

@@ -49,6 +49,16 @@ export const useBooksStore = defineStore('books', {
 
       await this.fetchPagedRows()
     },
+    async update(key: number) {
+      await TestingDB.books.update(key,{
+        name: 'updated-name',
+        author: 'updated-author',
+        categories: ['updated-categories-1', 'updated-categories-2'],
+        publishing: 'updated-publishing'
+      })
+
+      await this.fetchPagedRows()
+    }, 
     async delete(key: number) {
       await TestingDB.books.delete(key)
 
@@ -105,7 +115,7 @@ export const useBooksStore = defineStore('books', {
       // let self = this
 
       // TestingDB.transaction('rw', TestingDB.books, function () {
-      //   TestingDB.books.where("nameWords").startsWithIgnoreCase(ketwords).distinct().toArray( (books) => {
+      //   TestingDB.books.where("nameTokens").startsWithIgnoreCase(ketwords).distinct().toArray( (books) => {
       //     console.log("Found " + books.length + " books.", books);
       //     self.items = books
       //   });
@@ -113,7 +123,7 @@ export const useBooksStore = defineStore('books', {
       //   console.log(e.stack || e);
       // });
 
-      this.items = await TestingDB.books.where("nameWords").startsWithIgnoreCase(keywords).distinct().toArray();
+      this.items = await TestingDB.books.where("nameTokens").startsWithIgnoreCase(keywords).distinct().toArray();
     }
   },
 })

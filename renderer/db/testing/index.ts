@@ -8,7 +8,7 @@ import type { IEmailAddress, IPhoneNumber, IBook } from './type-defs'
 import { Contact } from './contact';
 import { handlePopulate } from './population'
 import { Book } from './book';
-import { handleHook } from './search'
+import { searchTokenizer } from './search'
 
 class TestingDatabase extends BaseDatabase {
   contacts!: Table<Contact, number>;
@@ -23,7 +23,7 @@ class TestingDatabase extends BaseDatabase {
       contacts: '++id, firstName, lastName, sex, role',
       emails: '++id, contactId, type, email',
       phones: '++id, contactId, type, phone',
-      books: '++id, name, author, *categories, publishing, *nameWords'
+      books: '++id, name, author, *categories, publishing, *nameTokens'
     });
 
     db.contacts.mapToClass(Contact);
@@ -33,7 +33,7 @@ class TestingDatabase extends BaseDatabase {
 
 const TestingDB = new TestingDatabase('AppDatabase', 1)
 
-handlePopulate() // 数据初始化
-handleHook() // Hook For Search
+handlePopulate() // 初始化测试数据
+searchTokenizer() // DBCore Middleware For Search
 
 export { TestingDB }

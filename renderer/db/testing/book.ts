@@ -12,7 +12,7 @@ export class Book implements IBook {
   categories?: string[] | undefined;
   publishing?: string | undefined;
   published?: string;
-  nameWords?: string[] | undefined;
+  nameTokens?: string[] | undefined;
   created!: Date;
 
   constructor(name: string, author: string, categories?: string[], publishing?: string, id?: number) {

@@ -42,5 +42,5 @@ export interface IBook {
   from?: string;
   description?: string;
 
-  nameWords?: string[];
+  nameTokens?: string[];
 }

@@ -1,10 +1,14 @@
 /*
-* Hooks for Search
+* DBCore Middleware For Search
 */
 
 import { TestingDB } from './index';
-import type { IBook } from "./type-defs";
-import { Segment, URLTokenizer, WildcardTokenizer, PunctuationTokenizer, ForeignTokenizer, DictTokenizer, ChsNameTokenizer, DictOptimizer, ChsNameOptimizer, DatetimeOptimizer, pangu, panguExtend1, panguExtend2, wildcard } from 'segmentit'
+import {
+  Segment,
+  URLTokenizer, WildcardTokenizer, PunctuationTokenizer, ForeignTokenizer, DictTokenizer, ChsNameTokenizer,
+  DictOptimizer, ChsNameOptimizer, DatetimeOptimizer,
+  pangu, panguExtend1, panguExtend2, wildcard
+} from 'segmentit'
 
 export const segmentit = new Segment();
 // 强制分割类单词识别
@@ -26,30 +30,63 @@ segmentit.loadDict(wildcard, 'WILDCARD', true); // 通配符
 // segmentit.loadSynonymDict(synonym); // 同义词
 // segmentit.loadStopwordDict('stopword.txt'); // 停止符
 
-function hookCreating() {
-  TestingDB.books.hook("creating", function (primKey, obj, trans) {
-    obj.nameWords = segmentit.doSegment(obj.name, {
-      simple: true,
-      stripPunctuation: true
-    });
-    // console.log(primKey, obj, trans)
-    obj.nameWords = obj.nameWords?.concat([obj.author])
-    if (obj.categories) obj.nameWords = obj.nameWords?.concat([...obj.categories])
-  })
-}
+export function searchTokenizer() {
+  TestingDB.use({
+    stack: "dbcore", // The only stack supported so far.
+    name: "TokenizerMiddleware", // Optional name of your middleware
+    create(downlevelDatabase) {
+      // Return your own implementation of DBCore:
+      return {
+        // Copy default implementation.
+        ...downlevelDatabase,
+        // Override table method
+        table(tableName) {
+          // Call default table method
+          const downlevelTable = downlevelDatabase.table(tableName);
+          // Derive your own table from it:
+          return {
+            // Copy default table implementation:
+            ...downlevelTable,
+            // Override the mutate method:
+            mutate: async req => {
+              // Copy the request object
+              const myRequest = { ...req };
+              // Do things before mutate, then call downlevel mutate:
+              if (myRequest.type === 'add') {
+                // console.log(myRequest)
+                for (let index = 0; index < myRequest.values.length; index++) {
+                  const element = myRequest.values[index];
+                  const nameTokens = segmentit.doSegment(element['name'], {
+                    simple: true,
+                    stripPunctuation: true
+                  })
 
-// TestingDB.books.hook("updating", function (mods: IBook, primKey, obj, trans) {
-//   if (mods.hasOwnProperty("name")) {
-//     // "message" property is being updated
-//     if (typeof mods.name == 'string')
-//       // "message" property was updated to another valid value. Re-index messageWords:
-//       return { nameWords: getAllWords(mods.name) };
-//     else
-//       // "message" property was deleted (typeof mods.message === 'undefined') or changed to an unknown type. Remove indexes:
-//       return { nameWords: [] };
-//   }
-// })
+                  element.nameTokens = nameTokens
+                }
+              }
+              // For Update
+              if (myRequest.type === 'put') {
+                // console.log(myRequest)
+                if (myRequest.changeSpec && myRequest.changeSpec['name']) {
+                  const nameTokens = segmentit.doSegment(myRequest.changeSpec['name'], {
+                    simple: true,
+                    stripPunctuation: true
+                  })
+                  for (let index = 0; index < myRequest.values.length; index++) {
+                    const element = myRequest.values[index];
+                    element.nameTokens = nameTokens
+                  }
+                }
+              }
 
-export function handleHook() {
-  hookCreating()
+              const res = await downlevelTable.mutate(myRequest);
+              // Do things after mutate
+              const myResponse = { ...res };
+              return myResponse;
+            }
+          }
+        }
+      };
+    }
+  });
 }
