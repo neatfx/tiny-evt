@@ -50,7 +50,7 @@ export const useBooksStore = defineStore('books', {
       await this.fetchPagedRows()
     },
     async update(key: number) {
-      await TestingDB.books.update(key,{
+      await TestingDB.books.update(key, {
         name: 'updated-name',
         author: 'updated-author',
         categories: ['updated-categories-1', 'updated-categories-2'],
@@ -58,7 +58,7 @@ export const useBooksStore = defineStore('books', {
       })
 
       await this.fetchPagedRows()
-    }, 
+    },
     async delete(key: number) {
       await TestingDB.books.delete(key)
 
@@ -112,18 +112,11 @@ export const useBooksStore = defineStore('books', {
       total.value = this.total
     },
     async search(keywords: string) {
-      // let self = this
-
-      // TestingDB.transaction('rw', TestingDB.books, function () {
-      //   TestingDB.books.where("nameTokens").startsWithIgnoreCase(ketwords).distinct().toArray( (books) => {
-      //     console.log("Found " + books.length + " books.", books);
-      //     self.items = books
-      //   });
-      // }).catch(function (e: { stack: any; }) {
-      //   console.log(e.stack || e);
-      // });
-
-      this.items = await TestingDB.books.where("nameTokens").startsWithIgnoreCase(keywords).distinct().toArray();
+      this.items = await TestingDB.books
+        .where("nameTokens").startsWithIgnoreCase(keywords)
+        .or('author').startsWithIgnoreCase(keywords)
+        .or('categories').anyOfIgnoreCase([keywords])
+        .distinct().toArray();
     }
   },
 })
