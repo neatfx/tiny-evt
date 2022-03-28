@@ -5,9 +5,7 @@
 import { TestingDB } from './index';
 import { Contact } from './contact';
 import { Book } from './book';
-import { Segment, useDefault } from 'segmentit'
-
-const segmentit = useDefault(new Segment());
+import { segmentit } from './search'
 
 async function populateBooks() {
   const book1 = new Book('流浪地球', '刘慈欣')
@@ -63,7 +61,7 @@ async function populateBooks() {
 }
 
 async function checkThenPopulateBooks() {
-  TestingDB.books.count(async (count: number) => {
+  await TestingDB.books.count(async (count: number) => {
     if (count > 0) {
       console.log("Table books already populated")
     } else {
@@ -89,7 +87,7 @@ async function populateContacts() {
 }
 
 async function checkThenPopulateContacts() {
-  TestingDB.contacts.count(async (count: number) => {
+  await TestingDB.contacts.count(async (count: number) => {
     if (count > 0) {
       console.log("Table contacts already populated")
     } else {
@@ -104,8 +102,12 @@ async function checkThenPopulateContacts() {
 export function handlePopulate() {
   TestingDB.on('populate', async function () {
     console.log('event("populate")')
-    await populateContacts()
-    await populateBooks()
+    await Promise.all([
+      populateContacts(),
+      populateBooks() 
+    ])
+    // await populateContacts()
+    // await populateBooks()
   })
 
   TestingDB.on('ready', () => {

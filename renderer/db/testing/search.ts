@@ -6,15 +6,15 @@ import { TestingDB } from './index';
 import type { IBook } from "./type-defs";
 import { Segment, useDefault } from 'segmentit'
 
-const segmentit = useDefault(new Segment());
+export const segmentit = useDefault(new Segment());
 
 function hookCreating() {
   TestingDB.books.hook("creating", function (primKey, obj, trans) {
-    if (typeof obj.name == 'string') obj.nameWords = segmentit.doSegment(obj.name, {
+    obj.nameWords = segmentit.doSegment(obj.name, {
       simple: true,
       stripPunctuation: true
     });
-    console.log(primKey, obj, trans)
+    // console.log(primKey, obj, trans)
     obj.nameWords = obj.nameWords?.concat([obj.author])
     if (obj.categories) obj.nameWords = obj.nameWords?.concat([...obj.categories])
   })

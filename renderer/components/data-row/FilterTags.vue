@@ -10,7 +10,7 @@ defineProps<{
 </script>
 
 <template>
-  <TransitionGroup name="list">
+  <!-- <TransitionGroup name="list"> -->
     <div class="wrapper" v-if="items.size">
       <BaseButton @click="resetFilter">Clear All Filters</BaseButton>
       <ul class="filter-tags-wrapper" v-for="key in items.keys()" :key="key">
@@ -25,7 +25,7 @@ defineProps<{
         </li>
       </ul>
     </div>
-  </TransitionGroup>
+  <!-- </TransitionGroup> -->
 </template>
 
 <style scoped>
