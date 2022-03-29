@@ -3,10 +3,30 @@ import FolderPanel from '@comps/FolderPanel.vue';
 import BaseButton from '@comps/BaseButton.vue';
 import BaseInput from '@comps/BaseInput.vue';
 import { ref } from 'vue';
+import { useBooksStore } from '@/stores'
 
-const props = defineProps(['views'])
+const props = defineProps(['categories', 'rowId'])
+const emit = defineEmits<{
+  (event: 'add-tag', tags: string[], rowId: number): void
+  (event: 'delete-tag', tags: string[], rowId: number): void
+}>()
 const on = ref('on')
 const off = ref('off')
+const tagInput = ref('')
+
+function addTag() {
+  const arr: string[] = Array.from(props.categories)
+  if (!arr.includes(tagInput.value)){
+    arr.push(tagInput.value)
+  }
+  emit('add-tag', arr, props.rowId)
+}
+
+function deleteTag(key: number) {
+  const arr: string[] = Array.from(props.categories)
+  arr.splice(key, 1)
+  emit('delete-tag', arr, props.rowId)
+}
 </script>
 
 <template>
@@ -17,11 +37,14 @@ const off = ref('off')
     <template #body>
       <div class="wrapper">
         <ul>
-          <li v-for="(value, key) in props.views" :key="key">{{ value }}</li>
+          <li v-for="(value, key) in props.categories" :key="key">
+            <span class="tag-name">{{ value }}</span>
+            <span class="delete-btn" @click="deleteTag(key)">+</span>
+          </li>
         </ul>
         <div class="add">
-          <BaseInput class="input-zone" />
-          <BaseButton class="add-btn">添加新标签</BaseButton>
+          <BaseInput class="input-zone" v-model="tagInput" />
+          <BaseButton class="add-btn" @click="addTag">添加标签</BaseButton>
         </div>
       </div>
     </template>
@@ -30,7 +53,7 @@ const off = ref('off')
 
 <style scoped>
 .wrapper {
-  padding: 5px 5px 10px 10px;
+  padding: 10px;
   background-color: darkgrey;
 }
 ul {
@@ -43,10 +66,18 @@ ul {
   margin: 0;
 }
 li {
-  padding: 5px 10px; 
+  padding: 0px 0px;
   text-align: center;
   background-color: khaki;
   margin: 5px;
+}
+.tag-name {
+  padding: 0 10px;
+}
+.delete-btn {
+  display: inline-block;
+  padding: 2px 10px;
+  background-color: lightcoral;
 }
 .add {
   display: grid;

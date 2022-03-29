@@ -10,7 +10,7 @@ import ContextMenu from "@/components/data-row/RowsContextMenu.vue"
 import { vContextMenu, useContextMenu } from '@comps/contextMenu'
 import BookRowsTags from '@comps/data-row/BookRowsTags.vue'
 
-defineProps(['items'])
+const props = defineProps(['items'])
 const store = useBooksStore()
 const { targetId } = useContextMenu();
 
@@ -27,6 +27,20 @@ async function deleteItem(key: number | undefined) {
   // console.log('Delete item by ID ', key)
   if (key) await store.delete(key)
 }
+
+async function addTag(tags: string[] , rowId: number) {
+  console.log('add tag',  tags ,rowId)
+  store.updateTest(rowId, {
+    categories: tags
+  })
+}
+
+async function deleteTag(tags: string[] , rowId: number) {
+  console.log('delete tag',  tags ,rowId)
+  store.updateTest(rowId, {
+    categories: tags
+  })
+}
 </script>
 
 <template>
@@ -37,7 +51,7 @@ async function deleteItem(key: number | undefined) {
           <div v-if="store.view.fields.id" class="id">{{ id }}</div>
           <DataRowStatus v-if="store.view.fields.status"></DataRowStatus>
           <div v-if="store.view.fields.name" class="title" @click="openDetail(id)">{{ '《 ' + name + ' 》' }}</div>
-          <BookRowsTags :views="categories"></BookRowsTags>
+          <BookRowsTags :categories="categories" :rowId="id" @add-tag="addTag" @delete-tag="deleteTag"></BookRowsTags>
           <div v-if="store.view.fields.author" class="title">{{ author }}</div>
           <!-- <div v-if="store.view.fields.categories" class="title">{{ categories }}</div> -->
           <div v-if="store.view.fields.publishing" class="title">{{ publishing || "N" }}</div>

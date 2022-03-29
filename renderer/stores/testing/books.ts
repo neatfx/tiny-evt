@@ -55,6 +55,9 @@ export const useBooksStore = defineStore('books', {
         publishing: 'updated-publishing'
       })
     },
+    async updateTest(key: number, change: any) {
+      await TestingDB.books.update(key, change)
+    },
     async delete(key: number) {
       await TestingDB.books.delete(key)
     },
