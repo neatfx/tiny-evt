@@ -14,7 +14,9 @@ export const useBooksStore = defineStore('books', {
     total: 0,
     filters: {
       categories: [] as IndexableTypeArray,
+      author: [] as IndexableTypeArray,
       publishing: [] as IndexableTypeArray,
+      lend: ['已借出', '未借出']
     },
     view: {
       control: {
@@ -68,6 +70,10 @@ export const useBooksStore = defineStore('books', {
       });
       await TestingDB.books.orderBy('publishing').uniqueKeys((keysArray) => {
         this.filters.publishing = keysArray
+        // console.log(keysArray)
+      });
+      await TestingDB.books.orderBy('author').uniqueKeys((keysArray) => {
+        this.filters.author = keysArray
         // console.log(keysArray)
       });
     },

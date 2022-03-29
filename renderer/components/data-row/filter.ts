@@ -4,7 +4,9 @@ const filtersCount = ref(0)
 const workingFilters = reactive<Map<string, Set<string>>>(new Map())
 const dic: Map<string, string> = new Map([
   ['categories', '分类'],
-  ['publishing', '出版社']
+  ['author', '作者'],
+  ['publishing', '出版社'],
+  ['lend', '是否借出'],
 ])
 
 function filter(type: string, value: string) {
