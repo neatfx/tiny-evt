@@ -8,6 +8,7 @@ import DataRowEditButton from '@comps/EditButton.vue'
 import BaseButton from '@comps/BaseButton.vue';
 import ContextMenu from "@/components/data-row/RowsContextMenu.vue"
 import { vContextMenu, useContextMenu } from '@comps/contextMenu'
+import BookRowsTags from '@comps/data-row/BookRowsTags.vue'
 
 defineProps(['items'])
 const store = useBooksStore()
@@ -36,8 +37,9 @@ async function deleteItem(key: number | undefined) {
           <div v-if="store.view.fields.id" class="id">{{ id }}</div>
           <DataRowStatus v-if="store.view.fields.status"></DataRowStatus>
           <div v-if="store.view.fields.name" class="title" @click="openDetail(id)">{{ '《 ' + name + ' 》' }}</div>
+          <BookRowsTags :views="categories"></BookRowsTags>
           <div v-if="store.view.fields.author" class="title">{{ author }}</div>
-          <div v-if="store.view.fields.categories" class="title">{{ categories }}</div>
+          <!-- <div v-if="store.view.fields.categories" class="title">{{ categories }}</div> -->
           <div v-if="store.view.fields.publishing" class="title">{{ publishing || "N" }}</div>
         </div>
         <div class="right">
