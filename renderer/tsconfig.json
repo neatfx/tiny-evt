@@ -1,6 +1,6 @@
 {
   "extends": "@vue/tsconfig/tsconfig.web.json",
-  "include": ["./**/*", "./**/*.vue","./typings.d.ts"],
+  "include": ["./**/*", "./**/*.vue","typings.d.ts"],
   "exclude": ["components/**/__tests__/*"],
   "compilerOptions": {
     "composite": true,
