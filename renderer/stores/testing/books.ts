@@ -122,3 +122,8 @@ export const useBooksStore = defineStore('books', {
 export async function refresh() {
   await useBooksStore().fetchPagedRows()
 }
+
+// 供 search middleware put@mutate 时调用
+export async function refreshFiltersMeta() {
+  await useBooksStore().fetchFiltersMeta()
+}

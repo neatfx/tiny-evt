@@ -9,7 +9,7 @@ import {
   DictOptimizer, ChsNameOptimizer, DatetimeOptimizer,
   pangu, wildcard
 } from 'segmentit'
-import { refresh } from '@stores/testing/books'
+import { refresh, refreshFiltersMeta } from '@stores/testing/books'
 
 export const segmentit = new Segment();
 // 强制分割类单词识别
@@ -54,7 +54,7 @@ export function searchTokenizer() {
               const myRequest = { ...req };
               // Do things before mutate, then call downlevel mutate:
               if (myRequest.type === 'add') {
-                // console.log(myRequest)
+                console.log(myRequest)
                 for (let index = 0; index < myRequest.values.length; index++) {
                   const element = myRequest.values[index];
                   const nameTokens = segmentit.doSegment(element['name'], {
@@ -67,7 +67,7 @@ export function searchTokenizer() {
               }
               // For Update
               if (myRequest.type === 'put') {
-                // console.log(myRequest)
+                console.log(myRequest)
                 if (myRequest.changeSpec && myRequest.changeSpec['name']) {
                   const nameTokens = segmentit.doSegment(myRequest.changeSpec['name'], {
                     simple: true,
@@ -78,11 +78,16 @@ export function searchTokenizer() {
                     element.nameTokens = nameTokens
                   }
                 }
+
+                // 同步更新 Filter 菜单
+                if (myRequest.changeSpec && myRequest.changeSpec['categories']) {
+                  refreshFiltersMeta()
+                }
               }
 
               const res = await downlevelTable.mutate(myRequest);
               // Do things after mutate
-              console.log('x')
+              console.log('mutate operation...')
               await refresh()
               const myResponse = { ...res };
               return myResponse;
