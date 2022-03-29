@@ -25,9 +25,9 @@ useContextMenu();
 <style>
 @import "assets/base.css";
 
-#app {
-  /* border: 1px solid green; */
-}
+/* #app {
+  border: 1px solid green;
+} */
 
 .app-wrapper {
   display: grid;

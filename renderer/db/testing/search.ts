@@ -7,7 +7,7 @@ import {
   Segment,
   URLTokenizer, WildcardTokenizer, PunctuationTokenizer, ForeignTokenizer, DictTokenizer, ChsNameTokenizer,
   DictOptimizer, ChsNameOptimizer, DatetimeOptimizer,
-  pangu, panguExtend1, panguExtend2, wildcard
+  pangu, wildcard
 } from 'segmentit'
 import { refresh } from '@stores/testing/books'
 

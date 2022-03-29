@@ -1,3 +1,5 @@
+/// <reference types="vite/client" />
+
 declare global {
   interface Window {
     electronDarkMode: ElectronDarkMode
@@ -5,6 +7,7 @@ declare global {
   }
   type GithubJson = GithubJsonDef
 }
+declare module 'segmentit';
 
 export interface ElectronDarkMode {
   toggle: () => Promise<boolean>
