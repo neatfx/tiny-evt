@@ -78,15 +78,19 @@ export function searchTokenizer() {
                     element.nameTokens = nameTokens
                   }
                 }
-
-                // 同步更新 Filter 菜单
-                if (myRequest.changeSpec && myRequest.changeSpec['categories']) {
-                  refreshFiltersMeta()
-                }
               }
 
               const res = await downlevelTable.mutate(myRequest);
               // Do things after mutate
+              // 同步更新 Filter 菜单
+              if (myRequest.type === 'put' && myRequest.changeSpec && myRequest.changeSpec['categories']) {
+                refreshFiltersMeta()
+              }
+              // 同步更新 Filter 菜单
+              if (myRequest.type === 'delete') {
+                refreshFiltersMeta()
+              }
+
               console.log('mutate operation...')
               await refresh()
               const myResponse = { ...res };
