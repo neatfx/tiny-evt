@@ -31,6 +31,22 @@ segmentit.loadDict(wildcard, 'WILDCARD', true); // 通配符
 // segmentit.loadSynonymDict(synonym); // 同义词
 // segmentit.loadStopwordDict('stopword.txt'); // 停止符
 
+// 更改操作完成同步更新数据
+async function syncAll(myRequest: any) {
+  // 同步更新 Filter 菜单
+  if (myRequest.type === 'put' && myRequest.changeSpec && myRequest.changeSpec['categories']) {
+    refreshFiltersMeta()
+  }
+
+  // 同步更新 Filter 菜单
+  if (myRequest.type === 'delete') {
+    refreshFiltersMeta()
+  }
+
+  // 同步更新 Pagination & DataRows
+  await refresh()
+}
+
 export function searchTokenizer() {
   TestingDB.use({
     stack: "dbcore", // The only stack supported so far.
@@ -82,17 +98,10 @@ export function searchTokenizer() {
 
               const res = await downlevelTable.mutate(myRequest);
               // Do things after mutate
-              // 同步更新 Filter 菜单
-              if (myRequest.type === 'put' && myRequest.changeSpec && myRequest.changeSpec['categories']) {
-                refreshFiltersMeta()
-              }
-              // 同步更新 Filter 菜单
-              if (myRequest.type === 'delete') {
-                refreshFiltersMeta()
-              }
+              await syncAll(myRequest)
 
               console.log('mutate operation...')
-              await refresh()
+
               const myResponse = { ...res };
               return myResponse;
             }
