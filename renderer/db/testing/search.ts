@@ -30,7 +30,7 @@ segmentit.loadDict(wildcard, 'WILDCARD', true); // 通配符
 // segmentit.loadSynonymDict(synonym); // 同义词
 // segmentit.loadStopwordDict('stopword.txt'); // 停止符
 
-export function searchTokenizer() {
+export function searchTokenizer(refresh: Function) {
   TestingDB.use({
     stack: "dbcore", // The only stack supported so far.
     name: "TokenizerMiddleware", // Optional name of your middleware
@@ -81,6 +81,8 @@ export function searchTokenizer() {
 
               const res = await downlevelTable.mutate(myRequest);
               // Do things after mutate
+              console.log('x')
+              await refresh()
               const myResponse = { ...res };
               return myResponse;
             }

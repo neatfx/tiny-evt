@@ -46,8 +46,6 @@ export const useBooksStore = defineStore('books', {
         categories,
         publishing,
       ))
-
-      await this.fetchPagedRows()
     },
     async update(key: number) {
       await TestingDB.books.update(key, {
@@ -56,13 +54,9 @@ export const useBooksStore = defineStore('books', {
         categories: ['updated-categories-1', 'updated-categories-2'],
         publishing: 'updated-publishing'
       })
-
-      await this.fetchPagedRows()
     },
     async delete(key: number) {
       await TestingDB.books.delete(key)
-
-      await this.fetchPagedRows()
     },
     async fetchFiltersMeta() {
       await TestingDB.books.orderBy('categories').uniqueKeys((keysArray) => {
@@ -120,3 +114,8 @@ export const useBooksStore = defineStore('books', {
     }
   },
 })
+
+// 供 search middleware mutate 后统一调用
+export function refresh() {
+  useBooksStore().fetchPagedRows()
+}
