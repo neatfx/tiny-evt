@@ -16,7 +16,7 @@ watch(search, async (newKeyWords) => {
 </script>
 <template>
   <BaseInput v-model="search" />
-  <BaseButton>Search</BaseButton>
+  <BaseButton>搜索</BaseButton>
 </template>
 <style scoped>
 input {

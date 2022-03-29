@@ -59,7 +59,7 @@ async function deleteTag(tags: string[] , rowId: number) {
         <div class="right">
           <DataRowEditButton v-if="store.view.control.edit" @click="updateItem(id)"></DataRowEditButton>
           <BaseButton v-if="store.view.control.delete" @click="deleteItem(id)" text="Delete">
-            <span>Delete</span>
+            <span>删除</span>
           </BaseButton>
         </div>
       </div>

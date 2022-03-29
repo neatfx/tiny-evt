@@ -12,7 +12,7 @@ defineProps<{
 <template>
   <!-- <TransitionGroup name="list"> -->
     <div class="wrapper" v-if="items.size">
-      <BaseButton @click="resetFilter">Clear All Filters</BaseButton>
+      <BaseButton @click="resetFilter">重置过滤器</BaseButton>
       <ul class="filter-tags-wrapper" v-for="key in items.keys()" :key="key">
         <li class="type-li">
           <span class="filter-type">{{ trans(key) }}</span>

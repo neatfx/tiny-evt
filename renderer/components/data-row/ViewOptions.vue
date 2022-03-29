@@ -11,7 +11,7 @@ const off = ref('off')
 <template>
   <FolderPanel :isInlinePanel="true">
     <template #header>
-      <BaseButton>View</BaseButton>
+      <BaseButton>视图</BaseButton>
     </template>
     <template #body>
       <div class="wrapper" v-for="(v, k) in props.views" :key="k">

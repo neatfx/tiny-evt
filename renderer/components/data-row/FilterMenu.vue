@@ -39,7 +39,7 @@ function onFilterItemClick(e: MouseEvent, filterType: string, filterValue: strin
 <template>
   <FolderPanel title="Filter" :isPopMenu="true">
     <template #header>
-      <BaseButton>Filter</BaseButton>
+      <BaseButton>过滤器</BaseButton>
     </template>
     <template #body>
       <ul class="filters-list">

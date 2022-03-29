@@ -32,7 +32,7 @@ function deleteTag(key: number) {
 <template>
   <FolderPanel :isInlinePanel="true">
     <template #header>
-      <BaseButton>Tags</BaseButton>
+      <BaseButton>分类标签</BaseButton>
     </template>
     <template #body>
       <div class="wrapper">

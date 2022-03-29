@@ -26,7 +26,7 @@ async function addItem(data: any) {
 <template>
   <FolderPanel title="Add" :isInlinePanel="true">
     <template #header>
-      <BaseButton>New</BaseButton>
+      <BaseButton>添加</BaseButton>
     </template>
     <template #body>
       <div class="panel-body">
