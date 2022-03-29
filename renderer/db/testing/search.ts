@@ -9,6 +9,7 @@ import {
   DictOptimizer, ChsNameOptimizer, DatetimeOptimizer,
   pangu, panguExtend1, panguExtend2, wildcard
 } from 'segmentit'
+import { refresh } from '@stores/testing/books'
 
 export const segmentit = new Segment();
 // 强制分割类单词识别
@@ -30,7 +31,7 @@ segmentit.loadDict(wildcard, 'WILDCARD', true); // 通配符
 // segmentit.loadSynonymDict(synonym); // 同义词
 // segmentit.loadStopwordDict('stopword.txt'); // 停止符
 
-export function searchTokenizer(refresh: Function) {
+export function searchTokenizer() {
   TestingDB.use({
     stack: "dbcore", // The only stack supported so far.
     name: "TokenizerMiddleware", // Optional name of your middleware

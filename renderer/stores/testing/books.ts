@@ -116,6 +116,6 @@ export const useBooksStore = defineStore('books', {
 })
 
 // 供 search middleware mutate 后统一调用
-export function refresh() {
-  useBooksStore().fetchPagedRows()
+export async function refresh() {
+  await useBooksStore().fetchPagedRows()
 }

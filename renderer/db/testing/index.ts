@@ -9,7 +9,6 @@ import { Contact } from './contact';
 import { handlePopulate } from './population'
 import { Book } from './book';
 import { searchTokenizer } from './search'
-import { refresh } from '@stores/testing/books'
 
 class TestingDatabase extends BaseDatabase {
   contacts!: Table<Contact, number>;
@@ -35,6 +34,6 @@ class TestingDatabase extends BaseDatabase {
 const TestingDB = new TestingDatabase('AppDatabase', 1)
 
 handlePopulate() // 初始化测试数据
-searchTokenizer(refresh) // DBCore Middleware For Search
+searchTokenizer() // DBCore Middleware For Search
 
 export { TestingDB, searchTokenizer }
