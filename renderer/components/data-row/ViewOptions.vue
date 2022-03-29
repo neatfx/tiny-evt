@@ -14,12 +14,17 @@ const off = ref('off')
       <BaseButton>视图</BaseButton>
     </template>
     <template #body>
-      <div class="wrapper" v-for="(v, k) in props.views" :key="k">
-        <div class="view-type">{{ k }}</div>
-        <li v-for="(key, value) in v" :key="value">
-          <div :class="['status-color-base', key ? on : off]"></div>
-          <BaseButton @click="v[value] = !v[value]">{{ value }}</BaseButton>
-        </li>
+      <div class="wrapper">
+        <div class="view-type">列表视图</div>
+        <BaseButton>卡片</BaseButton>
+        <BaseButton>DataRows</BaseButton>
+        <div v-for="(v, k) in props.views" :key="k">
+          <div class="view-type">{{ k }}</div>
+          <li v-for="(key, value) in v" :key="value">
+            <div :class="['status-color-base', key ? on : off]"></div>
+            <BaseButton @click="v[value] = !v[value]">{{ value }}</BaseButton>
+          </li>
+        </div>
       </div>
     </template>
   </FolderPanel>
@@ -27,10 +32,10 @@ const off = ref('off')
 
 <style scoped>
 .wrapper {
-  padding: 5px 5px 10px 10px;
+  padding: 10px 5px 10px 10px;
 }
 .view-type {
-  padding: 0px 0px 5px 2px;
+  padding: 10px 0px 10px 0px;
 }
 ul {
   display: grid;
