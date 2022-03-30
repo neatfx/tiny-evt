@@ -7,13 +7,12 @@ defineProps<{
   <input v-model="text" />
 </template>
 <style scoped>
-input{
-  padding: 7px;
-  border-radius: 0;
+input {
+  padding: 8px 0px 6px 5px;
   border-style: none;
-  background-color:grey;
+  background-color: grey;
 }
-input:focus{
+input:focus {
   outline: none;
 }
 </style>

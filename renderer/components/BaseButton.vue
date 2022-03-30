@@ -11,7 +11,7 @@
 button {
   background-color: dimgrey;
   border: none;
-  padding: 7px 10px;
+  padding: 5px 10px;
   outline: none;
   margin-right: 5px;
 }

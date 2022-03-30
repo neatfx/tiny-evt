@@ -13,8 +13,8 @@ defineProps(['views', 'filters', 'workingFilters'])
       <div class="left">
         <DataRowsViewOptions :views="views"></DataRowsViewOptions>
         <DataRowsFilterMenu :items="filters"></DataRowsFilterMenu>
-        <DataRowsSearch></DataRowsSearch>
         <slot name="adder"></slot>
+        <DataRowsSearch></DataRowsSearch>
       </div>
       <div class="right">
         <Pagination></Pagination>

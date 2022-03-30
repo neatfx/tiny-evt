@@ -3,6 +3,7 @@ import { ref, watch } from 'vue';
 import BaseInput from '../BaseInput.vue';
 import BaseButton from '../BaseButton.vue';
 import { useBooksStore } from '@/stores'
+import FolderPanel from '../FolderPanel.vue';
 
 const store = useBooksStore()
 const search = ref('')
@@ -13,19 +14,26 @@ watch(search, async (newKeyWords) => {
     await store.list()
   }
 })
+
+function clear() {
+  if(search.value) search.value = ''
+}
 </script>
 <template>
-  <BaseInput v-model="search" />
-  <BaseButton>搜索</BaseButton>
+  <FolderPanel title="Add" :isInlinePanel="true">
+    <template #header>
+      <BaseButton @click="clear">搜索</BaseButton>
+    </template>
+    <template #body>
+      <div class="panel-body">
+        <BaseInput v-model="search" />
+      </div>
+    </template>
+  </FolderPanel>
 </template>
 <style scoped>
-input {
-  padding: 7px;
-  border-radius: 0;
-  border-style: none;
-  background-color: grey;
-}
-input:focus {
-  outline: none;
+.panel-body {
+  padding: 2px;
+  background-color: lightgrey;
 }
 </style>
