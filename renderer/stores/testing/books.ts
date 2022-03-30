@@ -10,7 +10,7 @@ const { total, offset, limit } = usePagination()
 
 export const useBooksStore = defineStore('books', {
   state: () => ({
-    items: [] as IBook[],
+    items: [] as (IBook | undefined)[],
     total: 0,
     filters: {
       categories: [] as IndexableTypeArray,
@@ -78,82 +78,48 @@ export const useBooksStore = defineStore('books', {
       });
     },
     async filter(filter: Map<string, Set<string>>) {
-      console.log(filter)
-      total.value = await TestingDB.books
-        .where('categories').anyOf(Array.from(filter.get('categories') || this.filters.categories))
-        .and((book) => {
-          if (!filter.get('publishing')) {
-            return this.filters.publishing.indexOf((book.publishing!)) === -1 ? false : true
-          } else {
-            const result = filter.get('publishing')?.has(book.publishing!)
-            if (result) { return true } else {
-              return false
-            }
-          }
-        })
-        .and((book) => {
-          if (!filter.get('author')) {
-            return this.filters.author.indexOf((book.author!)) === -1 ? false : true
-          } else {
-            const result = filter.get('author')?.has(book.author!)
-            if (result) { return true } else {
-              return false
-            }
-          }
-        })
-        .and((book) => {
-          if (filter.get('lend')) {
-            if (filter.get('lend')?.has('true')) {
-              if (book.lend !== undefined) return true
-              return false
-            } else {
-              if (book.lend === undefined) return true
-              return false
-            }
-          } else {
-            return true
-          }
-        })
-        .distinct()
-        .count()
+      // console.log(filter)
+      const results = await Promise.all([
+        TestingDB.books
+          .where('categories')
+          .anyOf(Array.from(filter.get('categories') || this.filters.categories))
+          .primaryKeys(),
 
-      this.items = await TestingDB.books
-        .where('categories').anyOf(Array.from(filter.get('categories') || this.filters.categories))
-        .and((book) => {
-          if (!filter.get('publishing')) {
-            return this.filters.publishing.indexOf((book.publishing!)) === -1 ? false : true
-          } else {
-            const result = filter.get('publishing')?.has(book.publishing!)
-            if (result) { return true } else {
-              return false
-            }
-          }
-        })
-        .and((book) => {
-          if (!filter.get('author')) {
-            return this.filters.author.indexOf((book.author!)) === -1 ? false : true
-          } else {
-            const result = filter.get('author')?.has(book.author!)
-            if (result) { return true } else {
-              return false
-            }
-          }
-        })
-        .and((book) => {
-          if (filter.get('lend')) {
-            if (filter.get('lend')?.has('true')) {
-              if (book.lend !== undefined) return true
-              return false
+        TestingDB.books
+          .where('publishing')
+          .anyOf(Array.from(filter.get('publishing') || this.filters.publishing))
+          .primaryKeys(),
+
+        TestingDB.books
+          .where('author')
+          .anyOf(Array.from(filter.get('author') || this.filters.author))
+          .primaryKeys(),
+
+        TestingDB.books
+          .filter((book) => {
+            if (filter.get('lend')) {
+              if (filter.get('lend')?.has('true')) {
+                if (book.lend !== undefined) return true
+                return false
+              } else {
+                if (book.lend === undefined) return true
+                return false
+              }
             } else {
-              if (book.lend === undefined) return true
-              return false
+              return true
             }
-          } else {
-            return true
-          }
-        })
-        .distinct()
-        .offset(offset.value).limit(limit.value).toArray()
+          })
+          .primaryKeys()
+      ]);
+
+      const intersection = results.reduce((ids1, ids2) => {
+        const set = new Set(ids1);
+        return ids2.filter(id => set.has(id));
+      });
+
+      total.value = intersection.length;
+      const segIndexes = intersection.splice(offset.value, limit.value)
+      this.items = await TestingDB.books.bulkGet(segIndexes)
     },
     async fetchPagedRows() {
       await this.count()
