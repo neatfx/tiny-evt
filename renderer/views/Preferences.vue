@@ -2,6 +2,7 @@
 import DatabaseImportAndExport from '@comps/preferences/DatabaseImportAndExport.vue';
 import DarkMode from '@comps/preferences/DarkMode.vue'
 import FolderPanel from '@comps/FolderPanel.vue';
+import Testing from '@comps/preferences/Testing.vue'
 </script>
 
 <template>
@@ -19,6 +20,14 @@ import FolderPanel from '@comps/FolderPanel.vue';
     </template>
     <template #body>
       <DatabaseImportAndExport></DatabaseImportAndExport>
+    </template>
+  </FolderPanel>
+    <FolderPanel class="panel">
+    <template #header>
+      <div class="header">Testing</div>
+    </template>
+    <template #body>
+      <Testing></Testing>
     </template>
   </FolderPanel>
 </template>
