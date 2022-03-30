@@ -20,10 +20,12 @@ const off = ref('off')
         <BaseButton>DataRows</BaseButton>
         <div v-for="(v, k) in props.views" :key="k">
           <div class="view-type">{{ k }}</div>
-          <li v-for="(key, value) in v" :key="value">
-            <div :class="['status-color-base', key ? on : off]"></div>
-            <BaseButton @click="v[value] = !v[value]">{{ value }}</BaseButton>
-          </li>
+          <ul>
+            <li v-for="(key, value) in v" :key="value">
+              <div :class="['status-color-base', key ? on : off]"></div>
+              <BaseButton @click="v[value] = !v[value]">{{ value }}</BaseButton>
+            </li>
+          </ul>
         </div>
       </div>
     </template>
@@ -32,10 +34,10 @@ const off = ref('off')
 
 <style scoped>
 .wrapper {
-  padding: 10px 5px 10px 10px;
+  padding: 10px 10px 15px 15px;
 }
 .view-type {
-  padding: 10px 0px 10px 0px;
+  padding: 10px 10px 10px 0px;
 }
 ul {
   display: grid;
