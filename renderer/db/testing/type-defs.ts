@@ -43,4 +43,5 @@ export interface IBook {
   description?: string;
 
   nameTokens?: string[];
+  lend?: string;
 }

@@ -78,7 +78,7 @@ export const useBooksStore = defineStore('books', {
       });
     },
     async filter(filter: Map<string, Set<string>>) {
-      // console.log(filter)
+      console.log(filter)
       total.value = await TestingDB.books
         .where('categories').anyOf(Array.from(filter.get('categories') || this.filters.categories))
         .and((book) => {
@@ -89,6 +89,29 @@ export const useBooksStore = defineStore('books', {
             if (result) { return true } else {
               return false
             }
+          }
+        })
+        .and((book) => {
+          if (!filter.get('author')) {
+            return this.filters.author.indexOf((book.author!)) === -1 ? false : true
+          } else {
+            const result = filter.get('author')?.has(book.author!)
+            if (result) { return true } else {
+              return false
+            }
+          }
+        })
+        .and((book) => {
+          if (filter.get('lend')) {
+            if (filter.get('lend')?.has('true')) {
+              if (book.lend !== undefined) return true
+              return false
+            } else {
+              if (book.lend === undefined) return true
+              return false
+            }
+          } else {
+            return true
           }
         })
         .distinct()
@@ -104,6 +127,29 @@ export const useBooksStore = defineStore('books', {
             if (result) { return true } else {
               return false
             }
+          }
+        })
+        .and((book) => {
+          if (!filter.get('author')) {
+            return this.filters.author.indexOf((book.author!)) === -1 ? false : true
+          } else {
+            const result = filter.get('author')?.has(book.author!)
+            if (result) { return true } else {
+              return false
+            }
+          }
+        })
+        .and((book) => {
+          if (filter.get('lend')) {
+            if (filter.get('lend')?.has('true')) {
+              if (book.lend !== undefined) return true
+              return false
+            } else {
+              if (book.lend === undefined) return true
+              return false
+            }
+          } else {
+            return true
           }
         })
         .distinct()

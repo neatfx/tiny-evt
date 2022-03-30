@@ -31,7 +31,20 @@ watchEffect(() => {
 
 // 处理二级菜单点击事件
 function onFilterItemClick(e: MouseEvent, filterType: string, filterValue: string) {
-  filter(filterType, filterValue)
+  if (filterType === 'lend') {
+    let va = ''
+    switch (filterValue) {
+      case '已借出':
+        va = 'true'
+        break;
+      case '未借出':
+        va = 'false'
+        break;
+    }
+    filter(filterType, va, false)
+  } else {
+    filter(filterType, filterValue)
+  }
   seletedFilter.value = ''
 }
 </script>

@@ -19,6 +19,7 @@ async function populateBooks() {
   book2.categories = ['历史']
   book2.publishing = '黄河出版社'
   book2.nameTokens = segmentit.doSegment(book2.name, { simple: true })
+  book2.lend = '2022.1.20 借给 Amy'
   // book2.nameTokens = book2.nameTokens?.concat([book2.author, ...book2.categories])
 
   const book3 = new Book('三体', '刘慈欣')
