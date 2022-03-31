@@ -25,10 +25,12 @@ function changeCover() {
     </template>
     <template #body>
       <div class="wrapper" ref="coverRef">
-        <div v-html="coverImgHtml"></div>
-        <div class="add">
-          <BaseButton class="add-btn" @click="changeCover">更换</BaseButton>
+        <div v-if="props.cover" v-html="coverImgHtml"></div>
+        <div v-if="!props.cover" class="dropzone" @dragover="ondragover" @drop="ondrop">
+          <img />
         </div>
+        <BaseButton v-if="props.cover" class="add-btn" @click="changeCover">更换</BaseButton>
+        <BaseButton v-if="!props.cover" class="add-btn" @click="changeCover">添加封面</BaseButton>
       </div>
     </template>
   </FolderPanel>
@@ -39,10 +41,17 @@ function changeCover() {
   padding: 10px;
   background-color: darkgrey;
 }
-img{
+img {
   width: 100px;
 }
+.dropzone {
+  border: 2px dotted silver;
+  border-radius: 5px;
+  width: 100px;
+  height: 60px;
+  text-align: center;
+}
 .add-btn {
-  margin: 5px;
+  margin: 10px 0 0;
 }
 </style>
