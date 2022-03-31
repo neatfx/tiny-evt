@@ -63,11 +63,9 @@ li {
   position: absolute;
   top: 29px;
   right: 0;
-  /* display: grid;
-  grid-template-columns: auto;
-  grid-auto-flow: column; */
   padding: 3px 10px;
   background-color: lightcoral;
+  z-index: 800;
 }
 .cross {
   display: inline-block;
