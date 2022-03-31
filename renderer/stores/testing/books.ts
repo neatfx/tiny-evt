@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
 import { TestingDB } from '../../db'
 import type { IndexableTypeArray } from 'dexie';
-import { Book } from '../../db/testing/book';
 
 import { usePagination } from '../../components/pagination';
 import type { IBook } from '@/db/testing/type-defs';
