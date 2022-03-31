@@ -9,6 +9,7 @@ import BaseButton from '@comps/BaseButton.vue';
 import ContextMenu from "@/components/data-row/RowsContextMenu.vue"
 import { vContextMenu, useContextMenu } from '@comps/contextMenu'
 import BookRowsTags from '@comps/data-row/BookRowsTags.vue'
+import BookRowsInlineTags from '@comps/data-row/BookRowsInlineTags.vue'
 import BookRowsCover from '@comps/data-row/BookRowsCover.vue'
 
 const props = defineProps(['items'])
@@ -29,15 +30,15 @@ async function deleteItem(key: number | undefined) {
   if (key) await store.delete(key)
 }
 
-async function addTag(tags: string[] , rowId: number) {
-  console.log('add tag',  tags ,rowId)
+async function addTag(tags: string[], rowId: number) {
+  console.log('add tag', tags, rowId)
   store.updateTest(rowId, {
     categories: tags
   })
 }
 
-async function deleteTag(tags: string[] , rowId: number) {
-  console.log('delete tag',  tags ,rowId)
+async function deleteTag(tags: string[], rowId: number) {
+  console.log('delete tag', tags, rowId)
   store.updateTest(rowId, {
     categories: tags
   })
@@ -52,13 +53,28 @@ async function deleteTag(tags: string[] , rowId: number) {
           <div v-if="store.view.fields.id" class="id">{{ id }}</div>
           <DataRowStatus v-if="store.view.fields.status"></DataRowStatus>
           <BookRowsCover :cover="cover"></BookRowsCover>
-          <div v-if="store.view.fields.name" class="title" @click="openDetail(id)">{{ '《 ' + name + ' 》' }}</div>
-          <BookRowsTags :categories="categories" :rowId="id" @add-tag="addTag" @delete-tag="deleteTag"></BookRowsTags>
+          <div
+            v-if="store.view.fields.name"
+            class="title"
+            @click="openDetail(id)"
+          >{{ '《 ' + name + ' 》' }}</div>
+          <BookRowsInlineTags
+            :categories="categories"
+            :rowId="id"
+            @add-tag="addTag"
+            @delete-tag="deleteTag"
+          ></BookRowsInlineTags>
           <div v-if="store.view.fields.author" class="title">{{ author }}</div>
           <!-- <div v-if="store.view.fields.categories" class="title">{{ categories }}</div> -->
           <div v-if="store.view.fields.publishing" class="title">{{ publishing || "N" }}</div>
         </div>
         <div class="right">
+          <BookRowsTags
+            :categories="categories"
+            :rowId="id"
+            @add-tag="addTag"
+            @delete-tag="deleteTag"
+          ></BookRowsTags>
           <DataRowEditButton v-if="store.view.control.edit" @click="updateItem(id)"></DataRowEditButton>
           <BaseButton v-if="store.view.control.delete" @click="deleteItem(id)" text="Delete">
             <span>删除</span>
@@ -78,22 +94,26 @@ async function deleteTag(tags: string[] , rowId: number) {
 }
 .id {
   text-align: center;
-  padding: 2px 10px 0 5px;
+  padding: 4px 5px 0 5px;
+  margin-right: 5px;
+  background-color: slategray;
 }
 .left {
   display: grid;
-  grid-template-columns: 40px 1fr minmax(0, 300px) auto auto auto;
+  /* grid-template-columns: 40px 1fr minmax(0, 300px) auto auto auto; */
   grid-auto-flow: column;
   justify-self: left;
+  margin-left: 2px;
   /* border: 1px solid red; */
 }
 .title {
   background-color: darkgray;
-  padding: 4px 10px;
+  padding: 3px 10px;
   margin-right: 5px;
 }
 .right {
   display: grid;
+  grid-template-columns: auto;
   grid-auto-flow: column;
   justify-self: right;
   /* border: 1px solid red; */
