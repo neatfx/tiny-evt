@@ -20,6 +20,7 @@ function check(): boolean {
 }
 
 const store = useBooksStore()
+const imgSrc = ref(false)
 
 function ondragover(event: any) {
   event.stopPropagation();
@@ -37,6 +38,8 @@ async function ondrop(ev: any) {
     if (!file) throw new Error(`Only files can be dropped here`);
 
     bookData.cover = file
+    imgSrc.value = true
+    document.querySelector("img")?.setAttribute('src', URL.createObjectURL(file))
   } catch (error) {
     console.error('' + error);
   }
@@ -49,6 +52,7 @@ async function addItem() {
   }
 
   await store.add(bookData)
+  imgSrc.value = false
 }
 </script>
 
@@ -60,7 +64,11 @@ async function addItem() {
     <template #body>
       <div class="panel-body">
         <div class="book-fields">
-          <div class="dropzone" @dragover="ondragover" @drop="ondrop">Cover</div>
+          <div class="dropzone" @dragover="ondragover" @drop="ondrop">
+            <span v-if="!imgSrc">封面</span>
+            <img />
+          </div>
+
           <div class="text-fields">
             <label>
               <span>书名</span>
@@ -121,6 +129,9 @@ async function addItem() {
   width: 130px;
   height: 190px;
   text-align: center;
+}
+img {
+  width: 130px;
 }
 label {
   display: grid;

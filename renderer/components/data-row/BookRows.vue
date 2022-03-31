@@ -9,6 +9,7 @@ import BaseButton from '@comps/BaseButton.vue';
 import ContextMenu from "@/components/data-row/RowsContextMenu.vue"
 import { vContextMenu, useContextMenu } from '@comps/contextMenu'
 import BookRowsTags from '@comps/data-row/BookRowsTags.vue'
+import BookRowsCover from '@comps/data-row/BookRowsCover.vue'
 
 const props = defineProps(['items'])
 const store = useBooksStore()
@@ -45,11 +46,12 @@ async function deleteTag(tags: string[] , rowId: number) {
 
 <template>
   <BaseDataRows :items="$props.items">
-    <template #item="{ id, name, author, categories, publishing }">
+    <template #item="{ id, name, author, categories, publishing, cover }">
       <div class="row" v-context-menu="id">
         <div class="left">
           <div v-if="store.view.fields.id" class="id">{{ id }}</div>
           <DataRowStatus v-if="store.view.fields.status"></DataRowStatus>
+          <BookRowsCover :cover="cover"></BookRowsCover>
           <div v-if="store.view.fields.name" class="title" @click="openDetail(id)">{{ '《 ' + name + ' 》' }}</div>
           <BookRowsTags :categories="categories" :rowId="id" @add-tag="addTag" @delete-tag="deleteTag"></BookRowsTags>
           <div v-if="store.view.fields.author" class="title">{{ author }}</div>
