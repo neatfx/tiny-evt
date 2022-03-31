@@ -115,7 +115,7 @@ async function deleteTag(tags: string[], rowId: number) {
   display: grid;
   grid-template-columns: auto;
   grid-auto-flow: column;
-  justify-self: right;
+  justify-content: right;
   /* border: 1px solid red; */
 }
 </style>
