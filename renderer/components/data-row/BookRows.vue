@@ -59,6 +59,7 @@ async function deleteTag(tags: string[], rowId: number) {
             @click="openDetail(id)"
           >{{ '《 ' + name + ' 》' }}</div>
           <BookRowsInlineTags
+            v-if="store.view.fields.categories"
             :categories="categories"
             :rowId="id"
             @add-tag="addTag"
@@ -70,6 +71,7 @@ async function deleteTag(tags: string[], rowId: number) {
         </div>
         <div class="right">
           <BookRowsTags
+            v-if="store.view.control.categories"
             :categories="categories"
             :rowId="id"
             @add-tag="addTag"

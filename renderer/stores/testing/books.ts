@@ -21,6 +21,7 @@ export const useBooksStore = defineStore('books', {
     view: {
       control: {
         delete: true,
+        categories: true,
         edit: true,
       },
       fields: {
