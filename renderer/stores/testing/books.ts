@@ -41,13 +41,9 @@ export const useBooksStore = defineStore('books', {
     async list() {
       this.items = await TestingDB.books.offset(offset.value).limit(limit.value).toArray()
     },
-    async add(name: string, author: string, categories?: string[], publishing?: string) {
-      await TestingDB.books.add(new Book(
-        name,
-        author,
-        categories,
-        publishing,
-      ))
+    async add(book: IBook) {
+      console.log(book)
+      await TestingDB.books.add(book)
     },
     async update(key: number) {
       await TestingDB.books.update(key, {

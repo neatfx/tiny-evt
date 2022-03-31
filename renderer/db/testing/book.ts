@@ -16,13 +16,13 @@ export class Book implements IBook {
   created!: Date;
   lend?: string | undefined;
 
-  constructor(name: string, author: string, categories?: string[], publishing?: string, id?: number, ...values: []) {
+  constructor(name: string, author: string) {
     this.name = name;
     this.author = author;
-    this.categories = categories;
-    this.publishing = publishing;
-    this.created = new Date()
-    if (id) this.id = id;
+    // this.categories = categories;
+    // this.publishing = publishing;
+    // this.created = new Date()
+    // if (id) this.id = id;
 
     // Define navigation properties.
     // Making them non-enumerable will prevent them from being handled by indexedDB

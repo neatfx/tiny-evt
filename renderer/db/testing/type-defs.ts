@@ -28,8 +28,9 @@ export interface IPhoneNumber {
 export interface IBook {
   id?: number; // Primary key. Optional (autoincremented)
   name: string;
-  coverUrl?: string;
   author: string;
+
+  cover?: Blob | null;
 
   created?: Date;
   subname?: string;

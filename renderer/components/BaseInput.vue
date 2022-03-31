@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-// const props = defineProps<{
-//   placeholderValue?: string
-// }>()
 defineEmits(['update:modelValue'])
 const inputVal = ref('')
 </script>
