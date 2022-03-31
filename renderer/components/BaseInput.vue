@@ -1,10 +1,18 @@
 <script setup lang="ts">
-defineProps<{
-  text?: string
-}>()
+import { ref } from 'vue';
+
+// const props = defineProps<{
+//   placeholderValue?: string
+// }>()
+defineEmits(['update:modelValue'])
+const inputVal = ref('')
 </script>
 <template>
-  <input v-model="text" />
+  <input
+    type="text"
+    @input="$emit('update:modelValue', inputVal)"
+    v-model="inputVal"
+  />
 </template>
 <style scoped>
 input {

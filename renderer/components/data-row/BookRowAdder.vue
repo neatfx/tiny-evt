@@ -1,25 +1,22 @@
 <script setup lang="ts">
 import { useBooksStore } from '@stores/index'
-import { reactive } from 'vue';
+import { ref } from 'vue';
 
 import BaseButton from '../BaseButton.vue';
+import BaseInput from '../BaseInput.vue';
 import FolderPanel from '../FolderPanel.vue';
 
-export type IFormFields = {
-  friendName: String;
-  friendAge: Number;
-}
-const state: IFormFields = {
-  friendName: 'someone',
-  friendAge: 21,
-}
-const data = reactive({
-
+const bookData = ref({
+  name: '',
+  author: '',
+  categories: [],
+  publishing: ''
 })
 const store = useBooksStore()
 
 async function addItem(data: any) {
-  await store.add('test-book-name', 'neatfx', ['计算机技术', '前端开发'], 'Future Publishing Room')
+  console.log(bookData.value)
+  // await store.add('test-book-name', 'neatfx', ['计算机技术', '前端开发'], 'Future Publishing Room')
 }
 </script>
 
@@ -31,24 +28,37 @@ async function addItem(data: any) {
     <template #body>
       <div class="panel-body">
         <label class="field-name">
-          书名:
-          <input v-model="state.friendName" type="text" />
+          <BaseInput
+            type="text"
+            :modelValue="bookData.name"
+            @update:model-value="newValue => bookData.name = newValue"
+          />
         </label>
-        <br />
         <label>
           作者:
-          <input v-model="state.friendAge" type="text" />
+          <BaseInput
+            type="text"
+            :modelValue="bookData.author"
+            @update:model-value="newValue => bookData.author = newValue"
+          />
         </label>
         <label>
           分类:
-          <input v-model="state.friendAge" type="text" />
+          <BaseInput
+            type="text"
+            :modelValue="bookData.categories"
+            @update:model-value="newValue => bookData.categories = newValue"
+          />
         </label>
         <label>
           出版社:
-          <input v-model="state.friendAge" type="text" />
+          <BaseInput
+            type="text"
+            :modelValue="bookData.publishing"
+            @update:model-value="newValue => bookData.publishing = newValue"
+          />
         </label>
-        <br />
-        <BaseButton class="btn-submit" @click="addItem(state)">保存</BaseButton>
+        <BaseButton class="btn-submit" @click="addItem">保存</BaseButton>
       </div>
     </template>
   </FolderPanel>
@@ -58,7 +68,19 @@ async function addItem(data: any) {
 .panel-body {
   padding: 20px;
 }
+label {
+  display: block;
+  margin: 5px 0;
+}
+input {
+  border: 1px solid darkgray;
+  /* padding: 15px; */
+  margin-left: 20px;
+}
+input:last-child {
+  /* margin-left: 0; */
+}
 .btn-submit {
-  margin-top: 15px;
+  margin-top: 0px;
 }
 </style>
