@@ -4,7 +4,7 @@ import { useBooksStore } from '@/stores'
 import { ref } from 'vue'
 
 import BaseDataRows from '@comps/data-row/BaseRows.vue'
-import DataRowStatus from '@/components/data-row/ContactRowStatus.vue'
+import BookRowsReadStatus from '@/components/data-row/BookRowsReadStatus.vue'
 import DeleteButton from '@comps/DeleteButton.vue'
 import ContextMenu from "@/components/data-row/RowsContextMenu.vue"
 import { vContextMenu, useContextMenu } from '@comps/contextMenu'
@@ -56,19 +56,30 @@ function deleteLend(rowId: number) {
 
 function addLend(rowId: number, info: string) {
   store.updateTest(rowId, {
-    lend: info 
+    lend: info
+  })
+}
+
+function markRead(rowId: number, read: boolean | undefined) {
+   store.updateTest(rowId, {
+    read: read
   })
 }
 </script>
 
 <template>
   <BaseDataRows :items="props.items">
-    <template #item="{ id, name, author, categories, publishing, cover, lend }">
+    <template #item="{ id, name, author, categories, publishing, cover, lend, read }">
       <div class="row" v-context-menu="id">
         <div class="left">
           <div v-if="store.view.fields.id" class="id">{{ id }}</div>
           <BookRowsLendStatus :lend="lend" :rowId="id" @reset-lend="deleteLend" @add-lend="addLend"></BookRowsLendStatus>
-          <DataRowStatus v-if="store.view.fields.status"></DataRowStatus>
+          <BookRowsReadStatus
+            v-if="store.view.fields.status"
+            :rowId="id"
+            :read="read"
+            @mark-read="markRead"
+          ></BookRowsReadStatus>
           <BookRowsCover :cover="cover"></BookRowsCover>
           <EditableText
             v-if="store.view.fields.name"
