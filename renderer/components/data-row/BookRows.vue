@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import router from '@/router'
 import { useBooksStore } from '@/stores'
+import { ref } from 'vue'
 
 import BaseDataRows from '@comps/data-row/BaseRows.vue'
 import DataRowStatus from '@/components/data-row/ContactRowStatus.vue'
@@ -11,7 +12,7 @@ import BookRowsTags from '@comps/data-row/BookRowsTags.vue'
 import BookRowsInlineTags from '@comps/data-row/BookRowsInlineTags.vue'
 import BookRowsCover from '@comps/data-row/BookRowsCover.vue'
 import EditableText from '@comps/EditableText.vue'
-import { ref } from 'vue'
+import BookRowsLendStatus from '@comps/data-row/BookRowsLendStatus.vue'
 
 const props = defineProps(['items'])
 const store = useBooksStore()
@@ -50,10 +51,11 @@ async function deleteTag(tags: string[], rowId: number) {
 
 <template>
   <BaseDataRows :items="props.items">
-    <template #item="{ id, name, author, categories, publishing, cover }">
+    <template #item="{ id, name, author, categories, publishing, cover, lend }">
       <div class="row" v-context-menu="id">
         <div class="left">
           <div v-if="store.view.fields.id" class="id">{{ id }}</div>
+          <BookRowsLendStatus :lend="lend"></BookRowsLendStatus>
           <DataRowStatus v-if="store.view.fields.status"></DataRowStatus>
           <BookRowsCover :cover="cover"></BookRowsCover>
           <EditableText
