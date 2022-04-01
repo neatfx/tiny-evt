@@ -25,19 +25,16 @@ async function updateItem(key: number | undefined) {
 }
 
 async function deleteItem(key: number | undefined) {
-  // console.log('Delete item by ID ', key)
   if (key) await store.delete(key)
 }
 
 async function addTag(tags: string[], rowId: number) {
-  console.log('add tag', tags, rowId)
   store.updateTest(rowId, {
     categories: tags
   })
 }
 
 async function deleteTag(tags: string[], rowId: number) {
-  console.log('delete tag', tags, rowId)
   store.updateTest(rowId, {
     categories: tags
   })
@@ -76,7 +73,6 @@ async function deleteTag(tags: string[], rowId: number) {
             @delete-tag="deleteTag"
             class="right"
           ></BookRowsTags>
-          <!-- <DataRowEditButton v-if="store.view.control.edit" class="right" @click="updateItem(id)"></DataRowEditButton> -->
           <DeleteButton v-if="store.view.control.delete" class="right" @click="deleteItem(id)"></DeleteButton>
         </div>
       </div>
