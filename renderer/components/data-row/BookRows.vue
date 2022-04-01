@@ -141,6 +141,7 @@ function markRead(rowId: number, read: boolean | undefined) {
 }
 .id {
   text-align: center;
+  width: 30px;
   padding: 4px 5px 0 5px;
   margin-right: 5px;
   background-color: slategray;
