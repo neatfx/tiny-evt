@@ -50,7 +50,7 @@ li {
 }
 .delete-btn {
   position: fixed;
-  padding: 4px 15px 3px;
+  padding: 4px 10px 3px 12px;
   background-color: lightcoral;
 }
 .cross {
