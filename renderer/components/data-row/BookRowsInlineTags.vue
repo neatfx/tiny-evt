@@ -17,7 +17,7 @@ function deleteTag(key: number) {
 <template>
   <ul>
     <li v-for="(value, key) in props.categories" :key="key">
-      <div @mouseenter="() => currentTag = key" @mouseleave="() => currentTag = 100">
+      <div class="tag-wrapper" @mouseenter="() => currentTag = key" @mouseleave="() => currentTag = 100">
         <div class="tag-name">
           <span>{{ value }}</span>
         </div>
@@ -42,12 +42,15 @@ li {
   background-color: khaki;
   margin-right: 5px;
 }
+.tag-wrapper{
+  display: grid;
+}
 .tag-name {
   padding: 3px 8px;
 }
 .delete-btn {
   position: fixed;
-  padding: 3px 10px;
+  padding: 4px 15px 3px;
   background-color: lightcoral;
 }
 .cross {
