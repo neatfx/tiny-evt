@@ -62,7 +62,7 @@ async function addItem() {
       <BaseButton>添加</BaseButton>
     </template>
     <template #body>
-      <div class="panel-body">
+      <div class="panel-body-wrapper">
         <div class="book-fields">
           <div class="dropzone" @dragover="ondragover" @drop="ondrop">
             <span v-if="!imgSrc">封面</span>
@@ -111,17 +111,16 @@ async function addItem() {
 </template>
 
 <style scoped>
-.panel-body {
+.panel-body-wrapper {
   display: grid;
-  grid-template-rows: 1fr auto;
   gap: 10px;
-  padding: 10px;
+  padding: 15px;
 }
 .book-fields {
   display: grid;
   grid-template-columns: 1fr auto;
   grid-auto-flow: column;
-  gap: 10px;
+  gap: 15px;
 }
 .dropzone {
   border: 2px dotted silver;
@@ -136,17 +135,24 @@ img {
 label {
   display: grid;
   grid-template-columns: 1fr auto;
+  grid-auto-flow: column;
+  /* gap: 15px; */
   /* border: 1px solid blue; */
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 span {
-  padding: 4px 10px 0;
+  padding: 5px 10px 5px;
   background-color: bisque;
   text-align: right;
 }
 input {
   border: 1px solid darkgray;
   margin-left: 5px;
+  vertical-align: middle;
+  font-size: small;
+  padding: 5px 0 5px;
+  /* margin-top: 2px; */
+
 }
 .btn-submit {
   margin: 5px 0 0 0;
