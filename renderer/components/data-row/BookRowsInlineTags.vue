@@ -3,10 +3,9 @@ import { ref } from 'vue';
 
 const props = defineProps(['categories', 'rowId'])
 const emit = defineEmits<{
-  (event: 'add-tag', tags: string[], rowId: number): void
   (event: 'delete-tag', tags: string[], rowId: number): void
 }>()
-const isDeleteBtnOpen = ref(false)
+const currentTag = ref(100)
 
 function deleteTag(key: number) {
   const arr: string[] = Array.from(props.categories)
@@ -18,18 +17,16 @@ function deleteTag(key: number) {
 <template>
   <ul>
     <li v-for="(value, key) in props.categories" :key="key">
-      <!-- <div class="tag-wrapper"> -->
       <div
         class="tag-name"
-        @mouseenter="() => isDeleteBtnOpen = true"
-        @mouseleave="() => isDeleteBtnOpen = false"
+        @mouseenter="() => currentTag = key"
+        @mouseleave="() => currentTag = 100"
       >
         <span>{{ value }}</span>
-        <div v-if="isDeleteBtnOpen" class="delete-btn" @click="deleteTag(key)">
+        <div v-if="currentTag === key" class="delete-btn" @click="deleteTag(key)">
           <span class="cross">+</span>
         </div>
       </div>
-      <!-- </div> -->
     </li>
   </ul>
 </template>
