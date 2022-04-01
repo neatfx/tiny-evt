@@ -6,7 +6,6 @@ import { useBooksStore } from '@/stores'
 
 const store = useBooksStore()
 const search = ref('')
-const showInput = ref(false)
 
 watch(search, async (newKeyWords) => {
   if (search.value.length) {
@@ -18,15 +17,14 @@ watch(search, async (newKeyWords) => {
 
 function clear() {
   if (search.value) search.value = ''
-  showInput.value = !showInput.value
 }
 </script>
 <template>
+  <BaseInput v-model="search" />
   <BaseButton @click="clear">搜索</BaseButton>
-  <BaseInput v-if="showInput" v-model="search" />
 </template>
 <style scoped>
-button{
+button {
   margin-right: 0;
 }
 </style>

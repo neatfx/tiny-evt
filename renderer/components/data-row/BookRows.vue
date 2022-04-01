@@ -46,7 +46,7 @@ async function deleteTag(tags: string[], rowId: number) {
 </script>
 
 <template>
-  <BaseDataRows :items="$props.items">
+  <BaseDataRows :items="props.items">
     <template #item="{ id, name, author, categories, publishing, cover }">
       <div class="row" v-context-menu="id">
         <div class="left">
