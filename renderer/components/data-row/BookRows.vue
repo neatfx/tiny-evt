@@ -21,8 +21,9 @@ function openDetail(rowId: number | undefined) {
 }
 
 async function updateItem(rowId: number, fieldName: string, payload: string) {
-  console.log('Update item by ID ', rowId, fieldName, payload)
-  // if (key) await store.update(key)
+  let obj: { [key: string]: string } = {}
+  obj[fieldName] = payload
+  await store.update(rowId, obj)
 }
 
 async function deleteItem(key: number | undefined) {
