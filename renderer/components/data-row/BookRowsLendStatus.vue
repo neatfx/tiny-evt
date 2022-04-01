@@ -1,16 +1,22 @@
 <script setup lang="ts">
 import BaseButton from '@comps/BaseButton.vue';
-import { ref } from 'vue';
 import BaseInputVue from '../BaseInput.vue';
 import FolderPanel from '@comps/FolderPanel.vue'
+import { ref } from 'vue';
 
-const props = defineProps(['lend'])
+const props = defineProps(['lend', 'rowId'])
 const emit = defineEmits<{
-  (event: 'delete-tag', tags: string[], rowId: number): void
+  (event: 'reset-lend', rowId: number): void;
+  (event: 'add-lend', rowId: number, info: string): void
 }>()
-const showInfo = ref(false)
+const lendInfo = ref('')
 
-function mark() {
+function reset() {
+  emit('reset-lend', props.rowId)
+}
+
+function add() {
+  emit('add-lend', props.rowId, lendInfo.value)
 }
 </script>
 
@@ -23,9 +29,9 @@ function mark() {
     <template #body>
       <div class="wrapper">
         <span v-if="lend" class="info-text">{{ lend }}</span>
-        <BaseButton v-if="lend" class="reset-btn">清除借阅信息</BaseButton>
-        <BaseInputVue v-if="!lend" class="input-zone"></BaseInputVue>
-        <BaseButton v-if="!lend" class="add-btn">添加借阅信息</BaseButton>
+        <BaseButton v-if="lend" class="reset-btn" @click="reset">清除借阅信息</BaseButton>
+        <BaseInputVue v-if="!lend" class="input-zone" v-model="lendInfo"></BaseInputVue>
+        <BaseButton v-if="!lend" class="add-btn" @click="add">添加借阅信息</BaseButton>
       </div>
     </template>
   </FolderPanel>

@@ -47,6 +47,18 @@ async function deleteTag(tags: string[], rowId: number) {
     categories: tags
   })
 }
+
+function deleteLend(rowId: number) {
+  store.updateTest(rowId, {
+    lend: undefined
+  })
+}
+
+function addLend(rowId: number, info: string) {
+  store.updateTest(rowId, {
+    lend: info 
+  })
+}
 </script>
 
 <template>
@@ -55,7 +67,7 @@ async function deleteTag(tags: string[], rowId: number) {
       <div class="row" v-context-menu="id">
         <div class="left">
           <div v-if="store.view.fields.id" class="id">{{ id }}</div>
-          <BookRowsLendStatus :lend="lend"></BookRowsLendStatus>
+          <BookRowsLendStatus :lend="lend" :rowId="id" @reset-lend="deleteLend" @add-lend="addLend"></BookRowsLendStatus>
           <DataRowStatus v-if="store.view.fields.status"></DataRowStatus>
           <BookRowsCover :cover="cover"></BookRowsCover>
           <EditableText
