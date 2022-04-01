@@ -7,7 +7,6 @@ import { ref } from 'vue';
 const props = defineProps(['categories', 'rowId'])
 const emit = defineEmits<{
   (event: 'add-tag', tags: string[], rowId: number): void
-  (event: 'delete-tag', tags: string[], rowId: number): void
 }>()
 const tagInput = ref('')
 
@@ -17,12 +16,6 @@ function addTag() {
     arr.push(tagInput.value)
   }
   emit('add-tag', arr, props.rowId)
-}
-
-function deleteTag(key: number) {
-  const arr: string[] = Array.from(props.categories)
-  arr.splice(key, 1)
-  emit('delete-tag', arr, props.rowId)
 }
 </script>
 

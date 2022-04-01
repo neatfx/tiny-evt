@@ -67,8 +67,8 @@ async function deleteTag(tags: string[], rowId: number) {
           ></BookRowsInlineTags>
           <div v-if="store.view.fields.author" class="title">{{ author }}</div>
           <div v-if="store.view.fields.publishing" class="title">{{ publishing || "N" }}</div>
-        <!-- </div> -->
-        <!-- <div class="right"> -->
+        </div>
+        <div class="right">
           <BookRowsTags
             v-if="store.view.control.categories"
             :categories="categories"
@@ -112,10 +112,10 @@ async function deleteTag(tags: string[], rowId: number) {
 .title {
   background-color: darkgray;
   padding: 4px 10px;
-  /* margin-right: 5px; */
+  margin-right: 5px;
 }
 .right {
   justify-self: right;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 </style>
