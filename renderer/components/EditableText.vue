@@ -12,13 +12,13 @@ const sourceContent = ref('')
 const contentInput = ref('')
 
 function edit(this: any) {
-  sourceContent.value = props.text
+  if (sourceContent.value === '') sourceContent.value = props.text
   showInput.value = true
 }
 
 function save(source: string) {
   console.log(contentInput.value, '+', source)
-  if (contentInput.value !== '' &&  contentInput.value !== props.text) {
+  if (contentInput.value !== '' && contentInput.value !== props.text) {
     sourceContent.value = contentInput.value
     emit('update', props.rowId, 'name', contentInput.value)
   } else {
