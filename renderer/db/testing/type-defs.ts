@@ -32,6 +32,7 @@ export interface IBook {
 
   cover?: Blob | null;
 
+  read?: boolean;
   created?: Date;
   subname?: string;
   translator?: string;

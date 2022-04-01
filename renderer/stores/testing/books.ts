@@ -46,7 +46,7 @@ export const useBooksStore = defineStore('books', {
       await TestingDB.books.add(book)
     },
     async update(key: number, mod: any) {
-      console.log(key,mod)
+      console.log(key, mod)
       await TestingDB.books.update(key, mod)
     },
     async updateTest(key: number, change: any) {
