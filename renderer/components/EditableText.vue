@@ -50,7 +50,7 @@ onMounted(() => {
 .name {
   /* padding: 3px 10px; */
   background-color: darkgray;
-  padding: 4px 10px;
+  padding: 3px 10px;
   margin-right: 5px;
 }
 .input-zone {

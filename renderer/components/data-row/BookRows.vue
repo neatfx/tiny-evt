@@ -73,9 +73,9 @@ function markRead(rowId: number, read: boolean | undefined) {
       <div class="row" v-context-menu="id">
         <div class="left">
           <div v-if="store.view.fields.id" class="id">{{ id }}</div>
-          <BookRowsLendStatus :lend="lend" :rowId="id" @reset-lend="deleteLend" @add-lend="addLend"></BookRowsLendStatus>
+          <BookRowsLendStatus v-if="store.view.fields.status" :lend="lend" :rowId="id" @reset-lend="deleteLend" @add-lend="addLend"></BookRowsLendStatus>
           <BookRowsReadStatus
-            v-if="store.view.fields.status"
+            v-if="store.view.fields.read"
             :rowId="id"
             :read="read"
             @mark-read="markRead"

@@ -18,18 +18,18 @@ export const useBooksStore = defineStore('books', {
       lend: ['已借出', '未借出']
     },
     view: {
-      control: {
-        delete: true,
-        categories: true,
-        edit: true,
-      },
       fields: {
         id: true,
         status: true,
+        read: true,
         name: true,
         author: true,
         categories: true,
         publishing: true
+      },
+      control: {
+        delete: true,
+        categories: true,
       }
     }
   }),

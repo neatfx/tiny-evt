@@ -40,7 +40,7 @@ function addTag() {
 .input-zone {
   width: 80px;
   margin: 0;
-  padding: 2px 0 3px 10px;
+  padding: 2px 0 2px 10px;
   vertical-align: middle;
 }
 .add-btn {
