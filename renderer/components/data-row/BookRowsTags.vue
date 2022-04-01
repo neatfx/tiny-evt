@@ -27,9 +27,13 @@ function addTag() {
 </script>
 
 <template>
-  <BaseInput v-if="showInput" class="input-zone" v-model="tagInput" />
-  <BaseButton v-if="showInput" class="add-btn" @click="addTag">添加</BaseButton>
-  <BaseButton v-if="!showInput" @click="showInput = !showInput">标签</BaseButton>
+  <Transition name="slide-up" mode="out-in">
+    <BaseButton v-if="!showInput" @click="showInput = !showInput">标签</BaseButton>
+    <div v-else-if="showInput" @mouseleave="showInput = false">
+      <BaseInput class="input-zone" v-model="tagInput"></BaseInput>
+      <BaseButton class="add-btn" @click="addTag">添加</BaseButton>
+    </div>
+  </Transition>
 </template>
 
 <style scoped>
@@ -41,5 +45,17 @@ function addTag() {
 }
 .add-btn {
   margin: 0 5px 0 0;
+}
+
+/* Transition */
+.slide-up-move,
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: all 0.2s ease;
+}
+.slide-up-enter-from,
+.slide-up-leave-to {
+  opacity: 0.2;
+  transform: translateX(2px);
 }
 </style>
