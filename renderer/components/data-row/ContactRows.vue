@@ -4,7 +4,7 @@ import { useContactsStore } from '@/stores'
 
 import BaseDataRows from '@comps/data-row/BaseRows.vue'
 import DataRowStatus from '@/components/data-row/ContactRowStatus.vue'
-import DataRowEditButton from '@comps/EditButton.vue'
+// import DataRowEditButton from '@comps/.vue'
 import BaseButton from '@comps/BaseButton.vue';
 import ContextMenu from "@/components/data-row/RowsContextMenu.vue"
 import { vContextMenu, useContextMenu } from '@comps/contextMenu'
@@ -33,7 +33,7 @@ async function deleteItem(key: number | undefined) {
           <div class="title" @click="openDetail(id)">{{ name }} - {{ age }} - {{ sex }} - {{ role }}</div>
         </div>
         <div class="right">
-          <DataRowEditButton v-if="store.view.edit"></DataRowEditButton>
+          <!-- <DataRowEditButton v-if="store.view.edit"></DataRowEditButton> -->
           <BaseButton v-if="store.view.delete" @click="deleteItem(id)" text="Delete">
             <span>Delete</span>
           </BaseButton>
