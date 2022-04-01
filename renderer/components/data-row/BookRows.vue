@@ -10,6 +10,7 @@ import { vContextMenu, useContextMenu } from '@comps/contextMenu'
 import BookRowsTags from '@comps/data-row/BookRowsTags.vue'
 import BookRowsInlineTags from '@comps/data-row/BookRowsInlineTags.vue'
 import BookRowsCover from '@comps/data-row/BookRowsCover.vue'
+import EditableText from '@comps/EditableText.vue'
 
 const props = defineProps(['items'])
 const store = useBooksStore()
@@ -19,8 +20,8 @@ function openDetail(rowId: number | undefined) {
   router.push('/data-row-detail/' + rowId)
 }
 
-async function updateItem(key: number | undefined) {
-  console.log('Delete item by ID ', key)
+async function updateItem(rowId: number, fieldName: string, payload: string) {
+  console.log('Update item by ID ', rowId, fieldName, payload)
   // if (key) await store.update(key)
 }
 
@@ -49,16 +50,11 @@ async function deleteTag(tags: string[], rowId: number) {
           <div v-if="store.view.fields.id" class="id">{{ id }}</div>
           <DataRowStatus v-if="store.view.fields.status"></DataRowStatus>
           <BookRowsCover :cover="cover"></BookRowsCover>
-          <div
-            v-if="store.view.fields.name"
-            class="title"
-            @click="openDetail(id)"
-          >{{ '《 ' + name + ' 》' }}</div>
+          <EditableText :rowId="id" :text="name" @update="updateItem"></EditableText>
           <BookRowsInlineTags
             v-if="store.view.fields.categories"
             :categories="categories"
             :rowId="id"
-            @add-tag="addTag"
             @delete-tag="deleteTag"
           ></BookRowsInlineTags>
           <div v-if="store.view.fields.author" class="title">{{ author }}</div>
@@ -70,7 +66,6 @@ async function deleteTag(tags: string[], rowId: number) {
             :categories="categories"
             :rowId="id"
             @add-tag="addTag"
-            @delete-tag="deleteTag"
             class="right"
           ></BookRowsTags>
           <DeleteButton v-if="store.view.control.delete" class="right" @click="deleteItem(id)"></DeleteButton>

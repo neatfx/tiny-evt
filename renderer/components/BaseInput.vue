@@ -1,8 +1,15 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
+const props = defineProps<{
+  content?: string
+}>()
 defineEmits(['update:modelValue'])
 const inputVal = ref('')
+
+onMounted(() => {
+  if (props.content) inputVal.value = props.content
+})
 </script>
 <template>
   <input type="text" @input="$emit('update:modelValue', inputVal)" v-model="inputVal" />
