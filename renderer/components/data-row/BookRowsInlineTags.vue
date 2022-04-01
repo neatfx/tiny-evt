@@ -42,6 +42,7 @@ ul {
   margin: 0;
 }
 li {
+  position: relative;
   display: grid;
   /* grid-auto-flow: column; */
   text-align: center;
@@ -53,7 +54,7 @@ li {
   /* display: inline-block; */
 }
 .tag-name {
-  position: relative;
+  /* position: relative; */
   padding: 3px 8px;
 }
 .delete-btn {

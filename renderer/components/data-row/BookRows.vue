@@ -62,6 +62,7 @@ async function deleteTag(tags: string[], rowId: number) {
             v-if="store.view.fields.name"
             :rowId="id"
             :text="name"
+            :isName="() => true"
             @update="(rowId, payload) => {
               currentUpdateField = 'name'
               updateItem(rowId, payload)

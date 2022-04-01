@@ -3,7 +3,7 @@ import { onMounted, ref } from 'vue';
 import BaseInput from '@comps/BaseInput.vue'
 import { vFocus } from '@comps/focus'
 
-const props = defineProps(['rowId', 'text'])
+const props = defineProps(['rowId', 'text', 'isName'])
 const emit = defineEmits<{
   (event: 'update', rowId: number, payload: string): void
 }>()
@@ -32,7 +32,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <span class="name" v-if="!showInput" @dblclick="edit">{{ sourceContent }}</span>
+  <span class="name" v-if="!showInput" @dblclick="edit">
+    <span v-if="isName">{{ '《 ' + sourceContent + ' 》' }}</span>
+    <span v-else-if="!isName">{{ sourceContent }}</span>
+  </span>
   <BaseInput
     class="input-zone"
     v-if="showInput"
@@ -46,7 +49,7 @@ onMounted(() => {
 <style scoped>
 .name {
   /* padding: 3px 10px; */
-    background-color: darkgray;
+  background-color: darkgray;
   padding: 4px 10px;
   margin-right: 5px;
 }
