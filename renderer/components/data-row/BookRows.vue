@@ -101,6 +101,11 @@ async function deleteTag(tags: string[], rowId: number) {
   margin-right: 5px;
   background-color: slategray;
 }
+.title {
+  background-color: darkgray;
+  padding: 4px 10px;
+  margin-right: 5px;
+}
 .left {
   display: grid;
   /* grid-template-columns: 40px 1fr minmax(0, 300px) auto auto auto; */
@@ -109,12 +114,10 @@ async function deleteTag(tags: string[], rowId: number) {
   margin-left: 2px;
   /* border: 1px solid red; */
 }
-.title {
-  background-color: darkgray;
-  padding: 4px 10px;
-  margin-right: 5px;
-}
 .right {
+  display: grid;
+  /* grid-template-columns: 1fr auto; */
+  grid-auto-flow: column;
   justify-self: right;
   /* border: 1px solid red; */
 }
