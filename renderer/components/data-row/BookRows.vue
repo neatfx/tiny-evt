@@ -4,8 +4,7 @@ import { useBooksStore } from '@/stores'
 
 import BaseDataRows from '@comps/data-row/BaseRows.vue'
 import DataRowStatus from '@/components/data-row/ContactRowStatus.vue'
-import DataRowEditButton from '@comps/EditButton.vue'
-import BaseButton from '@comps/BaseButton.vue';
+import DeleteButton from '@comps/DeleteButton.vue'
 import ContextMenu from "@/components/data-row/RowsContextMenu.vue"
 import { vContextMenu, useContextMenu } from '@comps/contextMenu'
 import BookRowsTags from '@comps/data-row/BookRowsTags.vue'
@@ -21,8 +20,8 @@ function openDetail(rowId: number | undefined) {
 }
 
 async function updateItem(key: number | undefined) {
-  // console.log('Delete item by ID ', key)
-  if (key) await store.update(key)
+  console.log('Delete item by ID ', key)
+  // if (key) await store.update(key)
 }
 
 async function deleteItem(key: number | undefined) {
@@ -77,10 +76,8 @@ async function deleteTag(tags: string[], rowId: number) {
             @delete-tag="deleteTag"
             class="right"
           ></BookRowsTags>
-          <DataRowEditButton v-if="store.view.control.edit" class="right" @click="updateItem(id)"></DataRowEditButton>
-          <BaseButton v-if="store.view.control.delete" class="right" @click="deleteItem(id)" text="Delete">
-            <span>删除</span>
-          </BaseButton>
+          <!-- <DataRowEditButton v-if="store.view.control.edit" class="right" @click="updateItem(id)"></DataRowEditButton> -->
+          <DeleteButton v-if="store.view.control.delete" class="right" @click="deleteItem(id)"></DeleteButton>
         </div>
       </div>
     </template>
