@@ -5,7 +5,7 @@ import { vFocus } from '@comps/focus'
 
 const props = defineProps(['rowId', 'text'])
 const emit = defineEmits<{
-  (event: 'update', rowId: number, fieldName: string, payload: string): void
+  (event: 'update', rowId: number, payload: string): void
 }>()
 const showInput = ref(false)
 const sourceContent = ref('')
@@ -16,13 +16,11 @@ function edit(this: any) {
   showInput.value = true
 }
 
-function save(source: string) {
-  console.log(contentInput.value, '+', source)
+function save() {
   if (contentInput.value !== '' && contentInput.value !== props.text) {
     sourceContent.value = contentInput.value
-    emit('update', props.rowId, 'name', contentInput.value)
+    emit('update', props.rowId, contentInput.value)
   } else {
-    console.log('n')
     sourceContent.value = props.text
   }
   showInput.value = false
@@ -39,7 +37,7 @@ onMounted(() => {
     class="input-zone"
     v-if="showInput"
     v-model="contentInput"
-    @blur="save(props.text)"
+    @blur="save"
     :content="sourceContent"
     v-focus
   ></BaseInput>
@@ -47,7 +45,10 @@ onMounted(() => {
 
 <style scoped>
 .name {
-  padding: 3px 10px;
+  /* padding: 3px 10px; */
+    background-color: darkgray;
+  padding: 4px 10px;
+  margin-right: 5px;
 }
 .input-zone {
   margin: 0px 5px 0 0;

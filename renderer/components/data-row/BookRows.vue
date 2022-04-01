@@ -11,19 +11,24 @@ import BookRowsTags from '@comps/data-row/BookRowsTags.vue'
 import BookRowsInlineTags from '@comps/data-row/BookRowsInlineTags.vue'
 import BookRowsCover from '@comps/data-row/BookRowsCover.vue'
 import EditableText from '@comps/EditableText.vue'
+import { ref } from 'vue'
 
 const props = defineProps(['items'])
 const store = useBooksStore()
 const { targetId } = useContextMenu();
+const currentUpdateField = ref('')
 
 function openDetail(rowId: number | undefined) {
   router.push('/data-row-detail/' + rowId)
 }
 
-async function updateItem(rowId: number, fieldName: string, payload: string) {
+async function updateItem(rowId: number, payload: string) {
   let obj: { [key: string]: string } = {}
-  obj[fieldName] = payload
+
+  obj[currentUpdateField.value] = payload
+
   await store.update(rowId, obj)
+  currentUpdateField.value = ''
 }
 
 async function deleteItem(key: number | undefined) {
@@ -51,15 +56,39 @@ async function deleteTag(tags: string[], rowId: number) {
           <div v-if="store.view.fields.id" class="id">{{ id }}</div>
           <DataRowStatus v-if="store.view.fields.status"></DataRowStatus>
           <BookRowsCover :cover="cover"></BookRowsCover>
-          <EditableText :rowId="id" :text="name" @update="updateItem"></EditableText>
+          <EditableText
+            v-if="store.view.fields.name"
+            :rowId="id"
+            :text="name"
+            @update="(rowId, payload) => {
+              currentUpdateField = 'name'
+              updateItem(rowId, payload)
+            }"
+          ></EditableText>
           <BookRowsInlineTags
             v-if="store.view.fields.categories"
             :categories="categories"
             :rowId="id"
             @delete-tag="deleteTag"
           ></BookRowsInlineTags>
-          <div v-if="store.view.fields.author" class="title">{{ author }}</div>
-          <div v-if="store.view.fields.publishing" class="title">{{ publishing || "N" }}</div>
+          <EditableText
+            v-if="store.view.fields.author"
+            :rowId="id"
+            :text="author"
+            @update="(rowId, payload) => {
+              currentUpdateField = 'author'
+              updateItem(rowId, payload)
+            }"
+          ></EditableText>
+          <EditableText
+            v-if="store.view.fields.publishing"
+            :rowId="id"
+            :text="publishing"
+            @update="(rowId, payload) => {
+              currentUpdateField = 'publishing'
+              updateItem(rowId, payload)
+            }"
+          ></EditableText>
         </div>
         <div class="right">
           <BookRowsTags
