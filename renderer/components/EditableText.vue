@@ -10,7 +10,6 @@ const emit = defineEmits<{
 const showInput = ref(false)
 const sourceContent = ref('')
 const contentInput = ref('')
-const inputRef = ref()
 
 function edit(this: any) {
   sourceContent.value = props.text
