@@ -66,19 +66,19 @@ async function deleteTag(tags: string[], rowId: number) {
             @delete-tag="deleteTag"
           ></BookRowsInlineTags>
           <div v-if="store.view.fields.author" class="title">{{ author }}</div>
-          <!-- <div v-if="store.view.fields.categories" class="title">{{ categories }}</div> -->
           <div v-if="store.view.fields.publishing" class="title">{{ publishing || "N" }}</div>
-        </div>
-        <div class="right">
+        <!-- </div> -->
+        <!-- <div class="right"> -->
           <BookRowsTags
             v-if="store.view.control.categories"
             :categories="categories"
             :rowId="id"
             @add-tag="addTag"
             @delete-tag="deleteTag"
+            class="right"
           ></BookRowsTags>
-          <DataRowEditButton v-if="store.view.control.edit" @click="updateItem(id)"></DataRowEditButton>
-          <BaseButton v-if="store.view.control.delete" @click="deleteItem(id)" text="Delete">
+          <DataRowEditButton v-if="store.view.control.edit" class="right" @click="updateItem(id)"></DataRowEditButton>
+          <BaseButton v-if="store.view.control.delete" class="right" @click="deleteItem(id)" text="Delete">
             <span>删除</span>
           </BaseButton>
         </div>
@@ -91,6 +91,7 @@ async function deleteTag(tags: string[], rowId: number) {
 <style scoped>
 .row {
   display: grid;
+  /* grid-template-columns: 1fr autp; */
   grid-auto-flow: column;
   /* justify-content: left; */
 }
@@ -110,14 +111,11 @@ async function deleteTag(tags: string[], rowId: number) {
 }
 .title {
   background-color: darkgray;
-  padding: 3px 10px;
-  margin-right: 5px;
+  padding: 4px 10px;
+  /* margin-right: 5px; */
 }
 .right {
-  display: grid;
-  grid-template-columns: auto;
-  grid-auto-flow: column;
-  justify-content: right;
-  /* border: 1px solid red; */
+  justify-self: right;
+  border: 1px solid red;
 }
 </style>

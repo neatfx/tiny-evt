@@ -34,7 +34,7 @@ function deleteTag(key: number) {
     <template #body>
       <div class="wrapper">
         <BaseInput class="input-zone" v-model="tagInput" />
-        <BaseButton class="add-btn" @click="addTag">添加标签</BaseButton>
+        <BaseButton class="add-btn" @click="addTag">添加</BaseButton>
       </div>
     </template>
   </FolderPanel>
@@ -42,13 +42,14 @@ function deleteTag(key: number) {
 
 <style scoped>
 .wrapper {
-  padding: 5px 0 5px 5px;
+  padding: 5px 0px 5px 5px;
   background-color: darkgrey;
 }
 .input-zone {
-  /* margin-right: 0; */
+  margin: 0px;
+
 }
 .add-btn {
-  margin: 5px 0 0;
+  margin: 0px 0 0;
 }
 </style>
