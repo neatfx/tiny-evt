@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { useFilter } from './filter'
 import BaseButton from "../BaseButton.vue"
+import { trans } from './translate'
 
-const { removeFilter, resetFilter, trans } = useFilter()
+const { removeFilter, resetFilter } = useFilter()
 defineProps<{
   items: Map<string, Set<string>>
 }>()
@@ -11,20 +12,20 @@ defineProps<{
 
 <template>
   <!-- <TransitionGroup name="list"> -->
-    <div class="wrapper" v-if="items.size">
-      <BaseButton @click="resetFilter">重置过滤器</BaseButton>
-      <ul class="filter-tags-wrapper" v-for="key in items.keys()" :key="key">
-        <li class="type-li">
-          <span class="filter-type">{{ trans(key) }}</span>
-        </li>
-        <li v-for="v in items.get(key)" :key="key + v">
-          <span class="filter-value">{{ v }}</span>
-          <span class="btn-delete" @click="removeFilter(key, v)">
-            <span class="cross">+</span>
-          </span>
-        </li>
-      </ul>
-    </div>
+  <div class="wrapper" v-if="items.size">
+    <BaseButton @click="resetFilter">重置过滤器</BaseButton>
+    <ul class="filter-tags-wrapper" v-for="key in items.keys()" :key="key">
+      <li class="type-li">
+        <span class="filter-type">{{ trans(key) }}</span>
+      </li>
+      <li v-for="v in items.get(key)" :key="key + v">
+        <span class="filter-value">{{ v }}</span>
+        <span class="btn-delete" @click="removeFilter(key, v)">
+          <span class="cross">+</span>
+        </span>
+      </li>
+    </ul>
+  </div>
   <!-- </TransitionGroup> -->
 </template>
 
