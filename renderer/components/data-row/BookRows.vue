@@ -48,21 +48,27 @@ async function deleteTag(tags: string[], rowId: number) {
   })
 }
 
-function deleteLend(rowId: number) {
+async function deleteLend(rowId: number) {
   store.updateTest(rowId, {
     lend: undefined
   })
 }
 
-function addLend(rowId: number, info: string) {
+async function addLend(rowId: number, info: string) {
   store.updateTest(rowId, {
     lend: info
   })
 }
 
-function markRead(rowId: number, read: boolean | undefined) {
+async function markRead(rowId: number, read: boolean | undefined) {
    store.updateTest(rowId, {
     read: read
+  })
+}
+
+async function addCover(rowId: number, cover: File| undefined) {
+   store.updateTest(rowId, {
+    cover: cover
   })
 }
 </script>
@@ -80,7 +86,7 @@ function markRead(rowId: number, read: boolean | undefined) {
             :read="read"
             @mark-read="markRead"
           ></BookRowsReadStatus>
-          <BookRowsCover :cover="cover"></BookRowsCover>
+          <BookRowsCover :rowId="id" :cover="cover" @add-cover="addCover"></BookRowsCover>
           <EditableText
             v-if="store.view.fields.name"
             :rowId="id"
