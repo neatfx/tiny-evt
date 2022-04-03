@@ -5,8 +5,9 @@ import FolderPanel from '../FolderPanel.vue';
 import BaseButton from '../BaseButton.vue';
 
 import { useFilter } from './filter'
+import { trans } from './translate'
 
-const { filter, trans } = useFilter()
+const { filter } = useFilter()
 const props = defineProps(['items'])
 const seletedFilter = ref('')
 const filtersMenu = ref<EventTarget | null>()

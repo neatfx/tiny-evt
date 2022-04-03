@@ -28,8 +28,8 @@ export const useBooksStore = defineStore('books', {
         publishing: true
       },
       control: {
-        delete: true,
         categories: true,
+        delete: true,
       }
     }
   }),

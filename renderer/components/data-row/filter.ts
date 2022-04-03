@@ -2,12 +2,6 @@ import { reactive, ref } from "vue"
 
 const filtersCount = ref(0)
 const workingFilters = reactive<Map<string, Set<string>>>(new Map())
-const dic: Map<string, string | boolean> = new Map([
-  ['categories', '分类'],
-  ['author', '作者'],
-  ['publishing', '出版社'],
-  ['lend', '是否借出'],
-])
 
 function filter(type: string, value: string, multiSelection: boolean = true) {
   console.log(type, value)
@@ -33,10 +27,6 @@ function resetFilter() {
   filtersCount.value = 0
 }
 
-function trans(source: string) {
-  return dic.get(source)
-}
-
 export function useFilter() {
-  return { workingFilters, filtersCount, removeFilter, resetFilter, filter, trans }
+  return { workingFilters, filtersCount, removeFilter, resetFilter, filter }
 }

@@ -2,6 +2,7 @@
 import FolderPanel from '@comps/FolderPanel.vue';
 import BaseButton from '@comps/BaseButton.vue';
 import { ref } from 'vue';
+import { trans } from './translate'
 
 const props = defineProps(['views'])
 const on = ref('on')
@@ -15,15 +16,15 @@ const off = ref('off')
     </template>
     <template #body>
       <div class="wrapper">
-        <div class="view-type">列表视图</div>
+        <div class="view-type">数据呈现形式</div>
         <BaseButton>卡片</BaseButton>
         <BaseButton>DataRows</BaseButton>
         <div v-for="(v, k) in props.views" :key="k">
-          <div class="view-type">{{ k }}</div>
+          <div class="view-type">{{ trans(k) }}</div>
           <ul>
             <li v-for="(key, value) in v" :key="value">
               <div :class="['status-color-base', key ? on : off]"></div>
-              <BaseButton @click="v[value] = !v[value]">{{ value }}</BaseButton>
+              <BaseButton @click="v[value] = !v[value]">{{ trans(value.toString()) }}</BaseButton>
             </li>
           </ul>
         </div>
