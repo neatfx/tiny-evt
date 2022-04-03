@@ -137,3 +137,17 @@ export async function refresh() {
 export async function refreshFiltersMeta() {
   await useBooksStore().fetchFiltersMeta()
 }
+
+// Persist
+// const store = useBooksStore()
+// .$subscribe((mutation, state) => {
+//   // import { MutationType } from 'pinia'
+//   // mutation.type // 'direct' | 'patch object' | 'patch function'
+//   // same as cartStore.$id
+//   // mutation.storeId // 'cart'
+//   // only available with mutation.type === 'patch object'
+//   console.log(mutation) // patch object passed to cartStore.$patch()
+
+//   // persist the whole state to the local storage whenever it changes
+//   // localStorage.setItem('books', JSON.stringify(state))
+// })

@@ -20,7 +20,7 @@ const off = ref('off')
         <BaseButton>卡片</BaseButton>
         <BaseButton>DataRows</BaseButton>
         <div v-for="(v, k) in props.views" :key="k">
-          <div class="view-type">{{ trans(k) }}</div>
+          <div class="view-type">{{ trans(k.toString()) }}</div>
           <ul>
             <li v-for="(key, value) in v" :key="value">
               <div :class="['status-color-base', key ? on : off]"></div>

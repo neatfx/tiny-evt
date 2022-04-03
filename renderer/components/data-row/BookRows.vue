@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import router from '@/router'
 import { useBooksStore } from '@/stores'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 
 import BaseDataRows from '@comps/data-row/BaseRows.vue'
 import BookRowsReadStatus from '@/components/data-row/BookRowsReadStatus.vue'
@@ -61,16 +61,33 @@ async function addLend(rowId: number, info: string) {
 }
 
 async function markRead(rowId: number, read: boolean | undefined) {
-   store.updateTest(rowId, {
+  store.updateTest(rowId, {
     read: read
   })
 }
 
-async function addCover(rowId: number, cover: File| undefined) {
-   store.updateTest(rowId, {
+async function addCover(rowId: number, cover: File | undefined) {
+  store.updateTest(rowId, {
     cover: cover
   })
 }
+
+store.$subscribe((mutation, state) => {
+  // import { MutationType } from 'pinia'
+  // mutation.type // 'direct' | 'patch object' | 'patch function'
+  // same as cartStore.$id
+  // mutation.storeId // 'cart'
+  // only available with mutation.type === 'patch object'
+  // console.log(mutation, state.view) // patch object passed to cartStore.$patch()
+
+  // persist the whole state to the local storage whenever it changes
+  localStorage.setItem('books', JSON.stringify(state.view))
+})
+
+onMounted(() => {
+  const viewLocal = localStorage.getItem('books')
+  if (viewLocal) store.view = JSON.parse(viewLocal)
+})
 </script>
 
 <template>
@@ -79,7 +96,13 @@ async function addCover(rowId: number, cover: File| undefined) {
       <div class="row" v-context-menu="id">
         <div class="left">
           <div v-if="store.view.fields.id" class="id">{{ id }}</div>
-          <BookRowsLendStatus v-if="store.view.fields.status" :lend="lend" :rowId="id" @reset-lend="deleteLend" @add-lend="addLend"></BookRowsLendStatus>
+          <BookRowsLendStatus
+            v-if="store.view.fields.status"
+            :lend="lend"
+            :rowId="id"
+            @reset-lend="deleteLend"
+            @add-lend="addLend"
+          ></BookRowsLendStatus>
           <BookRowsReadStatus
             v-if="store.view.fields.read"
             :rowId="id"
