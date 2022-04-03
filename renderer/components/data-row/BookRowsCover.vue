@@ -45,9 +45,10 @@ async function addCover() {
 }
 
 async function changeCover() {
-  emit("add-cover", props.rowId, fileData.value)
-  // showAddBtn.value = false
-  // showChangeBtn.value = true
+  // emit("add-cover", props.rowId, fileData.value)
+  showAddBtn.value = true
+  showChangeBtn.value = false
+  fileData.value = undefined
 }
 
 onMounted(() => {
