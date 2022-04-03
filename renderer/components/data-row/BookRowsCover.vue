@@ -20,7 +20,8 @@ const coverHtml = computed(() => {
 })
 const fileData = ref<File | undefined>()
 const showAddBtn = ref(true)
-const showChangeBtn = ref(true)
+const waitForChange = ref(false)
+const showChangeBtn = ref(false)
 
 function ondragover(event: any) {
   event.stopPropagation();
@@ -34,21 +35,21 @@ async function ondrop(ev: any) {
 
   fileData.value = ev.dataTransfer.files[0];
   if (!fileData.value) throw new Error(`Only files can be dropped here`);
-
-  // document.querySelector("img")?.setAttribute('src', URL.createObjectURL(new Blob([fileData.value])))
 }
 
 async function addCover() {
-  emit("add-cover", props.rowId, fileData.value)
-  // showAddBtn.value = false
-  // showChangeBtn.value = true
+  if (fileData.value) {
+    emit("add-cover", props.rowId, fileData.value)
+  }
 }
 
 async function changeCover() {
-  // emit("add-cover", props.rowId, fileData.value)
-  showAddBtn.value = true
-  showChangeBtn.value = false
-  fileData.value = undefined
+  if (fileData.value) {
+    emit("add-cover", props.rowId, fileData.value)
+    showAddBtn.value = true
+    showChangeBtn.value = false
+    fileData.value = undefined
+  }
 }
 
 onMounted(() => {
@@ -74,8 +75,8 @@ onMounted(() => {
         <div v-if="!fileData" class="dropzone" @dragover="ondragover" @drop="ondrop">
           <img />
         </div>
-        <BaseButton v-if="showChangeBtn" class="change-btn" @click="changeCover">更换</BaseButton>
         <BaseButton v-if="showAddBtn" class="add-btn" @click="addCover">添加封面</BaseButton>
+        <BaseButton v-if="showChangeBtn" class="change-btn" @click="changeCover">更换封面</BaseButton>
       </div>
     </template>
   </FolderPanel>
