@@ -22,7 +22,7 @@ import Testing from '@comps/preferences/Testing.vue'
       <DatabaseImportAndExport></DatabaseImportAndExport>
     </template>
   </FolderPanel>
-    <FolderPanel class="panel">
+  <FolderPanel class="panel">
     <template #header>
       <div class="header">Testing</div>
     </template>
@@ -33,8 +33,8 @@ import Testing from '@comps/preferences/Testing.vue'
 </template>
 
 <style scoped>
-.panel{
-  margin-bottom: 10px;
+.panel {
+  margin: 0 0 10px 60px;
 }
 .header {
   padding: 4px 15px;

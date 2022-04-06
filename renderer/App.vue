@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { RouterView } from "vue-router"
 import { useContextMenu } from './components/contextMenu'
+import BaseButton from '@comps/BaseButton.vue';
+import FolderPanel from '@comps/FolderPanel.vue';
 
 import Navbar from './components/Navbar.vue'
 
@@ -9,9 +11,14 @@ useContextMenu();
 
 <template>
   <div class="app-wrapper">
-    <div class="nav-wrapper">
-      <Navbar></Navbar>
-    </div>
+    <FolderPanel title="MainNav" :isPopMenu="true" class="main-nav">
+      <template #header>
+        <BaseButton>Tiny</BaseButton>
+      </template>
+      <template #body>
+        <Navbar></Navbar>
+      </template>
+    </FolderPanel>
     <div class="view-wrapper">
       <RouterView v-slot="{ Component }">
         <keep-alive>
@@ -25,24 +32,20 @@ useContextMenu();
 <style>
 @import "assets/base.css";
 
-/* #app {
-  border: 1px solid green;
-} */
+.main-nav {
+  position: fixed;
+  margin: 10px 0 0 6px;
+  /* border: 1px solid green; */
+}
 
 .app-wrapper {
-  display: grid;
-  grid-template-columns: 135px 1fr;
+  /* display: grid; */
+  /* grid-template-columns: 135px 1fr; */
   height: 100vh;
   /* border: 1px solid blue; */
 }
-.nav-wrapper {
-  padding: 10px 0 10px 10px;
-
-  /* border: 1px solid red; */
-}
 .view-wrapper {
   padding: 10px 10px 10px 5px;
-
   /* border: 1px solid red; */
 }
 
