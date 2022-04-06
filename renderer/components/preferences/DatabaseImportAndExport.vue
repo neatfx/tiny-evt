@@ -6,6 +6,7 @@ import { importDB, exportDB, importInto, peakImportFile } from "dexie-export-imp
 import type { ExportProgress } from 'dexie-export-import/dist/export';
 
 const { electronDatabase } = window
+var userAgent = navigator.userAgent.toLowerCase();
 
 type Table = {
   id: string;
@@ -37,9 +38,14 @@ async function exportDatabase() {
         return true
       }
     });
-    
-    console.log(blob)
-    electronDatabase.saveExportedDatabaseFile(blob)
+
+    if (userAgent.indexOf(' electron/') > -1) {
+      electronDatabase.saveExportedDatabaseFile(blob)
+    } else {
+      console.log(blob)
+      // 提供下载链接
+    }
+
   } catch (error) {
     console.error('' + error);
   }
