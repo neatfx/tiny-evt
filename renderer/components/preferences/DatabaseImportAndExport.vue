@@ -5,6 +5,8 @@ import BaseButton from '../BaseButton.vue';
 import { importDB, exportDB, importInto, peakImportFile } from "dexie-export-import";
 import type { ExportProgress } from 'dexie-export-import/dist/export';
 
+const { electronDatabase } = window
+
 type Table = {
   id: string;
   name: string;
@@ -35,7 +37,9 @@ async function exportDatabase() {
         return true
       }
     });
+    
     console.log(blob)
+    electronDatabase.saveExportedDatabaseFile(blob)
   } catch (error) {
     console.error('' + error);
   }

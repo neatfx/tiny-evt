@@ -4,7 +4,7 @@
 ///////////////////////////////////////////
 
 import { contextBridge, ipcRenderer } from 'electron'
-// import { readFileSync } from 'fs'
+import { writeFile } from 'fs'
 
 // 白名单
 const validChannels = [
@@ -18,7 +18,7 @@ function invalidElectionAPI(channel: string) {
 }
 
 contextBridge.exposeInMainWorld('electronDarkMode', {
-  toggle: ():Promise<boolean> => {
+  toggle: (): Promise<boolean> => {
     // const channel = 'dark-mode:toggle'
     // if (!validChannels.includes(channel)) {
     //   invalidElectionAPI(channel)
@@ -26,14 +26,14 @@ contextBridge.exposeInMainWorld('electronDarkMode', {
     // }
     return ipcRenderer.invoke('dark-mode:toggle')
   },
-  system: ():Promise<string> => ipcRenderer.invoke('dark-mode:system'),
+  system: (): Promise<string> => ipcRenderer.invoke('dark-mode:system'),
 })
 
-contextBridge.exposeInMainWorld('electronPersisConf', {
+contextBridge.exposeInMainWorld('electronDatabase', {
   loadPreferences: () => ipcRenderer.invoke('load-prefs'),
-  readConfig: () => {
-    // const data = readFileSync('./config.json')
-    // return data
+  saveExportedDatabaseFile: async (file: Blob) => {
+    const data = writeFile('./db-exported.json', await file.text(), (err) => { })
+    return data
   }
 })
 

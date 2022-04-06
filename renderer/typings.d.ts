@@ -15,7 +15,7 @@ export interface ElectronDarkMode {
 }
 
 export interface ElectronDatabase {
-  resetTesting: () => Promise<Contact[]>
+  saveExportedDatabaseFile: (file: Blob) => Promise<void>
 }
 
 type GithubJsonDef = {
