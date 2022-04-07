@@ -44,6 +44,13 @@ async function exportDatabase() {
     } else {
       console.log(blob)
       // 提供下载链接
+      let a = document.createElement('a')
+      // 指定生成的文件名
+      a.download = 'db-exportted.json'
+      a.href = URL.createObjectURL(blob)
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
     }
 
   } catch (error) {
