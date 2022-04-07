@@ -1,22 +1,19 @@
 <script setup lang="ts">
 import router from '@/router'
 import { useBooksStore } from '@/stores'
-import { onMounted, ref } from 'vue'
+import { computed, ref } from 'vue'
 
-import BaseDataRows from '@comps/data-row/BaseRows.vue'
+import BaseCards from '@comps/data-row/BaseCards.vue'
 import BookRowsReadStatus from '@/components/data-row/BookRowsReadStatus.vue'
-import DeleteButton from '@comps/DeleteButton.vue'
-import ContextMenu from "@/components/data-row/RowsContextMenu.vue"
 import { vContextMenu, useContextMenu } from '@comps/contextMenu'
 import BookRowsTags from '@comps/data-row/BookRowsTags.vue'
 import BookRowsInlineTags from '@comps/data-row/BookRowsInlineTags.vue'
-import BookRowsCover from '@comps/data-row/BookRowsCover.vue'
+import BookCardsCover from '@comps/data-row/BookCardsCover.vue'
 import EditableText from '@comps/EditableText.vue'
 import BookRowsLendStatus from '@comps/data-row/BookRowsLendStatus.vue'
 
 const props = defineProps(['items'])
 const store = useBooksStore()
-const { targetId } = useContextMenu();
 const currentUpdateField = ref('')
 
 function openDetail(rowId: number | undefined) {
@@ -74,7 +71,7 @@ async function addCover(rowId: number, cover: File | undefined) {
 </script>
 
 <template>
-  <BaseDataRows :items="props.items">
+  <BaseCards :items="props.items">
     <template #item="{ id, name, author, categories, publishing, cover, lend, read }">
       <div class="row" v-context-menu="id">
         <div class="left">
@@ -87,12 +84,12 @@ async function addCover(rowId: number, cover: File | undefined) {
             @add-lend="addLend"
           ></BookRowsLendStatus>
           <BookRowsReadStatus
-            v-if="store.view.fields.read"
+            v-if="store.view.fields.read" 
             :rowId="id"
             :read="read"
             @mark-read="markRead"
           ></BookRowsReadStatus>
-          <BookRowsCover :rowId="id" :cover="cover" @add-cover="addCover"></BookRowsCover>
+          <BookCardsCover :rowId="id" :cover="cover" @add-cover="addCover"></BookCardsCover>
           <EditableText
             v-if="store.view.fields.name"
             :rowId="id"
@@ -139,17 +136,18 @@ async function addCover(rowId: number, cover: File | undefined) {
         </div>
       </div>
     </template>
-  </BaseDataRows>
+  </BaseCards>
 </template>
 
 <style scoped>
 .row {
-  display: grid;
-  /* grid-template-columns: 1fr autp; */
-  grid-auto-flow: column;
+  /* display: grid; */
+  /* grid-template-columns: 1fr auto; */
+  /* grid-auto-flow: column; */
   /* justify-content: left; */
 }
 .id {
+    position: absolute;
   text-align: center;
   width: 30px;
   padding: 4px 5px 0 5px;
@@ -157,23 +155,26 @@ async function addCover(rowId: number, cover: File | undefined) {
   background-color: slategray;
 }
 .title {
+    position: absolute;
   background-color: darkgray;
   padding: 4px 10px;
   margin-right: 5px;
 }
 .left {
+  position: absolute;
   display: grid;
   /* grid-template-columns: 40px 1fr minmax(0, 300px) auto auto auto; */
-  grid-auto-flow: column;
+  /* grid-auto-flow: column; */
   justify-self: left;
   margin-left: 2px;
   /* border: 1px solid red; */
 }
 .right {
+    position: absolute;
   display: grid;
   /* grid-template-columns: 1fr auto; */
-  grid-auto-flow: column;
-  justify-self: right;
+  /* grid-auto-flow: column; */
+  justify-self: left;
   /* border: 1px solid red; */
 }
 </style>
