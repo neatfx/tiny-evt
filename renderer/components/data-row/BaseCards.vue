@@ -1,36 +1,38 @@
 <script setup lang="ts">
 defineProps(['items'])
+
+function coverHtml(cover: Blob) {
+  let binaryData = []
+  let url = ''
+
+  binaryData.push(cover)
+  url = window.URL.createObjectURL(new Blob(binaryData, { type: 'image/jpeg' }))
+  return '<img src="' + url + '" style="max-width: 160px; max-height: 222px;" />'
+}
 </script>
 
 <template>
-  <TransitionGroup name="list" tag="ul">
-    <li v-if="!items.length">Loading...</li>
-    <li v-for="item in items" :key="item.id">
-      <slot name="item" v-bind="item" />
-    </li>
+  <TransitionGroup name="list">
+      <div
+        class="card-wrapper"
+        v-for="item in items" :key="item.id"
+        @click="() => {
+          // currentItem = id
+          // showModal = true
+        }"
+      >
+        <!-- <BookCardCover :rowId="id" :cover="cover" @add-cover="addCover"></BookCardCover> -->
+        <div v-if="item.cover" v-html="coverHtml(item.cover)" class="img-wrapper"></div>
+      </div>
   </TransitionGroup>
 </template>
 
 <style scoped>
-ul {
-  position: static;
-  padding: 0;
-  margin: 0;
-}
-li {
+.img-wrapper{
   float: left;
-  border: 1px solid grey;
-  margin: 5px;
-  padding: 0px;
-  list-style: none;
-  box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
+  background-color: blue;
 }
-li:hover {
-  background-color: #2d2f36;
-}
-.item{
-margin:0;
-}
+
 /* Transition */
 .list-move, /* apply transition to moving elements */
 .list-enter-active,

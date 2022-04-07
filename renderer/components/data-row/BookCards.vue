@@ -1,14 +1,11 @@
 <script setup lang="ts">
-import router from '@/router'
 import { useBooksStore } from '@/stores'
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 
 import BaseCards from '@comps/data-row/BaseCards.vue'
 import BookRowsReadStatus from '@/components/data-row/BookRowsReadStatus.vue'
-import { vContextMenu, useContextMenu } from '@comps/contextMenu'
 import BookRowsTags from '@comps/data-row/BookRowsTags.vue'
 import BookRowsInlineTags from '@comps/data-row/BookRowsInlineTags.vue'
-import BookCardsCover from '@comps/data-row/BookCardsCover.vue'
 import EditableText from '@comps/EditableText.vue'
 import BookRowsLendStatus from '@comps/data-row/BookRowsLendStatus.vue'
 import Modal from '@comps/Modal.vue'
@@ -16,10 +13,6 @@ import Modal from '@comps/Modal.vue'
 const props = defineProps(['items'])
 const store = useBooksStore()
 const currentUpdateField = ref('')
-
-function openDetail(rowId: number | undefined) {
-  router.push('/data-row-detail/' + rowId)
-}
 
 async function updateItem(rowId: number, payload: string) {
   let obj: { [key: string]: string } = {}
@@ -135,32 +128,10 @@ const currentItem = ref(1)
       </template>
     </modal>
   </Teleport>
-  <BaseCards :items="props.items">
-    <template #item="{ id, name, author, categories, publishing, cover, lend, read }">
-      <div
-        class="card-wrapper"
-        @click="() => {
-          currentItem = id
-          showModal = true
-        }"
-      >
-        <BookCardsCover :rowId="id" :cover="cover" @add-cover="addCover"></BookCardsCover>
-      </div>
-    </template>
-  </BaseCards>
+  <BaseCards :items="props.items"></BaseCards>
 </template>
 
 <style scoped>
-.card-wrapper {
-  display: grid;
-  grid-template-columns: 1fr auto;
-}
-.meta-zone {
-  position: absolute;
-  padding: 10px;
-  border: 1px solid blueviolet;
-  background-color: bisque;
-}
 .id {
   display: inline-block;
   text-align: center;

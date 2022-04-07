@@ -5,7 +5,7 @@
 // })
 
 const props = defineProps(['show', 'item'])
-console.log(props.item)
+// console.log(props.item)
 </script>
 
 <template>
