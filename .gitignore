@@ -6,3 +6,4 @@ renderer/components/__tests__/build/
 .env-cmdrc.json
 .env.development.local
 package-lock.json
+yarn.lock

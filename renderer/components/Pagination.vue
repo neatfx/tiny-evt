@@ -15,6 +15,7 @@ const first = '首页'
     <BaseButton @click="next">></BaseButton>
     <BaseButton @click="end" class="tail">末页</BaseButton>
 </template>
+
 <style scoped>
 button {
     margin-right: 2px;
