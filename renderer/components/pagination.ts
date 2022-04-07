@@ -7,6 +7,15 @@ const pages = computed(() => {
   return Math.ceil(total.value / limit.value)
 })
 const page = ref(1)
+const curPageStart = computed(() => {
+  return offset.value + 1
+})
+const curPageEnd = computed(() => {
+  const rest = total.value - offset.value
+  if (rest === 0) return offset.value
+  if (0 < rest && rest < limit.value) return offset.value + rest
+  return offset.value + limit.value
+})
 
 watch(pages, () => {
   if (offset.value === total.value && page.value > 1) {
@@ -42,5 +51,5 @@ function reset() {
 }
 
 export function usePagination() {
-  return { offset, limit, total, pages, page, head, prev, next, end, reset }
+  return { offset, limit, total, pages, page, head, prev, next, end, reset, curPageStart, curPageEnd }
 }

@@ -2,16 +2,16 @@
 import BaseButton from './BaseButton.vue';
 import { usePagination } from './pagination';
 
-const { total, pages, page, head, prev, next, end } = usePagination()
+const { total, head, prev, next, end, curPageStart, curPageEnd } = usePagination()
 const arrow = '<'
 const first = '首页'
 </script>
 
 <template>
-    <BaseButton disabled>共 {{ total }} 条数据</BaseButton>
+    <BaseButton disabled class="page-number">{{ curPageStart }} - {{ curPageEnd }}</BaseButton>
+    <BaseButton disabled class="page-number">共 {{ total }} 条数据</BaseButton>
     <BaseButton @click="head" v-html="first"></BaseButton>
     <BaseButton @click="prev" v-html="arrow"></BaseButton>
-    <BaseButton disabled class="page-number">{{ page }} / {{ pages }}</BaseButton>
     <BaseButton @click="next">></BaseButton>
     <BaseButton @click="end" class="tail">末页</BaseButton>
 </template>
@@ -21,8 +21,5 @@ button {
 }
 .tail {
     margin-right: 0px;
-}
-.page-number {
-    width: 70px;
 }
 </style>
