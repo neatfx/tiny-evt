@@ -20,8 +20,8 @@ defineProps(['views', 'filters', 'workingFilters'])
         <Pagination></Pagination>
       </div>
     </div>
-    <FilterTags class="filter-tags" :items="workingFilters"></FilterTags>
   </div>
+  <FilterTags class="filter-tags" :items="workingFilters"></FilterTags>
 </template>
 
 <style scoped>
@@ -33,5 +33,8 @@ defineProps(['views', 'filters', 'workingFilters'])
 .opt-row {
   display: grid;
   grid-template-columns: 1fr auto;
+}
+.filter-tags{
+  background-color: gray;
 }
 </style>
