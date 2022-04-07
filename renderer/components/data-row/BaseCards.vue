@@ -13,22 +13,24 @@ defineProps(['items'])
 
 <style scoped>
 ul {
+  position: static;
   padding: 0;
   margin: 0;
 }
 li {
   float: left;
-  width: 130px;
   border: 1px solid grey;
-  padding: 5px 0 5px 3px;
-  margin: 50px;
+  margin: 10px;
+  padding: 0px;
   list-style: none;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
 }
 li:hover {
   background-color: #2d2f36;
 }
-
+.item{
+margin:0;
+}
 /* Transition */
 .list-move, /* apply transition to moving elements */
 .list-enter-active,

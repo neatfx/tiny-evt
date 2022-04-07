@@ -73,9 +73,10 @@ async function addCover(rowId: number, cover: File | undefined) {
 <template>
   <BaseCards :items="props.items">
     <template #item="{ id, name, author, categories, publishing, cover, lend, read }">
-      <div class="row" v-context-menu="id">
-        <div class="left">
-          <div v-if="store.view.fields.id" class="id">{{ id }}</div>
+      <div class="card-wrapper">
+        <BookCardsCover :rowId="id" :cover="cover" @add-cover="addCover"></BookCardsCover>
+        <div v-if="true" class="meta-zone">
+          <!-- <div v-if="store.view.fields.id" class="id">{{ id }}</div> -->
           <BookRowsLendStatus
             v-if="store.view.fields.status"
             :lend="lend"
@@ -84,12 +85,12 @@ async function addCover(rowId: number, cover: File | undefined) {
             @add-lend="addLend"
           ></BookRowsLendStatus>
           <BookRowsReadStatus
-            v-if="store.view.fields.read" 
+            v-if="store.view.fields.read"
             :rowId="id"
             :read="read"
             @mark-read="markRead"
           ></BookRowsReadStatus>
-          <BookCardsCover :rowId="id" :cover="cover" @add-cover="addCover"></BookCardsCover>
+
           <EditableText
             v-if="store.view.fields.name"
             :rowId="id"
@@ -124,15 +125,13 @@ async function addCover(rowId: number, cover: File | undefined) {
               updateItem(rowId, payload)
             }"
           ></EditableText>
-        </div>
-        <div class="right">
-          <BookRowsTags
-            v-if="store.view.control.categories"
-            :categories="categories"
-            :rowId="id"
-            @add-tag="addTag"
-            class="right"
-          ></BookRowsTags>
+          <!-- <BookRowsTags
+          v-if="store.view.control.categories"
+          :categories="categories"
+          :rowId="id"
+          @add-tag="addTag"
+          class="right"
+          ></BookRowsTags>-->
         </div>
       </div>
     </template>
@@ -140,41 +139,19 @@ async function addCover(rowId: number, cover: File | undefined) {
 </template>
 
 <style scoped>
-.row {
-  /* display: grid; */
-  /* grid-template-columns: 1fr auto; */
-  /* grid-auto-flow: column; */
-  /* justify-content: left; */
+.card-wrapper {
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+.meta-zone {
+  /* position: absolute; */
+  /* float: left; */
 }
 .id {
-    position: absolute;
   text-align: center;
   width: 30px;
   padding: 4px 5px 0 5px;
   margin-right: 5px;
   background-color: slategray;
-}
-.title {
-    position: absolute;
-  background-color: darkgray;
-  padding: 4px 10px;
-  margin-right: 5px;
-}
-.left {
-  position: absolute;
-  display: grid;
-  /* grid-template-columns: 40px 1fr minmax(0, 300px) auto auto auto; */
-  /* grid-auto-flow: column; */
-  justify-self: left;
-  margin-left: 2px;
-  /* border: 1px solid red; */
-}
-.right {
-    position: absolute;
-  display: grid;
-  /* grid-template-columns: 1fr auto; */
-  /* grid-auto-flow: column; */
-  justify-self: left;
-  /* border: 1px solid red; */
 }
 </style>

@@ -25,6 +25,7 @@
     "*.{js,vue}": "eslint"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.1.1",
     "dexie": "^3.2.1",
     "dexie-export-import": "^1.0.3",
     "pinia": "^2.0.12",
