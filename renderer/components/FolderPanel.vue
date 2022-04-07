@@ -62,14 +62,13 @@ watchEffect(() => {
       <slot name="header">{{ title || 'Panel' }}</slot>
     </div>
     <!-- panel-body -->
-    <Transition name="panel-body">
-      <div>
-        <div v-if="switchShowRefForBody().value" :class="['default-panel-body', switchClassRefForBody().value]">
-          <slot name="body"></slot>
-        </div>
-        <slot name="menu"></slot>
-      </div>
-    </Transition>
+    <div
+      v-if="switchShowRefForBody().value"
+      :class="['default-panel-body', switchClassRefForBody().value]"
+    >
+      <slot name="body"></slot>
+    </div>
+    <slot name="menu"></slot>
   </div>
 </template>
 
@@ -84,19 +83,11 @@ watchEffect(() => {
   background-color: grey;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
 }
+.ok {
+  transform: translateY(-4px);
+  transition: opacity 0.25s, visibility 0.25s, transform 0.25s;
+}
 .fixed-panel-body {
   position: absolute;
-}
-
-/* Transition */
-.panel-body-enter-active,
-.panel-body-leave-active {
-  transition: all 0.2s ease;
-}
-
-.panel-body-enter-from,
-.panel-body-leave-to {
-  transform: translateY(2px);
-  opacity: 0;
 }
 </style>
