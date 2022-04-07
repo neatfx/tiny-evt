@@ -18,6 +18,7 @@ export const useBooksStore = defineStore('books', {
       lend: ['已借出', '未借出']
     },
     view: {
+      layout: 'data-rows', // 'data-rows' || 'cards' 
       fields: {
         id: true,
         status: true,

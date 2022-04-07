@@ -73,13 +73,6 @@ async function addCover(rowId: number, cover: File | undefined) {
 }
 
 store.$subscribe((mutation, state) => {
-  // import { MutationType } from 'pinia'
-  // mutation.type // 'direct' | 'patch object' | 'patch function'
-  // same as cartStore.$id
-  // mutation.storeId // 'cart'
-  // only available with mutation.type === 'patch object'
-  // console.log(mutation, state.view) // patch object passed to cartStore.$patch()
-
   // persist the whole state to the local storage whenever it changes
   localStorage.setItem('books', JSON.stringify(state.view))
 })
