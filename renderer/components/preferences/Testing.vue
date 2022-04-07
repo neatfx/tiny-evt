@@ -27,8 +27,11 @@ function enableScheduledBackup() {
   <div class="wrapper">
     <BaseButton @click="clearTables">清空数据表</BaseButton>
     <BaseButton @click="deleteDatabase">删除数据库</BaseButton>
-    <BaseButton @click="switchPicPersisWay">图片保存方式（ 仅在 APP 模式可见 ）</BaseButton>
+    <br>
+    <BaseButton @click="switchPicPersisWay">图片保存方式（ APP 模式可见 ）</BaseButton>
     <BaseButton @click="enableScheduledBackup">定时备份数据</BaseButton>
+    <BaseButton @click="enableScheduledBackup">图片存储目录设置</BaseButton>
+    <BaseButton @click="enableScheduledBackup">网络备份设置 ( GitHub )</BaseButton>
   </div>
 </template>
 
