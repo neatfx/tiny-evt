@@ -133,7 +133,11 @@ onMounted(async () => {
           <span>Table: {{ table.id }} - Primary Key: {{ table.primKey }} - Row count: {{ table.count }}</span>
         </li>
       </ul>
-      <BaseButton @click="exportDatabase">Export Database</BaseButton>
+      <BaseButton @click="exportDatabase">导出数据库</BaseButton>
+      <BaseButton @click="enableScheduledBackup">定时备份数据</BaseButton>
+      <BaseButton @click="enableScheduledBackup">网络备份设置 ( GitHub )</BaseButton>
+      <BaseButton @click="switchPicPersisWay">图片保存方式（ APP 模式可见 ）</BaseButton>
+      <BaseButton @click="enableScheduledBackup">图片存储目录设置</BaseButton>
     </div>
     <div class="import-wrapper">
       <div id="dropzone" @dragover="ondragover" @drop="ondrop">Drop Dexie JSON file here.</div>

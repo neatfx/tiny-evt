@@ -8,15 +8,15 @@ import Testing from '@comps/preferences/Testing.vue'
 <template>
   <FolderPanel class="panel">
     <template #header>
-      <div class="header">System</div>
+      <div class="header">Testing</div>
     </template>
     <template #body>
-      <DarkMode></DarkMode>
+      <Testing></Testing>
     </template>
   </FolderPanel>
   <FolderPanel class="panel">
     <template #header>
-      <div class="header">Database</div>
+      <div class="header">数据管理</div>
     </template>
     <template #body>
       <DatabaseImportAndExport></DatabaseImportAndExport>
@@ -24,10 +24,10 @@ import Testing from '@comps/preferences/Testing.vue'
   </FolderPanel>
   <FolderPanel class="panel">
     <template #header>
-      <div class="header">Testing</div>
+      <div class="header">用户界面</div>
     </template>
     <template #body>
-      <Testing></Testing>
+      <DarkMode></DarkMode>
     </template>
   </FolderPanel>
 </template>
