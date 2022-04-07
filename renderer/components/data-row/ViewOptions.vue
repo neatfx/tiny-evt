@@ -7,6 +7,12 @@ import { trans } from './translate'
 const props = defineProps(['views'])
 const on = ref('on')
 const off = ref('off')
+
+function switchView(key: string, value: any) {
+  if (key === 'cards') value['rows'] = !value['rows']
+  if (key === 'rows') value['cards'] = !value['cards']
+  value[key] = !value[key]
+}
 </script>
 
 <template>
@@ -21,7 +27,7 @@ const off = ref('off')
           <ul>
             <li v-for="(value, key) in v" :key="key">
               <div :class="['status-color-base', value ? on : off]"></div>
-              <BaseButton @click="v[key] = !v[key]">{{ trans(key.toString()) }}</BaseButton>
+              <BaseButton @click="switchView(key.toString(), v)">{{ trans(key.toString()) }}</BaseButton>
             </li>
           </ul>
         </div>

@@ -13,9 +13,9 @@ const dic: Map<string, string | boolean> = new Map([
   ['fields', '字段'],
   ['control', '操作按钮'],
 
-  ['layout', '数据呈现形式'],
+  ['layout', '布局形式'],
   ['cards', '卡片'],
-  ['rows', '数据列表']
+  ['rows', '列表']
 ])
 
 export function trans(key: string) {
