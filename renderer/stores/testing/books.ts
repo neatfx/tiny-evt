@@ -18,7 +18,10 @@ export const useBooksStore = defineStore('books', {
       lend: ['已借出', '未借出']
     },
     view: {
-      layout: 'data-rows', // 'data-rows' || 'cards' 
+      layout: {
+        cards: false,
+        rows: true
+      },
       fields: {
         id: true,
         status: true,
@@ -140,15 +143,3 @@ export async function refreshFiltersMeta() {
 }
 
 // Persist
-// const store = useBooksStore()
-// .$subscribe((mutation, state) => {
-//   // import { MutationType } from 'pinia'
-//   // mutation.type // 'direct' | 'patch object' | 'patch function'
-//   // same as cartStore.$id
-//   // mutation.storeId // 'cart'
-//   // only available with mutation.type === 'patch object'
-//   console.log(mutation) // patch object passed to cartStore.$patch()
-
-//   // persist the whole state to the local storage whenever it changes
-//   // localStorage.setItem('books', JSON.stringify(state))
-// })

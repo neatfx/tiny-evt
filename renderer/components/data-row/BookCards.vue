@@ -136,12 +136,10 @@ async function addCover(rowId: number, cover: File | undefined) {
             @add-tag="addTag"
             class="right"
           ></BookRowsTags>
-          <DeleteButton v-if="store.view.control.delete" class="right" @click="deleteItem(id)"></DeleteButton>
         </div>
       </div>
     </template>
   </BaseDataRows>
-  <ContextMenu @view="openDetail(targetId)" @delete="deleteItem(targetId)"></ContextMenu>
 </template>
 
 <style scoped>

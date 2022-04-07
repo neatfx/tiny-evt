@@ -16,15 +16,12 @@ const off = ref('off')
     </template>
     <template #body>
       <div class="wrapper">
-        <div class="view-type">数据呈现形式</div>
-        <BaseButton>卡片</BaseButton>
-        <BaseButton>DataRows</BaseButton>
         <div v-for="(v, k) in props.views" :key="k">
           <div class="view-type">{{ trans(k.toString()) }}</div>
           <ul>
-            <li v-for="(key, value) in v" :key="value">
-              <div :class="['status-color-base', key ? on : off]"></div>
-              <BaseButton @click="v[value] = !v[value]">{{ trans(value.toString()) }}</BaseButton>
+            <li v-for="(value, key) in v" :key="key">
+              <div :class="['status-color-base', value ? on : off]"></div>
+              <BaseButton @click="v[key] = !v[key]">{{ trans(key.toString()) }}</BaseButton>
             </li>
           </ul>
         </div>
