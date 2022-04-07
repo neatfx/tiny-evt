@@ -11,6 +11,7 @@ import BookRowsInlineTags from '@comps/data-row/BookRowsInlineTags.vue'
 import BookCardsCover from '@comps/data-row/BookCardsCover.vue'
 import EditableText from '@comps/EditableText.vue'
 import BookRowsLendStatus from '@comps/data-row/BookRowsLendStatus.vue'
+import Modal from '@comps/Modal.vue'
 
 const props = defineProps(['items'])
 const store = useBooksStore()
@@ -68,71 +69,82 @@ async function addCover(rowId: number, cover: File | undefined) {
     cover: cover
   })
 }
+
+const showModal = ref(false)
+const currentItem = ref(1)
 </script>
 
 <template>
-  <BaseCards :items="props.items">
-    <template #item="{ id, name, author, categories, publishing, cover, lend, read }">
-      <div class="card-wrapper">
-        <BookCardsCover :rowId="id" :cover="cover" @add-cover="addCover"></BookCardsCover>
-        <div v-if="true" class="meta-zone">
-          <!-- <div v-if="store.view.fields.id" class="id">{{ id }}</div> -->
-          <BookRowsLendStatus
-            v-if="store.view.fields.status"
-            :lend="lend"
-            :rowId="id"
-            @reset-lend="deleteLend"
-            @add-lend="addLend"
-          ></BookRowsLendStatus>
-          <BookRowsReadStatus
-            v-if="store.view.fields.read"
-            :rowId="id"
-            :read="read"
-            @mark-read="markRead"
-          ></BookRowsReadStatus>
-
-          <EditableText
-            v-if="store.view.fields.name"
-            :rowId="id"
-            :text="name"
-            :isName="() => true"
-            @update="(rowId, payload) => {
-              currentUpdateField = 'name'
-              updateItem(rowId, payload)
-            }"
-          ></EditableText>
-          <BookRowsInlineTags
-            v-if="store.view.fields.categories"
-            :categories="categories"
-            :rowId="id"
-            @delete-tag="deleteTag"
-          ></BookRowsInlineTags>
-          <EditableText
-            v-if="store.view.fields.author"
-            :rowId="id"
-            :text="author"
-            @update="(rowId, payload) => {
-              currentUpdateField = 'author'
-              updateItem(rowId, payload)
-            }"
-          ></EditableText>
-          <EditableText
-            v-if="store.view.fields.publishing"
-            :rowId="id"
-            :text="publishing"
-            @update="(rowId, payload) => {
-              currentUpdateField = 'publishing'
-              updateItem(rowId, payload)
-            }"
-          ></EditableText>
-          <!-- <BookRowsTags
+  <Teleport to="body">
+    <modal :show="showModal" @close="showModal = false">
+      <template #header>
+        <div class="id">{{ currentItem }}</div>
+        <EditableText
+          :rowId="currentItem"
+          :text="store.items[currentItem - 1]?.name"
+          :isName="() => true"
+          @update="(rowId, payload) => {
+            currentUpdateField = 'name'
+            updateItem(rowId, payload)
+          }"
+        ></EditableText>
+      </template>
+      <template #body>
+        <BookRowsLendStatus
+          :lend="store.items[currentItem - 1]?.lend"
+          :rowId="currentItem"
+          @reset-lend="deleteLend"
+          @add-lend="addLend"
+        ></BookRowsLendStatus>
+        <BookRowsReadStatus
+          :rowId="currentItem"
+          :read="store.items[currentItem - 1]?.read"
+          @mark-read="markRead"
+        ></BookRowsReadStatus>
+        <BookRowsInlineTags
+          v-if="store.view.fields.categories"
+          :categories="store.items[currentItem - 1]?.categories"
+          :rowId="currentItem"
+          @delete-tag="deleteTag"
+        ></BookRowsInlineTags>
+        <EditableText
+          v-if="store.view.fields.author"
+          :rowId="currentItem"
+          :text="store.items[currentItem - 1]?.author"
+          @update="(rowId, payload) => {
+            currentUpdateField = 'author'
+            updateItem(rowId, payload)
+          }"
+        ></EditableText>
+        <EditableText
+          v-if="store.view.fields.publishing"
+          :rowId="currentItem"
+          :text="store.items[currentItem - 1]?.publishing"
+          @update="(rowId, payload) => {
+            currentUpdateField = 'publishing'
+            updateItem(rowId, payload)
+          }"
+        ></EditableText>
+        <BookRowsTags
           v-if="store.view.control.categories"
-          :categories="categories"
-          :rowId="id"
+          :categories="store.items[currentItem - 1]?.categories"
+          :rowId="currentItem"
           @add-tag="addTag"
           class="right"
-          ></BookRowsTags>-->
-        </div>
+        ></BookRowsTags>
+      </template>
+    </modal>
+  </Teleport>
+  <BaseCards :items="props.items">
+    <template #item="{ id, name, author, categories, publishing, cover, lend, read }">
+      <div
+        class="card-wrapper"
+        @click="() => {
+          currentItem = id
+          showModal = true
+        }"
+      >
+        <BookCardsCover :rowId="id" :cover="cover" @add-cover="addCover"></BookCardsCover>
       </div>
     </template>
   </BaseCards>
@@ -144,10 +156,13 @@ async function addCover(rowId: number, cover: File | undefined) {
   grid-template-columns: 1fr auto;
 }
 .meta-zone {
-  /* position: absolute; */
-  /* float: left; */
+  position: absolute;
+  padding: 10px;
+  border: 1px solid blueviolet;
+  background-color: bisque;
 }
 .id {
+  display: inline-block;
   text-align: center;
   width: 30px;
   padding: 4px 5px 0 5px;

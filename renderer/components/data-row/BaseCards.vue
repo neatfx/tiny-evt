@@ -20,7 +20,7 @@ ul {
 li {
   float: left;
   border: 1px solid grey;
-  margin: 10px;
+  margin: 5px;
   padding: 0px;
   list-style: none;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
