@@ -22,11 +22,7 @@ function coverHtml(cover: Blob) {
       v-html="coverHtml(v.cover)"
       @click="emit('show-more', k, true)"
     ></div>
-    <div
-      v-else-if="!v.cover"
-      class="cover-placeholder"
-      @click="emit('show-more', k, true)"
-    ></div>
+    <div v-else-if="!v.cover" class="cover-placeholder" @click="emit('show-more', k, true)"></div>
   </TransitionGroup>
 </template>
 
@@ -34,8 +30,12 @@ function coverHtml(cover: Blob) {
 .card-wrapper,
 .cover-placeholder {
   float: left;
-  margin: 5px 5px 0 0;
-  /* background-color: blue; */
+  margin: 10px 15px 0 0;
+  box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.3);
+}
+.card-wrapper:hover,
+.cover-placeholder:hover {
+  box-shadow: 8px 8px 8px 0px rgba(0, 0, 0, 0.3);
 }
 .cover-placeholder {
   width: 160px;
