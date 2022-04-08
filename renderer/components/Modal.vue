@@ -52,16 +52,18 @@ const props = defineProps(['show', 'item'])
 .modal-wrapper {
   /* display: table-cell; */
   /* vertical-align:middle; */
-  margin-top: 100px;
+  /* margin-top: 100px; */
+  right: 0;
 }
 
 .modal-container {
-  width: 300px;
-  margin: 0px auto;
+  width: 500px;
+  height: 100vh;
+  position: absolute;
+  right:0;
+  margin-right: 0;
   padding: 20px 30px;
-  background-color: #fff;
-  border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  background-color: gray;
   transition: all 0.3s ease;
 }
 
@@ -97,7 +99,7 @@ const props = defineProps(['show', 'item'])
 
 .modal-enter-from .modal-container,
 .modal-leave-to .modal-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
+  /* transform: scale(1.1); */
+  transform: translateX(20px);
 }
 </style>
