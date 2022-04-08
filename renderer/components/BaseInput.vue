@@ -18,12 +18,15 @@ onMounted(() => {
 
 <style scoped>
 input {
-  padding: 0px 10px 0px 10px;
+  padding: 0 10px;
   border-style: none;
   background-color: grey;
+  width: max-content;
+  height: 100%;
 }
 input:focus {
   outline: none;
-  caret-color: goldenrod;
+  /* caret-color: goldenrod; */
+  width:fit-content;
 }
 </style>

@@ -55,15 +55,8 @@ onMounted(() => {
 .name {
   font-size: small;
   display: block;
-  /* background-color: cornflowerblue; */
-  /* vertical-align: middle; */
   margin: 4px 0 1px 0;
   padding: 1px 0 0;
-  height: 100%;
-}
-.input-zone {
-  /* margin: 0px 5px 0 0; */
-  height: 100%;
-  /* padding: 1px 0 0; */
+  /* background-color: cornflowerblue; */
 }
 </style>

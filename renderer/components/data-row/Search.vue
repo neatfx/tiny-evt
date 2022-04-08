@@ -20,10 +20,19 @@ function clear() {
 }
 </script>
 <template>
-  <BaseInput v-model="search" />
+<div class="wrapper">
+  <BaseInput v-model="search" class="input-zone"/>
   <BaseButton @click="clear">搜索</BaseButton>
+  </div>
 </template>
 <style scoped>
+.wrapper{
+  display: inline-block;
+  /* border: 1px solid rebeccapurple; */
+}
+.input-zone{
+  padding: 8px 10px 6px;
+}
 button {
   margin-right: 0;
 }
