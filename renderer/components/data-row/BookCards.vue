@@ -89,6 +89,7 @@ function showMore(bookId: number, ifShowModal: boolean) {
             currentUpdateField = 'name'
             updateItem(rowId, payload)
           }"
+          class="book-name"
         ></EditableText>
       </template>
       <template #body>
@@ -103,37 +104,45 @@ function showMore(bookId: number, ifShowModal: boolean) {
           :read="store.items[curItemIndex]?.read"
           @mark-read="markRead"
         ></BookRowsReadStatus>
-        <BookRowsInlineTags
-          v-if="store.view.fields.categories"
-          :rowId="store.items[curItemIndex]?.id"
-          :categories="store.items[curItemIndex]?.categories"
-          @delete-tag="deleteTag"
-        ></BookRowsInlineTags>
-        <EditableText
-          v-if="store.view.fields.author"
-          :rowId="store.items[curItemIndex]?.id"
-          :text="store.items[curItemIndex]?.author"
-          @update="(rowId, payload) => {
-            currentUpdateField = 'author'
-            updateItem(rowId, payload)
-          }"
-        ></EditableText>
-        <EditableText
-          v-if="store.view.fields.publishing"
-          :rowId="store.items[curItemIndex]?.id"
-          :text="store.items[curItemIndex]?.publishing"
-          @update="(rowId, payload) => {
-            currentUpdateField = 'publishing'
-            updateItem(rowId, payload)
-          }"
-        ></EditableText>
-        <BookRowsTags
-          v-if="store.view.control.categories"
-          :rowId="store.items[curItemIndex]?.id"
-          :categories="store.items[curItemIndex]?.categories"
-          @add-tag="addTag"
-          class="right"
-        ></BookRowsTags>
+        <div>
+          <title>作者</title>
+          <EditableText
+            v-if="store.view.fields.author"
+            :rowId="store.items[curItemIndex]?.id"
+            :text="store.items[curItemIndex]?.author"
+            @update="(rowId, payload) => {
+              currentUpdateField = 'author'
+              updateItem(rowId, payload)
+            }"
+          ></EditableText>
+        </div>
+        <div>
+          <EditableText
+            v-if="store.view.fields.publishing"
+            :rowId="store.items[curItemIndex]?.id"
+            :text="store.items[curItemIndex]?.publishing"
+            @update="(rowId, payload) => {
+              currentUpdateField = 'publishing'
+              updateItem(rowId, payload)
+            }"
+          ></EditableText>
+        </div>
+        <div class="tags-zone">
+          <BookRowsInlineTags
+            v-if="store.view.fields.categories"
+            :rowId="store.items[curItemIndex]?.id"
+            :categories="store.items[curItemIndex]?.categories"
+            @delete-tag="deleteTag"
+            class="inline-tags"
+          ></BookRowsInlineTags>
+          <BookRowsTags
+            v-if="store.view.control.categories"
+            :rowId="store.items[curItemIndex]?.id"
+            :categories="store.items[curItemIndex]?.categories"
+            @add-tag="addTag"
+            class="tag-adder"
+          ></BookRowsTags>
+        </div>
       </template>
     </modal>
   </Teleport>
@@ -148,5 +157,19 @@ function showMore(bookId: number, ifShowModal: boolean) {
   padding: 4px 5px 0 5px;
   margin-right: 5px;
   background-color: slategray;
+}
+.book-name {
+  background: none;
+}
+.tags-zone {
+  margin-top: 10px;
+}
+.inline-tags {
+  float: left;
+  /* display: inline-block; */
+}
+.tag-adder {
+  margin-top: 5px;
+  display: block;
 }
 </style>

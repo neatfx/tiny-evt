@@ -13,7 +13,7 @@ const dic: Map<string, string | boolean> = new Map([
   ['fields', '字段'],
   ['control', '操作按钮'],
 
-  ['layout', '布局形式'],
+  ['layout', '数据展现形式'],
   ['cards', '卡片'],
   ['rows', '列表']
 ])

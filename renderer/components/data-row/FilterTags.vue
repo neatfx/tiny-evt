@@ -21,7 +21,7 @@ defineProps<{
       <li v-for="v in items.get(key)" :key="key + v">
         <span class="filter-value">{{ v }}</span>
         <span class="btn-delete" @click="removeFilter(key, v)">
-          <span class="cross">+</span>
+          <span class="cross rotate">+</span>
         </span>
       </li>
     </ul>
@@ -78,4 +78,10 @@ li {
   transition-property: all;
   transform: rotate(45deg);
 }
+/* .rotate {
+  transition: rotate 1s;
+}
+.btn-delete:hover .rotate {
+  rotate: 1 -0.5 1 180deg;
+} */
 </style>
