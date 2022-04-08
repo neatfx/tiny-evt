@@ -11,19 +11,19 @@ onMounted(() => {
   if (props.content) inputVal.value = props.content
 })
 </script>
+
 <template>
   <input type="text" @input="$emit('update:modelValue', inputVal)" v-model="inputVal" />
 </template>
+
 <style scoped>
 input {
-  padding: 2px 10px 2px 10px;
+  padding: 0px 10px 0px 10px;
   border-style: none;
   background-color: grey;
-  vertical-align: middle;
-  height: 25px;
-  margin-top: -4px;
 }
 input:focus {
   outline: none;
+  caret-color: goldenrod;
 }
 </style>

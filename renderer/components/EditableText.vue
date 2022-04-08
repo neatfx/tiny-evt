@@ -32,10 +32,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <span class="name" v-if="!showInput" @dblclick="edit">
-    <span v-if="isName">{{ '《 ' + sourceContent + ' 》' }}</span>
-    <span v-else-if="!isName">{{ sourceContent }}</span>
-  </span>
+  <div class="name-wrapper" v-if="!showInput" @dblclick="edit">
+    <span v-if="isName" class="name">{{ '《 ' + sourceContent + ' 》' }}</span>
+    <span v-else-if="!isName" class="name">{{ sourceContent }}</span>
+  </div>
   <BaseInput
     class="input-zone"
     v-if="showInput"
@@ -47,13 +47,23 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.name {
-  /* padding: 3px 10px; */
+.name-wrapper {
+  display: inline-block;
+  padding: 0px 10px 3px;
   background-color: darkgray;
-  padding: 3px 10px;
-  margin-right: 5px;
+}
+.name {
+  font-size: small;
+  display: block;
+  /* background-color: cornflowerblue; */
+  /* vertical-align: middle; */
+  margin: 4px 0 1px 0;
+  padding: 1px 0 0;
+  height: 100%;
 }
 .input-zone {
-  margin: 0px 5px 0 0;
+  /* margin: 0px 5px 0 0; */
+  height: 100%;
+  /* padding: 1px 0 0; */
 }
 </style>

@@ -67,11 +67,12 @@ const showCover = ref(false)
 </script>
 
 <template>
-  <div @mouseover="showCover = true" @mouseleave="showCover = false">
+  <div @mouseover="showCover = true" @mouseleave="showCover = false" class="wrapper">
     <EditableText
       :rowId="rowId"
       :text="text"
       :isName="isName"
+      @mouseover="showCover = true" @mouseleave="showCover = false"
       @update="(rowId, payload) => { emit('update', rowId, payload) }"
     ></EditableText>
     <div v-if="showCover" v-html="coverHtml" class="img-wrapper"></div>
@@ -85,13 +86,17 @@ const showCover = ref(false)
 </template>
 
 <style scoped>
+.wrapper {
+  height: 100%;
+  background-color: brown;
+}
 .img-wrapper {
   position: fixed;
   display: inline-block;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
 }
 
-.dropzone {
+/* .dropzone {
   border: 2px dotted silver;
   border-radius: 5px;
   text-align: center;
@@ -99,5 +104,5 @@ const showCover = ref(false)
 }
 .add-btn {
   margin: 10px 0 0;
-}
+} */
 </style>

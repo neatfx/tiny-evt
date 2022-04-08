@@ -13,7 +13,7 @@ import BookRowsInlineTags from '@comps/data-row/BookRowsInlineTags.vue'
 import BookRowsCover from '@comps/data-row/BookRowsCover.vue'
 import EditableText from '@comps/EditableText.vue'
 import BookRowsLendStatus from '@comps/data-row/BookRowsLendStatus.vue'
-import BookRowsInlineCoverVue from './BookRowsInlineCover.vue'
+import BookRowsFieldName from './BookRowsFieldName.vue'
 
 const props = defineProps(['items'])
 const store = useBooksStore()
@@ -25,7 +25,7 @@ function openDetail(rowId: number | undefined) {
 }
 
 async function updateItem(rowId: number, payload: string) {
-  console.log(rowId,payload)
+  console.log(rowId, payload)
   let obj: { [key: string]: string } = {}
 
   obj[currentUpdateField.value] = payload
@@ -94,31 +94,35 @@ async function addCover(rowId: number, cover: File | undefined) {
             :read="read"
             @mark-read="markRead"
           ></BookRowsReadStatus>
-          <BookRowsInlineCoverVue
-            :cover="cover"
-            :rowId="id"
-            :text="name"
-            :isName="() => true"
-            @update="(rowId, payload) => {
-              currentUpdateField = 'name'
-              updateItem(rowId, payload)
-            }"
-          ></BookRowsInlineCoverVue>
+          <div class="field">
+            <BookRowsFieldName
+              :cover="cover"
+              :rowId="id"
+              :text="name"
+              :isName="() => true"
+              @update="(rowId, payload) => {
+                currentUpdateField = 'name'
+                updateItem(rowId, payload)
+              }"
+            ></BookRowsFieldName>
+          </div>
           <BookRowsInlineTags
             v-if="store.view.fields.categories"
             :categories="categories"
             :rowId="id"
             @delete-tag="deleteTag"
           ></BookRowsInlineTags>
-          <EditableText
-            v-if="store.view.fields.author"
-            :rowId="id"
-            :text="author"
-            @update="(rowId, payload) => {
-              currentUpdateField = 'author'
-              updateItem(rowId, payload)
-            }"
-          ></EditableText>
+          <div class="field">
+            <EditableText
+              v-if="store.view.fields.author"
+              :rowId="id"
+              :text="author"
+              @update="(rowId, payload) => {
+                currentUpdateField = 'author'
+                updateItem(rowId, payload)
+              }"
+            ></EditableText>
+          </div>
           <EditableText
             v-if="store.view.fields.publishing"
             :rowId="id"
@@ -156,6 +160,7 @@ async function addCover(rowId: number, cover: File | undefined) {
   display: grid;
   /* grid-template-columns: 1fr autp; */
   grid-auto-flow: column;
+  gap: 5px;
   /* justify-content: left; */
 }
 .id {
@@ -164,11 +169,6 @@ async function addCover(rowId: number, cover: File | undefined) {
   padding: 4px 5px 0 5px;
   margin-right: 5px;
   background-color: slategray;
-}
-.title {
-  background-color: darkgray;
-  padding: 4px 10px;
-  margin-right: 5px;
 }
 .left {
   display: grid;
@@ -187,10 +187,7 @@ async function addCover(rowId: number, cover: File | undefined) {
 }
 
 /*  */
-.book-cover {
-  position: absolute;
-  width: 160px;
-  height: 220px;
-  border: 1px solid green;
+.field {
+  margin-right: 5px;
 }
 </style>
