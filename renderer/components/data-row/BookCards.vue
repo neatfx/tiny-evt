@@ -65,6 +65,11 @@ async function addCover(rowId: number, cover: File | undefined) {
 
 const showModal = ref(false)
 const currentItem = ref(1)
+
+function showMore(bookId: number, ifShowModal: boolean) {
+  currentItem.value = bookId
+  showModal.value = ifShowModal
+}
 </script>
 
 <template>
@@ -128,7 +133,7 @@ const currentItem = ref(1)
       </template>
     </modal>
   </Teleport>
-  <BaseCards :items="props.items"></BaseCards>
+  <BaseCards :items="props.items" @show-more="showMore"></BaseCards>
 </template>
 
 <style scoped>

@@ -1,5 +1,8 @@
 <script setup lang="ts">
-defineProps(['items'])
+const props = defineProps(['items'])
+const emit = defineEmits<{
+  (event: 'show-more', bookId: number, showModal: boolean): void
+}>()
 
 function coverHtml(cover: Blob) {
   let binaryData = []
@@ -7,29 +10,27 @@ function coverHtml(cover: Blob) {
 
   binaryData.push(cover)
   url = window.URL.createObjectURL(new Blob(binaryData, { type: 'image/jpeg' }))
-  return '<img src="' + url + '" style="max-width: 160px; max-height: 222px;" />'
+  return '<img src="' + url + '" style="max-width: 160px; max-height: 222px; display:block;" />'
 }
 </script>
 
 <template>
-  <TransitionGroup name="list">
-      <div
-        class="card-wrapper"
-        v-for="item in items" :key="item.id"
-        @click="() => {
-          // currentItem = id
-          // showModal = true
-        }"
-      >
-        <!-- <BookCardCover :rowId="id" :cover="cover" @add-cover="addCover"></BookCardCover> -->
-        <div v-if="item.cover" v-html="coverHtml(item.cover)" class="img-wrapper"></div>
-      </div>
+  <TransitionGroup name="list" v-for="item in items" :key="item.id">
+    <div
+      v-if="item.cover"
+      class="card-wrapper"
+      v-html="coverHtml(item.cover)"
+      @click="emit('show-more', item.id, true)"
+    ></div>
   </TransitionGroup>
 </template>
 
 <style scoped>
-.img-wrapper{
+.card-wrapper {
   float: left;
+  /* background-color: blue; */
+}
+.img-wrapper {
   background-color: blue;
 }
 
