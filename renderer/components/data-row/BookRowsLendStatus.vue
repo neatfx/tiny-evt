@@ -23,8 +23,8 @@ function add() {
 <template>
   <FolderPanel :isInlinePanel="true">
     <template #header>
-      <BaseButton v-if="lend" class="outside">已</BaseButton>
-      <BaseButton v-if="!lend" class="in">未</BaseButton>
+      <BaseButton v-if="lend" class="outside">借出</BaseButton>
+      <BaseButton v-if="!lend" class="in">在架</BaseButton>
     </template>
     <template #body>
       <div class="wrapper">

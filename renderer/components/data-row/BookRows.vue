@@ -13,6 +13,7 @@ import BookRowsInlineTags from '@comps/data-row/BookRowsInlineTags.vue'
 import BookRowsCover from '@comps/data-row/BookRowsCover.vue'
 import EditableText from '@comps/EditableText.vue'
 import BookRowsLendStatus from '@comps/data-row/BookRowsLendStatus.vue'
+import BookRowsInlineCoverVue from './BookRowsInlineCover.vue'
 
 const props = defineProps(['items'])
 const store = useBooksStore()
@@ -92,17 +93,19 @@ async function addCover(rowId: number, cover: File | undefined) {
             :read="read"
             @mark-read="markRead"
           ></BookRowsReadStatus>
-          <BookRowsCover :rowId="id" :cover="cover" @add-cover="addCover"></BookRowsCover>
-          <EditableText
-            v-if="store.view.fields.name"
-            :rowId="id"
-            :text="name"
-            :isName="() => true"
-            @update="(rowId, payload) => {
-              currentUpdateField = 'name'
-              updateItem(rowId, payload)
-            }"
-          ></EditableText>
+          <BookRowsInlineCoverVue :cover="cover"></BookRowsInlineCoverVue>
+          <!-- <div class="book-name">
+            <EditableText
+              v-if="store.view.fields.name"
+              :rowId="id"
+              :text="name"
+              :isName="() => true"
+              @update="(rowId, payload) => {
+                currentUpdateField = 'name'
+                updateItem(rowId, payload)
+              }"
+            ></EditableText>
+          </div>-->
           <BookRowsInlineTags
             v-if="store.view.fields.categories"
             :categories="categories"
@@ -129,6 +132,12 @@ async function addCover(rowId: number, cover: File | undefined) {
           ></EditableText>
         </div>
         <div class="right">
+          <BookRowsCover
+            v-if="store.view.control.cover"
+            :rowId="id"
+            :cover="cover"
+            @add-cover="addCover"
+          ></BookRowsCover>
           <BookRowsTags
             v-if="store.view.control.categories"
             :categories="categories"
@@ -177,5 +186,13 @@ async function addCover(rowId: number, cover: File | undefined) {
   grid-auto-flow: column;
   justify-self: right;
   /* border: 1px solid red; */
+}
+
+/*  */
+.book-cover {
+  position: absolute;
+  width: 160px;
+  height: 220px;
+  border: 1px solid green;
 }
 </style>

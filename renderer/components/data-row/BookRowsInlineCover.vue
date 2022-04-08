@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import FolderPanel from '@comps/FolderPanel.vue';
-import BaseButton from '@comps/BaseButton.vue';
 import { computed, ref } from '@vue/reactivity';
 import { onMounted } from 'vue';
+import EditableText from '@comps/EditableText.vue'
 
 const props = defineProps(['rowId', 'cover'])
 const emit = defineEmits<{
@@ -15,7 +14,7 @@ const coverHtml = computed(() => {
   if (fileData.value) {
     binaryData.push(fileData.value)
     url = window.URL.createObjectURL(new Blob(binaryData, { type: 'image/jpeg' }))
-    return '<img src="' + url + '" style="width: 300px;"/>'
+    return '<img src="' + url + '" style="max-width: 160px; max-height: 222px; display: block;" />'
   }
 })
 const fileData = ref<File | undefined>()
@@ -62,39 +61,35 @@ onMounted(() => {
     showChangeBtn.value = false
   }
 })
+
+const showCover = ref(false)
 </script>
 
 <template>
-  <FolderPanel :isInlinePanel="true">
-    <template #header>
-      <BaseButton>封面</BaseButton>
-    </template>
-    <template #body>
-      <div class="wrapper" ref="coverRef">
-        <div v-if="fileData" v-html="coverHtml"></div>
-        <div v-if="!fileData" class="dropzone" @dragover="ondragover" @drop="ondrop">
-          <img />
-        </div>
-        <BaseButton v-if="showAddBtn" class="add-btn" @click="addCover">添加封面</BaseButton>
-        <BaseButton v-if="showChangeBtn" class="change-btn" @click="changeCover">更换封面</BaseButton>
-      </div>
-    </template>
-  </FolderPanel>
+  <div @mouseover="showCover = true" @mouseleave="showCover = false">
+    <EditableText>ssssss</EditableText>
+    <div v-if="showCover" v-html="coverHtml" class="img-wrapper"></div>
+  </div>
+  <!-- <div v-if="!fileData" class="dropzone" @dragover="ondragover" @drop="ondrop"> -->
+  <!-- <img /> -->
+  <!-- </div> -->
+  <!-- <slot></slot>
+  <BaseButton v-if="showAddBtn" class="add-btn" @click="addCover">添加封面</BaseButton>
+  <BaseButton v-if="showChangeBtn" class="change-btn" @click="changeCover">更换封面</BaseButton>-->
 </template>
 
 <style scoped>
-.wrapper {
-  padding: 10px;
-  background-color: darkgrey;
+.img-wrapper {
+  position: fixed;
+  display: inline-block;
+  box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
 }
-img {
-  width: 130px;
-}
+
 .dropzone {
   border: 2px dotted silver;
   border-radius: 5px;
-  width: 130px;
   text-align: center;
+  margin: 0;
 }
 .add-btn {
   margin: 10px 0 0;
