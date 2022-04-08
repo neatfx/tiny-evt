@@ -25,6 +25,7 @@ function openDetail(rowId: number | undefined) {
 }
 
 async function updateItem(rowId: number, payload: string) {
+  console.log(rowId,payload)
   let obj: { [key: string]: string } = {}
 
   obj[currentUpdateField.value] = payload
@@ -93,19 +94,16 @@ async function addCover(rowId: number, cover: File | undefined) {
             :read="read"
             @mark-read="markRead"
           ></BookRowsReadStatus>
-          <BookRowsInlineCoverVue :cover="cover"></BookRowsInlineCoverVue>
-          <!-- <div class="book-name">
-            <EditableText
-              v-if="store.view.fields.name"
-              :rowId="id"
-              :text="name"
-              :isName="() => true"
-              @update="(rowId, payload) => {
-                currentUpdateField = 'name'
-                updateItem(rowId, payload)
-              }"
-            ></EditableText>
-          </div>-->
+          <BookRowsInlineCoverVue
+            :cover="cover"
+            :rowId="id"
+            :text="name"
+            :isName="() => true"
+            @update="(rowId, payload) => {
+              currentUpdateField = 'name'
+              updateItem(rowId, payload)
+            }"
+          ></BookRowsInlineCoverVue>
           <BookRowsInlineTags
             v-if="store.view.fields.categories"
             :categories="categories"

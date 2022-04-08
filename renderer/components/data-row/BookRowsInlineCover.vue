@@ -3,9 +3,10 @@ import { computed, ref } from '@vue/reactivity';
 import { onMounted } from 'vue';
 import EditableText from '@comps/EditableText.vue'
 
-const props = defineProps(['rowId', 'cover'])
+const props = defineProps(['rowId', 'text', 'isName', 'cover'])
 const emit = defineEmits<{
-  (event: 'add-cover', rowId: number, cover: File | undefined): void
+  // (event: 'add-cover', rowId: number, cover: File | undefined): void
+  (event: 'update', rowId: number, payload: string): void
 }>()
 const coverHtml = computed(() => {
   let binaryData = []
@@ -19,37 +20,37 @@ const coverHtml = computed(() => {
 })
 const fileData = ref<File | undefined>()
 const showAddBtn = ref(true)
-const waitForChange = ref(false)
+// const waitForChange = ref(false)
 const showChangeBtn = ref(false)
 
-function ondragover(event: any) {
-  event.stopPropagation();
-  event.preventDefault();
-  event.dataTransfer.dropEffect = 'copy';
-};
+// function ondragover(event: any) {
+//   event.stopPropagation();
+//   event.preventDefault();
+//   event.dataTransfer.dropEffect = 'copy';
+// };
 
-async function ondrop(ev: any) {
-  ev.stopPropagation();
-  ev.preventDefault();
+// async function ondrop(ev: any) {
+//   ev.stopPropagation();
+//   ev.preventDefault();
 
-  fileData.value = ev.dataTransfer.files[0];
-  if (!fileData.value) throw new Error(`Only files can be dropped here`);
-}
+//   fileData.value = ev.dataTransfer.files[0];
+//   if (!fileData.value) throw new Error(`Only files can be dropped here`);
+// }
 
-async function addCover() {
-  if (fileData.value) {
-    emit("add-cover", props.rowId, fileData.value)
-  }
-}
+// async function addCover() {
+//   if (fileData.value) {
+//     emit("add-cover", props.rowId, fileData.value)
+//   }
+// }
 
-async function changeCover() {
-  if (fileData.value) {
-    emit("add-cover", props.rowId, fileData.value)
-    showAddBtn.value = true
-    showChangeBtn.value = false
-    fileData.value = undefined
-  }
-}
+// async function changeCover() {
+//   if (fileData.value) {
+//     emit("add-cover", props.rowId, fileData.value)
+//     showAddBtn.value = true
+//     showChangeBtn.value = false
+//     fileData.value = undefined
+//   }
+// }
 
 onMounted(() => {
   fileData.value = props.cover
@@ -67,7 +68,12 @@ const showCover = ref(false)
 
 <template>
   <div @mouseover="showCover = true" @mouseleave="showCover = false">
-    <EditableText>ssssss</EditableText>
+    <EditableText
+      :rowId="rowId"
+      :text="text"
+      :isName="isName"
+      @update="(rowId, payload) => { emit('update', rowId, payload) }"
+    ></EditableText>
     <div v-if="showCover" v-html="coverHtml" class="img-wrapper"></div>
   </div>
   <!-- <div v-if="!fileData" class="dropzone" @dragover="ondragover" @drop="ondrop"> -->
