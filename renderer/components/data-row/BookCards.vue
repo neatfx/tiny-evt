@@ -71,10 +71,8 @@ const curItemId = computed(() => {
 })
 
 function showMore(bookId: number, ifShowModal: boolean) {
-  console.log(bookId)
   curItemIndex.value = bookId
   showModal.value = ifShowModal
-  console.log(store.items)
 }
 </script>
 

@@ -34,11 +34,12 @@ function coverHtml(cover: Blob) {
 .card-wrapper,
 .cover-placeholder {
   float: left;
+  margin: 5px 5px 0 0;
   /* background-color: blue; */
 }
 .cover-placeholder {
-  width: 100px;
-  height: 200px;
+  width: 160px;
+  height: 222px;
   background-color: grey;
 }
 
