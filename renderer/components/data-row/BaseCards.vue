@@ -15,23 +15,31 @@ function coverHtml(cover: Blob) {
 </script>
 
 <template>
-  <TransitionGroup name="list" v-for="item in items" :key="item.id">
+  <TransitionGroup name="list" v-for="(v, k) in items" :key="k">
     <div
-      v-if="item.cover"
+      v-if="v.cover"
       class="card-wrapper"
-      v-html="coverHtml(item.cover)"
-      @click="emit('show-more', item.id, true)"
+      v-html="coverHtml(v.cover)"
+      @click="emit('show-more', k, true)"
+    ></div>
+    <div
+      v-else-if="!v.cover"
+      class="cover-placeholder"
+      @click="emit('show-more', k, true)"
     ></div>
   </TransitionGroup>
 </template>
 
 <style scoped>
-.card-wrapper {
+.card-wrapper,
+.cover-placeholder {
   float: left;
   /* background-color: blue; */
 }
-.img-wrapper {
-  background-color: blue;
+.cover-placeholder {
+  width: 100px;
+  height: 200px;
+  background-color: grey;
 }
 
 /* Transition */

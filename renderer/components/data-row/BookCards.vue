@@ -9,6 +9,7 @@ import BookRowsInlineTags from '@comps/data-row/BookRowsInlineTags.vue'
 import EditableText from '@comps/EditableText.vue'
 import BookRowsLendStatus from '@comps/data-row/BookRowsLendStatus.vue'
 import Modal from '@comps/Modal.vue'
+import { computed } from '@vue/reactivity'
 
 const props = defineProps(['items'])
 const store = useBooksStore()
@@ -64,11 +65,16 @@ async function addCover(rowId: number, cover: File | undefined) {
 }
 
 const showModal = ref(false)
-const currentItem = ref(1)
+const curItemIndex = ref(1)
+const curItemId = computed(() => {
+  return curItemIndex.value + 1
+})
 
 function showMore(bookId: number, ifShowModal: boolean) {
-  currentItem.value = bookId
+  console.log(bookId)
+  curItemIndex.value = bookId
   showModal.value = ifShowModal
+  console.log(store.items)
 }
 </script>
 
@@ -76,10 +82,10 @@ function showMore(bookId: number, ifShowModal: boolean) {
   <Teleport to="body">
     <modal :show="showModal" @close="showModal = false">
       <template #header>
-        <div class="id">{{ currentItem }}</div>
+        <div class="id">{{ curItemId }}</div>
         <EditableText
-          :rowId="currentItem"
-          :text="store.items[currentItem - 1]?.name"
+          :rowId="store.items[curItemIndex]?.id"
+          :text="store.items[curItemIndex]?.name"
           :isName="() => true"
           @update="(rowId, payload) => {
             currentUpdateField = 'name'
@@ -89,26 +95,26 @@ function showMore(bookId: number, ifShowModal: boolean) {
       </template>
       <template #body>
         <BookRowsLendStatus
-          :lend="store.items[currentItem - 1]?.lend"
-          :rowId="currentItem"
+          :rowId="store.items[curItemIndex]?.id"
+          :lend="store.items[curItemIndex]?.lend"
           @reset-lend="deleteLend"
           @add-lend="addLend"
         ></BookRowsLendStatus>
         <BookRowsReadStatus
-          :rowId="currentItem"
-          :read="store.items[currentItem - 1]?.read"
+          :rowId="store.items[curItemIndex]?.id"
+          :read="store.items[curItemIndex]?.read"
           @mark-read="markRead"
         ></BookRowsReadStatus>
         <BookRowsInlineTags
           v-if="store.view.fields.categories"
-          :categories="store.items[currentItem - 1]?.categories"
-          :rowId="currentItem"
+          :rowId="store.items[curItemIndex]?.id"
+          :categories="store.items[curItemIndex]?.categories"
           @delete-tag="deleteTag"
         ></BookRowsInlineTags>
         <EditableText
           v-if="store.view.fields.author"
-          :rowId="currentItem"
-          :text="store.items[currentItem - 1]?.author"
+          :rowId="store.items[curItemIndex]?.id"
+          :text="store.items[curItemIndex]?.author"
           @update="(rowId, payload) => {
             currentUpdateField = 'author'
             updateItem(rowId, payload)
@@ -116,8 +122,8 @@ function showMore(bookId: number, ifShowModal: boolean) {
         ></EditableText>
         <EditableText
           v-if="store.view.fields.publishing"
-          :rowId="currentItem"
-          :text="store.items[currentItem - 1]?.publishing"
+          :rowId="store.items[curItemIndex]?.id"
+          :text="store.items[curItemIndex]?.publishing"
           @update="(rowId, payload) => {
             currentUpdateField = 'publishing'
             updateItem(rowId, payload)
@@ -125,8 +131,8 @@ function showMore(bookId: number, ifShowModal: boolean) {
         ></EditableText>
         <BookRowsTags
           v-if="store.view.control.categories"
-          :categories="store.items[currentItem - 1]?.categories"
-          :rowId="currentItem"
+          :rowId="store.items[curItemIndex]?.id"
+          :categories="store.items[curItemIndex]?.categories"
           @add-tag="addTag"
           class="right"
         ></BookRowsTags>
