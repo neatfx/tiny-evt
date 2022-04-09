@@ -4,9 +4,11 @@ declare global {
   interface Window {
     electronDarkMode: ElectronDarkMode
     electronDatabase: ElectronDatabase
+    electronDouban: ElectronDouban
   }
   type GithubJson = GithubJsonDef
 }
+
 declare module 'segmentit';
 
 export interface ElectronDarkMode {
@@ -16,6 +18,10 @@ export interface ElectronDarkMode {
 
 export interface ElectronDatabase {
   saveExportedDatabaseFile: (file: Blob) => Promise<void>
+}
+
+export interface ElectronDouban {
+  suggestBook: (keyword: string) => Promise<any>
 }
 
 type GithubJsonDef = {

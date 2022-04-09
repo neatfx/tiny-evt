@@ -5,6 +5,7 @@
 
 import { contextBridge, ipcRenderer } from 'electron'
 import { writeFile } from 'fs'
+import { suggestBook } from '../douban-book-api'
 
 // 白名单
 const validChannels = [
@@ -30,16 +31,23 @@ contextBridge.exposeInMainWorld('electronDarkMode', {
 })
 
 contextBridge.exposeInMainWorld('electronDatabase', {
-  loadPreferences: () => ipcRenderer.invoke('load-prefs'),
   saveExportedDatabaseFile: async (file: Blob) => {
     const data = writeFile('./db-exported.json', await file.text(), (err) => { })
     return data
   }
 })
 
-///////////////////////////
+contextBridge.exposeInMainWorld('electronDouban', {
+  suggestBook: async (keyword: string) => {
+    const res = await suggestBook(keyword)
+    console.log(res)
+    return true
+  }
+})
+
+/////////////////////////////////////////////////////////
 // preload process 运行于与 Chrome 扩展相同的安全沙箱环境
-///////////////////////////////
+/////////////////////////////////////////////////////////////
 
 window.addEventListener('DOMContentLoaded', () => {
 })

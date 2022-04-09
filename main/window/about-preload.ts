@@ -1,4 +1,8 @@
-let pack = require("../../package.json")
+const pack = require("../../package.json")
+
+/////////////////////////////////////////////////////////
+// preload process 运行于与 Chrome 扩展相同的安全沙箱环境
+/////////////////////////////////////////////////////////////
 
 window.addEventListener('DOMContentLoaded', () => {
   document.getElementById('app-name')!.innerText = pack.name

@@ -5,7 +5,6 @@ import Menu from './menu'
 import MainWindow from './window/main'
 import AboutWindow from './window/about'
 import AppTray from './tray'
-import { suggestBook } from '../renderer/services/douban-book-api'
 
 //////////////
 // 安全相关
@@ -40,8 +39,6 @@ app.whenReady().then(async () => {
     if (BrowserWindow.getAllWindows().length === 1) mainWindow.init()
     mainWindow.window?.show()
   })
-
-  suggestBook()
 })
 
 app.on('before-quit', () => {
