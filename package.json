@@ -25,8 +25,10 @@
     "*.{js,vue}": "eslint"
   },
   "dependencies": {
+    "axios": "^0.26.1",
     "dexie": "^3.2.1",
     "dexie-export-import": "^1.0.3",
+    "mande": "^2.0.1",
     "pinia": "^2.0.12",
     "playwright": "^1.20.2",
     "segmentit": "^2.0.3",

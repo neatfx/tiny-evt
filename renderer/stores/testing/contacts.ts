@@ -5,8 +5,6 @@ import { Contact } from '../../db/testing/contact';
 
 import { usePagination } from '../../components/pagination';
 
-// import { mande } from 'mande'
-
 const { total, offset, limit } = usePagination()
 
 export const useContactsStore = defineStore('contact', {

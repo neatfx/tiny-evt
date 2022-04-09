@@ -1,28 +1,16 @@
-import { chromium, firefox, webkit } from 'playwright';
+import { chromium } from 'playwright';
 
-const launchOptions = {
-  // proxy: {
-  //   server: '123.123.123.123:80'
-  // },
-  headless: false
-}
-
-export async function searchBook() {
-  const browser = await webkit.launch(launchOptions);
+export async function suggestBook() {
+  const browser = await chromium.launch({ headless: true });
+  // const context = await browser.newContext();
   const page = await browser.newPage();
-  await page.goto('https://books.toscrape.com/');
-  await page.waitForTimeout(1000); // wait for 1 seconds
-  const books = await page.$$eval('.product_pod', all_items => {
-    const data = [];
-    all_items.forEach(book => {
-      const name = book.querySelector('h3')?.innerText;
-      const price = book.querySelector('.price_color')?.
-        innerText;
-      const stock = book.querySelector('.availability')?.
-        innerText;
-      data.push({ name, price, stock });
-    });
-    return data;
-  });
-  await browser.close();
+
+  page.on('response', async(resp) => {
+    console.log(resp.url())
+    console.log(await resp.json())
+    browser.close()
+  })
+  
+  // await page.goto('https://search.douban.com/book/subject_search?search_text=三体');
+  await page.goto('https://book.douban.com/j/subject_suggest?q=中国近代史');
 }
