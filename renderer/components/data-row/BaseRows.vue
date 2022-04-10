@@ -4,7 +4,7 @@ defineProps(['items'])
 
 <template>
   <TransitionGroup name="list" tag="ul">
-    <li v-if="!items.length">Loading...</li>
+    <li v-if="!items.length" class="no-data">无数据</li>
     <li v-for="item in items" :key="item.id">
       <slot name="item" v-bind="item" />
     </li>
@@ -25,6 +25,10 @@ li {
 }
 li:hover {
   background-color: #2d2f36;
+}
+.no-data {
+  background-color: grey;
+  text-align: center;
 }
 
 /* Transition */
