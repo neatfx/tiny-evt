@@ -46,6 +46,8 @@ export const useBooksStore = defineStore('books', {
     },
     async list() {
       this.items = await TestingDB.books.offset(offset.value).limit(limit.value).toArray()
+
+      this.indicator = false
     },
     async add(book: IBook) {
       console.log(book)
@@ -115,11 +117,15 @@ export const useBooksStore = defineStore('books', {
       total.value = intersection.length;
       const segIndexes = intersection.splice(offset.value, limit.value)
       this.items = await TestingDB.books.bulkGet(segIndexes)
+
+      this.indicator = false
     },
     async fetchPagedRows() {
       await this.count()
       await this.list()
       total.value = this.total
+
+      this.indicator = false
     },
     async search(keywords: string) {
       this.items = await TestingDB.books
@@ -127,6 +133,8 @@ export const useBooksStore = defineStore('books', {
         .or('author').startsWithIgnoreCase(keywords)
         .or('categories').anyOfIgnoreCase([keywords])
         .distinct().toArray();
+    
+        this.indicator = false
     },
     async toggleIndicator(show: boolean) {
       this.indicator = show
