@@ -64,6 +64,19 @@ export function searchTokenizer() {
           return {
             // Copy default table implementation:
             ...downlevelTable,
+            // get: async req => {
+            //   const myRequest = { ...req };
+            //   console.log('db query')
+
+            //   const res = await downlevelTable.get(myRequest);
+            //   // Do things after mutate
+            //   // await syncAll(myRequest)
+
+            //   console.log('get operation...')
+
+            //   const myResponse = { ...res };
+            //   return myResponse;
+            // },
             // Override the mutate method:
             mutate: async req => {
               // Copy the request object

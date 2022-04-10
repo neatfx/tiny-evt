@@ -63,15 +63,12 @@ export const useBooksStore = defineStore('books', {
     async fetchFiltersMeta() {
       await TestingDB.books.orderBy('categories').uniqueKeys((keysArray) => {
         this.filters.categories = keysArray
-        // console.log(keysArray)
       });
       await TestingDB.books.orderBy('publishing').uniqueKeys((keysArray) => {
         this.filters.publishing = keysArray
-        // console.log(keysArray)
       });
       await TestingDB.books.orderBy('author').uniqueKeys((keysArray) => {
         this.filters.author = keysArray
-        // console.log(keysArray)
       });
     },
     async filter(filter: Map<string, Set<string>>) {
