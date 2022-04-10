@@ -136,7 +136,13 @@ onMounted(() => {
   background-color: darkgray;
   height: 60px;
 }
-.cancel-btn {
+.upload-btn,
+.upload-btn:hover {
+  background-color: cornflowerblue;
+}
+.cancel-btn,
+.cancel-btn:hover {
   margin-right: 0;
+  background-color: indianred;
 }
 </style>
