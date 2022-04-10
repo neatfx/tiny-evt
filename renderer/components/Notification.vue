@@ -18,7 +18,7 @@ const props = defineProps(['show', 'item'])
   </Transition>
 </template>
 
-<style>
+<style scoped>
 .modal-mask {
   position: fixed;
   z-index: 9998;

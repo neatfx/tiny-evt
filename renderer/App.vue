@@ -5,8 +5,7 @@ import BaseButton from '@comps/BaseButton.vue';
 import FolderPanel from '@comps/FolderPanel.vue';
 
 import Navbar from './components/Navbar.vue'
-import Notification from '@comps/Notification.vue'
-import { ref } from "vue";
+import Indicator from '@comps/Indicator.vue'
 import { useBooksStore } from '@/stores'
 
 useContextMenu();
@@ -31,10 +30,7 @@ const store = useBooksStore()
       </RouterView>
     </div>
     <Teleport to="body">
-      <Notification :show="store.indicator" @close="store.indicator = false">
-        <template #msg-type>通知</template>
-        <template #msg-body>通知</template>
-      </Notification>
+      <Indicator :show="store.indicator"></Indicator>
     </Teleport>
   </div>
 </template>
