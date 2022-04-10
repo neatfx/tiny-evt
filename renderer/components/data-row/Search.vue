@@ -38,7 +38,7 @@ function suggestBooks() {
 }
 
 function coverHtml(src: string) {
-  return '<img src="' + src + '" style="display: block; max-width: 80px; margin:0;" />'
+  return '<img src="' + src + '" style="display: block; max-height: 150px; margin:0;" />'
 }
 
 async function addBook(book: any) {
@@ -65,7 +65,9 @@ async function addBook(book: any) {
             <div>{{ v.title }}</div>
             <div>{{ v.author_name || '暂无作者信息' }}</div>
             <div>{{ v.year }}</div>
-            <BaseButton class="btn" @click="addBook(v)">+</BaseButton>
+            <BaseButton class="btn" @click="addBook(v)">
+              <span class="btn-text">+</span>
+            </BaseButton>
           </div>
         </li>
       </ul>
@@ -84,21 +86,23 @@ async function addBook(book: any) {
 .suggest-list {
   position: fixed;
   /* background-color: grey; */
-  overflow: scroll;
 }
 ul {
   display: grid;
   padding: 0;
   margin: 0;
+  float: left;
+  /* grid-auto-flow: column; */
 }
 li {
   display: grid;
   grid-template-columns: auto auto;
+  /* grid-auto-flow: column; */
   justify-self: left;
   border: 2px solid darkgrey;
   padding: 0px;
   background-color: grey;
-  margin: 5px 0 0;
+  margin: 5px 5px 0px 0;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
 }
 img {
@@ -108,11 +112,17 @@ img {
   margin: 0;
 }
 .info {
+  position: relative;
   padding: 15px 15px;
   /* border: 1px solid blue; */
 }
-
 .btn {
+  position: absolute;
+  right: 0;
+  bottom: 0;
   margin: 10px 0 0;
+}
+.btn-text {
+  padding: 5px;
 }
 </style>
