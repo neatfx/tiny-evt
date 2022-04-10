@@ -36,7 +36,8 @@ export const useBooksStore = defineStore('books', {
         categories: true,
         delete: true,
       }
-    }
+    },
+    indicator: false
   }),
   getters: {},
   actions: {
@@ -126,7 +127,10 @@ export const useBooksStore = defineStore('books', {
         .or('author').startsWithIgnoreCase(keywords)
         .or('categories').anyOfIgnoreCase([keywords])
         .distinct().toArray();
-    }
+    },
+    async toggleIndicator(show: boolean) {
+      this.indicator = show
+    },
   },
 })
 
@@ -138,6 +142,11 @@ export async function refresh() {
 // 供 search middleware put@mutate 时调用
 export async function refreshFiltersMeta() {
   await useBooksStore().fetchFiltersMeta()
+}
+
+// 
+export async function toggleIndicator(show: boolean) {
+  if (show) await useBooksStore().toggleIndicator(show)
 }
 
 // Persist

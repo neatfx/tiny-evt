@@ -8,7 +8,7 @@ import {
   DictOptimizer, ChsNameOptimizer, DatetimeOptimizer,
   pangu, wildcard
 } from 'segmentit'
-import { refresh, refreshFiltersMeta } from '@stores/testing/books'
+import { refresh, refreshFiltersMeta, toggleIndicator } from '@stores/testing/books'
 import type { DBCore, Middleware } from 'dexie';
 
 export const segmentit = new Segment();
@@ -47,6 +47,10 @@ async function syncAll(myRequest: any) {
   await refresh()
 }
 
+async function showIndicator(show: boolean = true) {
+  toggleIndicator(show)
+}
+
 const middleware: Middleware<DBCore> = {
   stack: "dbcore", // 目前仅支持 ‘dbcore’
   name: "dbCoreMiddleware", // 可选命名
@@ -61,36 +65,43 @@ const middleware: Middleware<DBCore> = {
         return {
           ...downlevelTable, // 复制默认 table 实现
           openCursor: async req => {
+            showIndicator()
             const myRequest = { ...req };
             const res = await downlevelTable.openCursor(myRequest);
             console.log('openCursor operation...')
             return res;
           },
           count: async req => {
+            showIndicator()
             const myRequest = { ...req };
             const res = await downlevelTable.count(myRequest);
             console.log('count operation...')
+
             return res;
           },
           get: async req => {
+            showIndicator()
             const myRequest = { ...req };
             const res = await downlevelTable.get(myRequest);
             console.log('get operation...')
             return res;
           },
           query: async req => {
+            showIndicator()
             const myRequest = { ...req };
             const res = await downlevelTable.query(myRequest);
             console.log('query operation...')
             return res;
           },
           getMany: async req => {
+            showIndicator()
             const myRequest = { ...req };
             const res = await downlevelTable.getMany(myRequest);
             console.log('getMany operation...')
             return res;
           },
           mutate: async req => {
+            showIndicator()
             const myRequest = { ...req };
             // Before mutate
             // For Add
