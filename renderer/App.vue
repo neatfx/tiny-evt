@@ -5,8 +5,11 @@ import BaseButton from '@comps/BaseButton.vue';
 import FolderPanel from '@comps/FolderPanel.vue';
 
 import Navbar from './components/Navbar.vue'
+import Notification from '@comps/Notification.vue'
+import { ref } from "vue";
 
 useContextMenu();
+const showModal = ref(true)
 </script>
 
 <template>
@@ -26,6 +29,12 @@ useContextMenu();
         </keep-alive>
       </RouterView>
     </div>
+    <Teleport to="body">
+      <Notification :show="showModal" @close="showModal = false">
+        <template #msg-type>通知</template>
+        <template #msg-body>通知</template>
+      </Notification>
+    </Teleport>
   </div>
 </template>
 
