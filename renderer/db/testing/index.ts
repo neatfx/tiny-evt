@@ -8,7 +8,7 @@ import type { IEmailAddress, IPhoneNumber, IBook } from './type-defs'
 import { Contact } from './contact';
 import { handlePopulate } from './population'
 import { Book } from './book';
-import { searchTokenizer } from './search'
+import { middleware } from './middleware'
 
 class TestingDatabase extends BaseDatabase {
   contacts!: Table<Contact, number>;
@@ -34,6 +34,6 @@ class TestingDatabase extends BaseDatabase {
 const TestingDB = new TestingDatabase('AppDatabase', 1)
 
 handlePopulate() // 初始化测试数据
-searchTokenizer() // DBCore Middleware For Search
+TestingDB.use(middleware) // DBCore Middleware For Search & SyncStore
 
-export { TestingDB, searchTokenizer }
+export { TestingDB }

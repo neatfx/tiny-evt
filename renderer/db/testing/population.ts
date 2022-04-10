@@ -5,7 +5,7 @@
 import { TestingDB } from './index';
 import { Contact } from './contact';
 import { Book } from './book';
-import { segmentit } from './search'
+import { segmentit } from './middleware'
 
 async function populateBooks() {
   const book1 = new Book('流浪地球', '刘慈欣')
