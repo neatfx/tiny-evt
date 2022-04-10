@@ -10,7 +10,6 @@ import ContextMenu from "@/components/data-row/RowsContextMenu.vue"
 import { vContextMenu, useContextMenu } from '@comps/contextMenu'
 import BookRowsTags from '@comps/data-row/BookRowsTags.vue'
 import BookRowsInlineTags from '@comps/data-row/BookRowsInlineTags.vue'
-import BookRowsCover from '@comps/data-row/BookRowsCover.vue'
 import EditableText from '@comps/EditableText.vue'
 import BookRowsLendStatus from '@comps/data-row/BookRowsLendStatus.vue'
 import BookRowsFieldName from './BookRowsFieldName.vue'
