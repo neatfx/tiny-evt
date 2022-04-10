@@ -20,8 +20,6 @@ const coverHtml = computed(() => {
   }
 })
 const fileData = ref<File | undefined>()
-const showAddBtn = ref(true)
-const showChangeBtn = ref(false)
 const showCover = ref(false)
 const showCoverUploader = ref(false)
 
@@ -42,27 +40,19 @@ async function ondrop(ev: any) {
 async function addCover() {
   if (fileData.value) {
     emit("update-cover", props.rowId, fileData.value)
+    showCoverUploader.value = false
   }
 }
 
-async function changeCover() {
+async function deleteCover() {
   if (fileData.value) {
-    emit("update-cover", props.rowId, fileData.value)
-    showAddBtn.value = true
-    showChangeBtn.value = false
+    emit("update-cover", props.rowId, undefined)
     fileData.value = undefined
   }
 }
 
 onMounted(() => {
   fileData.value = props.cover
-  // if (props.cover) {
-  //   showAddBtn.value = false
-  //   showChangeBtn.value = true
-  // } else {
-  //   showAddBtn.value = true
-  //   showChangeBtn.value = false
-  // }
 })
 </script>
 
@@ -76,12 +66,12 @@ onMounted(() => {
       @mouseleave="showCover = false"
       @update="(rowId, payload) => { emit('update', rowId, payload) }"
     ></EditableText>
-    <!-- Cover -->
+    <!-- 封面显示 -->
     <div v-if="showCover" class="pop-cover-wrapper">
       <div v-html="coverHtml" class="cover-base"></div>
-      <BaseButton v-if="cover" class="delete-btn">删除封面</BaseButton>
+      <BaseButton v-if="cover" class="delete-btn" @click="deleteCover">删除封面</BaseButton>
     </div>
-    <!-- Add Cover Btn -->
+    <!-- 添加封面按钮 -->
     <BaseButton
       v-if="!cover && !showCoverUploader"
       class="add-btn"
@@ -89,12 +79,18 @@ onMounted(() => {
         showCoverUploader = true
       }"
     >添加封面</BaseButton>
-    <!-- Cover Uploader -->
-    <div v-if="showCoverUploader" class="pop-cover-uplaoder-wrapper">
+    <!-- 添加封面 -->
+    <div v-if="showCoverUploader && !cover" class="pop-cover-uplaoder-wrapper">
       <div v-if="!fileData" class="drop-zone" @dragover="ondragover" @drop="ondrop"></div>
-      <!-- <div> -->
-      <BaseButton v-if="!fileBlob" class="upload-btn">确认添加</BaseButton>
-      <BaseButton class="cancel-btn" @click="showCoverUploader = false">取消</BaseButton>
+      <BaseButton v-if="fileData && !cover" class="upload-btn" @click="addCover">确认添加</BaseButton>
+      <BaseButton
+        v-if="!cover"
+        class="cancel-btn"
+        @click="() => {
+          showCoverUploader = false
+          fileData = undefined
+        }"
+      >取消</BaseButton>
     </div>
   </div>
 </template>
@@ -131,6 +127,7 @@ onMounted(() => {
 }
 .pop-cover-uplaoder-wrapper {
   position: fixed;
+  width: 125px;
   padding: 5px;
   background-color: gray;
 }

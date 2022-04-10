@@ -68,7 +68,7 @@ async function markRead(rowId: number, read: boolean | undefined) {
   })
 }
 
-async function addCover(rowId: number, cover: File | undefined) {
+async function updateCover(rowId: number, cover: File | undefined) {
   store.updateTest(rowId, {
     cover: cover
   })
@@ -104,6 +104,7 @@ async function addCover(rowId: number, cover: File | undefined) {
                 currentUpdateField = 'name'
                 updateItem(rowId, payload)
               }"
+              @update-cover="updateCover"
             ></BookRowsFieldName>
           </div>
           <div class="field">
@@ -136,12 +137,6 @@ async function addCover(rowId: number, cover: File | undefined) {
           ></BookRowsInlineTags>
         </div>
         <div class="right">
-          <BookRowsCover
-            v-if="store.view.control.cover"
-            :rowId="id"
-            :cover="cover"
-            @add-cover="addCover"
-          ></BookRowsCover>
           <BookRowsTags
             v-if="store.view.control.categories"
             :categories="categories"
