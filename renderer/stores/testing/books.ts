@@ -88,7 +88,7 @@ export const useBooksStore = defineStore('books', {
           .where('author')
           .anyOf(Array.from(filter.get('author') || this.filters.author))
           .primaryKeys(),
-
+        // TODO: 移除 filter 的使用，以配合 Hook 或 DBCore
         TestingDB.books
           .filter((book) => {
             if (filter.get('lend')) {
