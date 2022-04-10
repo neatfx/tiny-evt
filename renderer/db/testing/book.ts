@@ -1,5 +1,5 @@
 /* 
- * class mapped to the contacts table
+ * class mapped to the books table
  */
 
 import type { IBook } from './type-defs'

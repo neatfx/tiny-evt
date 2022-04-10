@@ -1,5 +1,5 @@
 /* 
- * class mapped to the contacts table
+ * class mapped to the book-list table
  */
 
 import type { IContact, IEmailAddress, IPhoneNumber } from './type-defs'
