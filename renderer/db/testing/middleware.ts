@@ -48,39 +48,52 @@ async function syncAll(myRequest: any) {
 }
 
 const middleware: Middleware<DBCore> = {
-  stack: "dbcore", // The only stack supported so far.
-  name: "dbCoreMiddleware", // Optional name of your middleware
+  stack: "dbcore", // 目前仅支持 ‘dbcore’
+  name: "dbCoreMiddleware", // 可选命名
   create(downlevelDatabase) {
-    // Return your own implementation of DBCore:
+    // 此处返回自定义 DBCore 实现
     return {
-      // Copy default implementation.
-      ...downlevelDatabase,
-      // Override table method
+      ...downlevelDatabase, // 复制默认 database 实现
+      // 覆写 table 方法
       table(tableName) {
-        // Call default table method
-        const downlevelTable = downlevelDatabase.table(tableName);
-        // Derive your own table from it:
+        const downlevelTable = downlevelDatabase.table(tableName); // 调用默认 table 方法
+        // 由默认 table 派生出自定义 table
         return {
-          // Copy default table implementation:
-          ...downlevelTable,
-          // get: async req => {
-          //   const myRequest = { ...req };
-          //   console.log('db query')
-
-          //   const res = await downlevelTable.get(myRequest);
-          //   // Do things after mutate
-          //   // await syncAll(myRequest)
-
-          //   console.log('get operation...')
-
-          //   const myResponse = { ...res };
-          //   return myResponse;
-          // },
-          // Override the mutate method:
-          mutate: async req => {
-            // Copy the request object
+          ...downlevelTable, // 复制默认 table 实现
+          openCursor: async req => {
             const myRequest = { ...req };
-            // Do things before mutate, then call downlevel mutate:
+            const res = await downlevelTable.openCursor(myRequest);
+            console.log('openCursor operation...')
+            return res;
+          },
+          count: async req => {
+            const myRequest = { ...req };
+            const res = await downlevelTable.count(myRequest);
+            console.log('count operation...')
+            return res;
+          },
+          get: async req => {
+            const myRequest = { ...req };
+            const res = await downlevelTable.get(myRequest);
+            console.log('get operation...')
+            return res;
+          },
+          query: async req => {
+            const myRequest = { ...req };
+            const res = await downlevelTable.query(myRequest);
+            console.log('query operation...')
+            return res;
+          },
+          getMany: async req => {
+            const myRequest = { ...req };
+            const res = await downlevelTable.getMany(myRequest);
+            console.log('getMany operation...')
+            return res;
+          },
+          mutate: async req => {
+            const myRequest = { ...req };
+            // Before mutate
+            // For Add
             if (myRequest.type === 'add') {
               console.log(myRequest)
               for (let index = 0; index < myRequest.values.length; index++) {
@@ -109,10 +122,11 @@ const middleware: Middleware<DBCore> = {
             }
 
             const res = await downlevelTable.mutate(myRequest);
-            // Do things after mutate
-            await syncAll(myRequest)
 
-            console.log('mutate operation...')
+            // After mutate
+            await syncAll(myRequest);
+
+            console.log('mutate - ' + myRequest.type + ' operation...')
 
             const myResponse = { ...res };
             return myResponse;
