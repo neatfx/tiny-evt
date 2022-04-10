@@ -10,7 +10,6 @@ import { ref } from "vue";
 import { useBooksStore } from '@/stores'
 
 useContextMenu();
-const showModal = ref(true)
 const store = useBooksStore()
 </script>
 

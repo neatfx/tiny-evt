@@ -65,7 +65,7 @@ const middleware: Middleware<DBCore> = {
         return {
           ...downlevelTable, // 复制默认 table 实现
           openCursor: async req => {
-            showIndicator()
+            // showIndicator()
             const myRequest = { ...req };
             const res = await downlevelTable.openCursor(myRequest);
             console.log('openCursor operation...')

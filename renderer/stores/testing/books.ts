@@ -47,7 +47,7 @@ export const useBooksStore = defineStore('books', {
     async list() {
       this.items = await TestingDB.books.offset(offset.value).limit(limit.value).toArray()
 
-      this.indicator = false
+      await toggleIndicator(false)
     },
     async add(book: IBook) {
       console.log(book)
@@ -118,14 +118,14 @@ export const useBooksStore = defineStore('books', {
       const segIndexes = intersection.splice(offset.value, limit.value)
       this.items = await TestingDB.books.bulkGet(segIndexes)
 
-      this.indicator = false
+      await toggleIndicator(false)
     },
     async fetchPagedRows() {
       await this.count()
       await this.list()
       total.value = this.total
 
-      this.indicator = false
+      await toggleIndicator(false)
     },
     async search(keywords: string) {
       this.items = await TestingDB.books
@@ -133,12 +133,12 @@ export const useBooksStore = defineStore('books', {
         .or('author').startsWithIgnoreCase(keywords)
         .or('categories').anyOfIgnoreCase([keywords])
         .distinct().toArray();
-    
-        this.indicator = false
+
+      await toggleIndicator(false)
     },
     async toggleIndicator(show: boolean) {
       this.indicator = show
-    },
+    }
   },
 })
 
@@ -152,9 +152,17 @@ export async function refreshFiltersMeta() {
   await useBooksStore().fetchFiltersMeta()
 }
 
-// 
+// Indicator
+
+async function sleep() {
+  return new Promise(resolve => {
+    setTimeout(resolve, 500)
+  })
+}
+
 export async function toggleIndicator(show: boolean) {
-  if (show) await useBooksStore().toggleIndicator(show)
+  if (!show) await sleep()
+  await useBooksStore().toggleIndicator(show)
 }
 
 // Persist
