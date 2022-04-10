@@ -106,12 +106,6 @@ async function addCover(rowId: number, cover: File | undefined) {
               }"
             ></BookRowsFieldName>
           </div>
-          <BookRowsInlineTags
-            v-if="store.view.fields.categories"
-            :categories="categories"
-            :rowId="id"
-            @delete-tag="deleteTag"
-          ></BookRowsInlineTags>
           <div class="field">
             <EditableText
               v-if="store.view.fields.author"
@@ -123,15 +117,23 @@ async function addCover(rowId: number, cover: File | undefined) {
               }"
             ></EditableText>
           </div>
-          <EditableText
-            v-if="store.view.fields.publishing"
+          <div class="field">
+            <EditableText
+              v-if="store.view.fields.publishing"
+              :rowId="id"
+              :text="publishing"
+              @update="(rowId, payload) => {
+                currentUpdateField = 'publishing'
+                updateItem(rowId, payload)
+              }"
+            ></EditableText>
+          </div>
+          <BookRowsInlineTags
+            v-if="store.view.fields.categories"
+            :categories="categories"
             :rowId="id"
-            :text="publishing"
-            @update="(rowId, payload) => {
-              currentUpdateField = 'publishing'
-              updateItem(rowId, payload)
-            }"
-          ></EditableText>
+            @delete-tag="deleteTag"
+          ></BookRowsInlineTags>
         </div>
         <div class="right">
           <BookRowsCover
