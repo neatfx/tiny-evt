@@ -24,7 +24,7 @@
 
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
-import vueJsx from "@vitejs/plugin-vue-jsx";
+// import vueJsx from "@vitejs/plugin-vue-jsx";
 import path from 'path'
 
 function _resolve(dir: string) {
@@ -39,6 +39,14 @@ export default defineConfig({
   ],
   root: 'renderer',
   server: {
+    proxy: {
+      '/api': {
+        target: 'https://search.douban.com/book',
+        changeOrigin: true,
+        ws: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      },
+    },
     port: 3000
   },
   resolve: {

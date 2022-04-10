@@ -5,16 +5,18 @@ import BaseButton from '../BaseButton.vue';
 import { useBooksStore } from '@/stores'
 import { books } from '@/services/mock-suggested-books'
 
-// import { mande } from 'mande'
-// import axios from 'axios'
+import { mande } from 'mande'
+import axios from 'axios'
 
-const { electronDouban } = window
+// const { electronDouban } = window
 const store = useBooksStore()
 const search = ref('')
 const ifShowDouban = ref(false)
 const isShowSuggestItems = ref(false)
-// const doubanBook = mande('https://book.douban.com/j')
-// doubanBook.options.mode = 'no-cors'
+
+// const doubanBook = mande('/api/j')
+// doubanBook.options.headers.origon = 'https://book.douban.com'
+// doubanBook.options.headers.crossOrigin = 'no-cors'
 
 watch(search, async (newKeyWords) => {
   if (search.value.length) {
@@ -32,9 +34,16 @@ watch(search, async (newKeyWords) => {
   }
 })
 
-function suggestBooks() {
+async function suggestBooks() {
   // if (search.value) search.value = ''
   isShowSuggestItems.value = true
+
+  // const x = await doubanBook.get('subject_suggest?q=三体')
+  // console.log(x)
+
+  // axios.get('/api/movie/in_theaters').then((res) => {
+  //   console.log(res);
+  // })
 }
 
 function coverHtml(src: string) {
