@@ -6,7 +6,7 @@ import BaseButton from '@comps/BaseButton.vue';
 
 const props = defineProps(['rowId', 'text', 'isName', 'cover'])
 const emit = defineEmits<{
-  // (event: 'add-cover', rowId: number, cover: File | undefined): void
+  (event: 'update-cover', rowId: number, cover: File | undefined): void
   (event: 'update', rowId: number, payload: string): void
 }>()
 const coverHtml = computed(() => {
@@ -21,51 +21,49 @@ const coverHtml = computed(() => {
 })
 const fileData = ref<File | undefined>()
 const showAddBtn = ref(true)
-// const waitForChange = ref(false)
 const showChangeBtn = ref(false)
+const showCover = ref(false)
+const showCoverUploader = ref(false)
 
-// function ondragover(event: any) {
-//   event.stopPropagation();
-//   event.preventDefault();
-//   event.dataTransfer.dropEffect = 'copy';
-// };
+function ondragover(event: any) {
+  event.stopPropagation();
+  event.preventDefault();
+  event.dataTransfer.dropEffect = 'copy';
+};
 
-// async function ondrop(ev: any) {
-//   ev.stopPropagation();
-//   ev.preventDefault();
+async function ondrop(ev: any) {
+  ev.stopPropagation();
+  ev.preventDefault();
 
-//   fileData.value = ev.dataTransfer.files[0];
-//   if (!fileData.value) throw new Error(`Only files can be dropped here`);
-// }
+  fileData.value = ev.dataTransfer.files[0];
+  if (!fileData.value) throw new Error(`Only files can be dropped here`);
+}
 
-// async function addCover() {
-//   if (fileData.value) {
-//     emit("add-cover", props.rowId, fileData.value)
-//   }
-// }
+async function addCover() {
+  if (fileData.value) {
+    emit("update-cover", props.rowId, fileData.value)
+  }
+}
 
-// async function changeCover() {
-//   if (fileData.value) {
-//     emit("add-cover", props.rowId, fileData.value)
-//     showAddBtn.value = true
-//     showChangeBtn.value = false
-//     fileData.value = undefined
-//   }
-// }
+async function changeCover() {
+  if (fileData.value) {
+    emit("update-cover", props.rowId, fileData.value)
+    showAddBtn.value = true
+    showChangeBtn.value = false
+    fileData.value = undefined
+  }
+}
 
 onMounted(() => {
   fileData.value = props.cover
-  if (props.cover) {
-    showAddBtn.value = false
-    showChangeBtn.value = true
-  } else {
-    showAddBtn.value = true
-    showChangeBtn.value = false
-  }
+  // if (props.cover) {
+  //   showAddBtn.value = false
+  //   showChangeBtn.value = true
+  // } else {
+  //   showAddBtn.value = true
+  //   showChangeBtn.value = false
+  // }
 })
-
-const showCover = ref(false)
-const showCoverUploader = ref(false)
 </script>
 
 <template>
@@ -106,33 +104,16 @@ const showCoverUploader = ref(false)
   height: 100%;
   background-color: brown;
 }
-.pop-cover-uplaoder-wrapper {
-  position: fixed;
-  padding: 5px;
-  background-color: gray;
-}
-.drop-zone {
-  /* border: 1px dotted silver; */
-  /* border-radius: 0.4em; */
-  margin-bottom: 5px;
-  background-color: darkgray;
-  height: 60px;
-}
-.cancel-btn {
-  margin-right: 0;
-}
 .pop-cover-wrapper {
   position: fixed;
-  display: inline;
-  grid-template-columns: auto;
-  grid-auto-flow: column;
+  display: inline-block;
 }
 .cover-base {
-  /* display: block; */
+  float: left;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
 }
 .delete-btn {
-  /* float: left; */
+  display: block;
   margin-right: 0;
   background-color: indianred;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
@@ -148,10 +129,17 @@ const showCoverUploader = ref(false)
 .add-btn:hover {
   background-color: teal;
 }
-.dropzone {
-  border: 2px dotted silver;
-  border-radius: 5px;
-  text-align: center;
-  margin: 0;
+.pop-cover-uplaoder-wrapper {
+  position: fixed;
+  padding: 5px;
+  background-color: gray;
+}
+.drop-zone {
+  margin-bottom: 5px;
+  background-color: darkgray;
+  height: 60px;
+}
+.cancel-btn {
+  margin-right: 0;
 }
 </style>
