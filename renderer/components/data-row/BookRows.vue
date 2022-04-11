@@ -91,8 +91,10 @@ async function updateCover(rowId: number, cover: File | undefined) {
             updateItem(rowId, payload)
           }" @update-cover="updateCover"></BookRowsFieldName>
         </div>
-
         <DeleteButton v-if="store.view.control.delete" class="right" @click="deleteItem(id)"></DeleteButton>
+        <BookRowsTags v-if="store.view.control.categories" :categories="categories" :rowId="id" @add-tag="addTag"
+          class=""></BookRowsTags>
+
         <div class="field" v-if="store.view.fields.author">
           <EditableText :rowId="id" :text="author" @update="(rowId, payload) => {
             currentUpdateField = 'author'
@@ -113,8 +115,6 @@ async function updateCover(rowId: number, cover: File | undefined) {
         </div>
         <BookRowsInlineTags v-if="store.view.fields.categories" :categories="categories" :rowId="id"
           @delete-tag="deleteTag"></BookRowsInlineTags>
-        <BookRowsTags v-if="store.view.control.categories" :categories="categories" :rowId="id" @add-tag="addTag"
-          class=""></BookRowsTags>
         <!-- </div> -->
         <!-- <div class="right"> -->
         <!-- </div> -->
@@ -161,6 +161,6 @@ async function updateCover(rowId: number, cover: File | undefined) {
 
 /*  */
 .field {
-  margin-right: 5px;
+  margin-right: 0px;
 }
 </style>

@@ -65,15 +65,16 @@ onMounted(() => {
       <div v-html="coverHtml" class="cover-base"></div>
       <BaseButton v-if="cover" class="delete-btn" @click="deleteCover">删除封面</BaseButton>
     </div>
-    <!-- 添加封面按钮 -->
-    <BaseButton v-if="!cover && !showCoverUploader" class="add-btn" @click="() => {
-      showCoverUploader = true
-    }">封面</BaseButton>
+    <!-- 添加封面按钮(无封面状态) -->
+    <BaseButton v-if="!cover" class="add-btn" @click="() => {
+      showCoverUploader = !showCoverUploader
+      fileData = undefined
+    }">{{ showCoverUploader ? '取消' : '封面' }}</BaseButton>
     <!-- 添加封面 -->
     <div v-if="showCoverUploader && !cover" class="pop-cover-uplaoder-wrapper">
-      <div v-if="!fileData" class="drop-zone" @dragover="ondragover" @drop="ondrop"></div>
+      <div v-if="!fileData" class="drop-zone" @dragover="ondragover" @drop="ondrop"><span class="tip">拖放图片到此区域</span></div>
       <BaseButton v-if="fileData && !cover" class="upload-btn" @click="addCover">确认添加</BaseButton>
-      <BaseButton v-if="!cover" class="cancel-btn" @click="() => {
+      <BaseButton v-if="!cover && fileData" class="cancel-btn" @click="() => {
         showCoverUploader = false
         fileData = undefined
       }">取消</BaseButton>
@@ -120,20 +121,25 @@ onMounted(() => {
 
 .pop-cover-uplaoder-wrapper {
   position: fixed;
-  width: 125px;
   padding: 5px;
-  background-color: gray;
+  background-color:lightgray;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
 }
 
 .drop-zone {
-  margin-bottom: 5px;
-  background-color: darkgray;
-  height: 60px;
+  background-color:lightgray;
+  width: 150px;
+  height: 80px;
 }
-
+.tip{
+  display: block;
+  text-align: center;
+  padding-top: 27px;
+  /* border: 1px solid red; */
+}
 .upload-btn,
 .upload-btn:hover {
+  margin-right: 0;
   background-color: cornflowerblue;
 }
 
