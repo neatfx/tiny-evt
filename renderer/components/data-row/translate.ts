@@ -1,4 +1,4 @@
-const dic: Map<string, string | boolean> = new Map([
+const dic: Map<string, string> = new Map([
   ['layout', '数据展现形式'],
   ['cards', '卡片'],
   ['rows', '列表'],
@@ -7,7 +7,7 @@ const dic: Map<string, string | boolean> = new Map([
   ['id', 'ID'],
   ['status', '出借状态'],
   ['lend', '出借状态'],
-  ['read', '阅读状态'],
+  ['readingStatus', '阅读状态'],
   ['name', '书名'],
   ['cover', '封面'],
   ['author', '作者'],
@@ -17,11 +17,13 @@ const dic: Map<string, string | boolean> = new Map([
   ['categories', '分类标签'],
   ['delete', '删除'],
 
-  ['readingStatus', '阅读状态'],
-  ['wanted', '想读'],
-  ['not-yet', '未读'],
-  ['reading', '在读'],
-  ['read', '已读']
+  ['想读', 'wanted'],
+  ['未读', 'not-yet'],
+  ['在读', 'reading'],
+  ['已读', 'read'],
+
+  ['已借出', 'true'],
+  ['未借出', 'false']
 ])
 
 export function trans(key: string) {

@@ -33,18 +33,13 @@ watchEffect(() => {
 // 处理二级菜单点击事件
 function onFilterItemClick(e: MouseEvent, filterType: string, filterValue: string) {
   if (filterType === 'lend') {
-    let va = ''
-    switch (filterValue) {
-      case '已借出':
-        va = 'true'
-        break;
-      case '未借出':
-        va = 'false'
-        break;
-    }
-    filter(filterType, va, false)
+    filter(filterType, trans(filterValue).toString(), false)
   } else {
-    filter(filterType, filterValue)
+    // if (filterType === 'readingStatus') {
+    //   filter(filterType, trans(filterValue))
+    // } else {
+      filter(filterType, filterValue)
+    // }
   }
   seletedFilter.value = ''
 }
@@ -57,25 +52,20 @@ function onFilterItemClick(e: MouseEvent, filterType: string, filterValue: strin
     </template>
     <template #body>
       <ul class="filters-list">
-        <li
-          v-for="(v, k) in props.items"
-          :key="k"
-          @click="showFinalFilter($event, k.toString(), v)"
-        >{{ trans(k.toString()) }}</li>
+        <li v-for="(v, k) in props.items" :key="k" @click="showFinalFilter($event, k.toString(), v)">{{
+          trans(k.toString())
+        }}</li>
       </ul>
     </template>
     <template #menu>
       <div>
         <ul v-if="Object.keys(items).includes(seletedFilter)" class="final-filter">
-          <li
-            v-for="(v, k) in currentSubMenuData"
-            :key="k"
-            @click="onFilterItemClick($event, seletedFilter, v)"
-          >{{ v }}</li>
+          <li v-for="(v, k) in currentSubMenuData" :key="k" @click="onFilterItemClick($event, seletedFilter, v)">{{ v }}
+          </li>
         </ul>
       </div>
     </template>
-  </FolderPanel>
+    </FolderPanel>
 </template>
 
 <style scoped>
@@ -86,6 +76,7 @@ ul {
   padding: 0;
   z-index: 900;
 }
+
 li {
   padding: 5px 15px;
   background-color: grey;
@@ -95,10 +86,12 @@ li:hover {
   background-color: lightgray;
   cursor: default;
 }
+
 /*  */
 .filters-list {
   z-index: 990;
 }
+
 .final-filter {
   position: absolute;
   background-color: lightgray;

@@ -15,7 +15,7 @@ export const useBooksStore = defineStore('books', {
       categories: [] as IndexableTypeArray,
       author: [] as IndexableTypeArray,
       publishing: [] as IndexableTypeArray,
-      lend: ['已借出', '未借出'],
+      lend: ['true', 'false'],
       readingStatus: ['wanted', 'not-yet', 'reading', 'read']
     },
     view: {
@@ -158,7 +158,6 @@ export async function refreshFiltersMeta() {
 }
 
 // Indicator
-
 async function sleep() {
   return new Promise(resolve => {
     setTimeout(resolve, 500)

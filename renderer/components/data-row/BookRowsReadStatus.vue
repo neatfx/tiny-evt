@@ -21,7 +21,7 @@ function mark(readingStatus: string) {
 <template>
   <FolderPanel :isPopMenu="true">
     <template #header>
-      <BaseButton :class='[readingStatus]'>{{ trans(readingStatus) || '阅读状态' }}</BaseButton>
+      <BaseButton :class='[readingStatus]'>{{ readingStatus }}</BaseButton>
     </template>
     <template #body>
       <ul v-for="key in menuData.keys()" :key="key">
