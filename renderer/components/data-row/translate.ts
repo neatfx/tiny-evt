@@ -5,8 +5,8 @@ const dic: Map<string, string | boolean> = new Map([
 
   ['fields', '字段'],
   ['id', 'ID'],
-  ['lend', '是否借出'],
-  ['status', '借出状态'],
+  ['status', '出借状态'],
+  ['lend', '出借状态'],
   ['read', '阅读状态'],
   ['name', '书名'],
   ['cover', '封面'],
@@ -14,9 +14,10 @@ const dic: Map<string, string | boolean> = new Map([
   ['publishing', '出版社'],
 
   ['control', '操作控件'],
-  ['categories', '标签'],
+  ['categories', '分类标签'],
   ['delete', '删除'],
 
+  ['readingStatus', '阅读状态'],
   ['wanted', '想读'],
   ['not-yet', '未读'],
   ['reading', '在读'],

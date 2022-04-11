@@ -15,7 +15,8 @@ export const useBooksStore = defineStore('books', {
       categories: [] as IndexableTypeArray,
       author: [] as IndexableTypeArray,
       publishing: [] as IndexableTypeArray,
-      lend: ['已借出', '未借出']
+      lend: ['已借出', '未借出'],
+      readingStatus: ['wanted', 'not-yet', 'reading', 'read']
     },
     view: {
       layout: {
@@ -24,15 +25,14 @@ export const useBooksStore = defineStore('books', {
       },
       fields: {
         id: true,
-        status: true,
-        read: true,
+        lend: true,
+        readingStatus: true,
         name: true,
         author: true,
         categories: true,
         publishing: true
       },
       control: {
-        cover: true,
         categories: true,
         delete: true,
       }
@@ -75,8 +75,13 @@ export const useBooksStore = defineStore('books', {
       });
     },
     async filter(filter: Map<string, Set<string>>) {
-      // console.log(filter)
+      console.log(filter)
       const results = await Promise.all([
+        TestingDB.books
+          .where('readingStatus')
+          .anyOf(Array.from(filter.get('readingStatus') || this.filters.readingStatus))
+          .primaryKeys(),
+
         TestingDB.books
           .where('categories')
           .anyOf(Array.from(filter.get('categories') || this.filters.categories))

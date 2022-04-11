@@ -63,7 +63,7 @@ async function addLend(rowId: number, info: string) {
 
 async function markReadingStatus(rowId: number, readingStatus: string) {
   store.updateTest(rowId, {
-    read: readingStatus
+    readingStatus: readingStatus
   })
 }
 
@@ -76,21 +76,21 @@ async function updateCover(rowId: number, cover: File | undefined) {
 
 <template>
   <BaseDataRows :items="props.items">
-    <template #item="{ id, name, author, categories, publishing, cover, lend, read }">
+    <template #item="{ id, name, author, categories, publishing, cover, lend, readingStatus }">
       <div class="row" v-context-menu="id">
         <div class="left">
           <div v-if="store.view.fields.id" class="id">{{ id }}</div>
           <BookRowsLendStatus
-            v-if="store.view.fields.status"
+            v-if="store.view.fields.lend"
             :lend="lend"
             :rowId="id"
             @reset-lend="deleteLend"
             @add-lend="addLend"
           ></BookRowsLendStatus>
           <BookRowsReadStatus
-            v-if="store.view.fields.read"
+            v-if="store.view.fields.readingStatus"
             :rowId="id"
-            :read="read"
+            :readingStatus="readingStatus"
             @mark-reading-status="markReadingStatus"
           ></BookRowsReadStatus>
           <div class="field">
