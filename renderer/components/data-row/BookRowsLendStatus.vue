@@ -24,17 +24,17 @@ function add() {
   <FolderPanel :isInlinePanel="true">
     <template #header>
       <BaseButton v-if="lend" class="outside">借出</BaseButton>
-      <BaseButton v-if="!lend" class="in">在架</BaseButton>
+      <BaseButton v-if="!lend" class="in">{{ props.position || ('AA-' + rowId) }}</BaseButton>
     </template>
     <template #body>
       <div class="wrapper">
         <span v-if="lend" class="info-text">{{ lend }}</span>
-        <BaseButton v-if="lend" class="reset-btn" @click="reset">清除借阅信息</BaseButton>
+        <BaseButton v-if="lend" class="reset-btn" @click="reset">确认归还</BaseButton>
         <BaseInputVue v-if="!lend" class="input-zone" v-model="lendInfo"></BaseInputVue>
-        <BaseButton v-if="!lend" class="add-btn" @click="add">添加借阅信息</BaseButton>
+        <BaseButton v-if="!lend" class="add-btn" @click="add">添加借出备注</BaseButton>
       </div>
     </template>
-  </FolderPanel>
+    </FolderPanel>
 </template>
 
 <style scoped>
@@ -42,22 +42,29 @@ function add() {
   display: inline;
   background-color: lightcoral;
 }
+
 .outside:hover {
   background-color: lightcoral;
 }
+
 .wrapper {
-  padding: 10px;
+  padding: 5px;
 }
+
 .info-text {
   padding: 5px 10px;
   background-color: antiquewhite;
 }
+
 .reset-btn {
   margin: 0 0 0 5px;
+  background-color: lightcoral;
 }
+
 .input-zone {
   background-color: antiquewhite;
 }
+
 .add-btn {
   margin: 0 0 0 5px;
 }

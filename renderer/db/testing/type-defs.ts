@@ -13,8 +13,10 @@ export interface IBook {
   published?: string; // 出版时间
   categories?: string[]; // 分类标签
   douban?: string; // 豆瓣图书链接
-  lend?: string; // 出借状态（不为空即表明状态为“已借出”）
   readingStatus?: string; // 阅读状态【已读、未读、在读、想读】
+  lend?: string; // 出借状态（不为空即表明状态为“已借出”）
+  // lendInfo?: string; // 出借信息
+  position?: string; // 书架存放位置
   nameTokens?: string[]; // 书名分词
   created: Date; // 数据创建时间
 
@@ -22,7 +24,6 @@ export interface IBook {
   translator?: string; // 译者信息
   price?: number; // 价格
   from?: string; // 购买地点
-  position?: string; // 书架位置
   summary?: string; // 内容简介（豆瓣）
 }
 
