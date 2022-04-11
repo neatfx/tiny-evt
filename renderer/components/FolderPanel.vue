@@ -62,11 +62,8 @@ watchEffect(() => {
       <slot name="header">{{ title || 'Panel' }}</slot>
     </div>
     <!-- panel-body -->
-    <Transition name="panel">
-      <div
-        v-if="switchShowRefForBody().value"
-        :class="['default-panel-body', switchClassRefForBody().value]"
-      >
+    <Transition name="slide-up" mode="out-in">
+      <div v-if="switchShowRefForBody().value" :class="['default-panel-body', switchClassRefForBody().value]">
         <slot name="body" class="panel-container"></slot>
       </div>
     </Transition>
@@ -78,33 +75,30 @@ watchEffect(() => {
 .inline-panel {
   display: inline-block;
 }
+
 .header {
   display: inline-block;
 }
+
 .default-panel-body {
   background-color: grey;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
 }
+
 .fixed-panel-body {
   position: absolute;
 }
 
-/*  */
-
-.panel-container {
-  /* position: fixed; */
-  transition: all 0.3s ease;
+/* Transition */
+.slide-up-move,
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: all 0.2s ease;
 }
-.panel-enter-from {
+
+.slide-up-enter-from,
+.slide-up-leave-to {
   opacity: 0;
-}
-
-.panel-leave-to {
-  opacity: 0;
-}
-
-.panel-enter-from .panel-container,
-.panel-leave-to .panel-container {
-  transform: translateY(-20px);
+  transform: translateY(2px);
 }
 </style>
