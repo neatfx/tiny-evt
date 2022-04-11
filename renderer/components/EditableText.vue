@@ -49,7 +49,7 @@ onMounted(() => {
 
 .name {
   padding: 3px 0 4px 0;
-  background-color: cornflowerblue;
+  /* background-color: cornflowerblue; */
 }
 .input-zone {
   display: inline-block;

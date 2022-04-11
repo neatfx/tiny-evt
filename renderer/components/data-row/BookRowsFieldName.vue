@@ -73,7 +73,7 @@ onMounted(() => {
     }">{{ showCoverUploader ? '取消' : '封面' }}</BaseButton>
     <!-- 拖放添加封面图片区域（浮动显示） -->
     <div v-if="showCoverUploader && !cover" class="pop-cover-uplaoder-wrapper">
-      <div v-if="!fileData" class="drop-zone" @dragover="ondragover" @drop="ondrop"><span class="tip">拖放图片到此区域</span>
+      <div v-if="!fileData" class="drop-zone" @dragover="ondragover" @drop="ondrop"><span class="tip">拖放图片至此区域添加封面</span>
       </div>
       <BaseButton v-if="fileData && !cover" class="upload-btn" @click="addCover">确认添加</BaseButton>
       <BaseButton v-if="!cover && fileData" class="cancel-btn" @click="() => {
@@ -133,7 +133,7 @@ onMounted(() => {
 
 .drop-zone {
   background-color: lightgray;
-  width: 150px;
+  width: 200px;
   height: 80px;
 }
 
