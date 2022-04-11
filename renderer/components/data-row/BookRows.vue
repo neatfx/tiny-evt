@@ -80,75 +80,41 @@ async function updateCover(rowId: number, cover: File | undefined) {
       <div class="row" v-context-menu="id">
         <div class="left">
           <div v-if="store.view.fields.id" class="id">{{ id }}</div>
-          <BookRowsLendStatus
-            v-if="store.view.fields.lend"
-            :lend="lend"
-            :rowId="id"
-            @reset-lend="deleteLend"
-            @add-lend="addLend"
-          ></BookRowsLendStatus>
-          <BookRowsReadStatus
-            v-if="store.view.fields.readingStatus"
-            :rowId="id"
-            :readingStatus="readingStatus"
-            @mark-reading-status="markReadingStatus"
-          ></BookRowsReadStatus>
-          <div class="field">
-            <BookRowsFieldName
-              :cover="cover"
-              :rowId="id"
-              :text="name"
-              :isName="() => true"
-              @update="(rowId, payload) => {
-                currentUpdateField = 'name'
-                updateItem(rowId, payload)
-              }"
-              @update-cover="updateCover"
-            ></BookRowsFieldName>
+          <BookRowsLendStatus v-if="store.view.fields.lend" :lend="lend" :rowId="id" @reset-lend="deleteLend"
+            @add-lend="addLend"></BookRowsLendStatus>
+          <BookRowsReadStatus v-if="store.view.fields.readingStatus" :rowId="id" :readingStatus="readingStatus"
+            @mark-reading-status="markReadingStatus"></BookRowsReadStatus>
+          <div class="field" v-if="store.view.fields.name">
+            <BookRowsFieldName :cover="cover" :rowId="id" :text="name" :isName="() => true" @update="(rowId, payload) => {
+              currentUpdateField = 'name'
+              updateItem(rowId, payload)
+            }" @update-cover="updateCover"></BookRowsFieldName>
+          </div>
+          <div class="field" v-if="store.view.fields.author">
+            <EditableText :rowId="id" :text="author" @update="(rowId, payload) => {
+              currentUpdateField = 'author'
+              updateItem(rowId, payload)
+            }"></EditableText>
           </div>
           <div class="field">
-            <EditableText
-              v-if="store.view.fields.author"
-              :rowId="id"
-              :text="author"
-              @update="(rowId, payload) => {
-                currentUpdateField = 'author'
-                updateItem(rowId, payload)
-              }"
-            ></EditableText>
+            <EditableText v-if="store.view.fields.publishing" :rowId="id" :text="publishing" @update="(rowId, payload) => {
+              currentUpdateField = 'publishing'
+              updateItem(rowId, payload)
+            }"></EditableText>
           </div>
-          <div class="field">
-            <EditableText
-              v-if="store.view.fields.publishing"
-              :rowId="id"
-              :text="publishing"
-              @update="(rowId, payload) => {
-                currentUpdateField = 'publishing'
-                updateItem(rowId, payload)
-              }"
-            ></EditableText>
-          </div>
-          <BookRowsInlineTags
-            v-if="store.view.fields.categories"
-            :categories="categories"
-            :rowId="id"
-            @delete-tag="deleteTag"
-          ></BookRowsInlineTags>
+          <BookRowsInlineTags v-if="store.view.fields.categories" :categories="categories" :rowId="id"
+            @delete-tag="deleteTag"></BookRowsInlineTags>
         </div>
         <div class="right">
-          <BookRowsTags
-            v-if="store.view.control.categories"
-            :categories="categories"
-            :rowId="id"
-            @add-tag="addTag"
-            class="right"
-          ></BookRowsTags>
+          <BookRowsTags v-if="store.view.control.categories" :categories="categories" :rowId="id" @add-tag="addTag"
+            class="right"></BookRowsTags>
           <DeleteButton v-if="store.view.control.delete" class="right" @click="deleteItem(id)"></DeleteButton>
         </div>
       </div>
     </template>
   </BaseDataRows>
-  <ContextMenu @view="openDetail(targetId)" @delete="deleteItem(targetId)"></ContextMenu>
+  <ContextMenu @view="openDetail(targetId)" @delete="deleteItem(targetId)">
+    </ContextMenu>
 </template>
 
 <style scoped>
@@ -159,6 +125,7 @@ async function updateCover(rowId: number, cover: File | undefined) {
   gap: 5px;
   /* justify-content: left; */
 }
+
 .id {
   text-align: center;
   width: 30px;
@@ -166,6 +133,7 @@ async function updateCover(rowId: number, cover: File | undefined) {
   margin-right: 5px;
   background-color: slategray;
 }
+
 .left {
   display: grid;
   /* grid-template-columns: 40px 1fr minmax(0, 300px) auto auto auto; */
@@ -174,6 +142,7 @@ async function updateCover(rowId: number, cover: File | undefined) {
   margin-left: 2px;
   /* border: 1px solid red; */
 }
+
 .right {
   display: grid;
   /* grid-template-columns: 1fr auto; */
