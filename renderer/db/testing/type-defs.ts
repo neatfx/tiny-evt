@@ -11,6 +11,7 @@ export interface IBook {
   cover?: Blob | null | undefined; // 封面图片
   publishing?: string; // 出版社
   published?: string; // 出版时间
+  isbn?: string; // 书号
   categories?: string[]; // 分类标签
   douban?: string; // 豆瓣图书链接
   readingStatus?: string; // 阅读状态【已读、未读、在读、想读】

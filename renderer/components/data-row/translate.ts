@@ -15,7 +15,8 @@ const dic: Map<string, string> = new Map([
   ['name', '书名'],
   ['cover', '封面'],
   ['author', '作者'],
-  ['publishing', '出版社'],
+  ['publishing', '出版发行'],
+  ['published', '版次'],
   ['categories', '分类标签'],
 
   // FilterMenu
