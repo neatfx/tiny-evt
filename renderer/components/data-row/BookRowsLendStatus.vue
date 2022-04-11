@@ -23,8 +23,7 @@ function add() {
 <template>
   <FolderPanel :isInlinePanel="true">
     <template #header>
-      <BaseButton v-if="lend" class="outside">借出</BaseButton>
-      <BaseButton v-if="!lend" class="in">{{ props.position || ('AA-' + rowId) }}</BaseButton>
+      <BaseButton :class="[lend ? 'outside' : 'in']">{{ props.position || ('01-0' + rowId) }}</BaseButton>
     </template>
     <template #body>
       <div class="wrapper">
