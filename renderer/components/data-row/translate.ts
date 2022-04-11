@@ -17,10 +17,10 @@ const dic: Map<string, string> = new Map([
   ['categories', '分类标签'],
   ['delete', '删除'],
 
-  ['想读', 'wanted'],
-  ['未读', 'not-yet'],
-  ['在读', 'reading'],
-  ['已读', 'read'],
+  ['wanted', '想读'],
+  ['not-yet', '未读'],
+  ['reading', '在读'],
+  ['read', '已读'],
 
   ['已借出', 'true'],
   ['未借出', 'false']
