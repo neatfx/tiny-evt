@@ -37,7 +37,8 @@ async function deleteItem(key: number | undefined) {
   if (key) await store.delete(key)
 }
 
-async function addTag(tags: string[], rowId: number) {
+async function addTag(rowId: number, tags: string[]) {
+  console.log(rowId, tags)
   store.updateTest(rowId, {
     categories: tags
   })
@@ -90,6 +91,8 @@ async function updateCover(rowId: number, cover: File | undefined) {
               updateItem(rowId, payload)
             }" @update-cover="updateCover"></BookRowsFieldName>
           </div>
+
+          <DeleteButton v-if="store.view.control.delete" class="right" @click="deleteItem(id)"></DeleteButton>
           <div class="field" v-if="store.view.fields.author">
             <EditableText :rowId="id" :text="author" @update="(rowId, payload) => {
               currentUpdateField = 'author'
@@ -114,7 +117,6 @@ async function updateCover(rowId: number, cover: File | undefined) {
         <div class="right">
           <BookRowsTags v-if="store.view.control.categories" :categories="categories" :rowId="id" @add-tag="addTag"
             class="right"></BookRowsTags>
-          <DeleteButton v-if="store.view.control.delete" class="right" @click="deleteItem(id)"></DeleteButton>
         </div>
       </div>
     </template>

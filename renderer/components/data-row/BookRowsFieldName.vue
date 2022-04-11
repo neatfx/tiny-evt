@@ -68,7 +68,7 @@ onMounted(() => {
     <!-- 添加封面按钮 -->
     <BaseButton v-if="!cover && !showCoverUploader" class="add-btn" @click="() => {
       showCoverUploader = true
-    }">添加封面</BaseButton>
+    }">封面</BaseButton>
     <!-- 添加封面 -->
     <div v-if="showCoverUploader && !cover" class="pop-cover-uplaoder-wrapper">
       <div v-if="!fileData" class="drop-zone" @dragover="ondragover" @drop="ondrop"></div>
