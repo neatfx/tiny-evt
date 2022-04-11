@@ -32,14 +32,11 @@ watchEffect(() => {
 
 // 处理二级菜单点击事件
 function onFilterItemClick(e: MouseEvent, filterType: string, filterValue: string) {
+  // 对单选、多选进行区分处理
   if (filterType === 'lend') {
     filter(filterType, trans(filterValue).toString(), false)
   } else {
-    // if (filterType === 'readingStatus') {
-    //   filter(filterType, trans(filterValue))
-    // } else {
-      filter(filterType, filterValue)
-    // }
+    filter(filterType, filterValue)
   }
   seletedFilter.value = ''
 }
@@ -60,7 +57,8 @@ function onFilterItemClick(e: MouseEvent, filterType: string, filterValue: strin
     <template #menu>
       <div>
         <ul v-if="Object.keys(items).includes(seletedFilter)" class="final-filter">
-          <li v-for="(v, k) in currentSubMenuData" :key="k" @click="onFilterItemClick($event, seletedFilter, v)">{{ v }}
+          <li v-for="(v, k) in currentSubMenuData" :key="k" @click="onFilterItemClick($event, seletedFilter, v)">
+            {{ (['lend', 'readingStatus'].indexOf(seletedFilter) !== -1) ? trans(v) : v }}
           </li>
         </ul>
       </div>

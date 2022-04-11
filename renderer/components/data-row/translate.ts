@@ -1,9 +1,13 @@
 const dic: Map<string, string> = new Map([
+  // View
   ['layout', '数据展现形式'],
   ['cards', '卡片'],
   ['rows', '列表'],
-
+  ['control', '操作控件'],
+  ['delete', '删除'],
   ['fields', '字段'],
+
+  // 数据库字段
   ['id', 'ID'],
   ['status', '出借状态'],
   ['lend', '出借状态'],
@@ -12,18 +16,15 @@ const dic: Map<string, string> = new Map([
   ['cover', '封面'],
   ['author', '作者'],
   ['publishing', '出版社'],
-
-  ['control', '操作控件'],
   ['categories', '分类标签'],
-  ['delete', '删除'],
 
+  // FilterMenu
   ['wanted', '想读'],
   ['not-yet', '未读'],
   ['reading', '在读'],
   ['read', '已读'],
-
-  ['已借出', 'true'],
-  ['未借出', 'false']
+  ['true', '已借出'],
+  ['false', '未借出']
 ])
 
 export function trans(key: string) {
