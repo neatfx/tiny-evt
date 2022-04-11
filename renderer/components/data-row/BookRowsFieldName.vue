@@ -57,6 +57,7 @@ onMounted(() => {
 </script>
 
 <template>
+
   <div @mouseover="showCover = true" @mouseleave="showCover = false" class="wrapper">
     <!-- 书名 -->
     <EditableText class="name" :rowId="rowId" :text="text" :isName="isName" @mouseover="showCover = true"
@@ -67,26 +68,31 @@ onMounted(() => {
       <BaseButton v-if="showCover && cover" class="delete-btn" @click="deleteCover">删除封面</BaseButton>
     </div>
     <!-- 添加封面按钮(无封面状态下显示) -->
+
     <BaseButton v-if="!cover" class="add-btn" @click="() => {
       showCoverUploader = !showCoverUploader
       fileData = undefined
     }">{{ showCoverUploader ? '取消' : '封面' }}</BaseButton>
+
     <!-- 拖放添加封面图片区域（浮动显示） -->
-    <div v-if="showCoverUploader && !cover" class="pop-cover-uplaoder-wrapper">
-      <div v-if="!fileData" class="drop-zone" @dragover="ondragover" @drop="ondrop"><span class="tip">拖放图片至此区域添加封面</span>
+    <Transition name="slide-up" mode="out-in">
+      <div v-if="showCoverUploader && !cover" class="pop-cover-uplaoder-wrapper">
+        <div v-if="!fileData" class="drop-zone" @dragover="ondragover" @drop="ondrop"><span
+            class="tip">拖放图片至此区域添加封面</span>
+        </div>
+        <BaseButton v-if="fileData && !cover" class="upload-btn" @click="addCover">确认添加</BaseButton>
+        <BaseButton v-if="!cover && fileData" class="cancel-btn" @click="() => {
+          showCoverUploader = false
+          fileData = undefined
+        }">取消</BaseButton>
       </div>
-      <BaseButton v-if="fileData && !cover" class="upload-btn" @click="addCover">确认添加</BaseButton>
-      <BaseButton v-if="!cover && fileData" class="cancel-btn" @click="() => {
-        showCoverUploader = false
-        fileData = undefined
-      }">取消</BaseButton>
-    </div>
+    </Transition>
+
   </div>
 </template>
 
 <style scoped>
-.wrapper {
-}
+.wrapper {}
 
 .pop-cover-wrapper {
   position: fixed;
@@ -152,5 +158,18 @@ onMounted(() => {
 .cancel-btn:hover {
   margin-right: 0;
   background-color: indianred;
+}
+
+/* Transition */
+.slide-up-move,
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: all 0.2s ease;
+}
+
+.slide-up-enter-from,
+.slide-up-leave-to {
+  opacity: 0;
+  transform: translateY(2px);
 }
 </style>
