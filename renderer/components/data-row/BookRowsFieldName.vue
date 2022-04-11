@@ -86,8 +86,6 @@ onMounted(() => {
 
 <style scoped>
 .wrapper {
-  height: 100%;
-  background-color: grey;
 }
 
 .pop-cover-wrapper {
