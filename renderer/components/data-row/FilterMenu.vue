@@ -34,7 +34,7 @@ watchEffect(() => {
 function onFilterItemClick(e: MouseEvent, filterType: string, filterValue: string) {
   // 对单选、多选进行区分处理
   if (filterType === 'lend') {
-    filter(filterType, trans(filterValue).toString(), false)
+    filter(filterType, filterValue, false)
   } else {
     filter(filterType, filterValue)
   }
