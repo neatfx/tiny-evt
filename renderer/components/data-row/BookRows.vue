@@ -79,45 +79,45 @@ async function updateCover(rowId: number, cover: File | undefined) {
   <BaseDataRows :items="props.items">
     <template #item="{ id, name, author, categories, publishing, published, cover, lend, readingStatus }">
       <div class="row" v-context-menu="id">
-        <div class="left">
-          <div v-if="store.view.fields.id" class="id">{{ id }}</div>
-          <BookRowsLendStatus v-if="store.view.fields.lend" :lend="lend" :rowId="id" @reset-lend="deleteLend"
-            @add-lend="addLend"></BookRowsLendStatus>
-          <BookRowsReadStatus v-if="store.view.fields.readingStatus" :rowId="id" :readingStatus="readingStatus"
-            @mark-reading-status="markReadingStatus"></BookRowsReadStatus>
-          <div class="field" v-if="store.view.fields.name">
-            <BookRowsFieldName :cover="cover" :rowId="id" :text="name" :isName="() => true" @update="(rowId, payload) => {
-              currentUpdateField = 'name'
-              updateItem(rowId, payload)
-            }" @update-cover="updateCover"></BookRowsFieldName>
-          </div>
+        <!-- <div class="left"> -->
+        <div v-if="store.view.fields.id" class="id">{{ id }}</div>
+        <BookRowsLendStatus v-if="store.view.fields.lend" :lend="lend" :rowId="id" @reset-lend="deleteLend"
+          @add-lend="addLend"></BookRowsLendStatus>
+        <BookRowsReadStatus v-if="store.view.fields.readingStatus" :rowId="id" :readingStatus="readingStatus"
+          @mark-reading-status="markReadingStatus"></BookRowsReadStatus>
+        <div class="field" v-if="store.view.fields.name">
+          <BookRowsFieldName :cover="cover" :rowId="id" :text="name" :isName="() => true" @update="(rowId, payload) => {
+            currentUpdateField = 'name'
+            updateItem(rowId, payload)
+          }" @update-cover="updateCover"></BookRowsFieldName>
+        </div>
 
-          <DeleteButton v-if="store.view.control.delete" class="right" @click="deleteItem(id)"></DeleteButton>
-          <div class="field" v-if="store.view.fields.author">
-            <EditableText :rowId="id" :text="author" @update="(rowId, payload) => {
-              currentUpdateField = 'author'
-              updateItem(rowId, payload)
-            }"></EditableText>
-          </div>
-          <div class="field">
-            <EditableText v-if="store.view.fields.publishing" :rowId="id" :text="publishing" @update="(rowId, payload) => {
-              currentUpdateField = 'publishing'
-              updateItem(rowId, payload)
-            }"></EditableText>
-          </div>
-          <div class="field">
-            <EditableText v-if="store.view.fields.published" :rowId="id" :text="published" @update="(rowId, payload) => {
-              currentUpdateField = 'published'
-              updateItem(rowId, payload)
-            }"></EditableText>
-          </div>
-          <BookRowsInlineTags v-if="store.view.fields.categories" :categories="categories" :rowId="id"
-            @delete-tag="deleteTag"></BookRowsInlineTags>
+        <DeleteButton v-if="store.view.control.delete" class="right" @click="deleteItem(id)"></DeleteButton>
+        <div class="field" v-if="store.view.fields.author">
+          <EditableText :rowId="id" :text="author" @update="(rowId, payload) => {
+            currentUpdateField = 'author'
+            updateItem(rowId, payload)
+          }"></EditableText>
         </div>
-        <div class="right">
-          <BookRowsTags v-if="store.view.control.categories" :categories="categories" :rowId="id" @add-tag="addTag"
-            class="right"></BookRowsTags>
+        <div class="field">
+          <EditableText v-if="store.view.fields.publishing" :rowId="id" :text="publishing" @update="(rowId, payload) => {
+            currentUpdateField = 'publishing'
+            updateItem(rowId, payload)
+          }"></EditableText>
         </div>
+        <div class="field">
+          <EditableText v-if="store.view.fields.published" :rowId="id" :text="published" @update="(rowId, payload) => {
+            currentUpdateField = 'published'
+            updateItem(rowId, payload)
+          }"></EditableText>
+        </div>
+        <BookRowsInlineTags v-if="store.view.fields.categories" :categories="categories" :rowId="id"
+          @delete-tag="deleteTag"></BookRowsInlineTags>
+        <BookRowsTags v-if="store.view.control.categories" :categories="categories" :rowId="id" @add-tag="addTag"
+          class=""></BookRowsTags>
+        <!-- </div> -->
+        <!-- <div class="right"> -->
+        <!-- </div> -->
       </div>
     </template>
   </BaseDataRows>
@@ -128,10 +128,10 @@ async function updateCover(rowId: number, cover: File | undefined) {
 <style scoped>
 .row {
   display: grid;
-  /* grid-template-columns: 1fr autp; */
+  grid-template-columns: auto;
   grid-auto-flow: column;
   gap: 5px;
-  /* justify-content: left; */
+  justify-content: left;
 }
 
 .id {
@@ -143,19 +143,19 @@ async function updateCover(rowId: number, cover: File | undefined) {
 }
 
 .left {
-  display: grid;
+  /* display: grid; */
   /* grid-template-columns: 40px 1fr minmax(0, 300px) auto auto auto; */
-  grid-auto-flow: column;
+  /* grid-auto-flow: column;
   justify-self: left;
-  margin-left: 2px;
+  margin-left: 2px; */
   /* border: 1px solid red; */
 }
 
 .right {
-  display: grid;
+  /* display: grid; */
   /* grid-template-columns: 1fr auto; */
-  grid-auto-flow: column;
-  justify-self: right;
+  /* grid-auto-flow: column; */
+  /* justify-self: right; */
   /* border: 1px solid red; */
 }
 

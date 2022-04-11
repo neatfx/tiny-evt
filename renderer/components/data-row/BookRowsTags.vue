@@ -30,8 +30,9 @@ function addsTag() {
   <Transition name="slide-up" mode="out-in">
     <BaseButton v-if="!showInput" @click="showInput = !showInput">标签</BaseButton>
     <div v-else-if="showInput" @mouseleave="() => { showInput = false; tagInput = '' }">
-      <BaseInput class="input-zone" v-model="tagInput"></BaseInput>
       <BaseButton class="add-btn" @click="addsTag">添加</BaseButton>
+      <BaseInput class="input-zone" v-model="tagInput"></BaseInput>
+
     </div>
     </Transition>
 </template>
