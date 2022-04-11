@@ -36,27 +36,27 @@ onMounted(() => {
     <span v-if="isName" class="name">{{ '《 ' + sourceContent + ' 》' }}</span>
     <span v-else-if="!isName" class="name">{{ sourceContent }}</span>
   </div>
-  <BaseInput
-    class="input-zone"
-    v-if="showInput"
-    v-model="contentInput"
-    @blur="save"
-    :content="sourceContent"
-    v-focus
-  ></BaseInput>
+  <BaseInput class="input-zone" v-if="showInput" v-model="contentInput" @blur="save" :content="sourceContent" v-focus>
+    </BaseInput>
 </template>
 
 <style scoped>
 .name-wrapper {
-  display: inline-block;
-  padding: 0px 10px 3px;
+  display: inline-grid;
+  padding: 0 10px;
   background-color: darkgray;
 }
+
 .name {
-  font-size: small;
-  display: block;
-  margin: 4px 0 1px 0;
-  padding: 1px 0 0;
-  /* background-color: cornflowerblue; */
+  padding: 3px 0 4px 0;
+  background-color: cornflowerblue;
+}
+.input-zone {
+  display: inline-block;
+  height: 100%;
+}
+.input-zone:focus {
+  display: inline-block;
+  height: 100%;
 }
 </style>

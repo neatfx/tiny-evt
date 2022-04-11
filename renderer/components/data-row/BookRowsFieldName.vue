@@ -16,7 +16,7 @@ const coverHtml = computed(() => {
   if (fileData.value) {
     binaryData.push(fileData.value)
     url = window.URL.createObjectURL(new Blob(binaryData, { type: 'image/jpeg' }))
-    return '<img src="' + url + '" style="max-width: 160px; max-height: 222px; display: block;" />'
+    return '<img src="' + url + '" style="max-width: 160px; max-height: 222px; display: inline-block;" />'
   }
 })
 const fileData = ref<File | undefined>()
@@ -58,21 +58,23 @@ onMounted(() => {
 
 <template>
   <div @mouseover="showCover = true" @mouseleave="showCover = false" class="wrapper">
+    <!-- 书名 -->
     <EditableText :rowId="rowId" :text="text" :isName="isName" @mouseover="showCover = true"
       @mouseleave="showCover = false" @update="(rowId, payload) => { emit('update', rowId, payload) }"></EditableText>
-    <!-- 封面显示 -->
+    <!-- 封面（浮动显示） -->
     <div v-if="showCover" class="pop-cover-wrapper">
       <div v-html="coverHtml" class="cover-base"></div>
       <BaseButton v-if="cover" class="delete-btn" @click="deleteCover">删除封面</BaseButton>
     </div>
-    <!-- 添加封面按钮(无封面状态) -->
+    <!-- 添加封面按钮(无封面状态下显示) -->
     <BaseButton v-if="!cover" class="add-btn" @click="() => {
       showCoverUploader = !showCoverUploader
       fileData = undefined
     }">{{ showCoverUploader ? '取消' : '封面' }}</BaseButton>
-    <!-- 添加封面 -->
+    <!-- 拖放添加封面图片区域（浮动显示） -->
     <div v-if="showCoverUploader && !cover" class="pop-cover-uplaoder-wrapper">
-      <div v-if="!fileData" class="drop-zone" @dragover="ondragover" @drop="ondrop"><span class="tip">拖放图片到此区域</span></div>
+      <div v-if="!fileData" class="drop-zone" @dragover="ondragover" @drop="ondrop"><span class="tip">拖放图片到此区域</span>
+      </div>
       <BaseButton v-if="fileData && !cover" class="upload-btn" @click="addCover">确认添加</BaseButton>
       <BaseButton v-if="!cover && fileData" class="cancel-btn" @click="() => {
         showCoverUploader = false
@@ -84,8 +86,14 @@ onMounted(() => {
 
 <style scoped>
 .wrapper {
-  height: 100%;
+  position: relative;
+  /* height: 100%; */
   background-color: brown;
+}
+
+.name-wrapper {
+  display: inline-grid;
+  /* height: 100%; */
 }
 
 .pop-cover-wrapper {
@@ -110,6 +118,7 @@ onMounted(() => {
 }
 
 .add-btn {
+  display: inline-block;
   margin-right: 0;
   background-color: teal;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
@@ -122,21 +131,23 @@ onMounted(() => {
 .pop-cover-uplaoder-wrapper {
   position: fixed;
   padding: 5px;
-  background-color:lightgray;
+  background-color: lightgray;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
 }
 
 .drop-zone {
-  background-color:lightgray;
+  background-color: lightgray;
   width: 150px;
   height: 80px;
 }
-.tip{
+
+.tip {
   display: block;
   text-align: center;
   padding-top: 27px;
   /* border: 1px solid red; */
 }
+
 .upload-btn,
 .upload-btn:hover {
   margin-right: 0;
