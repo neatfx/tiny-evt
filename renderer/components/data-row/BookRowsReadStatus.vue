@@ -1,54 +1,70 @@
 <script setup lang="ts">
 import FolderPanel from '@comps/FolderPanel.vue';
 import BaseButton from "@comps/BaseButton.vue";
+import { trans } from './translate'
 
 const props = defineProps(['rowId', 'read']);
 const emit = defineEmits<{
-  (e: 'mark-read', rowId: number, read: boolean | undefined): void
+  (e: 'mark-reading-status', rowId: number, read: string): void
 }>()
+const menuData = new Map<string, string>()
+menuData.set('想读', 'wanted')
+menuData.set('未读', 'not-yet')
+menuData.set('在读', 'reading')
+menuData.set('已读', 'read')
 
-const menuData = new Map<string, boolean>()
-menuData.set('已读', true)
-menuData.set('未读', false)
-
-function mark(read: boolean | undefined) {
-  emit('mark-read', props.rowId, read)
+function mark(read: string) {
+  emit('mark-reading-status', props.rowId, read)
 }
 </script>
 
 <template>
   <FolderPanel :isPopMenu="true">
     <template #header>
-      <BaseButton v-if="read" class="read">已读</BaseButton>
-      <BaseButton v-else-if="!read">未读</BaseButton>
+      <BaseButton :class='[read]'>{{ trans(read) }}</BaseButton>
     </template>
     <template #body>
       <ul v-for="key in menuData.keys()" :key="key">
         <li @click="mark(menuData.get(key))">{{ key }}</li>
       </ul>
     </template>
-  </FolderPanel>
+    </FolderPanel>
 </template>
 
 <style scoped>
-.read {
-  background-color:lightgreen;
+.wanted,
+.wanted:hover {
+  background-color: lightskyblue;
 }
+
+.not-yet,
+.not-yet:hover {
+  background-color: lightcoral;
+}
+
+.reading,
+.reading:hover {
+  background-color: lightgoldenrodyellow;
+}
+
+.read,
 .read:hover {
   background-color: lightgreen;
 }
+
 ul {
   font-size: 15px;
   list-style: none;
   margin: 0;
   padding: 0;
 }
+
 li {
   padding: 5px 10px;
 }
 
 li:hover {
-  background-color: #0070f5;
+  background-color: lightgray;
   cursor: default;
 }
 </style>

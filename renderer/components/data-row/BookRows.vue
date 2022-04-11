@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import router from '@/router'
 import { useBooksStore } from '@/stores'
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 
 import BaseDataRows from '@comps/data-row/BaseRows.vue'
 import BookRowsReadStatus from '@/components/data-row/BookRowsReadStatus.vue'
@@ -61,9 +61,9 @@ async function addLend(rowId: number, info: string) {
   })
 }
 
-async function markRead(rowId: number, read: boolean | undefined) {
+async function markReadingStatus(rowId: number, readingStatus: string) {
   store.updateTest(rowId, {
-    read: read
+    read: readingStatus
   })
 }
 
@@ -91,7 +91,7 @@ async function updateCover(rowId: number, cover: File | undefined) {
             v-if="store.view.fields.read"
             :rowId="id"
             :read="read"
-            @mark-read="markRead"
+            @mark-reading-status="markReadingStatus"
           ></BookRowsReadStatus>
           <div class="field">
             <BookRowsFieldName

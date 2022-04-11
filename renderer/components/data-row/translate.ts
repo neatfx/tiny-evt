@@ -16,10 +16,14 @@ const dic: Map<string, string | boolean> = new Map([
   ['control', '操作控件'],
   ['categories', '标签'],
   ['delete', '删除'],
+
+  ['wanted', '想读'],
+  ['not-yet', '未读'],
+  ['reading', '在读'],
+  ['read', '已读']
 ])
 
 export function trans(key: string) {
-  // console.log(key)
   const text = dic.get(key)
   if (!text) return key
   return text
