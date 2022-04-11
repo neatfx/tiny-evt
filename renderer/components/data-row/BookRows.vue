@@ -76,7 +76,7 @@ async function updateCover(rowId: number, cover: File | undefined) {
 
 <template>
   <BaseDataRows :items="props.items">
-    <template #item="{ id, name, author, categories, publishing, cover, lend, readingStatus }">
+    <template #item="{ id, name, author, categories, publishing, published, cover, lend, readingStatus }">
       <div class="row" v-context-menu="id">
         <div class="left">
           <div v-if="store.view.fields.id" class="id">{{ id }}</div>
@@ -99,6 +99,12 @@ async function updateCover(rowId: number, cover: File | undefined) {
           <div class="field">
             <EditableText v-if="store.view.fields.publishing" :rowId="id" :text="publishing" @update="(rowId, payload) => {
               currentUpdateField = 'publishing'
+              updateItem(rowId, payload)
+            }"></EditableText>
+          </div>
+          <div class="field">
+            <EditableText v-if="store.view.fields.published" :rowId="id" :text="published" @update="(rowId, payload) => {
+              currentUpdateField = 'published'
               updateItem(rowId, payload)
             }"></EditableText>
           </div>

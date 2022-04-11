@@ -30,7 +30,8 @@ export const useBooksStore = defineStore('books', {
         name: true,
         author: true,
         categories: true,
-        publishing: true
+        publishing: true,
+        published: true
       },
       control: {
         categories: true,

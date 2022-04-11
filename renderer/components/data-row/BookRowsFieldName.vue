@@ -58,39 +58,25 @@ onMounted(() => {
 
 <template>
   <div @mouseover="showCover = true" @mouseleave="showCover = false" class="wrapper">
-    <EditableText
-      :rowId="rowId"
-      :text="text"
-      :isName="isName"
-      @mouseover="showCover = true"
-      @mouseleave="showCover = false"
-      @update="(rowId, payload) => { emit('update', rowId, payload) }"
-    ></EditableText>
+    <EditableText :rowId="rowId" :text="text" :isName="isName" @mouseover="showCover = true"
+      @mouseleave="showCover = false" @update="(rowId, payload) => { emit('update', rowId, payload) }"></EditableText>
     <!-- 封面显示 -->
     <div v-if="showCover" class="pop-cover-wrapper">
       <div v-html="coverHtml" class="cover-base"></div>
       <BaseButton v-if="cover" class="delete-btn" @click="deleteCover">删除封面</BaseButton>
     </div>
     <!-- 添加封面按钮 -->
-    <BaseButton
-      v-if="!cover && !showCoverUploader"
-      class="add-btn"
-      @click="() => {
-        showCoverUploader = true
-      }"
-    >添加封面</BaseButton>
+    <BaseButton v-if="!cover && !showCoverUploader" class="add-btn" @click="() => {
+      showCoverUploader = true
+    }">添加封面</BaseButton>
     <!-- 添加封面 -->
     <div v-if="showCoverUploader && !cover" class="pop-cover-uplaoder-wrapper">
       <div v-if="!fileData" class="drop-zone" @dragover="ondragover" @drop="ondrop"></div>
       <BaseButton v-if="fileData && !cover" class="upload-btn" @click="addCover">确认添加</BaseButton>
-      <BaseButton
-        v-if="!cover"
-        class="cancel-btn"
-        @click="() => {
-          showCoverUploader = false
-          fileData = undefined
-        }"
-      >取消</BaseButton>
+      <BaseButton v-if="!cover" class="cancel-btn" @click="() => {
+        showCoverUploader = false
+        fileData = undefined
+      }">取消</BaseButton>
     </div>
   </div>
 </template>
@@ -100,46 +86,57 @@ onMounted(() => {
   height: 100%;
   background-color: brown;
 }
+
 .pop-cover-wrapper {
   position: fixed;
   display: inline-block;
 }
+
 .cover-base {
   float: left;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
 }
+
 .delete-btn {
   display: block;
   margin-right: 0;
   background-color: indianred;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
 }
+
 .delete-btn:hover {
   background-color: indianred;
 }
+
 .add-btn {
   margin-right: 0;
   background-color: teal;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
 }
+
 .add-btn:hover {
   background-color: teal;
 }
+
 .pop-cover-uplaoder-wrapper {
   position: fixed;
   width: 125px;
   padding: 5px;
   background-color: gray;
+  box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
 }
+
 .drop-zone {
   margin-bottom: 5px;
   background-color: darkgray;
   height: 60px;
 }
+
 .upload-btn,
 .upload-btn:hover {
   background-color: cornflowerblue;
 }
+
 .cancel-btn,
 .cancel-btn:hover {
   margin-right: 0;
