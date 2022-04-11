@@ -20,10 +20,9 @@ export class Book implements IBook {
   constructor(name: string, author: string) {
     this.name = name;
     this.author = author;
-    // this.categories = categories;
-    // this.publishing = publishing;
-    // this.created = new Date()
-    // if (id) this.id = id;
+    this.readingStatus = 'read';
+    this.lend = undefined;
+    this.created = new Date();
 
     // Define navigation properties.
     // Making them non-enumerable will prevent them from being handled by indexedDB
