@@ -44,12 +44,14 @@ li {
 }
 .tag-wrapper{
   display: grid;
+  position: relative;
 }
 .tag-name {
   padding: 3px 8px;
 }
 .delete-btn {
-  position: fixed;
+  position: absolute;
+  right: 0;
   padding: 4px 10px 3px 12px;
   background-color: lightcoral;
 }
