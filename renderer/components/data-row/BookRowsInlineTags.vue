@@ -40,7 +40,7 @@ ul {
 li {
   text-align: center;
   background-color: khaki;
-  margin-right: 5px;
+  margin-right: 1px;
 }
 .tag-wrapper{
   display: grid;

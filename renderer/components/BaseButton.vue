@@ -13,7 +13,7 @@ button {
   border: none;
   padding: 5px 10px;
   outline: none;
-  margin-right: 5px;
+  /* margin-right: 5px; */
 }
 button:hover {
   background-color: lightgrey;
