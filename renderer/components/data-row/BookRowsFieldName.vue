@@ -62,10 +62,10 @@ onMounted(() => {
     <EditableText class="name" :rowId="rowId" :text="text" :isName="isName" @mouseover="showCover = true"
       @mouseleave="showCover = false" @update="(rowId, payload) => { emit('update', rowId, payload) }"></EditableText>
     <!-- 封面（浮动显示） -->
-    <!-- <div v-if="showCover" class="pop-cover-wrapper"> -->
-    <div v-if="showCover" v-html="coverHtml" class="cover-base"></div>
-    <BaseButton v-if="showCover && cover" class="delete-btn" @click="deleteCover">删除封面</BaseButton>
-    <!-- </div> -->
+    <div v-if="showCover" class="pop-cover-wrapper">
+      <div v-if="showCover" v-html="coverHtml" class="cover-base"></div>
+      <BaseButton v-if="showCover && cover" class="delete-btn" @click="deleteCover">删除封面</BaseButton>
+    </div>
     <!-- 添加封面按钮(无封面状态下显示) -->
     <BaseButton v-if="!cover" class="add-btn" @click="() => {
       showCoverUploader = !showCoverUploader
@@ -90,35 +90,20 @@ onMounted(() => {
   background-color: grey;
 }
 
-.name-wrapper {
-  display: inline-grid;
-  height: 100%;
-}
-
-.name {
-  display: block;
-  height: 100%;
-}
-input:focus {
-  outline: none;
-  /* display: inline-block; */
-  /* font-size:small; */
-  height: 100%;
-}
-/* .pop-cover-wrapper {
+.pop-cover-wrapper {
   position: fixed;
-  display: inline-block;
-} */
+  display: inline-grid;
+  grid-template-columns: auto;
+  grid-auto-flow: column;
+  align-items: flex-start;
+  /* border: 1px solid red; */
+}
 
 .cover-base {
-  position: fixed;
-  display: inline-block;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
 }
 
 .delete-btn {
-  /* position: absolute; */
-  /* display: block; */
   margin-right: 0;
   background-color: indianred;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);

@@ -26,6 +26,6 @@ input {
 input:focus {
   outline: none;
   display: inline-block;
-  /* height: 100%; */
+  height: 100%;
 }
 </style>
