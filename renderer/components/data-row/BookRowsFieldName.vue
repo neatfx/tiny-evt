@@ -75,7 +75,7 @@ onMounted(() => {
     }">{{ showCoverUploader ? '取消' : '封面' }}</BaseButton>
 
     <!-- 拖放添加封面图片区域（浮动显示） -->
-    <Transition name="slide-up" mode="out-in">
+    <!-- <Transition name="slide-up" mode="out-in"> -->
       <div v-if="showCoverUploader && !cover" class="pop-cover-uplaoder-wrapper">
         <div v-if="!fileData" class="drop-zone" @dragover="ondragover" @drop="ondrop"><span
             class="tip">拖放图片至此区域添加封面</span>
@@ -86,7 +86,7 @@ onMounted(() => {
           fileData = undefined
         }">取消</BaseButton>
       </div>
-    </Transition>
+    <!-- </Transition> -->
 
   </div>
 </template>
@@ -161,7 +161,7 @@ onMounted(() => {
 }
 
 /* Transition */
-.slide-up-move,
+/* .slide-up-move,
 .slide-up-enter-active,
 .slide-up-leave-active {
   transition: all 0.2s ease;
@@ -171,5 +171,5 @@ onMounted(() => {
 .slide-up-leave-to {
   opacity: 0;
   transform: translateY(2px);
-}
+} */
 </style>

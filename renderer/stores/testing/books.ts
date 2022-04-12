@@ -77,27 +77,23 @@ export const useBooksStore = defineStore('books', {
     },
     async filter(filter: Map<string, Set<string>>) {
       console.log(filter)
-      const results = await Promise.all([
-        TestingDB.books
-          .where('readingStatus')
-          .anyOf(Array.from(filter.get('readingStatus') || this.filters.readingStatus))
-          .primaryKeys(),
 
-        TestingDB.books
-          .where('categories')
-          .anyOf(Array.from(filter.get('categories') || this.filters.categories))
-          .primaryKeys(),
+      const filterArr = []
+      const lendFilter = filter.get('lend')
 
-        TestingDB.books
-          .where('publishing')
-          .anyOf(Array.from(filter.get('publishing') || this.filters.publishing))
-          .primaryKeys(),
+      filter.forEach((filterParams, fieldName) => {
+        if (fieldName !== 'lend') {
+          filterArr.push(
+            TestingDB.books
+              .where(fieldName)
+              .anyOf(Array.from(filterParams))
+              .primaryKeys()
+          )
+        }
+      })
 
-        TestingDB.books
-          .where('author')
-          .anyOf(Array.from(filter.get('author') || this.filters.author))
-          .primaryKeys(),
-        // TODO: 移除 filter 的使用，以配合 Hook 或 DBCore
+      // TODO: 移除 filter 的使用，以配合 Hook 或 DBCore
+      if (lendFilter) filterArr.push(
         TestingDB.books
           .filter((book) => {
             if (filter.get('lend')) {
@@ -113,16 +109,16 @@ export const useBooksStore = defineStore('books', {
             }
           })
           .primaryKeys()
-      ]);
+      )
 
+      const results = await Promise.all(filterArr);
       const intersection = results.reduce((ids1, ids2) => {
         const set = new Set(ids1);
         return ids2.filter(id => set.has(id));
       });
 
       total.value = intersection.length;
-      const segIndexes = intersection.splice(offset.value, limit.value)
-      this.items = await TestingDB.books.bulkGet(segIndexes)
+      this.items = await TestingDB.books.bulkGet(intersection.splice(offset.value, limit.value))
 
       await toggleIndicator(false)
     },
