@@ -57,11 +57,10 @@ onMounted(() => {
 </script>
 
 <template>
-
   <div @mouseover="showCover = true" @mouseleave="showCover = false" class="wrapper">
     <!-- 书名 -->
-    <EditableText class="name" :rowId="rowId" :text="text" :isName="isName" @mouseover="showCover = true"
-      @mouseleave="showCover = false" @update="(rowId, payload) => { emit('update', rowId, payload) }"></EditableText>
+    <EditableText class="name" :rowId="rowId" :text="text" :isName="isName"
+      @update="(rowId, payload) => { emit('update', rowId, payload) }"></EditableText>
     <!-- 封面（浮动显示） -->
     <div v-if="showCover" class="pop-cover-wrapper">
       <div v-if="showCover" v-html="coverHtml" class="cover-base"></div>
@@ -76,16 +75,16 @@ onMounted(() => {
 
     <!-- 拖放添加封面图片区域（浮动显示） -->
     <!-- <Transition name="slide-up" mode="out-in"> -->
-      <div v-if="showCoverUploader && !cover" class="pop-cover-uplaoder-wrapper">
-        <div v-if="!fileData" class="drop-zone" @dragover="ondragover" @drop="ondrop"><span
-            class="tip">拖放图片至此区域添加封面</span>
-        </div>
-        <BaseButton v-if="fileData && !cover" class="upload-btn" @click="addCover">确认添加</BaseButton>
-        <BaseButton v-if="!cover && fileData" class="cancel-btn" @click="() => {
-          showCoverUploader = false
-          fileData = undefined
-        }">取消</BaseButton>
+    <div v-if="showCoverUploader && !cover" class="pop-cover-uplaoder-wrapper">
+      <div v-if="!fileData" class="drop-zone" @dragover="ondragover" @drop="ondrop"><span
+          class="tip">拖放图片至此区域添加封面</span>
       </div>
+      <BaseButton v-if="fileData && !cover" class="upload-btn" @click="addCover">确认添加</BaseButton>
+      <BaseButton v-if="!cover && fileData" class="cancel-btn" @click="() => {
+        showCoverUploader = false
+        fileData = undefined
+      }">取消</BaseButton>
+    </div>
     <!-- </Transition> -->
 
   </div>
