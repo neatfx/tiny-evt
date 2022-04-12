@@ -25,6 +25,7 @@
     "*.{js,vue}": "eslint"
   },
   "dependencies": {
+    "@unocss/reset": "^0.31.0",
     "axios": "^0.26.1",
     "dexie": "^3.2.1",
     "dexie-export-import": "^1.0.3",
