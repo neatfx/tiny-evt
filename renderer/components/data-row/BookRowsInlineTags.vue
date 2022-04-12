@@ -48,10 +48,10 @@ function addsTag() {
       </div>
     </li>
 
-    <Transition name="slide-up" mode="out-in">
+    <!-- <Transition name="slide-up" mode="out-in"> -->
       <BaseButton v-if="!showInput" @click="showInput = !showInput">标签</BaseButton>
       <BaseButton v-else-if="showInput" class="add-btn" @click="addsTag">添加</BaseButton>
-    </Transition>
+    <!-- </Transition> -->
     <Transition name="slide-up" mode="out-in">
       <BaseInput v-if="showInput" class="input-zone" v-model="tagInput" />
     </Transition>
