@@ -13,7 +13,9 @@ defineProps(['views', 'filters', 'workingFilters'])
       <div class="left">
         <ViewOptions class="seg" :views="views"></ViewOptions>
         <FilterMenu class="seg" :items="filters"></FilterMenu>
-        <slot class="seg" name="adder"></slot>
+        <div class="seg adder">
+          <slot name="adder"></slot>
+        </div>
         <Search class="seg"></Search>
       </div>
       <div class="right">
@@ -30,14 +32,19 @@ defineProps(['views', 'filters', 'workingFilters'])
   gap: 10px;
   margin: 0 0 11px 60px;
 }
+
 .opt-row {
   display: grid;
   grid-template-columns: 1fr auto;
 }
-.seg{
+
+.seg {
   margin-right: 1px;
 }
-.filter-tags{
+.adder{
+  display: inline-block;
+}
+.filter-tags {
   background-color: gray;
 }
 </style>
