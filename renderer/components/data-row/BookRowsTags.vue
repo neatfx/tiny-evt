@@ -38,12 +38,14 @@ function addsTag() {
 
 <style scoped>
 .input-zone {
-  padding: 7px 10px;
+  /* position: relative; */
+  padding: 7px 10px 6px;
   vertical-align: middle;
 }
 
 .input-zone:focus {
-  padding: 7px 10px;
+  /* position: absolute; */
+  padding: 7px 10px 6px;
   vertical-align: middle;
 }
 
@@ -61,7 +63,7 @@ function addsTag() {
 
 .slide-up-enter-from,
 .slide-up-leave-to {
-  opacity: 0.2;
+  opacity: 0;
   transform: translateX(2px);
 }
 </style>

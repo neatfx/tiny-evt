@@ -8,7 +8,6 @@ import BookRowsReadStatus from '@/components/data-row/BookRowsReadStatus.vue'
 import DeleteButton from '@comps/DeleteButton.vue'
 import ContextMenu from "@/components/data-row/RowsContextMenu.vue"
 import { vContextMenu, useContextMenu } from '@comps/contextMenu'
-import BookRowsTags from '@comps/data-row/BookRowsTags.vue'
 import BookRowsInlineTags from '@comps/data-row/BookRowsInlineTags.vue'
 import EditableText from '@comps/EditableText.vue'
 import BookRowsLendStatus from '@comps/data-row/BookRowsLendStatus.vue'
@@ -110,10 +109,10 @@ async function updateCover(rowId: number, cover: File | undefined) {
           }"></EditableText>
         </div>
         <div class="row-seg">
-          <BookRowsInlineTags v-if="store.view.fields.categories" :categories="categories" :rowId="id"
+          <BookRowsInlineTags v-if="store.view.fields.categories" :categories="categories" :rowId="id" @add-tag="addTag"
             @delete-tag="deleteTag"></BookRowsInlineTags>
-          <BookRowsTags v-if="store.view.control.categories" :categories="categories" :rowId="id" @add-tag="addTag">
-          </BookRowsTags>
+          <!-- <BookRowsTags v-if="store.view.control.categories" :categories="categories" :rowId="id" @add-tag="addTag">
+          </BookRowsTags> -->
         </div>
       </div>
     </template>
