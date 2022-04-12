@@ -28,7 +28,7 @@ async function deleteItem(key: number | undefined) {
   if (key) await store.delete(key)
 }
 
-async function addTag(tags: string[], rowId: number) {
+async function addTag(rowId: number, tags: string[], ) {
   store.updateTest(rowId, {
     categories: tags
   })
@@ -101,7 +101,7 @@ function showMore(bookId: number, ifShowModal: boolean) {
         ></BookCardsLendStatus>
         <BookCardsReadingStatus
           :rowId="store.items[curItemIndex]?.id"
-          :read="store.items[curItemIndex]?.read"
+          :read="store.items[curItemIndex]?.readingStatus"
           @mark-read="markRead"
         ></BookCardsReadingStatus>
         <div>
