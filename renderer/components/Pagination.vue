@@ -18,7 +18,7 @@ const first = '首页'
 
 <style scoped>
 button {
-    margin-right: 2px;
+    margin-right: 1px;
 }
 .tail {
     margin-right: 0px;
