@@ -4,8 +4,10 @@ import type { IndexableTypeArray } from 'dexie';
 
 import { usePagination } from '../../components/pagination';
 import type { IBook } from '@/db/testing/type-defs';
+import { useFilter } from '@/components/data-row/filter';
 
 const { total, offset, limit } = usePagination()
+const { workingFilters } = useFilter()
 
 export const useBooksStore = defineStore('books', {
   state: () => ({
@@ -127,7 +129,6 @@ export const useBooksStore = defineStore('books', {
       await toggleIndicator(false)
     },
     async fetchPagedRows() {
-      // if (this.filter)
       await this.count()
       await this.list()
       total.value = this.total
@@ -151,7 +152,11 @@ export const useBooksStore = defineStore('books', {
 
 // 供 search middleware mutate 后统一调用
 export async function refresh() {
-  await useBooksStore().fetchPagedRows()
+  if (workingFilters.size) {
+    await useBooksStore().filter(workingFilters)
+  } else {
+    await useBooksStore().fetchPagedRows()
+  }
 }
 
 // 供 search middleware put@mutate 时调用
