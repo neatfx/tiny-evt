@@ -78,7 +78,7 @@ export const useBooksStore = defineStore('books', {
       });
     },
     async filter(filter: Map<string, Set<string>>) {
-      console.log(filter)
+      // console.log(filter)
 
       const filterArr = []
       const lendFilter = filter.get('lend')

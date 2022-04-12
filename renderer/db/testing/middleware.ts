@@ -11,6 +11,7 @@ import {
 import { refresh, refreshFiltersMeta, toggleIndicator } from '@stores/testing/books'
 import type { DBCore, Middleware } from 'dexie';
 
+const debug = false
 export const segmentit = new Segment();
 // 强制分割类单词识别
 segmentit.use(URLTokenizer); // URL识别
@@ -68,14 +69,14 @@ const middleware: Middleware<DBCore> = {
             // showIndicator()
             const myRequest = { ...req };
             const res = await downlevelTable.openCursor(myRequest);
-            console.log('openCursor operation...')
+            if (debug) console.log('openCursor operation...')
             return res;
           },
           count: async req => {
             showIndicator()
             const myRequest = { ...req };
             const res = await downlevelTable.count(myRequest);
-            console.log('count operation...')
+            if (debug) console.log('count operation...')
 
             return res;
           },
@@ -83,21 +84,21 @@ const middleware: Middleware<DBCore> = {
             showIndicator()
             const myRequest = { ...req };
             const res = await downlevelTable.get(myRequest);
-            console.log('get operation...')
+            if (debug) console.log('get operation...')
             return res;
           },
           query: async req => {
             showIndicator()
             const myRequest = { ...req };
             const res = await downlevelTable.query(myRequest);
-            console.log('query operation...')
+            if (debug) console.log('query operation...')
             return res;
           },
           getMany: async req => {
             showIndicator()
             const myRequest = { ...req };
             const res = await downlevelTable.getMany(myRequest);
-            console.log('getMany operation...')
+            if (debug) console.log('getMany operation...')
             return res;
           },
           mutate: async req => {
@@ -106,7 +107,7 @@ const middleware: Middleware<DBCore> = {
             // Before mutate
             // For Add
             if (myRequest.type === 'add') {
-              console.log(myRequest)
+              if (debug) console.log(myRequest)
               for (let index = 0; index < myRequest.values.length; index++) {
                 const element = myRequest.values[index];
                 const nameTokens = segmentit.doSegment(element['name'], {
@@ -119,7 +120,7 @@ const middleware: Middleware<DBCore> = {
             }
             // For Update
             if (myRequest.type === 'put') {
-              console.log(myRequest)
+              if (debug) console.log(myRequest)
               if (myRequest.changeSpec && myRequest.changeSpec['name']) {
                 const nameTokens = segmentit.doSegment(myRequest.changeSpec['name'], {
                   simple: true,
@@ -137,7 +138,7 @@ const middleware: Middleware<DBCore> = {
             // After mutate
             await syncAll(myRequest);
 
-            console.log('mutate - ' + myRequest.type + ' operation...')
+            if (debug) console.log('mutate - ' + myRequest.type + ' operation...')
 
             const myResponse = { ...res };
             return myResponse;

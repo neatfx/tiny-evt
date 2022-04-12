@@ -37,7 +37,6 @@ async function deleteItem(key: number | undefined) {
 }
 
 async function addTag(rowId: number, tags: string[]) {
-  console.log(rowId, tags)
   store.updateTest(rowId, {
     categories: tags
   })
@@ -90,7 +89,6 @@ async function updateCover(rowId: number, cover: File | undefined) {
               updateItem(rowId, payload)
             }" @update-cover="updateCover"></BookRowsName>
           </div>
-          <DeleteButton v-if="store.view.control.delete" @click="deleteItem(id)"></DeleteButton>
         </div>
         <div class="row-seg">
           <div v-if="store.view.fields.author">
@@ -111,8 +109,9 @@ async function updateCover(rowId: number, cover: File | undefined) {
         <div class="row-seg">
           <BookRowsTags v-if="store.view.fields.categories" :categories="categories" :rowId="id" @add-tag="addTag"
             @delete-tag="deleteTag"></BookRowsTags>
-          <!-- <BookRowsTags v-if="store.view.control.categories" :categories="categories" :rowId="id" @add-tag="addTag">
-          </BookRowsTags> -->
+        </div>
+        <div class="row-seg">
+          <DeleteButton v-if="store.view.control.delete" @click="deleteItem(id)"></DeleteButton>
         </div>
       </div>
     </template>

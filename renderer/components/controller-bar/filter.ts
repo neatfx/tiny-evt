@@ -4,7 +4,6 @@ const filtersCount = ref(0)
 const workingFilters = reactive<Map<string, Set<string>>>(new Map())
 
 function filter(type: string, value: string, multiSelection: boolean = true) {
-  console.log(type, value)
   if (!workingFilters.get(type)) {
     workingFilters.set(type, new Set())
     if (!multiSelection) filtersCount.value = filtersCount.value + 1

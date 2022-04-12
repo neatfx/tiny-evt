@@ -19,8 +19,7 @@ function deleteTag(key: number) {
 const tagInput = ref('')
 const showInput = ref(false)
 
-function addsTag() {
-  console.log(tagInput.value)
+function addTag() {
   if (tagInput.value === '') {
     showInput.value = false
     return
@@ -50,7 +49,7 @@ function addsTag() {
 
     <!-- <Transition name="slide-up" mode="out-in"> -->
       <BaseButton v-if="!showInput" @click="showInput = !showInput">标签</BaseButton>
-      <BaseButton v-else-if="showInput" class="add-btn" @click="addsTag">添加</BaseButton>
+      <BaseButton v-else-if="showInput" class="add-btn" @click="addTag">添加</BaseButton>
     <!-- </Transition> -->
     <Transition name="slide-up" mode="out-in">
       <BaseInput v-if="showInput" class="input-zone" v-model="tagInput" />
