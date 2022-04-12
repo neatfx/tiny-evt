@@ -4,14 +4,14 @@ import { useBooksStore } from '@/stores'
 import { ref } from 'vue'
 
 import BaseDataRows from './BaseRows.vue'
-import BookRowsReadStatus from './BookRowsReadStatus.vue'
+import BookRowsReadingStatus from './BookRowsReadingStatus.vue'
 import DeleteButton from '@comps/DeleteButton.vue'
-import ContextMenu from "./RowsContextMenu.vue"
+import ContextMenu from "./BookRowsContextMenu.vue"
 import { vContextMenu, useContextMenu } from '@comps/contextMenu'
-import BookRowsInlineTags from './BookRowsInlineTags.vue'
+import BookRowsTags from './BookRowsTags.vue'
 import EditableText from '@comps/EditableText.vue'
 import BookRowsLendStatus from './BookRowsLendStatus.vue'
-import BookRowsFieldName from './BookRowsFieldName.vue'
+import BookRowsName from './BookRowsName.vue'
 
 const props = defineProps(['items'])
 const store = useBooksStore()
@@ -82,13 +82,13 @@ async function updateCover(rowId: number, cover: File | undefined) {
         <div class="row-seg">
           <BookRowsLendStatus v-if="store.view.fields.lend" :lend="lend" :rowId="id" @reset-lend="deleteLend"
             @add-lend="addLend"></BookRowsLendStatus>
-          <BookRowsReadStatus v-if="store.view.fields.readingStatus" :rowId="id" :readingStatus="readingStatus"
-            @mark-reading-status="markReadingStatus"></BookRowsReadStatus>
+          <BookRowsReadingStatus v-if="store.view.fields.readingStatus" :rowId="id" :readingStatus="readingStatus"
+            @mark-reading-status="markReadingStatus"></BookRowsReadingStatus>
           <div v-if="store.view.fields.name">
-            <BookRowsFieldName :cover="cover" :rowId="id" :text="name" :isName="() => true" @update="(rowId, payload) => {
+            <BookRowsName :cover="cover" :rowId="id" :text="name" :isName="() => true" @update="(rowId, payload) => {
               currentUpdateField = 'name'
               updateItem(rowId, payload)
-            }" @update-cover="updateCover"></BookRowsFieldName>
+            }" @update-cover="updateCover"></BookRowsName>
           </div>
           <DeleteButton v-if="store.view.control.delete" @click="deleteItem(id)"></DeleteButton>
         </div>
@@ -109,8 +109,8 @@ async function updateCover(rowId: number, cover: File | undefined) {
           }"></EditableText>
         </div>
         <div class="row-seg">
-          <BookRowsInlineTags v-if="store.view.fields.categories" :categories="categories" :rowId="id" @add-tag="addTag"
-            @delete-tag="deleteTag"></BookRowsInlineTags>
+          <BookRowsTags v-if="store.view.fields.categories" :categories="categories" :rowId="id" @add-tag="addTag"
+            @delete-tag="deleteTag"></BookRowsTags>
           <!-- <BookRowsTags v-if="store.view.control.categories" :categories="categories" :rowId="id" @add-tag="addTag">
           </BookRowsTags> -->
         </div>

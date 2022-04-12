@@ -1,17 +1,15 @@
 <script setup lang="ts">
-import { useBooksStore } from '@/stores'
 import { ref } from 'vue'
 import { computed } from '@vue/reactivity'
+import { useBooksStore } from '@/stores'
 
 import EditableText from '@comps/EditableText.vue'
 import Modal from '@comps/Modal.vue'
 
 import BaseCards from './BaseCards.vue'
-
-import BookRowsReadStatus from '@/components/book-rows/BookRowsReadStatus.vue'
-import BookRowsTags from '@comps/book-rows/BookRowsInlineTags.vue'
-import BookRowsInlineTags from '@comps/book-rows/BookRowsInlineTags.vue'
-import BookRowsLendStatus from '@comps/book-rows/BookRowsLendStatus.vue'
+import BookCardsLendStatus from './BookCardsLendStatus.vue'
+import BookCardsReadingStatus from './BookCardsReadingStatus.vue'
+import BookCardsTags from './BookCardsTags.vue'
 
 const props = defineProps(['items'])
 const store = useBooksStore()
@@ -95,17 +93,17 @@ function showMore(bookId: number, ifShowModal: boolean) {
         ></EditableText>
       </template>
       <template #body>
-        <BookRowsLendStatus
+        <BookCardsLendStatus
           :rowId="store.items[curItemIndex]?.id"
           :lend="store.items[curItemIndex]?.lend"
           @reset-lend="deleteLend"
           @add-lend="addLend"
-        ></BookRowsLendStatus>
-        <BookRowsReadStatus
+        ></BookCardsLendStatus>
+        <BookCardsReadingStatus
           :rowId="store.items[curItemIndex]?.id"
           :read="store.items[curItemIndex]?.read"
           @mark-read="markRead"
-        ></BookRowsReadStatus>
+        ></BookCardsReadingStatus>
         <div>
           <title>作者</title>
           <EditableText
@@ -130,20 +128,20 @@ function showMore(bookId: number, ifShowModal: boolean) {
           ></EditableText>
         </div>
         <div class="tags-zone">
-          <BookRowsInlineTags
+          <BookCardsTags
             v-if="store.view.fields.categories"
             :rowId="store.items[curItemIndex]?.id"
             :categories="store.items[curItemIndex]?.categories"
             @delete-tag="deleteTag"
             class="inline-tags"
-          ></BookRowsInlineTags>
-          <BookRowsTags
+          ></BookCardsTags>
+          <BookCardsTags
             v-if="store.view.control.categories"
             :rowId="store.items[curItemIndex]?.id"
             :categories="store.items[curItemIndex]?.categories"
             @add-tag="addTag"
             class="tag-adder"
-          ></BookRowsTags>
+          ></BookCardsTags>
         </div>
       </template>
     </modal>

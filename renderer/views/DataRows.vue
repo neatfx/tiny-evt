@@ -6,7 +6,7 @@ import { useBooksStore } from '../stores'
 import { useDataRowsController } from '@/components/controller-bar/controller'
 import ControllerBar from '@comps/controller-bar/ControllerBar.vue';
 
-import BookRowAdder from '@comps/book-rows/BookRowAdder.vue'
+import BookRowsAdder from '@comps/book-rows/BookRowsAdder.vue'
 import BookRows from "@/components/book-rows/BookRows.vue"
 
 import BookCards from "@/components/book-cards/BookCards.vue"
@@ -28,7 +28,7 @@ onMounted(() => {
 <template>
   <ControllerBar :views="store.view" :filters="store.filters" :workingFilters="workingFilters">
     <template #adder>
-      <BookRowAdder></BookRowAdder>
+      <BookRowsAdder></BookRowsAdder>
     </template>
   </ControllerBar>
   <BookRows v-if="store.view.layout.rows" :items="store.items"></BookRows>
