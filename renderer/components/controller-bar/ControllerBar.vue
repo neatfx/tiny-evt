@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import DataRowsViewOptions from './ViewOptions.vue'
-import DataRowsFilterMenu from './FilterMenu.vue'
-import DataRowsSearch from "./Search.vue";
+import ViewOptions from './ViewOptions.vue'
+import FilterMenu from './FilterMenu.vue'
+import Search from "./Search.vue";
 import Pagination from "../Pagination.vue";
 import FilterTags from "./FilterTags.vue"
 
@@ -11,10 +11,10 @@ defineProps(['views', 'filters', 'workingFilters'])
   <div class="control-bar">
     <div class="opt-row">
       <div class="left">
-        <DataRowsViewOptions :views="views"></DataRowsViewOptions>
-        <DataRowsFilterMenu :items="filters"></DataRowsFilterMenu>
-        <slot name="adder"></slot>
-        <DataRowsSearch></DataRowsSearch>
+        <ViewOptions class="seg" :views="views"></ViewOptions>
+        <FilterMenu class="seg" :items="filters"></FilterMenu>
+        <slot class="seg" name="adder"></slot>
+        <Search class="seg"></Search>
       </div>
       <div class="right">
         <Pagination></Pagination>
@@ -33,6 +33,9 @@ defineProps(['views', 'filters', 'workingFilters'])
 .opt-row {
   display: grid;
   grid-template-columns: 1fr auto;
+}
+.seg{
+  margin-right: 1px;
 }
 .filter-tags{
   background-color: gray;
