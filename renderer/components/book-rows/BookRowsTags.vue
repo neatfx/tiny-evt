@@ -5,19 +5,18 @@ import BaseInput from '@comps/BaseInput.vue';
 
 const props = defineProps(['categories', 'rowId'])
 const emit = defineEmits<{
-  (event: 'delete-tag', tags: string[], rowId: number): void
-  (event: 'add-tag', rowId: number, tags: string[]): void
+  (event: 'update-tag:delete', rowId: number, tags: string[]): void
+  (event: 'update-tag:add', rowId: number, tags: string[]): void
 }>()
 const currentTag = ref(100)
+const tagInput = ref('')
+const showInput = ref(false)
 
 function deleteTag(key: number) {
   const arr: string[] = Array.from(props.categories)
   arr.splice(key, 1)
-  emit('delete-tag', arr, props.rowId)
+  emit('update-tag:delete', props.rowId, arr)
 }
-
-const tagInput = ref('')
-const showInput = ref(false)
 
 function addTag() {
   if (tagInput.value === '') {
@@ -28,7 +27,7 @@ function addTag() {
   if (!arr.includes(tagInput.value)) {
     arr.push(tagInput.value)
   }
-  emit('add-tag', props.rowId, arr)
+  emit('update-tag:add', props.rowId, arr)
   tagInput.value = ''
   showInput.value = false
 }
@@ -48,8 +47,8 @@ function addTag() {
     </li>
 
     <!-- <Transition name="slide-up" mode="out-in"> -->
-      <BaseButton v-if="!showInput" @click="showInput = !showInput">标签</BaseButton>
-      <BaseButton v-else-if="showInput" class="add-btn" @click="addTag">添加</BaseButton>
+    <BaseButton v-if="!showInput" @click="showInput = !showInput">标签</BaseButton>
+    <BaseButton v-else-if="showInput" class="add-btn" @click="addTag">添加</BaseButton>
     <!-- </Transition> -->
     <Transition name="slide-up" mode="out-in">
       <BaseInput v-if="showInput" class="input-zone" v-model="tagInput" />

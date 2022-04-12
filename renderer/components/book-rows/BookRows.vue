@@ -23,29 +23,13 @@ function openDetail(rowId: number | undefined) {
 }
 
 async function updateItem(rowId: number, payload: string) {
-  console.log(rowId, payload)
+  // console.log(rowId, payload)
   let obj: { [key: string]: string } = {}
 
   obj[currentUpdateField.value] = payload
 
   await store.update(rowId, obj)
   currentUpdateField.value = ''
-}
-
-async function deleteItem(key: number | undefined) {
-  if (key) await store.delete(key)
-}
-
-async function addTag(rowId: number, tags: string[]) {
-  store.updateTest(rowId, {
-    categories: tags
-  })
-}
-
-async function deleteTag(tags: string[], rowId: number) {
-  store.updateTest(rowId, {
-    categories: tags
-  })
 }
 
 async function deleteLend(rowId: number) {
@@ -70,6 +54,16 @@ async function updateCover(rowId: number, cover: File | undefined) {
   store.updateTest(rowId, {
     cover: cover
   })
+}
+
+async function updateTag(rowId: number, tags: string[]) {
+  store.updateTest(rowId, {
+    categories: tags
+  })
+}
+
+async function deleteItem(key: number | undefined) {
+  if (key) await store.delete(key)
 }
 </script>
 
@@ -107,8 +101,8 @@ async function updateCover(rowId: number, cover: File | undefined) {
           }"></EditableText>
         </div>
         <div class="row-seg">
-          <BookRowsTags v-if="store.view.fields.categories" :categories="categories" :rowId="id" @add-tag="addTag"
-            @delete-tag="deleteTag"></BookRowsTags>
+          <BookRowsTags v-if="store.view.fields.categories" :categories="categories" :rowId="id"
+            @update-tag:add="updateTag" @update-tag:delete="updateTag"></BookRowsTags>
         </div>
         <div class="row-seg">
           <DeleteButton v-if="store.view.control.delete" @click="deleteItem(id)"></DeleteButton>
