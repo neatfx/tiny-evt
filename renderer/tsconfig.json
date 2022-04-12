@@ -1,15 +1,32 @@
 {
   "extends": "@vue/tsconfig/tsconfig.web.json",
-  "include": ["./**/*", "./**/*.vue","typings.d.ts"],
-  "exclude": ["components/**/__tests__/*"],
+  "include": [
+    "./**/*",
+    "./**/*.vue",
+    "./typings.d.ts"
+  ],
+  "exclude": [
+    "components/**/__tests__/*"
+  ],
   "compilerOptions": {
     "composite": true,
     "baseUrl": "./",
     "paths": {
-      "@/*": ["./*"],
-      "@comps/*": ["./components/*", "components/controller-bar/*"],
-      "@stores/*": ["./stores/*"]
+      "@/*": [
+        "./*"
+      ],
+      "@comps/*": [
+        "./components/*",
+        "components/book-rows/*",
+        "components/book-cards/*",
+        "components/controller-bar/*"
+      ],
+      "@stores/*": [
+        "./stores/*"
+      ]
     },
-    "types": ["vite/client"]
+    "types": [
+      "vite/client"
+    ]
   }
 }

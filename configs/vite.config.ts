@@ -26,6 +26,8 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 // import vueJsx from "@vitejs/plugin-vue-jsx";
 import path from 'path'
+import Unocss from 'unocss/vite'
+import { presetAttributify, presetUno } from 'unocss'
 
 function _resolve(dir: string) {
   return path.resolve(__dirname, dir);
@@ -35,7 +37,22 @@ function _resolve(dir: string) {
 export default defineConfig({
   plugins: [
     vue(),
-    // vueJsx()
+    Unocss({
+      presets: [
+        presetAttributify({ /* preset options */ }),
+        presetUno(),
+        // ...custom presets
+      ],
+      rules:[
+
+      ],
+      shortcuts: [
+        {
+          btn: 'py-2 px-4 font-semibold rounded-lg shadow-md',
+        },
+        [/^btn-(.*)$/, ([, c]) => `bg-${c}-400 text-${c}-100 py-2 px-4 rounded-lg`],
+      ]
+    }),
   ],
   root: 'renderer',
   server: {

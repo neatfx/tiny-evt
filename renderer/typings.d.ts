@@ -9,8 +9,6 @@ declare global {
   type GithubJson = GithubJsonDef
 }
 
-declare module 'segmentit';
-
 export interface ElectronDarkMode {
   toggle: () => Promise<boolean>
   system: () => Promise<string>
@@ -22,27 +20,4 @@ export interface ElectronDatabase {
 
 export interface ElectronDouban {
   suggestBook: (keyword: string) => Promise<any>
-}
-
-type GithubJsonDef = {
-  "data": {
-    "user": {
-      "name": string
-      "followers": {
-        "totalCount": number
-      }
-      "contributionsCollection": {
-        "contributionCalendar": {
-          "totalContributions": number
-          "weeks": {
-            "contributionDays": {
-              "color": string
-              "contributionCount": number
-              "date": string
-            }[]
-          }[]
-        }
-      }
-    }
-  }
 }

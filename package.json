@@ -32,6 +32,7 @@
     "pinia": "^2.0.12",
     "playwright": "^1.20.2",
     "segmentit": "^2.0.3",
+    "unocss": "^0.31.0",
     "vue": "^3.2.25",
     "vue-router": "^4.0.5"
   },

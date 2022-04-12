@@ -50,6 +50,7 @@ const store = useBooksStore()
   height: 100vh;
   /* border: 1px solid blue; */
 }
+
 .view-wrapper {
   padding: 10px 10px 10px 5px;
   /* border: 1px solid red; */
@@ -60,6 +61,5 @@ a {
   transition: 0.4s;
 }
 
-@media (min-width: 1024px) {
-}
+@media (min-width: 1024px) {}
 </style>
