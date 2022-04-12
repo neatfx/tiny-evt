@@ -22,23 +22,17 @@ function openDetail(rowId: number | undefined) {
   router.push('/data-row-detail/' + rowId)
 }
 
-async function updateItem(rowId: number, payload: string) {
-  // console.log(rowId, payload)
+async function updateField(rowId: number, payload: string) {
   let obj: { [key: string]: string } = {}
 
   obj[currentUpdateField.value] = payload
 
   await store.update(rowId, obj)
+
   currentUpdateField.value = ''
 }
 
-async function deleteLend(rowId: number) {
-  store.updateTest(rowId, {
-    lend: undefined
-  })
-}
-
-async function addLend(rowId: number, info: string) {
+async function updateLend(rowId: number, info: string) {
   store.updateTest(rowId, {
     lend: info
   })
@@ -73,14 +67,14 @@ async function deleteItem(key: number | undefined) {
       <div v-context-menu="id">
         <div v-if="store.view.fields.id" class="id">{{ id }}</div>
         <div class="row-seg">
-          <BookRowsLendStatus v-if="store.view.fields.lend" :lend="lend" :rowId="id" @reset-lend="deleteLend"
-            @add-lend="addLend"></BookRowsLendStatus>
+          <BookRowsLendStatus v-if="store.view.fields.lend" :lend="lend" :rowId="id" @update-lend:reset="updateLend"
+            @update-lend:add="updateLend"></BookRowsLendStatus>
           <BookRowsReadingStatus v-if="store.view.fields.readingStatus" :rowId="id" :readingStatus="readingStatus"
             @mark-reading-status="markReadingStatus"></BookRowsReadingStatus>
           <div v-if="store.view.fields.name">
             <BookRowsName :cover="cover" :rowId="id" :text="name" :isName="() => true" @update="(rowId, payload) => {
               currentUpdateField = 'name'
-              updateItem(rowId, payload)
+              updateField(rowId, payload)
             }" @update-cover="updateCover"></BookRowsName>
           </div>
         </div>
@@ -88,16 +82,16 @@ async function deleteItem(key: number | undefined) {
           <div v-if="store.view.fields.author">
             <EditableText :rowId="id" :text="author" @update="(rowId, payload) => {
               currentUpdateField = 'author'
-              updateItem(rowId, payload)
+              updateField(rowId, payload)
             }"></EditableText>
           </div>
           <EditableText v-if="store.view.fields.publishing" :rowId="id" :text="publishing" @update="(rowId, payload) => {
             currentUpdateField = 'publishing'
-            updateItem(rowId, payload)
+            updateField(rowId, payload)
           }"></EditableText>
           <EditableText v-if="store.view.fields.published" :rowId="id" :text="published" @update="(rowId, payload) => {
             currentUpdateField = 'published'
-            updateItem(rowId, payload)
+            updateField(rowId, payload)
           }"></EditableText>
         </div>
         <div class="row-seg">

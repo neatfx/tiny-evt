@@ -6,17 +6,17 @@ import { ref } from 'vue';
 
 const props = defineProps(['lend', 'rowId'])
 const emit = defineEmits<{
-  (event: 'reset-lend', rowId: number): void;
-  (event: 'add-lend', rowId: number, info: string): void
+  (event: 'update-lend:reset', rowId: number, info: string): void;
+  (event: 'update-lend:add', rowId: number, info: string): void
 }>()
 const lendInfo = ref('')
 
 function reset() {
-  emit('reset-lend', props.rowId)
+  emit('update-lend:reset', props.rowId, '')
 }
 
 function add() {
-  emit('add-lend', props.rowId, lendInfo.value)
+  emit('update-lend:add', props.rowId, lendInfo.value)
 }
 </script>
 
