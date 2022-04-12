@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import FolderPanel from '@comps/FolderPanel.vue';
 import BaseButton from "@comps/BaseButton.vue";
-import { trans } from './translate'
+import { trans } from '../data-row/translate'
 
 const props = defineProps(['rowId', 'readingStatus']);
 const emit = defineEmits<{

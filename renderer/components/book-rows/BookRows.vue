@@ -3,14 +3,14 @@ import router from '@/router'
 import { useBooksStore } from '@/stores'
 import { ref } from 'vue'
 
-import BaseDataRows from '@comps/data-row/BaseRows.vue'
-import BookRowsReadStatus from '@/components/data-row/BookRowsReadStatus.vue'
+import BaseDataRows from './BaseRows.vue'
+import BookRowsReadStatus from './BookRowsReadStatus.vue'
 import DeleteButton from '@comps/DeleteButton.vue'
-import ContextMenu from "@/components/data-row/RowsContextMenu.vue"
+import ContextMenu from "./RowsContextMenu.vue"
 import { vContextMenu, useContextMenu } from '@comps/contextMenu'
-import BookRowsInlineTags from '@comps/data-row/BookRowsInlineTags.vue'
+import BookRowsInlineTags from './BookRowsInlineTags.vue'
 import EditableText from '@comps/EditableText.vue'
-import BookRowsLendStatus from '@comps/data-row/BookRowsLendStatus.vue'
+import BookRowsLendStatus from './BookRowsLendStatus.vue'
 import BookRowsFieldName from './BookRowsFieldName.vue'
 
 const props = defineProps(['items'])

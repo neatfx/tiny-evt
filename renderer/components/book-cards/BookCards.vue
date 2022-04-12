@@ -1,15 +1,17 @@
 <script setup lang="ts">
 import { useBooksStore } from '@/stores'
 import { ref } from 'vue'
+import { computed } from '@vue/reactivity'
+
+import EditableText from '@comps/EditableText.vue'
+import Modal from '@comps/Modal.vue'
 
 import BaseCards from './BaseCards.vue'
-import BookRowsReadStatus from '@/components/data-row/BookRowsReadStatus.vue'
-import BookRowsTags from '@comps/data-row/BookRowsInlineTags.vue'
-import BookRowsInlineTags from '@comps/data-row/BookRowsInlineTags.vue'
-import EditableText from '@comps/EditableText.vue'
-import BookRowsLendStatus from '@comps/data-row/BookRowsLendStatus.vue'
-import Modal from '@comps/Modal.vue'
-import { computed } from '@vue/reactivity'
+
+import BookRowsReadStatus from '@/components/book-rows/BookRowsReadStatus.vue'
+import BookRowsTags from '@comps/book-rows/BookRowsInlineTags.vue'
+import BookRowsInlineTags from '@comps/book-rows/BookRowsInlineTags.vue'
+import BookRowsLendStatus from '@comps/book-rows/BookRowsLendStatus.vue'
 
 const props = defineProps(['items'])
 const store = useBooksStore()
