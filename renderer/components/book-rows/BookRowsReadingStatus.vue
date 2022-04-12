@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import FolderPanel from '@comps/FolderPanel.vue';
-import BaseButton from "@comps/BaseButton.vue";
-import { trans } from '@comps/controller-bar/translate'
 
 const props = defineProps(['rowId', 'readingStatus']);
 const emit = defineEmits<{
@@ -21,34 +19,34 @@ function mark(readingStatus: string) {
 <template>
   <FolderPanel :isPopMenu="true">
     <template #header>
-      <BaseButton :class='[readingStatus]'>{{ trans(readingStatus) }}</BaseButton>
+      <div :class='["circle", readingStatus]'></div>
     </template>
     <template #body>
       <ul v-for="key in menuData.keys()" :key="key">
         <li @click="mark(menuData.get(key))">{{ key }}</li>
       </ul>
     </template>
-    </FolderPanel>
+  </FolderPanel>
 </template>
 
 <style scoped>
-.wanted,
-.wanted:hover {
+.circle {
+  width: 12px;
+  height: 29px;
+}
+.wanted {
   background-color: lightskyblue;
 }
 
-.not-yet,
-.not-yet:hover {
+.not-yet{
   background-color: lightcoral;
 }
 
-.reading,
-.reading:hover {
+.reading{
   background-color: lightgoldenrodyellow;
 }
 
-.read,
-.read:hover {
+.read {
   background-color: lightgreen;
 }
 

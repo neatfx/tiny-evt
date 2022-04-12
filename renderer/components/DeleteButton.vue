@@ -15,7 +15,7 @@ function onClick() {
 
 <template>
   <Transition name="slide-up" mode="out-in">
-    <BaseButton v-if="dataRowState === 'normal'" @click="dataRowState = 'confirm'">
+    <BaseButton v-if="dataRowState === 'normal'" class="btn-delete" @click="dataRowState = 'confirm'">
       <span class="cross">+</span>
     </BaseButton>
     <BaseButton v-else-if="dataRowState === 'confirm'" @click="onClick" @mouseleave="dataRowState = 'normal'"
@@ -24,13 +24,16 @@ function onClick() {
 </template>
 
 <style scoped>
+.btn-delete,.btn-delete:hover{
+  background-color:salmon;
+}
 .btn-confirm {
-  color: black;
-  background-color: sienna;
+  color: rgb(39, 35, 35);
+  background-color: salmon;
 }
 
 .btn-confirm:hover {
-  background-color: sienna;
+  background-color: salmon;
 }
 
 .cross {

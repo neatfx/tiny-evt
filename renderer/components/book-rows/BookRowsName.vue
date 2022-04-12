@@ -3,8 +3,9 @@ import { computed, ref } from '@vue/reactivity';
 import { onMounted } from 'vue';
 import EditableText from '@comps/EditableText.vue'
 import BaseButton from '@comps/BaseButton.vue';
+import BookRowsReadingStatusVue from './BookRowsReadingStatus.vue';
 
-const props = defineProps(['rowId', 'text', 'isName', 'cover'])
+const props = defineProps(['rowId', 'text', 'isName', 'cover', 'readingStatus'])
 const emit = defineEmits<{
   (event: 'update-cover', rowId: number, cover: File | undefined): void
   (event: 'update', rowId: number, payload: string): void
@@ -57,27 +58,31 @@ onMounted(() => {
 </script>
 
 <template>
-  <div @mouseover="showCover = true" @mouseleave="showCover = false" class="wrapper">
+
+  <div class="wrapper">
+    <!-- 阅读状态 -->
+    <BookRowsReadingStatusVue class="reading-status" :readingStatus="readingStatus"></BookRowsReadingStatusVue>
     <!-- 书名 -->
+    <div @mouseover="showCover = true" @mouseleave="showCover = false">
     <EditableText class="name" :rowId="rowId" :text="text" :isName="isName"
+
       @update="(rowId, payload) => { emit('update', rowId, payload) }"></EditableText>
+
     <!-- 封面（浮动显示） -->
     <div v-if="showCover" class="pop-cover-wrapper">
       <div v-if="showCover" v-html="coverHtml" class="cover-base"></div>
       <BaseButton v-if="showCover && cover" class="delete-btn" @click="deleteCover">删除封面</BaseButton>
     </div>
+          </div>
     <!-- 添加封面按钮(无封面状态下显示) -->
-
     <BaseButton v-if="!cover" class="add-btn" @click="() => {
       showCoverUploader = !showCoverUploader
       fileData = undefined
-    }">{{ showCoverUploader ? '取消' : '封面' }}</BaseButton>
-
+    }">{{ showCoverUploader ? '取消' : '+' }}</BaseButton>
     <!-- 拖放添加封面图片区域（浮动显示） -->
     <!-- <Transition name="slide-up" mode="out-in"> -->
     <div v-if="showCoverUploader && !cover" class="pop-cover-uplaoder-wrapper">
-      <div v-if="!fileData" class="drop-zone" @dragover="ondragover" @drop="ondrop"><span
-          class="tip">拖放图片至此区域添加封面</span>
+      <div v-if="!fileData" class="drop-zone" @dragover="ondragover" @drop="ondrop"><span class="tip">拖放图片至此区域</span>
       </div>
       <BaseButton v-if="fileData && !cover" class="upload-btn" @click="addCover">确认添加</BaseButton>
       <BaseButton v-if="!cover && fileData" class="cancel-btn" @click="() => {
@@ -86,20 +91,28 @@ onMounted(() => {
       }">取消</BaseButton>
     </div>
     <!-- </Transition> -->
-
   </div>
 </template>
 
 <style scoped>
-.wrapper {}
+.wrapper {
+  display: grid;
+  grid-template-columns: auto;
+  grid-auto-flow: column;
+}
 
+.reading-status {
+  display: inline-grid;
+}
+.name{
+    display: inline-block;
+}
 .pop-cover-wrapper {
   position: fixed;
   display: inline-grid;
   grid-template-columns: auto;
   grid-auto-flow: column;
   align-items: flex-start;
-  /* border: 1px solid red; */
 }
 
 .cover-base {
@@ -119,24 +132,24 @@ onMounted(() => {
 .add-btn {
   display: inline-block;
   margin-right: 0;
-  background-color: teal;
-  box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
+  background-color:steelblue;
 }
 
 .add-btn:hover {
-  background-color: teal;
+  background-color:steelblue;
 }
 
 .pop-cover-uplaoder-wrapper {
   position: fixed;
+  margin-top: 30px;
   padding: 5px;
-  background-color: lightgray;
+  background-color: gray;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
 }
 
 .drop-zone {
-  background-color: lightgray;
-  width: 200px;
+  background-color: gray;
+  width: 180px;
   height: 80px;
 }
 

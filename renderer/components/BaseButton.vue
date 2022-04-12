@@ -16,6 +16,6 @@ button {
   /* margin-right: 5px; */
 }
 button:hover {
-  background-color: lightgrey;
+  background-color: grey;
 }
 </style>

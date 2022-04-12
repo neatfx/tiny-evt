@@ -47,7 +47,7 @@ function addTag() {
     </li>
 
     <!-- <Transition name="slide-up" mode="out-in"> -->
-    <BaseButton v-if="!showInput" @click="showInput = !showInput">标签</BaseButton>
+    <BaseButton v-if="!showInput" @click="showInput = !showInput" class="tag-adder">+</BaseButton>
     <BaseButton v-else-if="showInput" class="add-btn" @click="addTag">添加</BaseButton>
     <!-- </Transition> -->
     <Transition name="slide-up" mode="out-in">
@@ -64,8 +64,8 @@ function addTag() {
 }
 
 li {
-  background-color: khaki;
-  margin-right: 1px;
+  background-color:slategray;
+  margin-right: 2px;
 }
 
 .tag-wrapper {
@@ -74,14 +74,14 @@ li {
 }
 
 .tag-name {
-  padding: 3px 8px;
+  padding: 3px 12px;
 }
 
 .delete-btn {
   position: absolute;
   right: 0;
   padding: 4px 10px 3px 12px;
-  background-color: lightcoral;
+  background-color:darksalmon;
 }
 
 .cross {
@@ -97,7 +97,9 @@ li {
 .input-zone:focus {
   vertical-align: middle;
 }
-
+.tag-adder,.tag-adder:hover{
+  background-color:darkgoldenrod;
+}
 .add-btn {
   margin-right: 0;
   vertical-align: middle;

@@ -78,10 +78,4 @@ li {
   transition-property: all;
   transform: rotate(45deg);
 }
-/* .rotate {
-  transition: rotate 1s;
-}
-.btn-delete:hover .rotate {
-  rotate: 1 -0.5 1 180deg;
-} */
 </style>

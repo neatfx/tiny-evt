@@ -69,10 +69,10 @@ async function deleteItem(key: number | undefined) {
         <div class="row-seg">
           <BookRowsLendStatus v-if="store.view.fields.lend" :lend="lend" :rowId="id" @update-lend:reset="updateLend"
             @update-lend:add="updateLend"></BookRowsLendStatus>
-          <BookRowsReadingStatus v-if="store.view.fields.readingStatus" :rowId="id" :readingStatus="readingStatus"
-            @mark-reading-status="markReadingStatus"></BookRowsReadingStatus>
+          <!-- <BookRowsReadingStatus v-if="store.view.fields.readingStatus" :rowId="id" :readingStatus="readingStatus"
+            @mark-reading-status="markReadingStatus"></BookRowsReadingStatus> -->
           <div v-if="store.view.fields.name">
-            <BookRowsName :cover="cover" :rowId="id" :text="name" :isName="() => true" @update="(rowId, payload) => {
+            <BookRowsName :cover="cover" :rowId="id" :text="name" :isName="() => true" :readingStatus="readingStatus" @update="(rowId, payload) => {
               currentUpdateField = 'name'
               updateField(rowId, payload)
             }" @update-cover="updateCover"></BookRowsName>

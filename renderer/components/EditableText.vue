@@ -44,7 +44,7 @@ onMounted(() => {
 .name-wrapper {
   display: inline-grid;
   padding: 0 10px;
-  background-color: darkgray;
+  background-color: #999;
 }
 
 .name {

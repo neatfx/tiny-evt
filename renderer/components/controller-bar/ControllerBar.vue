@@ -19,6 +19,9 @@ defineProps(['views', 'filters', 'workingFilters'])
         <Search class="seg"></Search>
       </div>
       <div class="right">
+        <button class="btn-blue">
+          测试按钮
+        </button>
         <Pagination></Pagination>
       </div>
     </div>
@@ -41,9 +44,11 @@ defineProps(['views', 'filters', 'workingFilters'])
 .seg {
   margin-right: 1px;
 }
-.adder{
+
+.adder {
   display: inline-block;
 }
+
 .filter-tags {
   background-color: gray;
 }

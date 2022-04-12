@@ -18,13 +18,14 @@ ul {
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
 }
 li {
-  border: 1px solid grey;
+  /* border: 1px solid grey; */
   padding: 5px 0 5px 3px;
-  margin-top: -1px;
+  margin-bottom: 1px;
   list-style: none;
+  background-color:dimgrey;
 }
 li:hover {
-  background-color: #2d2f36;
+  background-color:gray;
 }
 .no-data {
   background-color: grey;

@@ -81,7 +81,7 @@ li {
 }
 
 li:hover {
-  background-color: lightgray;
+  background-color: dimgray;
   cursor: default;
 }
 
