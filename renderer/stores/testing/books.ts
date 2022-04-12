@@ -111,6 +111,10 @@ export const useBooksStore = defineStore('books', {
           .primaryKeys()
       )
 
+      if (filterArr.length === 0) filterArr.push(
+        TestingDB.books.orderBy('name').primaryKeys()
+      )
+
       const results = await Promise.all(filterArr);
       const intersection = results.reduce((ids1, ids2) => {
         const set = new Set(ids1);
@@ -123,6 +127,7 @@ export const useBooksStore = defineStore('books', {
       await toggleIndicator(false)
     },
     async fetchPagedRows() {
+      // if (this.filter)
       await this.count()
       await this.list()
       total.value = this.total

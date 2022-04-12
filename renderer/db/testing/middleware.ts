@@ -35,12 +35,12 @@ segmentit.loadDict(wildcard, 'WILDCARD', true); // 通配符
 async function syncAll(myRequest: any) {
   // 同步更新 Filter 菜单
   if (myRequest.type === 'put' && myRequest.changeSpec && myRequest.changeSpec['categories']) {
-    refreshFiltersMeta()
+    await refreshFiltersMeta()
   }
 
   // 同步更新 Filter 菜单
   if (myRequest.type === 'delete') {
-    refreshFiltersMeta()
+    await refreshFiltersMeta()
   }
 
   // 同步更新 Pagination & DataRows
