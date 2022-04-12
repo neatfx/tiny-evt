@@ -6,7 +6,7 @@ import { useDataRowsController } from '@/components/data-row/controller'
 import BookRowAdder from '@comps/data-row/BookRowAdder.vue'
 import ControllerBar from '@comps/data-row/ControllerBar.vue';
 import BookRows from "@/components/data-row/BookRows.vue"
-import BookCards from "@/components/data-row/BookCards.vue"
+import BookCards from "@/components/book-cards/BookCards.vue"
 import { onMounted } from 'vue';
 
 const store = useBooksStore()

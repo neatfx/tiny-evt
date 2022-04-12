@@ -2,9 +2,9 @@
 import { useBooksStore } from '@/stores'
 import { ref } from 'vue'
 
-import BaseCards from '@comps/data-row/BaseCards.vue'
+import BaseCards from './BaseCards.vue'
 import BookRowsReadStatus from '@/components/data-row/BookRowsReadStatus.vue'
-import BookRowsTags from '@comps/data-row/BookRowsTags.vue'
+import BookRowsTags from '@comps/data-row/BookRowsInlineTags.vue'
 import BookRowsInlineTags from '@comps/data-row/BookRowsInlineTags.vue'
 import EditableText from '@comps/EditableText.vue'
 import BookRowsLendStatus from '@comps/data-row/BookRowsLendStatus.vue'
