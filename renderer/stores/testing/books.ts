@@ -4,7 +4,7 @@ import type { IndexableTypeArray } from 'dexie';
 
 import { usePagination } from '../../components/pagination';
 import type { IBook } from '@/db/testing/type-defs';
-import { useFilter } from '@/components/data-row/filter';
+import { useFilter } from '@/components/controller-bar/filter';
 
 const { total, offset, limit } = usePagination()
 const { workingFilters } = useFilter()

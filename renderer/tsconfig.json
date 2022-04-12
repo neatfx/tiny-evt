@@ -7,7 +7,7 @@
     "baseUrl": "./",
     "paths": {
       "@/*": ["./*"],
-      "@comps/*": ["./components/*", "./components/data-row/*"],
+      "@comps/*": ["./components/*", "components/controller-bar/*"],
       "@stores/*": ["./stores/*"]
     },
     "types": ["vite/client"]

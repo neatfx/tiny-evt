@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import DataRowsViewOptions from '@/components/data-row/ViewOptions.vue'
-import DataRowsFilterMenu from '@/components/data-row/FilterMenu.vue'
-import DataRowsSearch from "@comps/data-row/Search.vue";
-import Pagination from "@comps/Pagination.vue";
-import FilterTags from "@comps/data-row/FilterTags.vue"
+import DataRowsViewOptions from './ViewOptions.vue'
+import DataRowsFilterMenu from './FilterMenu.vue'
+import DataRowsSearch from "./Search.vue";
+import Pagination from "../Pagination.vue";
+import FilterTags from "./FilterTags.vue"
 
 defineProps(['views', 'filters', 'workingFilters'])
 </script>

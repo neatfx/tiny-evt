@@ -1,6 +1,6 @@
 import { watch, watchEffect } from "vue"
 
-import { useFilter } from '@comps/data-row/filter'
+import { useFilter } from './filter'
 import { usePagination } from '@comps/pagination'
 
 const { workingFilters, filtersCount } = useFilter()
