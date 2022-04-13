@@ -114,7 +114,7 @@ export const useBooksStore = defineStore('books', {
       )
 
       if (filterArr.length === 0) filterArr.push(
-        TestingDB.books.orderBy('name').primaryKeys()
+        // TestingDB.books.orderBy('name').primaryKeys()
       )
 
       const results = await Promise.all(filterArr);
