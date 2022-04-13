@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const props = defineProps(['show'])
+defineProps(['show'])
 </script>
 
 <template>
@@ -14,11 +14,11 @@ const props = defineProps(['show'])
 .wrapper {
   position: fixed;
   z-index: 9998;
-  top: 0;
-  left: 40%;
-  margin: 10px;
-  padding: 2px;
-  background-color: darkgoldenrod;
+  top: 7px;
+  left: 30%;
+  margin: 0px;
+  padding: 3px 10px;
+  background-color: dimgray;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
   transition: opacity 0.2s ease;
 }
