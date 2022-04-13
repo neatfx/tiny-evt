@@ -51,10 +51,6 @@ function mark(readingStatus: string) {
   background-color: chartreuse;
 }
 
-.menu-wrapper {
-  margin-left: 15px;
-}
-
 ul {
   font-size: 15px;
   list-style: none;

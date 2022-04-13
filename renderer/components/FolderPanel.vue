@@ -85,7 +85,7 @@ watchEffect(() => {
 }
 
 .header {
-  display: inline-block;
+  display: inline-grid;
 }
 
 .default-panel-body {
@@ -98,7 +98,7 @@ watchEffect(() => {
 }
 
 .right {
-  display: inline-block;
+  display: inline-grid;
 }
 
 /* Transition */
