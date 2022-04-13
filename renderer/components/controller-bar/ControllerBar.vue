@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import ViewOptions from './ViewOptions.vue'
 import FilterMenu from './FilterMenu.vue'
+import FilterTags from "./FilterTags.vue"
 import Search from "./Search.vue";
 import Pagination from "../Pagination.vue";
-import FilterTags from "./FilterTags.vue"
+import BookRowsAdder from '@comps/book-rows/BookRowsAdder.vue'
 
 defineProps(['views', 'filters', 'workingFilters'])
 </script>
@@ -14,7 +15,8 @@ defineProps(['views', 'filters', 'workingFilters'])
         <ViewOptions class="seg" :views="views"></ViewOptions>
         <FilterMenu class="seg" :items="filters"></FilterMenu>
         <div class="seg adder">
-          <slot name="adder"></slot>
+          <!-- <slot name="adder"></slot> -->
+          <BookRowsAdder></BookRowsAdder>
         </div>
         <Search class="seg"></Search>
       </div>

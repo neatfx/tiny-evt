@@ -5,15 +5,14 @@ import { useBooksStore } from '../stores'
 
 import { useDataRowsController } from '@/components/controller-bar/controller'
 import ControllerBar from '@comps/controller-bar/ControllerBar.vue';
-
-import BookRowsAdder from '@comps/book-rows/BookRowsAdder.vue'
+// import BookRowsAdder from '@comps/book-rows/BookRowsAdder.vue'
 import BookRows from "@/components/book-rows/BookRows.vue"
-
 import BookCards from "@/components/book-cards/BookCards.vue"
 
 const store = useBooksStore()
 const { workingFilters } = useDataRowsController(store)
 
+// TODO: 优化
 store.$subscribe((mutation, state) => {
   // persist the whole state to the local storage whenever it changes
   localStorage.setItem('books', JSON.stringify(state.view))
@@ -27,9 +26,9 @@ onMounted(() => {
 
 <template>
   <ControllerBar :views="store.view" :filters="store.filters" :workingFilters="workingFilters">
-    <template #adder>
+    <!-- <template #adder>
       <BookRowsAdder></BookRowsAdder>
-    </template>
+    </template> -->
   </ControllerBar>
   <BookRows v-if="store.view.layout.rows" :items="store.items"></BookRows>
   <BookCards v-if="store.view.layout.cards" :items="store.items"></BookCards>

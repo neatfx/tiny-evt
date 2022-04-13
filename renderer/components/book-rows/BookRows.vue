@@ -64,44 +64,30 @@ async function deleteItem(key: number | undefined) {
 <template>
   <BaseDataRows :items="props.items">
     <template #item="{ id, name, author, categories, publishing, published, cover, lend, readingStatus }">
-      <div v-context-menu="id">
+      <div class="row" v-context-menu="id">
         <div v-if="store.view.fields.id" class="id">{{ id }}</div>
-        <div class="row-seg">
-          <BookRowsLendStatus v-if="store.view.fields.lend" :lend="lend" :rowId="id" @update-lend:reset="updateLend"
-            @update-lend:add="updateLend"></BookRowsLendStatus>
-          <!-- <BookRowsReadingStatus v-if="store.view.fields.readingStatus" :rowId="id" :readingStatus="readingStatus"
-            @mark-reading-status="markReadingStatus"></BookRowsReadingStatus> -->
-          <div v-if="store.view.fields.name">
-            <BookRowsName :cover="cover" :rowId="id" :text="name" :isName="() => true" :readingStatus="readingStatus"
-              @update="(rowId, payload) => {
-                currentUpdateField = 'name'
-                updateField(rowId, payload)
-              }" @update-cover="updateCover" @mark-reading-status="markReadingStatus"></BookRowsName>
-          </div>
-        </div>
-        <div class="row-seg">
-          <div v-if="store.view.fields.author">
-            <EditableText :rowId="id" :text="author" @update="(rowId, payload) => {
-              currentUpdateField = 'author'
-              updateField(rowId, payload)
-            }"></EditableText>
-          </div>
-          <EditableText v-if="store.view.fields.publishing" :rowId="id" :text="publishing" @update="(rowId, payload) => {
-            currentUpdateField = 'publishing'
+        <BookRowsLendStatus v-if="store.view.fields.lend" :lend="lend" :rowId="id" @update-lend:reset="updateLend"
+          @update-lend:add="updateLend"></BookRowsLendStatus>
+        <BookRowsName v-if="store.view.fields.name" :cover="cover" :rowId="id" :text="name" :isName="() => true"
+          :readingStatus="readingStatus" @update="(rowId, payload) => {
+            currentUpdateField = 'name'
             updateField(rowId, payload)
-          }"></EditableText>
-          <EditableText v-if="store.view.fields.published" :rowId="id" :text="published" @update="(rowId, payload) => {
-            currentUpdateField = 'published'
-            updateField(rowId, payload)
-          }"></EditableText>
-        </div>
-        <div class="row-seg">
-          <BookRowsTags v-if="store.view.fields.categories" :categories="categories" :rowId="id"
-            @update-tag:add="updateTag" @update-tag:delete="updateTag"></BookRowsTags>
-        </div>
-        <div class="row-seg">
-          <DeleteButton v-if="store.view.control.delete" @click="deleteItem(id)"></DeleteButton>
-        </div>
+          }" @update-cover="updateCover" @mark-reading-status="markReadingStatus"></BookRowsName>
+        <EditableText v-if="store.view.fields.author" :rowId="id" :text="author" @update="(rowId, payload) => {
+          currentUpdateField = 'author'
+          updateField(rowId, payload)
+        }"></EditableText>
+        <EditableText v-if="store.view.fields.publishing" :rowId="id" :text="publishing" @update="(rowId, payload) => {
+          currentUpdateField = 'publishing'
+          updateField(rowId, payload)
+        }"></EditableText>
+        <EditableText v-if="store.view.fields.published" :rowId="id" :text="published" @update="(rowId, payload) => {
+          currentUpdateField = 'published'
+          updateField(rowId, payload)
+        }"></EditableText>
+        <BookRowsTags v-if="store.view.fields.categories" :categories="categories" :rowId="id"
+          @update-tag:add="updateTag" @update-tag:delete="updateTag"></BookRowsTags>
+        <DeleteButton v-if="store.view.control.delete" @click="deleteItem(id)"></DeleteButton>
       </div>
     </template>
   </BaseDataRows>
@@ -110,13 +96,12 @@ async function deleteItem(key: number | undefined) {
 </template>
 
 <style scoped>
-.row-seg {
-  display: inline-grid;
+.row {
+  display: grid;
   grid-template-columns: auto;
   grid-auto-flow: column;
   justify-content: left;
-  gap: 1px;
-  margin-right: 5px;
+  gap: 5px;
 }
 
 .id {

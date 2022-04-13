@@ -63,27 +63,31 @@ onMounted(() => {
 </script>
 
 <template>
-
-  <div class="wrapper">
+  <!-- <div class="wrapper"> -->
     <!-- 阅读状态 -->
     <BookRowsReadingStatusVue class="reading-status" :readingStatus="readingStatus"
       @mark-reading-status="markReadingStatus"></BookRowsReadingStatusVue>
-    <!-- 书名 -->
-    <div @mouseover="showCover = true" @mouseleave="showCover = false">
-      <EditableText class="name" :rowId="rowId" :text="text" :isName="isName"
-        @update="(rowId, payload) => { emit('update', rowId, payload) }"></EditableText>
 
-      <!-- 封面（浮动显示） -->
+    <!-- 书名 -->
+    <div class="name" @mouseover="showCover = true" @mouseleave="showCover = false">
+      <EditableText :rowId="rowId" :text="text" :isName="isName"
+        @update="(rowId, payload) => { emit('update', rowId, payload) }"></EditableText>
+      <BaseButton v-if="!cover" class="add-btn" @click="() => {
+        showCoverUploader = !showCoverUploader
+        fileData = undefined
+      }">{{ showCoverUploader ? '取消' : '+' }}</BaseButton>
       <div v-if="showCover" class="pop-cover-wrapper">
         <div v-if="showCover" v-html="coverHtml" class="cover-base"></div>
         <BaseButton v-if="showCover && cover" class="delete-btn" @click="deleteCover">删除封面</BaseButton>
       </div>
     </div>
+
     <!-- 添加封面按钮(无封面状态下显示) -->
-    <BaseButton v-if="!cover" class="add-btn" @click="() => {
-      showCoverUploader = !showCoverUploader
-      fileData = undefined
-    }">{{ showCoverUploader ? '取消' : '+' }}</BaseButton>
+    <!-- <div> -->
+    <!-- 封面（浮动显示） -->
+
+
+    <!-- </div> -->
     <!-- 拖放添加封面图片区域（浮动显示） -->
     <!-- <Transition name="slide-up" mode="out-in"> -->
     <div v-if="showCoverUploader && !cover" class="pop-cover-uplaoder-wrapper">
@@ -96,14 +100,15 @@ onMounted(() => {
       }">取消</BaseButton>
     </div>
     <!-- </Transition> -->
-  </div>
+  <!-- </div> -->
 </template>
 
 <style scoped>
 .wrapper {
-  display: grid;
+  display: inline-grid;
   grid-template-columns: auto;
   grid-auto-flow: column;
+  justify-content: left;
 }
 
 .reading-status {
@@ -111,12 +116,14 @@ onMounted(() => {
 }
 
 .name {
-  display: inline-block;
+  display: inline-grid;
+  grid-template-columns: auto;
+  grid-auto-flow: column;
 }
 
 .pop-cover-wrapper {
+  display: grid;
   position: fixed;
-  display: inline-grid;
   grid-template-columns: auto;
   grid-auto-flow: column;
   align-items: flex-start;
@@ -137,7 +144,7 @@ onMounted(() => {
 }
 
 .add-btn {
-  display: inline-block;
+  display: inline-grid;
   margin-right: 0;
   background-color: steelblue;
 }
@@ -147,6 +154,7 @@ onMounted(() => {
 }
 
 .pop-cover-uplaoder-wrapper {
+  display: inline-block;
   position: fixed;
   margin-top: 30px;
   padding: 5px;

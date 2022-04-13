@@ -17,7 +17,7 @@ function mark(readingStatus: string) {
 </script>
 
 <template>
-  <FolderPanel :isPopMenu="true">
+  <FolderPanel :isPopMenu="true" position="right">
     <template #header>
       <div :class='["circle", readingStatus]'></div>
     </template>
@@ -31,7 +31,7 @@ function mark(readingStatus: string) {
 
 <style scoped>
 .circle {
-  width: 12px;
+  width: 5px;
   height: 29px;
 }
 
@@ -40,15 +40,15 @@ function mark(readingStatus: string) {
 }
 
 .not-yet {
-  background-color: lightcoral;
+  background-color: coral;
 }
 
 .reading {
-  background-color: lightgoldenrodyellow;
+  background-color: yellow;
 }
 
 .read {
-  background-color: lightgreen;
+  background-color: chartreuse;
 }
 
 .menu-wrapper {

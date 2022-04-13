@@ -65,7 +65,7 @@ li {
 }
 
 li:hover {
-  background-color: lightgray;
+  background-color: gray;
   cursor: default;
 }
 </style>

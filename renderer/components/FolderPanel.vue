@@ -5,6 +5,7 @@ const props = defineProps<{
   title?: string;
   isPopMenu?: boolean;
   isInlinePanel?: boolean;
+  position?: string;
 }>()
 const showPanel = ref(true);
 const showMenu = ref(false);
@@ -46,6 +47,13 @@ function switchClassRefForBody(): Ref<string> {
   }
 }
 
+function switchPositonClassRefForBody(): string {
+  if (props.isPopMenu || props.isInlinePanel) {
+    return props.position || 'bottom';
+  }
+  return 'bottom'
+}
+
 watchEffect(() => {
   window.addEventListener("click", (e) => {
     if (e.target !== target.value) {
@@ -63,7 +71,7 @@ watchEffect(() => {
     </div>
     <!-- panel-body -->
     <Transition name="slide-up" mode="out-in">
-      <div v-if="switchShowRefForBody().value" :class="['default-panel-body', switchClassRefForBody().value]">
+      <div v-if="switchShowRefForBody().value" :class="['default-panel-body', switchClassRefForBody().value, switchPositonClassRefForBody()]">
         <slot name="body" class="panel-container"></slot>
       </div>
     </Transition>
@@ -86,7 +94,11 @@ watchEffect(() => {
 }
 
 .fixed-panel-body {
-  position: absolute;
+  position: fixed;
+}
+
+.right {
+  display: inline-block;
 }
 
 /* Transition */

@@ -12,7 +12,8 @@ const bookData: IBook = {
   author: '',
   categories: [],
   publishing: '',
-  cover: null
+  cover: null,
+  created: new Date()
 }
 function check(): boolean {
   if (!bookData.name || !bookData.author) return false
@@ -57,9 +58,9 @@ async function addItem() {
 </script>
 
 <template>
-  <FolderPanel title="Add" :isInlinePanel="true">
+  <FolderPanel title="Add" :isInlinePanel="true" position="right">
     <template #header>
-      <BaseButton>添加</BaseButton>
+      <BaseButton>+</BaseButton>
     </template>
     <template #body>
       <div class="panel-body-wrapper">
@@ -72,35 +73,23 @@ async function addItem() {
           <div class="text-fields">
             <label>
               <span>书名</span>
-              <BaseInput
-                type="text"
-                :modelValue="bookData.name"
-                @update:model-value="newValue => bookData.name = newValue"
-              />
+              <BaseInput type="text" :modelValue="bookData.name"
+                @update:model-value="newValue => bookData.name = newValue" />
             </label>
             <label>
               <span>作者</span>
-              <BaseInput
-                type="text"
-                :modelValue="bookData.author"
-                @update:model-value="newValue => bookData.author = newValue"
-              />
+              <BaseInput type="text" :modelValue="bookData.author"
+                @update:model-value="newValue => bookData.author = newValue" />
             </label>
             <label>
               <span>分类</span>
-              <BaseInput
-                type="text"
-                :modelValue="bookData.categories"
-                @update:model-value="newValue => bookData.categories = newValue.split(',')"
-              />
+              <BaseInput type="text" :modelValue="bookData.categories"
+                @update:model-value="newValue => bookData.categories = newValue.split(',')" />
             </label>
             <label>
               <span>出版社</span>
-              <BaseInput
-                type="text"
-                :modelValue="bookData.publishing"
-                @update:model-value="newValue => bookData.publishing = newValue"
-              />
+              <BaseInput type="text" :modelValue="bookData.publishing"
+                @update:model-value="newValue => bookData.publishing = newValue" />
             </label>
           </div>
         </div>
@@ -116,12 +105,14 @@ async function addItem() {
   gap: 10px;
   padding: 15px;
 }
+
 .book-fields {
   display: grid;
   grid-template-columns: 1fr auto;
   grid-auto-flow: column;
   gap: 15px;
 }
+
 .dropzone {
   border: 2px dotted silver;
   border-radius: 5px;
@@ -129,9 +120,11 @@ async function addItem() {
   height: 190px;
   text-align: center;
 }
+
 img {
   width: 130px;
 }
+
 label {
   display: grid;
   grid-template-columns: 1fr auto;
@@ -140,11 +133,13 @@ label {
   /* border: 1px solid blue; */
   margin-bottom: 10px;
 }
+
 span {
   padding: 5px 10px 5px;
   background-color: bisque;
   text-align: right;
 }
+
 input {
   border: 1px solid darkgray;
   margin-left: 5px;
@@ -154,6 +149,7 @@ input {
   /* margin-top: 2px; */
 
 }
+
 .btn-submit {
   margin: 5px 0 0 0;
   padding: 5px 20px;
