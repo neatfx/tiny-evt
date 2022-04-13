@@ -35,7 +35,7 @@ defineProps(['views', 'filters', 'workingFilters'])
 .control-bar {
   display: grid;
   gap: 10px;
-  margin: 0 0 11px 60px;
+  margin: 0 0 7px 50px;
 }
 
 .opt-row {

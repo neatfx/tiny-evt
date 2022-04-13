@@ -16,7 +16,7 @@ const store = useBooksStore()
   <div class="app-wrapper">
     <FolderPanel title="MainNav" :isPopMenu="true" class="main-nav">
       <template #header>
-        <BaseButton>Tiny</BaseButton>
+        <BaseButton>导航</BaseButton>
       </template>
       <template #body>
         <Navbar></Navbar>
@@ -40,20 +40,15 @@ const store = useBooksStore()
 
 .main-nav {
   position: fixed;
-  margin: 10px 0 0 6px;
-  /* border: 1px solid green; */
+  margin: 7px 0 0 5px;
 }
 
 .app-wrapper {
-  /* display: grid; */
-  /* grid-template-columns: 135px 1fr; */
   height: 100vh;
-  /* border: 1px solid blue; */
 }
 
 .view-wrapper {
-  padding: 10px 10px 10px 5px;
-  /* border: 1px solid red; */
+  padding: 7px 5px;
 }
 
 a {
