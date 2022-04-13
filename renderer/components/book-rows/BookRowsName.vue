@@ -63,33 +63,29 @@ onMounted(() => {
 </script>
 
 <template>
-  <!-- <div class="wrapper"> -->
+  <div class="wrapper">
     <!-- 阅读状态 -->
     <BookRowsReadingStatusVue class="reading-status" :readingStatus="readingStatus"
       @mark-reading-status="markReadingStatus"></BookRowsReadingStatusVue>
 
     <!-- 书名 -->
-    <div class="name" @mouseover="showCover = true" @mouseleave="showCover = false">
-      <EditableText :rowId="rowId" :text="text" :isName="isName"
+    <div @mouseover="showCover = true" @mouseleave="showCover = false">
+      <EditableText class="name" :rowId="rowId" :text="text" :isName="isName"
         @update="(rowId, payload) => { emit('update', rowId, payload) }"></EditableText>
-      <BaseButton v-if="!cover" class="add-btn" @click="() => {
-        showCoverUploader = !showCoverUploader
-        fileData = undefined
-      }">{{ showCoverUploader ? '取消' : '+' }}</BaseButton>
+
+      <!-- 封面（浮动显示） -->
       <div v-if="showCover" class="pop-cover-wrapper">
         <div v-if="showCover" v-html="coverHtml" class="cover-base"></div>
         <BaseButton v-if="showCover && cover" class="delete-btn" @click="deleteCover">删除封面</BaseButton>
       </div>
     </div>
-
     <!-- 添加封面按钮(无封面状态下显示) -->
-    <!-- <div> -->
-    <!-- 封面（浮动显示） -->
-
-
-    <!-- </div> -->
+    <BaseButton v-if="!cover" class="add-btn" @click="() => {
+      showCoverUploader = !showCoverUploader
+      fileData = undefined
+    }">{{ showCoverUploader ? '取消' : '+' }}</BaseButton>
     <!-- 拖放添加封面图片区域（浮动显示） -->
-    <!-- <Transition name="slide-up" mode="out-in"> -->
+    <Transition name="slide-up" mode="out-in">
     <div v-if="showCoverUploader && !cover" class="pop-cover-uplaoder-wrapper">
       <div v-if="!fileData" class="drop-zone" @dragover="ondragover" @drop="ondrop"><span class="tip">拖放图片至此区域</span>
       </div>
@@ -99,16 +95,15 @@ onMounted(() => {
         fileData = undefined
       }">取消</BaseButton>
     </div>
-    <!-- </Transition> -->
-  <!-- </div> -->
+    </Transition>
+  </div>
 </template>
 
 <style scoped>
 .wrapper {
-  display: inline-grid;
+  display: grid;
   grid-template-columns: auto;
   grid-auto-flow: column;
-  justify-content: left;
 }
 
 .reading-status {
@@ -117,12 +112,10 @@ onMounted(() => {
 
 .name {
   display: inline-grid;
-  grid-template-columns: auto;
-  grid-auto-flow: column;
 }
 
 .pop-cover-wrapper {
-  display: grid;
+  display: inline-grid;
   position: fixed;
   grid-template-columns: auto;
   grid-auto-flow: column;
@@ -188,7 +181,7 @@ onMounted(() => {
 }
 
 /* Transition */
-/* .slide-up-move,
+.slide-up-move,
 .slide-up-enter-active,
 .slide-up-leave-active {
   transition: all 0.2s ease;
@@ -198,5 +191,5 @@ onMounted(() => {
 .slide-up-leave-to {
   opacity: 0;
   transform: translateY(2px);
-} */
+}
 </style>
