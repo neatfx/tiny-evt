@@ -137,7 +137,9 @@ async function addItem() {
   padding: 5px 10px;
   background-color: cadetblue;
 }
-
+img{
+  width: 150px;
+}
 /*  */
 
 .text-fields {
