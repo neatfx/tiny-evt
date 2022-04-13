@@ -4,9 +4,9 @@ import { RouterLink } from "vue-router"
 
 <template>
   <nav>
-    <RouterLink to="/" data-test-id="/">Insights</RouterLink>
-    <RouterLink to="/data-rows" data-test-id="/b">DataRows</RouterLink>
-    <RouterLink to="/preferences" data-test-id="/d">Preferences</RouterLink>
+    <RouterLink to="/" data-test-id="/">统计</RouterLink>
+    <RouterLink to="/data-rows" data-test-id="/b">数据管理</RouterLink>
+    <RouterLink to="/preferences" data-test-id="/d">设置</RouterLink>
   </nav>
 </template>
 
@@ -22,7 +22,7 @@ nav a.router-link-exact-active {
 
 nav a {
   color: black;
-  padding: 6px 15px;
+  padding: 6px 10px 6px 10px;
   background-color: dimgray;
   cursor: default;
 }

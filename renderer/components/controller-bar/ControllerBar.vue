@@ -4,9 +4,12 @@ import FilterMenu from './FilterMenu.vue'
 import FilterTags from "./FilterTags.vue"
 import Search from "./Search.vue";
 import Pagination from "../Pagination.vue";
-import BookRowsAdder from '@comps/book-rows/BookRowsAdder.vue'
+import Adder from './Adder.vue'
+import FullAdder from './FullAdder.vue'
+import { ref } from 'vue';
 
 defineProps(['views', 'filters', 'workingFilters'])
+const showFullAdder = ref(false)
 </script>
 <template>
   <div class="control-bar">
@@ -14,7 +17,7 @@ defineProps(['views', 'filters', 'workingFilters'])
       <div class="left">
         <ViewOptions class="seg" :views="views"></ViewOptions>
         <FilterMenu class="seg" :items="filters"></FilterMenu>
-        <BookRowsAdder class="seg"></BookRowsAdder>
+        <Adder class="seg" @opent-full-adder="showFullAdder = !showFullAdder" :show-full-adder="showFullAdder"></Adder>
         <Search class="seg"></Search>
       </div>
       <div class="right">
@@ -23,6 +26,7 @@ defineProps(['views', 'filters', 'workingFilters'])
     </div>
   </div>
   <FilterTags class="filter-tags" :items="workingFilters"></FilterTags>
+  <FullAdder v-if="showFullAdder"></FullAdder>
 </template>
 
 <style scoped>
