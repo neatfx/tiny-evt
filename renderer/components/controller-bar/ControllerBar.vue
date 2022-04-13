@@ -7,10 +7,11 @@ import FilterTags from "./FilterTags.vue"
 import Search from "./Search.vue";
 import Pagination from "../Pagination.vue";
 import Adder from './Adder.vue'
-import FullAdder from './FullAdder.vue'
+
+import BaseButton from '../BaseButton.vue';
 
 defineProps(['views', 'filters', 'workingFilters'])
-const showFullAdder = ref(false)
+const showAdder = ref(false)
 </script>
 <template>
   <div class="control-bar">
@@ -18,7 +19,7 @@ const showFullAdder = ref(false)
       <div class="left">
         <ViewOptions class="seg" :views="views"></ViewOptions>
         <FilterMenu class="seg" :items="filters"></FilterMenu>
-        <Adder class="seg" @opent-full-adder="showFullAdder = !showFullAdder" :show-full-adder="showFullAdder"></Adder>
+        <BaseButton class="seg" @click="showAdder = !showAdder">{{ showAdder ? '取消' : '添加' }}</BaseButton>
         <Search class="seg"></Search>
       </div>
       <div class="right">
@@ -27,7 +28,7 @@ const showFullAdder = ref(false)
     </div>
   </div>
   <FilterTags class="filter-tags" :items="workingFilters"></FilterTags>
-  <FullAdder v-if="showFullAdder"></FullAdder>
+  <Adder v-if="showAdder"></Adder>
 </template>
 
 <style scoped>

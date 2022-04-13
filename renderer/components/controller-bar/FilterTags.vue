@@ -33,6 +33,7 @@ defineProps<{
 /* 过滤器标签 */
 .wrapper {
   border: 2px solid dimgray;
+  border-bottom: none;
   padding: 10px;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
 }

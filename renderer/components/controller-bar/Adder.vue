@@ -1,26 +1,49 @@
 <script setup lang="ts">
+import type { IBook } from '@/db/testing/type-defs';
 import { useBooksStore } from '@stores/index'
+import { ref } from 'vue';
 
 import BaseButton from '../BaseButton.vue';
 import BaseInput from '../BaseInput.vue';
-import FolderPanel from '../FolderPanel.vue';
 
-const props = defineProps(['showFullAdder'])
-defineEmits<{
-  (event: 'opent-full-adder'): void;
-}>()
-const bookData = {
+const bookData: IBook = {
   name: '',
+  author: '',
+  categories: [],
+  publishing: '',
+  cover: null,
+  created: new Date()
 }
 function check(): boolean {
-  if (!bookData.name) return false
+  if (!bookData.name || !bookData.author) return false
   return true
 }
 
 const store = useBooksStore()
+const imgSrc = ref(false)
+const fullMode = ref(false)
 
-async function opentFullAdder(ev: any) {
+function ondragover(event: any) {
+  event.stopPropagation();
+  event.preventDefault();
+  event.dataTransfer.dropEffect = 'copy';
+};
 
+async function ondrop(ev: any) {
+  ev.stopPropagation();
+  ev.preventDefault();
+
+  const file = ev.dataTransfer.files[0];
+
+  try {
+    if (!file) throw new Error(`Only files can be dropped here`);
+
+    bookData.cover = file
+    imgSrc.value = true
+    document.querySelector("img")?.setAttribute('src', URL.createObjectURL(file))
+  } catch (error) {
+    console.error('' + error);
+  }
 }
 
 async function addItem() {
@@ -30,64 +53,129 @@ async function addItem() {
   }
 
   await store.add(bookData)
+  imgSrc.value = false
 }
 </script>
 
 <template>
-  <FolderPanel title="Add" :isInlinePanel="true" position="right">
-    <template #header>
-      <BaseButton>+</BaseButton>
-    </template>
-    <template #body>
-      <div class="panel-body-wrapper">
-        <BaseButton class="btn" @click="$emit('opent-full-adder')">{{ props.showFullAdder ? '快速模式' : '完全模式' }}</BaseButton>
-        <label v-if="!props.showFullAdder">
-          <!-- <span>书名</span> -->
+  <div class="panel-body-wrapper">
+    <!--  -->
+    <BaseButton class="btn-mode" @click="fullMode = !fullMode">{{ fullMode ? '快速模式' : '完全模式' }}</BaseButton>
+    <label v-if="!fullMode">
+      <span>书名</span>
+      <BaseInput type="text" :modelValue="bookData.name" @update:model-value="newValue => bookData.name = newValue" />
+    </label>
+    <!--  -->
+    <div v-if="fullMode" class="full-mode">
+      <div class="dropzone" @dragover="ondragover" @drop="ondrop">
+        <span v-if="!imgSrc" class="tip">拖放图片至此区域</span>
+        <img />
+      </div>
+
+      <div class="text-fields">
+        <label>
+          <span>书名</span>
           <BaseInput type="text" :modelValue="bookData.name"
             @update:model-value="newValue => bookData.name = newValue" />
-          <BaseButton class="btn-submit btn" @click="addItem">添加</BaseButton>
+        </label>
+        <label>
+          <span>作者</span>
+          <BaseInput type="text" :modelValue="bookData.author"
+            @update:model-value="newValue => bookData.author = newValue" />
+        </label>
+        <label>
+          <span>分类</span>
+          <BaseInput type="text" :modelValue="bookData.categories"
+            @update:model-value="newValue => bookData.categories = newValue.split(',')" />
+        </label>
+        <label>
+          <span>出版社</span>
+          <BaseInput type="text" :modelValue="bookData.publishing"
+            @update:model-value="newValue => bookData.publishing = newValue" />
+        </label>
+        <label>
+          <span>出版时间</span>
+          <BaseInput type="text" :modelValue="bookData.name"
+            @update:model-value="newValue => bookData.name = newValue" />
         </label>
       </div>
-    </template>
-  </FolderPanel>
+    </div>
+    <!--  -->
+    <div class="submit">
+      <BaseButton class="btn-submit" @click="addItem">添加至数据库</BaseButton>
+    </div>
+  </div>
 </template>
 
 <style scoped>
 .panel-body-wrapper {
+  padding: 5px;
+  border: 2px solid dimgray;
+  border-bottom: none;
+}
+
+.btn-mode {
+  margin-bottom: 5px;
+}
+
+.full-mode {
   display: grid;
-  grid-template-columns: auto;
-  grid-auto-flow: column;
-  gap: 2px;
-  padding: 3px;
-  background-color: gray;
-  /* margin-left: 5px; */
+  grid-template-columns: 150px 232px auto;
+  gap: 10px;
 }
-.btn{
-  background-color: dimgray;
+
+.dropzone {
+  /* height: 190px; */
+  text-align: center;
+  background-color: slategray;
+  /* border: 1px solid red; */
 }
-.btn:hover{
-  background-color:darkgray;
+
+.tip {
+  position: relative;
+  top: 50px;
+  padding: 5px 10px;
+  background-color: cadetblue;
 }
+
+/*  */
+
+.text-fields {
+  display: grid;
+  gap: 3px;
+  /* border: 1px solid red; */
+}
+
 label {
   display: grid;
-  grid-template-columns: auto;
+  grid-template-columns: 80px 150px;
   grid-auto-flow: column;
-  gap: 0px;
+  /* gap: 2px; */
+  text-align: center;
 }
 
 span {
   font-size: small;
-  padding: 5px 10px 0px;
+  padding: 5px 10px;
   background-color: dimgray;
-  vertical-align: middle;
 }
 
 input,
 input:focus {
   vertical-align: middle;
   outline: none;
-  border: 2px solid dimgray;
+  border: 3px solid dimgray;
   font-size: small;
   height: auto;
+}
+
+/*  */
+.submit {
+  margin-top: 5px;
+  /* border: 1px solid red; */
+}
+
+.btn-submit {
+  padding: 6px 20px;
 }
 </style>
