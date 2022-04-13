@@ -5,7 +5,6 @@ import { ref } from 'vue';
 
 import BaseButton from '../BaseButton.vue';
 import BaseInput from '../BaseInput.vue';
-import FolderPanel from '../FolderPanel.vue';
 
 const bookData: IBook = {
   name: '',
@@ -22,6 +21,7 @@ function check(): boolean {
 
 const store = useBooksStore()
 const imgSrc = ref(false)
+const fullMode = ref(false)
 
 function ondragover(event: any) {
   event.stopPropagation();
@@ -59,7 +59,14 @@ async function addItem() {
 
 <template>
   <div class="panel-body-wrapper">
-    <div class="book-fields">
+    <!--  -->
+    <BaseButton class="btn-mode" @click="fullMode = !fullMode">{{ fullMode ? '快速模式' : '完全模式' }}</BaseButton>
+    <label v-if="!fullMode">
+      <span>书名</span>
+      <BaseInput type="text" :modelValue="bookData.name" @update:model-value="newValue => bookData.name = newValue" />
+    </label>
+    <!--  -->
+    <div v-if="fullMode" class="full-mode">
       <div class="dropzone" @dragover="ondragover" @drop="ondrop">
         <span v-if="!imgSrc" class="tip">拖放图片至此区域</span>
         <img />
@@ -92,34 +99,32 @@ async function addItem() {
             @update:model-value="newValue => bookData.name = newValue" />
         </label>
       </div>
-      <div>
-        <BaseButton class="btn-submit" @click="addItem">添加</BaseButton>
-      </div>
-
     </div>
-
+    <!--  -->
+    <div class="submit">
+      <BaseButton class="btn-submit" @click="addItem">添加</BaseButton>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .panel-body-wrapper {
-  display: grid;
-  grid-template-rows: auto;
-  gap: 10px;
-  padding: 10px;
+  padding: 5px;
   border: 2px solid dimgray;
-  justify-content: left;
 }
 
-.book-fields {
+.btn-mode {
+  margin-bottom: 5px;
+}
+
+.full-mode {
   display: grid;
-  grid-auto-flow: column;
+  grid-template-columns: 150px 232px auto;
   gap: 10px;
 }
 
 .dropzone {
-  width: 150px;
-  height: 190px;
+  /* height: 190px; */
   text-align: center;
   background-color: slategray;
   /* border: 1px solid red; */
@@ -150,7 +155,7 @@ label {
 
 span {
   font-size: small;
-  padding: 8px 10px 0px;
+  padding: 5px 10px;
   background-color: dimgray;
 }
 
@@ -164,6 +169,11 @@ input:focus {
 }
 
 /*  */
+.submit {
+  margin-top: 5px;
+  /* border: 1px solid red; */
+}
+
 .btn-submit {
   padding: 6px 20px;
 }

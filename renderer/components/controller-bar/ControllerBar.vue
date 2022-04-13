@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { ref } from 'vue';
+
 import ViewOptions from './ViewOptions.vue'
 import FilterMenu from './FilterMenu.vue'
 import FilterTags from "./FilterTags.vue"
@@ -6,7 +8,6 @@ import Search from "./Search.vue";
 import Pagination from "../Pagination.vue";
 import Adder from './Adder.vue'
 import FullAdder from './FullAdder.vue'
-import { ref } from 'vue';
 
 defineProps(['views', 'filters', 'workingFilters'])
 const showFullAdder = ref(false)
