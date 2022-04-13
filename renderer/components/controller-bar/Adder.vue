@@ -60,7 +60,7 @@ async function addItem() {
 <template>
   <div class="panel-body-wrapper">
     <!--  -->
-    <BaseButton class="btn-mode" @click="fullMode = !fullMode">{{ fullMode ? '快速模式' : '完全模式' }}</BaseButton>
+    <BaseButton class="btn-mode" @click="fullMode = !fullMode">{{ fullMode ? '切换至快速添加模式' : '切换至标准录入模式' }}</BaseButton>
     <label v-if="!fullMode">
       <span>书名</span>
       <BaseInput type="text" :modelValue="bookData.name" @update:model-value="newValue => bookData.name = newValue" />
@@ -179,5 +179,9 @@ input:focus {
 
 .btn-submit {
   padding: 6px 20px;
+  background-color: cornflowerblue;
+}
+.btn-submit:hover {
+  background-color: cornflowerblue;
 }
 </style>
