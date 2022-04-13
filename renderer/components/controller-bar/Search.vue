@@ -5,8 +5,8 @@ import BaseButton from '../BaseButton.vue';
 import { useBooksStore } from '@/stores'
 import { books } from '@/services/mock-suggested-books'
 
-import { mande } from 'mande'
-import axios from 'axios'
+// import { mande } from 'mande'
+// import axios from 'axios'
 
 // const { electronDouban } = window
 const store = useBooksStore()
@@ -56,6 +56,28 @@ async function addBook(book: any) {
   await store.list()
   search.value = ''
   console.log(book)
+
+  // 导入选中的豆瓣图书条目（书名、封面图片、作者、出版年份、豆瓣图书链接）
+  const myRequest = new Request(book.pic);
+
+  fetch(myRequest)
+    .then(function (response) {
+      return response.blob();
+    })
+    .then(async function (myBlob) {
+      console.log(myBlob)
+      let objectURL = URL.createObjectURL(myBlob);
+      console.log('haha', objectURL)
+      // myImage.src = objectURL;
+
+      await store.add({
+        name: book.title,
+        cover: myBlob,
+        author: book.author_name,
+        published: book.year,
+        douban: book.url
+      })
+    });
 }
 
 </script>
@@ -65,6 +87,7 @@ async function addBook(book: any) {
     <BaseInput v-model="search" class="input-zone" />
     <BaseButton v-if="ifShowDouban" @click="suggestBooks">搜索豆瓣图书</BaseButton>
     <div v-if="isShowSuggestItems" class="suggest-list">
+      <img>
       <ul v-for="(v, k) in books" key="k">
         <li>
           <!-- <div> -->
@@ -89,13 +112,18 @@ async function addBook(book: any) {
   display: inline-block;
   /* border: 1px solid rebeccapurple; */
 }
+
 .input-zone {
+  /* height: auto; */
   padding: 8px 10px 6px;
+  /* vertical-align: middle; */
 }
+
 .suggest-list {
   position: fixed;
   /* background-color: grey; */
 }
+
 ul {
   display: grid;
   padding: 0;
@@ -103,6 +131,7 @@ ul {
   float: left;
   /* grid-auto-flow: column; */
 }
+
 li {
   display: grid;
   grid-template-columns: auto auto;
@@ -114,23 +143,27 @@ li {
   margin: 5px 5px 0px 0;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
 }
+
 img {
   display: block;
   width: 80px;
   height: 120px;
   margin: 0;
 }
+
 .info {
   position: relative;
   padding: 15px 15px;
   /* border: 1px solid blue; */
 }
+
 .btn {
   position: absolute;
   right: 0;
   bottom: 0;
   margin: 10px 0 0;
 }
+
 .btn-text {
   padding: 5px;
 }
