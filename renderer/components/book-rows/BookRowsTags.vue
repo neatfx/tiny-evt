@@ -34,7 +34,7 @@ function addTag() {
 </script>
 
 <template>
-  <div class="wrapper">
+  <ul>
     <li v-for="(value, key) in props.categories" :key="key">
       <div class="tag-wrapper" @mouseenter="() => currentTag = key" @mouseleave="() => currentTag = 100">
         <div class="tag-name">
@@ -45,26 +45,28 @@ function addTag() {
         </div>
       </div>
     </li>
-
-    <!-- <Transition name="slide-up" mode="out-in"> -->
-    <BaseButton v-if="!showInput" @click="showInput = !showInput" class="tag-adder">+</BaseButton>
-    <BaseButton v-else-if="showInput" class="add-btn" @click="addTag">添加</BaseButton>
-    <!-- </Transition> -->
-    <Transition name="slide-up" mode="out-in">
-      <BaseInput v-if="showInput" class="input-zone" v-model="tagInput" />
-    </Transition>
-  </div>
+  </ul>
+  <!-- <Transition name="slide-up" mode="out-in"> -->
+  <BaseButton v-if="!showInput" @click="showInput = !showInput" class="tag-adder">+</BaseButton>
+  <BaseButton v-else-if="showInput" class="add-btn" @click="addTag">添加</BaseButton>
+  <!-- </Transition> -->
+  <Transition name="slide-up" mode="out-in">
+    <BaseInput v-if="showInput" class="input-zone" v-model="tagInput" />
+  </Transition>
 </template>
 
 <style scoped>
-.wrapper {
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: inline-grid;
   grid-template-columns: auto;
   grid-auto-flow: column;
 }
 
 li {
-  background-color:slategray;
+  background-color: slategray;
   margin-right: 2px;
 }
 
@@ -81,7 +83,7 @@ li {
   position: absolute;
   right: 0;
   padding: 4px 10px 3px 12px;
-  background-color:darksalmon;
+  background-color: darksalmon;
 }
 
 .cross {
@@ -97,9 +99,12 @@ li {
 .input-zone:focus {
   vertical-align: middle;
 }
-.tag-adder,.tag-adder:hover{
-  background-color:darkgoldenrod;
+
+.tag-adder,
+.tag-adder:hover {
+  background-color: darkgoldenrod;
 }
+
 .add-btn {
   margin-right: 0;
   vertical-align: middle;
