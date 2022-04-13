@@ -7,7 +7,7 @@ const emit = defineEmits<{
 }>()
 const menuData = {
   详情: () => emit('view'),
-  删除: () => emit('delete')
+  // 删除: () => emit('delete')
 }
 </script>
 
