@@ -25,15 +25,15 @@ function onClick() {
 
 <style scoped>
 .btn-delete,.btn-delete:hover{
-  background-color:salmon;
+  background-color:indianred;
 }
 .btn-confirm {
   color: rgb(39, 35, 35);
-  background-color: salmon;
+  background-color: indianred;
 }
 
 .btn-confirm:hover {
-  background-color: salmon;
+  background-color: indianred;
 }
 
 .cross {

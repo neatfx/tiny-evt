@@ -31,8 +31,10 @@ function mark(readingStatus: string) {
 
 <style scoped>
 .circle {
-  width: 5px;
-  height: 29px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50rem;
+  margin:auto 5px auto 0;
 }
 
 .wanted {
@@ -59,7 +61,7 @@ ul {
 }
 
 li {
-  padding: 5px 15px;
+  padding: 5px 15px 5px 10px;
   background-color: dimgray;
   /* border: 1px solid #666; */
   /* margin-top: -1px; */
