@@ -5,7 +5,7 @@ import EditableText from '@comps/EditableText.vue'
 import BaseButton from '@comps/BaseButton.vue';
 import BookRowsReadingStatusVue from './BookRowsReadingStatus.vue';
 
-const props = defineProps(['rowId', 'text', 'isName', 'cover', 'readingStatus'])
+const props = defineProps(['rowId', 'name', 'isName', 'cover', 'readingStatus'])
 const emit = defineEmits<{
   (event: 'update-cover', rowId: number, cover: File | undefined): void
   (event: 'update', rowId: number, payload: string): void
@@ -70,7 +70,7 @@ onMounted(() => {
       </BookRowsReadingStatusVue>
       <!-- 书名 -->
       <div class="name-wrapper" @mouseover="showCover = true" @mouseleave="showCover = false">
-        <EditableText class="name" :rowId="rowId" :text="text" :isName="isName"
+        <EditableText class="name" :rowId="rowId" :text="name || '--no-name--'" :isName="isName"
           @update="(rowId, payload) => { emit('update', rowId, payload) }"></EditableText>
         <!-- 封面（浮动显示） -->
         <div v-if="showCover" class="pop-cover-wrapper">

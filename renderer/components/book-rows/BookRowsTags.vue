@@ -64,7 +64,7 @@ ul {
 }
 
 li {
-  background-color: slategray;
+  background-color: cadetblue;
   margin-right: 2px;
 }
 

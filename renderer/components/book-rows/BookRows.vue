@@ -65,23 +65,23 @@ async function deleteItem(key: number | undefined) {
   <BaseDataRows :items="props.items">
     <template #item="{ id, name, author, categories, publishing, published, cover, lend, readingStatus }">
       <div class="row" v-context-menu="id">
-        <div v-if="store.view.fields.id" class="id">{{ id }}</div>
+        <div v-if="store.view.fields.id" class="id">{{ id < 9? '0' +id : id}}</div>
         <BookRowsLendStatus v-if="store.view.fields.lend" :lend="lend" :rowId="id" @update-lend:reset="updateLend"
           @update-lend:add="updateLend"></BookRowsLendStatus>
-        <BookRowsName v-if="store.view.fields.name" :cover="cover" :rowId="id" :text="name" :isName="() => true"
+        <BookRowsName v-if="store.view.fields.name" :cover="cover" :rowId="id" :name="name" :isName="() => true"
           :readingStatus="readingStatus" @update="(rowId, payload) => {
             currentUpdateField = 'name'
             updateField(rowId, payload)
           }" @update-cover="updateCover" @mark-reading-status="markReadingStatus"></BookRowsName>
-        <EditableText v-if="store.view.fields.author" :rowId="id" :text="author" @update="(rowId, payload) => {
+        <EditableText v-if="store.view.fields.author" :rowId="id" :text="author || '-- 作者 --'" @update="(rowId, payload) => {
           currentUpdateField = 'author'
           updateField(rowId, payload)
         }"></EditableText>
-        <EditableText v-if="store.view.fields.publishing" :rowId="id" :text="publishing" @update="(rowId, payload) => {
+        <EditableText v-if="store.view.fields.publishing" :rowId="id" :text="publishing || '-- 出版社 --'" @update="(rowId, payload) => {
           currentUpdateField = 'publishing'
           updateField(rowId, payload)
         }"></EditableText>
-        <EditableText v-if="store.view.fields.published" :rowId="id" :text="published" @update="(rowId, payload) => {
+        <EditableText v-if="store.view.fields.published" :rowId="id" :text="published || '-- 出版时间 --'" @update="(rowId, payload) => {
           currentUpdateField = 'published'
           updateField(rowId, payload)
         }"></EditableText>
@@ -105,11 +105,9 @@ async function deleteItem(key: number | undefined) {
 }
 
 .id {
-  display: inline-block;
   text-align: center;
-  width: 30px;
-  padding: 3px 5px 4px;
-  margin-right: 5px;
-  background-color: slategray;
+  padding: 3px 10px 4px;
+  margin: 0 2px;
+  background-color:slategrey;
 }
 </style>

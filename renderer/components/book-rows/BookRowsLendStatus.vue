@@ -23,7 +23,9 @@ function add() {
 <template>
   <FolderPanel :isInlinePanel="true">
     <template #header>
-      <BaseButton :class="[lend ? 'outside' : 'in']">{{ props.position || ('01-0' + rowId) }}</BaseButton>
+      <BaseButton :class="[lend ? 'outside' : 'in']">{{
+        props.position || ('01-' + (rowId < 10 ? '0' + rowId : rowId))
+      }}</BaseButton>
     </template>
     <template #body>
       <div class="wrapper">
@@ -33,17 +35,22 @@ function add() {
         <BaseButton v-if="!lend" class="add-btn" @click="add">添加借出备注</BaseButton>
       </div>
     </template>
-    </FolderPanel>
+  </FolderPanel>
 </template>
 
 <style scoped>
 .outside {
   display: inline;
-  background-color: lightcoral;
+  background-color: coral;
 }
 
 .outside:hover {
-  background-color: lightcoral;
+  background-color: coral;
+}
+
+.in,
+.in:hover {
+  background-color: darkgray;
 }
 
 .wrapper {

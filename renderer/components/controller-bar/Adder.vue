@@ -1,27 +1,27 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import type { IBook } from '@/db/testing/type-defs';
 import { useBooksStore } from '@stores/index'
-import { ref } from 'vue';
 
 import BaseButton from '../BaseButton.vue';
 import BaseInput from '../BaseInput.vue';
 
+const store = useBooksStore()
+const imgSrc = ref(false)
+const fullMode = ref(false)
 const bookData: IBook = {
   name: '',
   author: '',
   categories: [],
   publishing: '',
   cover: null,
-  created: new Date()
-}
-function check(): boolean {
-  if (!bookData.name || !bookData.author) return false
-  return true
+  // created: new Date()
 }
 
-const store = useBooksStore()
-const imgSrc = ref(false)
-const fullMode = ref(false)
+function check(): boolean {
+  if (!bookData.name) return false
+  return true
+}
 
 function ondragover(event: any) {
   event.stopPropagation();
@@ -95,8 +95,8 @@ async function addItem() {
         </label>
         <label>
           <span>出版时间</span>
-          <BaseInput type="text" :modelValue="bookData.name"
-            @update:model-value="newValue => bookData.name = newValue" />
+          <BaseInput type="text" :modelValue="bookData.published"
+            @update:model-value="newValue => bookData.published = newValue" />
         </label>
       </div>
     </div>
