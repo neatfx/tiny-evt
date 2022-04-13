@@ -15,8 +15,8 @@ defineProps<{
   <div class="wrapper" v-if="items.size">
     <BaseButton @click="resetFilter">重置过滤器</BaseButton>
     <ul class="filter-tags-wrapper" v-for="key in items.keys()" :key="key">
-      <li class="type-li">
-        <span class="filter-type">{{ trans(key) }}</span>
+      <li>
+        <span class="filter-value">{{ trans(key) }}</span>
       </li>
       <li v-for="v in items.get(key)" :key="key + v">
         <span class="filter-value">{{ v }}</span>
@@ -32,7 +32,7 @@ defineProps<{
 <style scoped>
 /* 过滤器标签 */
 .wrapper {
-  border: 1px solid grey;
+  border: 2px solid dimgray;
   padding: 10px;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
 }
@@ -47,7 +47,7 @@ defineProps<{
   /* border: 1px solid grey; */
 }
 li {
-  border: 1px solid grey;
+  border: 2px solid dimgray;
   padding: 2px;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
 }
@@ -57,9 +57,9 @@ li {
 }
 .filter-type {
   display: inline-block;
-  padding: 5px 10px 5px;
+  padding: 6px 15px 6px;
   margin-right: 0px;
-  background-color: teal;
+  background-color: grey;
 }
 .filter-value {
   display: inline-block;

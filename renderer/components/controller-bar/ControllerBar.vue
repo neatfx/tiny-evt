@@ -14,16 +14,10 @@ defineProps(['views', 'filters', 'workingFilters'])
       <div class="left">
         <ViewOptions class="seg" :views="views"></ViewOptions>
         <FilterMenu class="seg" :items="filters"></FilterMenu>
-        <div class="seg adder">
-          <!-- <slot name="adder"></slot> -->
-          <BookRowsAdder></BookRowsAdder>
-        </div>
+        <BookRowsAdder class="seg"></BookRowsAdder>
         <Search class="seg"></Search>
       </div>
       <div class="right">
-        <button class="btn-blue">
-          测试按钮
-        </button>
         <Pagination></Pagination>
       </div>
     </div>
@@ -45,13 +39,5 @@ defineProps(['views', 'filters', 'workingFilters'])
 
 .seg {
   margin-right: 1px;
-}
-
-.adder {
-  display: inline-block;
-}
-
-.filter-tags {
-  background-color: gray;
 }
 </style>
