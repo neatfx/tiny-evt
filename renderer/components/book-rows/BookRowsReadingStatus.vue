@@ -3,7 +3,7 @@ import FolderPanel from '@comps/FolderPanel.vue';
 
 const props = defineProps(['rowId', 'readingStatus']);
 const emit = defineEmits<{
-  (e: 'mark-reading-status', rowId: number, readingStatus: string): void
+  (e: 'mark-reading-status', rowId: number, readingStatus: string): Promise<void>
 }>()
 const menuData = new Map<string, string>()
 menuData.set('想读', 'wanted')
@@ -34,20 +34,25 @@ function mark(readingStatus: string) {
   width: 12px;
   height: 29px;
 }
+
 .wanted {
   background-color: lightskyblue;
 }
 
-.not-yet{
+.not-yet {
   background-color: lightcoral;
 }
 
-.reading{
+.reading {
   background-color: lightgoldenrodyellow;
 }
 
 .read {
   background-color: lightgreen;
+}
+
+.menu-wrapper {
+  margin-left: 15px;
 }
 
 ul {
@@ -58,11 +63,14 @@ ul {
 }
 
 li {
-  padding: 5px 10px;
+  padding: 5px 15px;
+  background-color: dimgray;
+  /* border: 1px solid #666; */
+  /* margin-top: -1px; */
 }
 
 li:hover {
-  background-color: lightgray;
+  background-color: grey;
   cursor: default;
 }
 </style>

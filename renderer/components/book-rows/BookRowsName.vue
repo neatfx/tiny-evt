@@ -9,6 +9,7 @@ const props = defineProps(['rowId', 'text', 'isName', 'cover', 'readingStatus'])
 const emit = defineEmits<{
   (event: 'update-cover', rowId: number, cover: File | undefined): void
   (event: 'update', rowId: number, payload: string): void
+  (event: 'mark-reading-status', rowId: number, readingStatus: string): void
 }>()
 const coverHtml = computed(() => {
   let binaryData = []
@@ -52,6 +53,10 @@ async function deleteCover() {
   }
 }
 
+async function markReadingStatus(rowId: number, readingStatus: string) {
+  emit('mark-reading-status', props.rowId, readingStatus)
+}
+
 onMounted(() => {
   fileData.value = props.cover
 })
@@ -61,19 +66,19 @@ onMounted(() => {
 
   <div class="wrapper">
     <!-- 阅读状态 -->
-    <BookRowsReadingStatusVue class="reading-status" :readingStatus="readingStatus"></BookRowsReadingStatusVue>
+    <BookRowsReadingStatusVue class="reading-status" :readingStatus="readingStatus"
+      @mark-reading-status="markReadingStatus"></BookRowsReadingStatusVue>
     <!-- 书名 -->
     <div @mouseover="showCover = true" @mouseleave="showCover = false">
-    <EditableText class="name" :rowId="rowId" :text="text" :isName="isName"
+      <EditableText class="name" :rowId="rowId" :text="text" :isName="isName"
+        @update="(rowId, payload) => { emit('update', rowId, payload) }"></EditableText>
 
-      @update="(rowId, payload) => { emit('update', rowId, payload) }"></EditableText>
-
-    <!-- 封面（浮动显示） -->
-    <div v-if="showCover" class="pop-cover-wrapper">
-      <div v-if="showCover" v-html="coverHtml" class="cover-base"></div>
-      <BaseButton v-if="showCover && cover" class="delete-btn" @click="deleteCover">删除封面</BaseButton>
+      <!-- 封面（浮动显示） -->
+      <div v-if="showCover" class="pop-cover-wrapper">
+        <div v-if="showCover" v-html="coverHtml" class="cover-base"></div>
+        <BaseButton v-if="showCover && cover" class="delete-btn" @click="deleteCover">删除封面</BaseButton>
+      </div>
     </div>
-          </div>
     <!-- 添加封面按钮(无封面状态下显示) -->
     <BaseButton v-if="!cover" class="add-btn" @click="() => {
       showCoverUploader = !showCoverUploader
@@ -104,9 +109,11 @@ onMounted(() => {
 .reading-status {
   display: inline-grid;
 }
-.name{
-    display: inline-block;
+
+.name {
+  display: inline-block;
 }
+
 .pop-cover-wrapper {
   position: fixed;
   display: inline-grid;
@@ -132,11 +139,11 @@ onMounted(() => {
 .add-btn {
   display: inline-block;
   margin-right: 0;
-  background-color:steelblue;
+  background-color: steelblue;
 }
 
 .add-btn:hover {
-  background-color:steelblue;
+  background-color: steelblue;
 }
 
 .pop-cover-uplaoder-wrapper {
