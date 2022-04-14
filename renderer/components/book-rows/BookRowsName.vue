@@ -80,7 +80,7 @@ onUnmounted(() => {
   <div class="wrapper">
     <div class="inner-wrapper">
       <!-- 综合菜单(总是显示) -->
-      <BookRowsMenuVue :hasCover="cover ? 't' : 'f'" @action-show-cover-uploader="() => {
+      <BookRowsMenuVue :hasCover="cover" @action-show-cover-uploader="() => {
         showCoverUploader = true
       }" @action-delete-cover="deleteCover" @action-delete-book="showConfirmBookDeletion = true"></BookRowsMenuVue>
 
@@ -203,7 +203,7 @@ onUnmounted(() => {
 .btn-hide-cover-uploader,
 .btn-hide-cover-uploader:hover {
   margin-top: 5px;
-  background-color: indianred;
+  background-color: goldenrod;
 }
 
 .tip {
@@ -222,7 +222,7 @@ onUnmounted(() => {
 .btn-cancel,
 .btn-cancel:hover {
   margin-right: 0;
-  background-color: indianred;
+  background-color:goldenrod;
 }
 
 /* Transition */

@@ -1,31 +1,15 @@
 <script setup lang="ts">
 import BaseButton from '@comps/BaseButton.vue';
 import FolderPanel from '@comps/FolderPanel.vue';
-import { computed } from 'vue';
 
 const props = defineProps(['hasCover']);
 const emit = defineEmits<{
   (e: 'action-show-cover-uploader'): Promise<void>
   (e: 'action-delete-cover'): Promise<void>
+  (e: 'action-add-note'): Promise<void>
+  (e: 'action-add-to-collection'): Promise<void>
   (e: 'action-delete-book'): Promise<void>
 }>()
-const menuData = new Map<string, string>()
-menuData.set('添加封面', 'action-show-cover-uploader')
-menuData.set('移除封面', 'action-delete-cover')
-// menuData.set('显示更多数据', 'read')
-menuData.set('删除本书', 'action-delete-book')
-
-const computedMenu = computed(() => {
-  if (props.hasCover === 't') {
-    menuData.delete('添加封面')
-    menuData.set('移除封面', 'action-delete-cover')
-  } else {
-    menuData.delete('移除封面')
-    menuData.set('添加封面', 'action-show-cover-uploader')
-  }
-
-  return menuData
-})
 </script>
 
 <template>
@@ -34,17 +18,23 @@ const computedMenu = computed(() => {
       <BaseButton class="btn-actions">+ </BaseButton>
     </template>
     <template #body>
-      <ul v-for="key in computedMenu.keys()" :key="key">
-        <li @click="emit(computedMenu.get(key))">{{ key }}</li>
+      <ul>
+        <!-- <li @click="emit('action-show-more')">显示更多数据...</li> -->
+        <li v-if="!hasCover" @click="emit('action-show-cover-uploader')">添加封面</li>
+        <li v-if="hasCover" @click="emit('action-delete-cover')">移除封面</li>
+        <li @click="emit('action-add-note')">添加借书备注...</li>
+        <li @click="emit('action-add-to-collection')">加入书单...</li>
+        <li @click="emit('action-delete-book')">删除书籍</li>
       </ul>
     </template>
   </FolderPanel>
 </template>
 
 <style scoped>
-.btn-actions{
-   background-color: #777; 
+.btn-actions {
+  background-color: #777;
 }
+
 .btn-actions:hover {
   background-color: #777;
 }
