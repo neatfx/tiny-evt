@@ -19,7 +19,9 @@ function mark(readingStatus: string) {
 <template>
   <FolderPanel :isPopMenu="true" position="right">
     <template #header>
-      <div :class='["circle", readingStatus]'></div>
+      <div class="circle-wrapper">
+        <div :class='["circle", readingStatus]'></div>
+      </div>
     </template>
     <template #body>
       <ul v-for="key in menuData.keys()" :key="key">
@@ -30,11 +32,15 @@ function mark(readingStatus: string) {
 </template>
 
 <style scoped>
+.circle-wrapper {
+  background-color: #777;
+}
+
 .circle {
   width: 10px;
   height: 10px;
   border-radius: 50rem;
-  margin:auto 5px;
+  margin: 10px 5px 5px;
 }
 
 .wanted {
