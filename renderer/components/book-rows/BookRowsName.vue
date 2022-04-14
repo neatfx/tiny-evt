@@ -73,8 +73,11 @@ onUnmounted(() => {
 <template>
   <div class="wrapper">
     <div class="inner-wrapper">
-                              <!-- 综合菜单(总是显示) -->
-        <BookRowsMenuVue></BookRowsMenuVue>
+      <!-- 综合菜单(总是显示) -->
+      <BookRowsMenuVue :hasCover="cover ? 't' : 'f'" @action-show-cover-uploader="() => {
+        showCoverUploader = true
+        // fileData = undefined
+      }"></BookRowsMenuVue>
       <!-- 阅读状态 -->
       <BookRowsReadingStatusVue class="reading-status" :readingStatus="readingStatus"
         @mark-reading-status="markReadingStatus">
@@ -87,38 +90,22 @@ onUnmounted(() => {
         <!-- 封面（浮动显示） -->
         <div v-if="showCover" class="pop-cover-wrapper">
           <div v-if="showCover" v-html="coverHtml" class="cover-base"></div>
-          <BaseButton v-if="showCover && cover" class="delete-btn" @click="deleteCover">删除封面</BaseButton>
+          <!-- <BaseButton v-if="showCover && cover" class="delete-btn" @click="deleteCover">删除封面</BaseButton> -->
         </div>
-        <!-- 添加封面按钮(无封面状态下显示) -->
-        <BaseButton v-if="!cover" class="add-btn" @click="() => {
-          showCoverUploader = !showCoverUploader
-          fileData = undefined
-        }">{{ showCoverUploader ? '取消' : '+' }}</BaseButton>
-
       </div>
     </div>
     <!-- 拖放添加封面图片区域（浮动显示） -->
     <Transition name="slide-up" mode="out-in">
       <div v-if="showCoverUploader && !cover" class="pop-cover-uplaoder-wrapper">
-        <div v-if="!fileData" class="drop-zone" @dragover="ondragover" @drop="ondrop"><span class="tip">拖放图片至此区域</span>
+        <div v-if="!fileData" class="drop-zone" @dragover="ondragover" @drop="ondrop">
+          <span class="tip">拖放图片至此区域</span>
         </div>
         <BaseButton v-if="fileData && !cover" class="upload-btn" @click="addCover">确认添加</BaseButton>
         <BaseButton v-if="!cover && fileData" class="cancel-btn" @click="() => {
           showCoverUploader = false
           fileData = undefined
         }">取消</BaseButton>
-      </div>
-    </Transition>
-    <!-- 区域（浮动显示） -->
-    <Transition name="slide-up" mode="out-in">
-      <div v-if="showCoverUploader && !cover" class="pop-cover-uplaoder-wrapper">
-        <div v-if="!fileData" class="drop-zone" @dragover="ondragover" @drop="ondrop"><span class="tip">拖放图片至此区域</span>
-        </div>
-        <BaseButton v-if="fileData && !cover" class="upload-btn" @click="addCover">确认添加</BaseButton>
-        <BaseButton v-if="!cover && fileData" class="cancel-btn" @click="() => {
-          showCoverUploader = false
-          fileData = undefined
-        }">取消</BaseButton>
+        <BaseButton v-if="!fileData" class="btn-hide-cover-uploader" @click="showCoverUploader = false">取消</BaseButton>
       </div>
     </Transition>
   </div>
@@ -181,7 +168,7 @@ onUnmounted(() => {
 
 .pop-cover-uplaoder-wrapper {
   position: fixed;
-  padding: 5px;
+  padding: 10px;
   background-color: gray;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
 }
@@ -190,6 +177,13 @@ onUnmounted(() => {
   background-color: gray;
   width: 180px;
   height: 80px;
+  border: 2px dotted dimgray;
+}
+
+.btn-hide-cover-uploader,
+.btn-hide-cover-uploader:hover {
+  margin-top: 10px;
+  background-color: indianred;
 }
 
 .tip {
@@ -201,7 +195,7 @@ onUnmounted(() => {
 
 .upload-btn,
 .upload-btn:hover {
-  margin-right: 0;
+  margin-right: 5px;
   background-color: cornflowerblue;
 }
 

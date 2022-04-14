@@ -2,38 +2,38 @@
 import BaseButton from '@comps/BaseButton.vue';
 import FolderPanel from '@comps/FolderPanel.vue';
 
-const props = defineProps(['rowId', 'readingStatus']);
+const props = defineProps(['hasCover']);
 const emit = defineEmits<{
-  (e: 'mark-reading-status', rowId: number, readingStatus: string): Promise<void>
+  (e: 'action-show-cover-uploader'): Promise<void>
+  (e: 'action-delete-cover'): Promise<void>
+  (e: 'action-delete-book'): Promise<void>
 }>()
 const menuData = new Map<string, string>()
-menuData.set('删除数据', 'wanted')
-menuData.set('添加封面图片', 'not-yet')
-menuData.set('删除封面图片', 'reading')
-menuData.set('展开更多信息', 'read')
-
-function mark(readingStatus: string) {
-  emit('mark-reading-status', props.rowId, readingStatus)
-}
+if (props.hasCover === 'f') menuData.set('添加封面', 'action-show-cover-uploader')
+if (props.hasCover === 't') menuData.set('删除封面', 'action-delete-cover')
+// menuData.set('显示更多数据', 'read')
+menuData.set('删除书籍', 'action-delete-book')
 </script>
 
 <template>
-  <FolderPanel :is-inline-panel="true" position="right">
+  <FolderPanel :is-pop-menu="true" position="right">
     <template #header>
       <BaseButton class="btn-actions">+ </BaseButton>
     </template>
     <template #body>
       <ul v-for="key in menuData.keys()" :key="key">
-        <li @click="mark(menuData.get(key))">{{ key }}</li>
+        <li @click="emit(menuData.get(key))">{{ key }}</li>
       </ul>
     </template>
   </FolderPanel>
 </template>
 
 <style scoped>
-.btn-actions, .btn-actions:hover{
+.btn-actions,
+.btn-actions:hover {
   background-color: #777;
 }
+
 ul {
   font-size: 15px;
   list-style: none;
