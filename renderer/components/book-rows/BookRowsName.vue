@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from '@vue/reactivity';
-import { onMounted } from 'vue';
+import { onMounted, onUnmounted } from 'vue';
 import EditableText from '@comps/EditableText.vue'
 import BaseButton from '@comps/BaseButton.vue';
 import BookRowsReadingStatusVue from './BookRowsReadingStatus.vue';
@@ -11,6 +11,7 @@ const emit = defineEmits<{
   (event: 'update', rowId: number, payload: string): void
   (event: 'mark-reading-status', rowId: number, readingStatus: string): void
 }>()
+const blobUrls: string[] = []
 const coverHtml = computed(() => {
   let binaryData = []
   let url = ''
@@ -18,6 +19,7 @@ const coverHtml = computed(() => {
   if (fileData.value) {
     binaryData.push(fileData.value)
     url = window.URL.createObjectURL(new Blob(binaryData, { type: 'image/jpeg' }))
+    blobUrls.push(url)
     return '<img src="' + url + '" style="max-width: 160px; max-height: 222px; display: block;" />'
   }
 })
@@ -59,6 +61,11 @@ async function markReadingStatus(rowId: number, readingStatus: string) {
 
 onMounted(() => {
   fileData.value = props.cover
+})
+onUnmounted(()=>{
+  blobUrls.map((v,k)=>{
+    URL.revokeObjectURL(v)
+  })
 })
 </script>
 

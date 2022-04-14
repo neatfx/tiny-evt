@@ -47,8 +47,8 @@ function addTag() {
     </li>
   </ul>
   <!-- <Transition name="slide-up" mode="out-in"> -->
-  <BaseButton v-if="!showInput" @click="showInput = !showInput" class="tag-adder">标签</BaseButton>
-  <BaseButton v-else-if="showInput" class="add-btn" @click="addTag">添加</BaseButton>
+  <BaseButton v-if="!showInput" @click="showInput = !showInput" class="tag-adder">+</BaseButton>
+  <BaseButton v-else-if="showInput" class="add-btn" @click="addTag">+</BaseButton>
   <BaseInput v-if="showInput" class="input-zone" v-model="tagInput" />
   <!-- </Transition> -->
 </template>
@@ -65,7 +65,8 @@ ul {
 
 li {
   background-color: cadetblue;
-  margin-right: 2px;
+  margin-right: 6px;
+  border-radius: 20rem 20rem 20rem 20rem;
 }
 
 .tag-wrapper {
@@ -79,9 +80,11 @@ li {
 
 .delete-btn {
   position: absolute;
-  right: 0;
-  padding: 4px 10px 3px 12px;
-  background-color: darksalmon;
+  right: -10px;
+  top: -10px;
+  padding: 0px 7px 0px 9px;
+  background-color:indianred;
+  border-radius: 30rem 30rem 30rem 30rem;
 }
 
 .cross {
@@ -104,12 +107,14 @@ li {
 .tag-adder:hover {
   background-color: steelblue;
   /* border: 1px solid red; */
+    border-radius: 30rem 30rem 30rem 30rem;
 }
 
 .add-btn,
 .add-btn:hover {
   vertical-align: middle;
   background-color: steelblue;
+  border-radius: 30rem 30rem 30rem 30rem;
 }
 
 /* Transition */

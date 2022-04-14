@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, computed } from 'vue';
+import { ref, watch, computed, onMounted } from 'vue';
 import BaseInput from '../BaseInput.vue';
 import BaseButton from '../BaseButton.vue';
 import { useBooksStore } from '@/stores'
@@ -80,6 +80,17 @@ async function addBook(book: any) {
     });
 }
 
+onMounted(()=>{
+
+  fetch(new Request('https://book.douban.com/j/subject_suggest?q=中国近代史'))
+    .then(function (response) {
+      return response.json();
+    })
+    .then(async function (books) {
+      console.log('douban',books)
+    })
+
+})
 </script>
 
 <template>
