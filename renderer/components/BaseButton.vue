@@ -13,8 +13,10 @@ button {
   border: none;
   padding: 5px 10px;
   outline: none;
+  color: #111;
   /* margin-right: 5px; */
 }
+
 button:hover {
   background-color: grey;
 }

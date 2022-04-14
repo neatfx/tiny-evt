@@ -78,7 +78,7 @@ function openDouban(url: string) {
                 currentUpdateField = 'name'
                 updateField(rowId, payload)
               }" @update-cover="updateCover" @mark-reading-status="markReadingStatus"></BookRowsName>
-            <BaseButton @click="openDouban(douban)">豆瓣</BaseButton>
+            <BaseButton v-if="douban" class="douban" @click="openDouban(douban)">豆</BaseButton>
             <EditableText v-if="store.view.fields.author" :rowId="id" :text="author || '-- 作者 --'" @update="(rowId, payload) => {
               currentUpdateField = 'author'
               updateField(rowId, payload)
@@ -117,5 +117,9 @@ function openDouban(url: string) {
   color: #333;
   background-color: slategrey;
   border-radius: 50rem 50rem 50rem 0;
+}
+.douban{
+    border-radius: 50rem 50rem 50rem 0;
+    background-color:limegreen;
 }
 </style>

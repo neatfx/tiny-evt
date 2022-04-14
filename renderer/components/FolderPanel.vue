@@ -71,7 +71,8 @@ watchEffect(() => {
     </div>
     <!-- panel-body -->
     <Transition name="slide-up" mode="out-in">
-      <div v-if="switchShowRefForBody().value" :class="['default-panel-body', switchClassRefForBody().value, switchPositonClassRefForBody()]">
+      <div v-if="switchShowRefForBody().value"
+        :class="['default-panel-body', switchClassRefForBody().value, switchPositonClassRefForBody()]">
         <slot name="body" class="panel-container"></slot>
       </div>
     </Transition>
@@ -82,6 +83,7 @@ watchEffect(() => {
 <style scoped>
 .inline-panel {
   display: inline-block;
+  color: #222;
 }
 
 .header {
@@ -89,6 +91,7 @@ watchEffect(() => {
 }
 
 .default-panel-body {
+  color: #111;
   background-color: grey;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
 }

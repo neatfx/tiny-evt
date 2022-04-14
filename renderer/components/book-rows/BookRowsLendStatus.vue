@@ -42,14 +42,17 @@ function add() {
 .outside {
   display: inline;
   background-color: coral;
+  border-radius: 50rem 50rem 50rem 0;
 }
 
 .outside:hover {
+  border-radius: 50rem 50rem 50rem 0;
   background-color: coral;
 }
 
 .in,
 .in:hover {
+  border-radius: 50rem 50rem 50rem 0;
   background-color: darkgray;
 }
 
