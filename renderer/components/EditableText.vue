@@ -37,7 +37,7 @@ onMounted(() => {
     <span v-else-if="!isName" class="name">{{ sourceContent }}</span>
   </div>
   <BaseInput class="input-zone" v-if="showInput" v-model="contentInput" @blur="save" :content="sourceContent" v-focus>
-    </BaseInput>
+  </BaseInput>
 </template>
 
 <style scoped>
@@ -51,10 +51,12 @@ onMounted(() => {
   padding: 3px 0 4px 0;
   /* background-color: cornflowerblue; */
 }
+
 .input-zone {
   display: inline-block;
   height: 100%;
 }
+
 .input-zone:focus {
   display: inline-block;
   height: 100%;
