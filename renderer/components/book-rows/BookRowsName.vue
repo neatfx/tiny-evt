@@ -30,6 +30,7 @@ const coverHtml = computed(() => {
 const fileData = ref<File | undefined>()
 const showCover = ref(false)
 const showCoverUploader = ref(false)
+const showConfirmBookDeletion = ref(false)
 
 function ondragover(event: any) {
   event.stopPropagation();
@@ -81,7 +82,7 @@ onUnmounted(() => {
       <!-- 综合菜单(总是显示) -->
       <BookRowsMenuVue :hasCover="cover ? 't' : 'f'" @action-show-cover-uploader="() => {
         showCoverUploader = true
-      }" @action-delete-cover="deleteCover" @action-delete-book="emit('delete-book')"></BookRowsMenuVue>
+      }" @action-delete-cover="deleteCover" @action-delete-book="showConfirmBookDeletion = true"></BookRowsMenuVue>
 
       <!-- 阅读状态 -->
       <BookRowsReadingStatusVue class="reading-status" :readingStatus="readingStatus"
@@ -106,12 +107,21 @@ onUnmounted(() => {
         <div v-if="!fileData" class="drop-zone" @dragover="ondragover" @drop="ondrop">
           <span class="tip">拖放图片至此区域</span>
         </div>
-        <BaseButton v-if="fileData && !cover" class="upload-btn" @click="addCover">确认添加</BaseButton>
-        <BaseButton v-if="!cover && fileData" class="cancel-btn" @click="() => {
+        <BaseButton v-if="fileData && !cover" class="btn-confirm" @click="addCover">确认添加</BaseButton>
+        <BaseButton v-if="!cover && fileData" class="btn-cancel" @click="() => {
           showCoverUploader = false
           fileData = undefined
         }">取消</BaseButton>
         <BaseButton v-if="!fileData" class="btn-hide-cover-uploader" @click="showCoverUploader = false">取消</BaseButton>
+      </div>
+    </Transition>
+
+    <!-- 删除 book 数据二次确认（浮动显示） -->
+    <Transition name="slide-up" mode="out-in">
+      <div v-if="showConfirmBookDeletion" class="pop-cover-uplaoder-wrapper">
+        <BaseButton class="btn-confirm" @click="emit('delete-book')">确认删除
+        </BaseButton>
+        <BaseButton class="btn-cancel" @click="showConfirmBookDeletion = false">取消</BaseButton>
       </div>
     </Transition>
   </div>
@@ -139,9 +149,11 @@ onUnmounted(() => {
 .name {
   /* display: inline-block; */
 }
-.btn-cover-status{
+
+.btn-cover-status {
   background-color: #777;
 }
+
 .pop-cover-wrapper {
   display: inline-block;
   position: fixed;
@@ -190,7 +202,7 @@ onUnmounted(() => {
 
 .btn-hide-cover-uploader,
 .btn-hide-cover-uploader:hover {
-  margin-top: 10px;
+  margin-top: 5px;
   background-color: indianred;
 }
 
@@ -201,14 +213,14 @@ onUnmounted(() => {
   /* border: 1px solid red; */
 }
 
-.upload-btn,
-.upload-btn:hover {
+.btn-confirm,
+.btn-confirm:hover {
   margin-right: 5px;
   background-color: cornflowerblue;
 }
 
-.cancel-btn,
-.cancel-btn:hover {
+.btn-cancel,
+.btn-cancel:hover {
   margin-right: 0;
   background-color: indianred;
 }
