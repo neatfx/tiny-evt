@@ -54,10 +54,12 @@ onMounted(() => {
 
 .input-zone {
   display: inline-block;
+  width: fit-content;
   height: 100%;
 }
 
 .input-zone:focus {
+  width: fit-content;
   display: inline-block;
   height: 100%;
 }
