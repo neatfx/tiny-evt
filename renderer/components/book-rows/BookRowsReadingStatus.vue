@@ -34,14 +34,14 @@ function mark(readingStatus: string) {
 <style scoped>
 .circle-wrapper {
   background-color: #777;
-  border-left: 1px solid #666;
 }
 
 .circle {
+  display: inline-block;
   width: 10px;
   height: 10px;
   border-radius: 50rem;
-  margin: 10px 10px 5px;
+  margin: 10px 10px 4px;
 }
 
 .wanted {
@@ -68,7 +68,7 @@ ul {
 }
 
 li {
-  font-size:small;
+  font-size: small;
   padding: 5px 15px;
 }
 

@@ -123,7 +123,7 @@ onUnmounted(() => {
 }
 
 .reading-status {
-  display: inline-grid;
+  margin-left: 1px;
 }
 
 .name-wrapper {
