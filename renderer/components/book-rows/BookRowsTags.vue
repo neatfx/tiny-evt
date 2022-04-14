@@ -46,11 +46,16 @@ function addTag() {
       </div>
     </li>
   </ul>
-  <!-- <Transition name="slide-up" mode="out-in"> -->
-  <BaseButton v-if="!showInput" @click="showInput = !showInput" class="tag-adder">+</BaseButton>
-  <BaseButton v-else-if="showInput" class="add-btn" @click="addTag">+</BaseButton>
-  <BaseInput v-if="showInput" class="input-zone" v-model="tagInput" />
-  <!-- </Transition> -->
+  <Transition name="slide-up" mode="out-in">
+    <div class="input-wrapper" @mouseleave="() => {
+      showInput = false
+      tagInput = ''
+    }">
+      <BaseInput v-if="showInput" class="input-zone" v-model="tagInput" />
+      <BaseButton v-if="!showInput" @click="showInput = !showInput" class="tag-adder">+</BaseButton>
+      <BaseButton v-else-if="showInput" class="add-btn" @click="addTag">+</BaseButton>
+    </div>
+  </Transition>
 </template>
 
 <style scoped>
@@ -84,7 +89,7 @@ li {
   top: -10px;
   padding: 0px 7px 0px 9px;
   background-color: indianred;
-  border-radius: 30rem 30rem 30rem 30rem;
+  border-radius: 1em;
 }
 
 .cross {
@@ -93,30 +98,44 @@ li {
   transform: rotate(45deg);
 }
 
+.input-wrapper {
+  position: relative;
+}
+
 .input-zone {
+  position: absolute;
   vertical-align: middle;
-  border-radius: 1em;
-  padding: 0 15px;
-  background-color: lightgray;
+  border-radius: 1rem;
+  padding: 7px 0 7px 35px;
+  width: 60px;
+  background-color: #aaa;
 }
 
 .input-zone:focus {
-  padding: 0 15px;
+  width: 60px;
+  border-radius: 1rem;
+  padding: 7px 0 7px 35px;
   vertical-align: middle;
 }
 
 .tag-adder,
 .tag-adder:hover {
-  padding: 5px 11px;
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  padding: 3px 9px;
   background-color: steelblue;
-  border-radius: 50%;
+  border-radius: 1rem;
 }
 
 .add-btn,
 .add-btn:hover {
-  padding: 5px 11px;
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  padding: 3px 9px;
   background-color: steelblue;
-  border-radius: 50%;
+  border-radius: 1rem;
 }
 
 /* Transition */

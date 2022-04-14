@@ -65,9 +65,10 @@ function add() {
   background-color: antiquewhite;
 }
 
-.reset-btn {
+.reset-btn,
+.reset-btn:hover {
   margin: 0 0 0 5px;
-  background-color: lightcoral;
+  background-color: cornflowerblue;
 }
 
 .input-zone {
