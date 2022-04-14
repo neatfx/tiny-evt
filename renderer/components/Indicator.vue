@@ -4,27 +4,14 @@ defineProps(['show'])
 
 <template>
   <Transition name="modal">
-    <div v-if="show" class="wrapper">
-      <div class="roll-icon"></div>
-    </div>
+    <div v-if="show" class="roll-icon"></div>
   </Transition>
 </template>
 
 <style scoped>
-.wrapper {
-  position: fixed;
-  z-index: 9998;
-  top: 7px;
-  left: 30%;
-  margin: 0px;
-  padding: 6px 5px 1px;
-  /* background-color: dimgray; */
-  transition: opacity 0.2s ease;
-}
-
 .roll-icon {
-  width: 10px;
-  height: 10px;
+  width: 6px;
+  height: 6px;
   display: inline-block;
   border: 3px solid grey;
   border-top: 3px solid silver;

@@ -19,6 +19,7 @@ const showAdder = ref(false)
       <div class="left">
         <ViewOptions class="seg" :views="views"></ViewOptions>
         <FilterMenu class="seg" :items="filters"></FilterMenu>
+        <BaseButton class="seg" @click="showAdder = !showAdder">{{ showAdder ? '测试书单' : '书单' }}</BaseButton>
         <BaseButton class="seg" @click="showAdder = !showAdder">{{ showAdder ? '取消' : '添加' }}</BaseButton>
         <Search class="seg"></Search>
       </div>

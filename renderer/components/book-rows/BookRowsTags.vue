@@ -13,7 +13,7 @@ const tagInput = ref('')
 const showInput = ref(false)
 
 function deleteTag(key: number) {
-  const arr: string[] = Array.from(props.categories)
+  const arr: string[] = Array.from(props.categories || [])
   arr.splice(key, 1)
   emit('update-tag:delete', props.rowId, arr)
 }
@@ -23,7 +23,7 @@ function addTag() {
     showInput.value = false
     return
   }
-  const arr: string[] = Array.from(props.categories)
+  const arr: string[] = Array.from(props.categories || [])
   if (!arr.includes(tagInput.value)) {
     arr.push(tagInput.value)
   }

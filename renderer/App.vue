@@ -16,7 +16,10 @@ const store = useBooksStore()
   <div class="app-wrapper">
     <FolderPanel title="MainNav" :isPopMenu="true" class="main-nav">
       <template #header>
-        <BaseButton>导航</BaseButton>
+        <BaseButton>
+          <span v-if="!store.indicator">导航</span>
+          <Indicator v-else-if="store.indicator" :show="store.indicator"></Indicator>
+        </BaseButton>
       </template>
       <template #body>
         <Navbar></Navbar>
@@ -29,9 +32,6 @@ const store = useBooksStore()
         </keep-alive>
       </RouterView>
     </div>
-    <Teleport to="body">
-      <Indicator :show="store.indicator"></Indicator>
-    </Teleport>
   </div>
 </template>
 

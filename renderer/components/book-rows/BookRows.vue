@@ -93,7 +93,7 @@ function openDouban(url: string) {
             }"></EditableText>
             <BookRowsTags v-if="store.view.fields.categories" :categories="categories" :rowId="id"
               @update-tag:add="updateTag" @update-tag:delete="updateTag"></BookRowsTags>
-            <DeleteButton v-if="store.view.control.delete" @click="deleteItem(id)"></DeleteButton>
+            <!-- <DeleteButton v-if="store.view.control.delete" class="btn-delete" @click="deleteItem(id)"></DeleteButton> -->
         </div>
     </template>
   </BaseDataRows>
@@ -123,5 +123,8 @@ function openDouban(url: string) {
 .douban:hover {
   border-radius: 50rem 50rem 50rem 0;
   background-color: limegreen;
+}
+.btn-delete{
+  justify-self: right;
 }
 </style>

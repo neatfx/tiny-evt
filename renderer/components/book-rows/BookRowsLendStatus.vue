@@ -41,13 +41,13 @@ function add() {
 <style scoped>
 .outside {
   display: inline;
-  background-color: coral;
+  background-color: indianred;
   border-radius: 50rem 50rem 50rem 0;
 }
 
 .outside:hover {
   border-radius: 50rem 50rem 50rem 0;
-  background-color: coral;
+  background-color: indianred;
 }
 
 .in,
