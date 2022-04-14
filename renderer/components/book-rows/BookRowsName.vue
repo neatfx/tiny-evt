@@ -92,7 +92,7 @@ onUnmounted(() => {
       <div class="name-wrapper" @mouseover="showCover = true" @mouseleave="showCover = false">
         <EditableText class="name" :rowId="rowId" :text="name || '--no-name--'" :isName="isName"
           @update="(rowId, payload) => { emit('update', rowId, payload) }"></EditableText>
-        <BaseButton v-if="cover" class="btn-cover-status" @click="deleteCover">></BaseButton>
+        <BaseButton v-if="cover" class="btn-cover-status">></BaseButton>
         <!-- 封面（浮动显示） -->
         <div v-if="showCover" class="pop-cover-wrapper">
           <div v-if="showCover" v-html="coverHtml" class="cover-base"></div>
