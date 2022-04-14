@@ -112,8 +112,10 @@ function openDouban(url: string) {
 
 .id {
   text-align: center;
-  padding: 3px 10px 4px;
+  padding: 3px 10px 4px 8px;
   margin: 0 2px;
+  color: #333;
   background-color: slategrey;
+  border-radius: 50rem 50rem 50rem 0;
 }
 </style>
