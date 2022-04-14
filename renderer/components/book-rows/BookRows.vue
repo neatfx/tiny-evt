@@ -3,15 +3,15 @@ import router from '@/router'
 import { useBooksStore } from '@/stores'
 import { ref } from 'vue'
 
-import BaseDataRows from './BaseRows.vue'
-import DeleteButton from '@comps/DeleteButton.vue'
-import ContextMenu from "./BookRowsContextMenu.vue"
 import { vContextMenu, useContextMenu } from '@comps/contextMenu'
-import BookRowsTags from './BookRowsTags.vue'
 import EditableText from '@comps/EditableText.vue'
+import BaseButton from '@comps/BaseButton.vue';
+
+import BaseDataRows from './BaseRows.vue'
 import BookRowsLendStatus from './BookRowsLendStatus.vue'
 import BookRowsName from './BookRowsName.vue'
-import BaseButton from '../BaseButton.vue';
+import BookRowsTags from './BookRowsTags.vue'
+import ContextMenu from "./BookRowsContextMenu.vue"
 
 const props = defineProps(['items'])
 const store = useBooksStore()

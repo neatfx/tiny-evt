@@ -82,6 +82,7 @@ onUnmounted(() => {
       <BookRowsMenuVue :hasCover="cover ? 't' : 'f'" @action-show-cover-uploader="() => {
         showCoverUploader = true
       }" @action-delete-cover="deleteCover" @action-delete-book="emit('delete-book')"></BookRowsMenuVue>
+
       <!-- 阅读状态 -->
       <BookRowsReadingStatusVue class="reading-status" :readingStatus="readingStatus"
         @mark-reading-status="markReadingStatus">
@@ -91,13 +92,14 @@ onUnmounted(() => {
       <div class="name-wrapper" @mouseover="showCover = true" @mouseleave="showCover = false">
         <EditableText class="name" :rowId="rowId" :text="name || '--no-name--'" :isName="isName"
           @update="(rowId, payload) => { emit('update', rowId, payload) }"></EditableText>
+        <BaseButton v-if="cover && !showCover" class="btn-cover-status" @click="deleteCover">></BaseButton>
         <!-- 封面（浮动显示） -->
         <div v-if="showCover" class="pop-cover-wrapper">
           <div v-if="showCover" v-html="coverHtml" class="cover-base"></div>
-          <!-- <BaseButton v-if="showCover && cover" class="delete-btn" @click="deleteCover">删除封面</BaseButton> -->
         </div>
       </div>
     </div>
+
     <!-- 拖放添加封面图片区域（浮动显示） -->
     <Transition name="slide-up" mode="out-in">
       <div v-if="showCoverUploader && !cover" class="pop-cover-uplaoder-wrapper">
@@ -137,7 +139,9 @@ onUnmounted(() => {
 .name {
   /* display: inline-block; */
 }
-
+.btn-cover-status{
+  background-color: #777;
+}
 .pop-cover-wrapper {
   display: inline-block;
   position: fixed;
