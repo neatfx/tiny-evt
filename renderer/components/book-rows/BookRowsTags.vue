@@ -83,7 +83,7 @@ li {
   right: -10px;
   top: -10px;
   padding: 0px 7px 0px 9px;
-  background-color:indianred;
+  background-color: indianred;
   border-radius: 30rem 30rem 30rem 30rem;
 }
 
@@ -105,16 +105,16 @@ li {
 
 .tag-adder,
 .tag-adder:hover {
+  padding: 5px 11px;
   background-color: steelblue;
-  /* border: 1px solid red; */
-    border-radius: 30rem 30rem 30rem 30rem;
+  border-radius: 50%;
 }
 
 .add-btn,
 .add-btn:hover {
-  vertical-align: middle;
+  padding: 5px 11px;
   background-color: steelblue;
-  border-radius: 30rem 30rem 30rem 30rem;
+  border-radius: 50%;
 }
 
 /* Transition */
