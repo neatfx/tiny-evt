@@ -95,11 +95,13 @@ li {
 
 .input-zone {
   vertical-align: middle;
-  /* border: 1px solid red; */
+  border-radius: 1em;
+  padding: 0 15px;
   background-color: lightgray;
 }
 
 .input-zone:focus {
+  padding: 0 15px;
   vertical-align: middle;
 }
 

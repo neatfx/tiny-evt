@@ -176,7 +176,7 @@ onUnmounted(() => {
 
 .pop-cover-uplaoder-wrapper {
   position: fixed;
-  padding: 10px;
+  padding: 5px;
   background-color: gray;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
 }

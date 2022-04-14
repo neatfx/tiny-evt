@@ -42,7 +42,9 @@ const computedMenu = computed(() => {
 </template>
 
 <style scoped>
-.btn-actions,
+.btn-actions{
+   background-color: #777; 
+}
 .btn-actions:hover {
   background-color: #777;
 }
@@ -56,7 +58,8 @@ ul {
 
 li {
   font-size: small;
-  padding: 5px 15px;
+  padding: 4px 15px 5px;
+  /* border-color: #777; */
 }
 
 li:hover {
