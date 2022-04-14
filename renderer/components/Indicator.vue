@@ -5,7 +5,7 @@ defineProps(['show'])
 <template>
   <Transition name="modal">
     <div v-if="show" class="wrapper">
-      <div class="roll-icon">加载中...</div>
+      <div class="roll-icon"></div>
     </div>
   </Transition>
 </template>
@@ -17,14 +17,19 @@ defineProps(['show'])
   top: 7px;
   left: 30%;
   margin: 0px;
-  padding: 3px 10px;
-  background-color: dimgray;
-  box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
+  padding: 6px 5px 1px;
+  /* background-color: dimgray; */
   transition: opacity 0.2s ease;
 }
 
 .roll-icon {
-  padding: 1px 10px;
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  border: 3px solid grey;
+  border-top: 3px solid silver;
+  border-radius: 50%;
+  animation: changeDeg 0.5s linear 0.2s infinite;
 }
 
 /*
@@ -47,5 +52,19 @@ defineProps(['show'])
 .modal-enter-from .modal-container,
 .modal-leave-to .modal-container {
   transform: translateX(20px);
+}
+
+@keyframes changeDeg {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(180deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>
