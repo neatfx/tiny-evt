@@ -23,7 +23,6 @@ const emit = defineEmits<{
         <li v-if="!hasCover" @click="emit('action-show-cover-uploader')">添加封面</li>
         <li v-if="hasCover" @click="emit('action-delete-cover')">移除封面</li>
         <li @click="emit('action-add-note')">添加借书备注...</li>
-        <li @click="emit('action-add-to-collection')">加入书单...</li>
         <li @click="emit('action-delete-book')">删除书籍</li>
       </ul>
     </template>
