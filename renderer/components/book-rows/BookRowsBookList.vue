@@ -13,24 +13,39 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <FolderPanel :is-pop-menu="true" position="right">
+  <FolderPanel :is-inline-panel="true" position="right">
     <template #header>
-      <BaseButton class="btn-actions">{{ hasCover? '#' : '+' }}</BaseButton>
+      <BaseButton class="btn-actions">#</BaseButton>
     </template>
     <template #body>
       <ul>
-        <!-- <li @click="emit('action-show-more')">显示更多数据...</li> -->
-        <li v-if="!hasCover" @click="emit('action-show-cover-uploader')">添加封面</li>
-        <li v-if="hasCover" @click="emit('action-delete-cover')">移除封面</li>
-        <li @click="emit('action-add-note')">添加借书备注...</li>
-        <li @click="emit('action-add-to-collection')">加入书单...</li>
-        <li @click="emit('action-delete-book')">删除书籍</li>
+        <li @click="emit('')"><span class="mark-select"></span>2021年度最佳非虚构作品</li>
+        <li @click="emit('action-remove-from-booklist')"><span class="mark-select"></span>科幻经典</li>
+        <li @click="emit('')"><span class="mark-select"></span>Rust 编程语言系列</li>
       </ul>
+      <div class="lists">
+        <BaseButton class="btn-actions">添加至书单</BaseButton>
+        <BaseButton class="btn-actions">创建书单并添加</BaseButton>
+      </div>
     </template>
   </FolderPanel>
 </template>
 
 <style scoped>
+.mark-select {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin: 0 10px 0 0;
+  background-color: chartreuse;
+}
+.lists{
+  display: grid;
+  grid-template-columns: auto;
+  grid-auto-flow: column;
+  gap: 5px;
+  padding: 5px;
+}
 .btn-actions {
   background-color: #777;
 }

@@ -7,6 +7,7 @@ import BaseButton from '@comps/BaseButton.vue';
 
 import BookRowsReadingStatusVue from './BookRowsReadingStatus.vue';
 import BookRowsMenuVue from './BookRowsMenu.vue';
+import BookRowsBookList from './BookRowsBookList.vue'
 
 const props = defineProps(['rowId', 'name', 'isName', 'cover', 'readingStatus'])
 const emit = defineEmits<{
@@ -31,6 +32,7 @@ const fileData = ref<File | undefined>()
 const showCover = ref(false)
 const showCoverUploader = ref(false)
 const showConfirmBookDeletion = ref(false)
+const showBooklist = ref(false)
 
 function ondragover(event: any) {
   event.stopPropagation();
@@ -93,12 +95,13 @@ onUnmounted(() => {
       <div class="name-wrapper" @mouseover="showCover = true" @mouseleave="showCover = false">
         <EditableText class="name" :rowId="rowId" :text="name || '--no-name--'" :isName="isName"
           @update="(rowId, payload) => { emit('update', rowId, payload) }"></EditableText>
-        <BaseButton v-if="cover" class="btn-cover-status">></BaseButton>
         <!-- 封面（浮动显示） -->
         <div v-if="showCover" class="pop-cover-wrapper">
           <div v-if="showCover" v-html="coverHtml" class="cover-base"></div>
         </div>
       </div>
+      <!-- 书单 -->
+      <BookRowsBookList @click="showBooklist = !showBooklist"></BookRowsBookList>
     </div>
 
     <!-- 拖放添加封面图片区域（浮动显示） -->
@@ -151,6 +154,12 @@ onUnmounted(() => {
 }
 
 .btn-cover-status {
+  background-color: #777;
+}
+
+.btn-booklist-status,
+.btn-booklist-status:hover {
+  margin-left: 1px;
   background-color: #777;
 }
 
@@ -222,7 +231,7 @@ onUnmounted(() => {
 .btn-cancel,
 .btn-cancel:hover {
   margin-right: 0;
-  background-color:goldenrod;
+  background-color: goldenrod;
 }
 
 /* Transition */
