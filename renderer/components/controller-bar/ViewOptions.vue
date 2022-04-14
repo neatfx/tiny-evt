@@ -18,7 +18,7 @@ function switchView(key: string, value: any) {
 <template>
   <FolderPanel :isInlinePanel="true">
     <template #header>
-      <BaseButton>视图</BaseButton>
+      <BaseButton class="btn">视图</BaseButton>
     </template>
     <template #body>
       <div class="wrapper">
@@ -37,6 +37,9 @@ function switchView(key: string, value: any) {
 </template>
 
 <style scoped>
+.btn{
+  border-radius: 1em 0 0 0;
+}
 .wrapper {
   padding: 10px 10px 15px 15px;
 }
