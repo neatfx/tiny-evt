@@ -16,7 +16,7 @@ const store = useBooksStore()
   <div class="app-wrapper">
     <FolderPanel title="MainNav" :isPopMenu="true" class="main-nav">
       <template #header>
-        <BaseButton>
+        <BaseButton class="btn-main-nav">
           <span v-if="!store.indicator">导航</span>
           <Indicator v-else-if="store.indicator" :show="store.indicator"></Indicator>
         </BaseButton>
@@ -41,6 +41,10 @@ const store = useBooksStore()
 .main-nav {
   position: fixed;
   margin: 7px 0 0 5px;
+
+}
+.btn-main-nav{
+  border-radius: 50rem 50rem 50rem 0;
 }
 
 .app-wrapper {
