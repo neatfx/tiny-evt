@@ -66,7 +66,7 @@ ul {
 li {
   background-color: cadetblue;
   margin-right: 6px;
-  border-radius: 20rem 20rem 20rem 20rem;
+  border-radius: 50rem 50rem 50rem 50rem;
 }
 
 .tag-wrapper {
