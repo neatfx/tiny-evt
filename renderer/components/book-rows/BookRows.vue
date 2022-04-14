@@ -77,7 +77,8 @@ function openDouban(url: string) {
               :readingStatus="readingStatus" @update="(rowId, payload) => {
                 currentUpdateField = 'name'
                 updateField(rowId, payload)
-              }" @update-cover="updateCover" @mark-reading-status="markReadingStatus"></BookRowsName>
+              }" @update-cover="updateCover" @mark-reading-status="markReadingStatus"
+              @delete-book="deleteItem(id)"></BookRowsName>
             <BaseButton v-if="douban" class="douban" @click="openDouban(douban)">豆</BaseButton>
             <EditableText v-if="store.view.fields.author" :rowId="id" :text="author || '-- 作者 --'" @update="(rowId, payload) => {
               currentUpdateField = 'author'
@@ -93,7 +94,6 @@ function openDouban(url: string) {
             }"></EditableText>
             <BookRowsTags v-if="store.view.fields.categories" :categories="categories" :rowId="id"
               @update-tag:add="updateTag" @update-tag:delete="updateTag"></BookRowsTags>
-            <!-- <DeleteButton v-if="store.view.control.delete" class="btn-delete" @click="deleteItem(id)"></DeleteButton> -->
         </div>
     </template>
   </BaseDataRows>

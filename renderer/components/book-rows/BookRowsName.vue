@@ -1,16 +1,19 @@
 <script setup lang="ts">
 import { computed, ref } from '@vue/reactivity';
 import { onMounted, onUnmounted } from 'vue';
+
 import EditableText from '@comps/EditableText.vue'
 import BaseButton from '@comps/BaseButton.vue';
+
 import BookRowsReadingStatusVue from './BookRowsReadingStatus.vue';
 import BookRowsMenuVue from './BookRowsMenu.vue';
 
 const props = defineProps(['rowId', 'name', 'isName', 'cover', 'readingStatus'])
 const emit = defineEmits<{
+  (event: 'mark-reading-status', rowId: number, readingStatus: string): void
   (event: 'update-cover', rowId: number, cover: File | undefined): void
   (event: 'update', rowId: number, payload: string): void
-  (event: 'mark-reading-status', rowId: number, readingStatus: string): void
+  (event: 'delete-book'): void
 }>()
 const blobUrls: string[] = []
 const coverHtml = computed(() => {
@@ -56,13 +59,15 @@ async function deleteCover() {
   }
 }
 
-async function markReadingStatus(rowId: number, readingStatus: string) {
+function markReadingStatus(readingStatus: string) {
   emit('mark-reading-status', props.rowId, readingStatus)
 }
 
 onMounted(() => {
   fileData.value = props.cover
 })
+
+// TDOO: 清理内存，是否必要 ？
 onUnmounted(() => {
   blobUrls.map((v, k) => {
     URL.revokeObjectURL(v)
@@ -76,8 +81,7 @@ onUnmounted(() => {
       <!-- 综合菜单(总是显示) -->
       <BookRowsMenuVue :hasCover="cover ? 't' : 'f'" @action-show-cover-uploader="() => {
         showCoverUploader = true
-        // fileData = undefined
-      }"></BookRowsMenuVue>
+      }" @action-delete-cover="deleteCover" @action-delete-book="emit('delete-book')"></BookRowsMenuVue>
       <!-- 阅读状态 -->
       <BookRowsReadingStatusVue class="reading-status" :readingStatus="readingStatus"
         @mark-reading-status="markReadingStatus">

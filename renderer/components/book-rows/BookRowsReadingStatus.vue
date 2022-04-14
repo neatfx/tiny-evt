@@ -3,7 +3,7 @@ import FolderPanel from '@comps/FolderPanel.vue';
 
 const props = defineProps(['rowId', 'readingStatus']);
 const emit = defineEmits<{
-  (e: 'mark-reading-status', rowId: number, readingStatus: string): Promise<void>
+  (e: 'mark-reading-status', readingStatus: string): void
 }>()
 const menuData = new Map<string, string>()
 menuData.set('想读', 'wanted')
@@ -12,7 +12,7 @@ menuData.set('在读', 'reading')
 menuData.set('已读', 'read')
 
 function mark(readingStatus: string) {
-  emit('mark-reading-status', props.rowId, readingStatus)
+  emit('mark-reading-status', readingStatus)
 }
 </script>
 
