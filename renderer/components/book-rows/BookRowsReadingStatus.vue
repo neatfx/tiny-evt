@@ -31,10 +31,10 @@ function mark(readingStatus: string) {
 
 <style scoped>
 .circle {
-  width: 15px;
-  height: 15px;
+  width: 10px;
+  height: 10px;
   border-radius: 50rem;
-  margin:auto 5px auto 0;
+  margin:auto 5px;
 }
 
 .wanted {
