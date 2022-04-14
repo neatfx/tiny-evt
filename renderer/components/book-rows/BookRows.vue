@@ -118,8 +118,10 @@ function openDouban(url: string) {
   background-color: slategrey;
   border-radius: 50rem 50rem 50rem 0;
 }
-.douban{
-    border-radius: 50rem 50rem 50rem 0;
-    background-color:limegreen;
+
+.douban,
+.douban:hover {
+  border-radius: 50rem 50rem 50rem 0;
+  background-color: limegreen;
 }
 </style>
