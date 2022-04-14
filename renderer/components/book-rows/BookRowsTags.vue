@@ -46,16 +46,18 @@ function addTag() {
       </div>
     </li>
   </ul>
-  <Transition name="slide-up" mode="out-in">
-    <div class="input-wrapper" @mouseleave="() => {
-      showInput = false
-      tagInput = ''
-    }">
+
+  <div class="input-wrapper" @mouseleave="() => {
+    showInput = false
+    tagInput = ''
+  }">
+    <Transition name="slide-up" mode="out-in">
       <BaseInput v-if="showInput" class="input-zone" v-model="tagInput" />
-      <BaseButton v-if="!showInput" @click="showInput = !showInput" class="tag-adder">+</BaseButton>
-      <BaseButton v-else-if="showInput" class="add-btn" @click="addTag">+</BaseButton>
-    </div>
-  </Transition>
+    </Transition>
+    <BaseButton v-if="!showInput" @click="showInput = !showInput" class="tag-adder">+</BaseButton>
+    <BaseButton v-else-if="showInput" class="add-btn" @click="addTag">+</BaseButton>
+  </div>
+
 </template>
 
 <style scoped>
