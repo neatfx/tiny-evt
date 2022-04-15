@@ -86,8 +86,8 @@ async function addBooklist() {
     </label>
     <!-- 书籍 - 模式切换 -->
     <BaseButton v-if="!createBookList" class="btn-mode" @click="fullMode = !fullMode">{{
-      fullMode ? '书籍录入模式 > 标准' :
-        '书籍录入模式 > 快速'
+      fullMode ? '录入模式 > 标准' :
+        '录入模式 > 快速'
     }}
     </BaseButton>
     <!-- 书籍 - 快速模式 -->
@@ -132,11 +132,11 @@ async function addBooklist() {
     </div>
     <!-- 提交保存 -->
     <div v-if="!createBookList" class="submit">
-      <BaseButton class="btn-submit" @click="addItem">添加书籍至数据库</BaseButton>
+      <BaseButton class="btn-submit" @click="addItem">添加书籍</BaseButton>
     </div>
 
     <div v-if="createBookList" class="submit">
-      <BaseButton class="btn-submit" @click="addBooklist">添加书单至数据库</BaseButton>
+      <BaseButton class="btn-submit" @click="addBooklist">添加书单</BaseButton>
     </div>
   </div>
 </template>
