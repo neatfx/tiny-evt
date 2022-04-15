@@ -4,6 +4,7 @@ import { ref } from 'vue';
 import ViewOptions from './ViewOptions.vue'
 import FilterMenu from './FilterMenu.vue'
 import FilterTags from "./FilterTags.vue"
+import BookList from './BookList.vue'
 import Search from "./Search.vue";
 import Pagination from "../Pagination.vue";
 import Adder from './Adder.vue'
@@ -19,8 +20,8 @@ const showAdder = ref(false)
       <div class="left">
         <ViewOptions class="seg" :views="views"></ViewOptions>
         <FilterMenu class="seg" :items="filters"></FilterMenu>
-        <BaseButton class="seg" @click="showAdder = !showAdder">{{ showAdder ? '测试书单' : '书单' }}</BaseButton>
-        <BaseButton class="seg" @click="showAdder = !showAdder">{{ showAdder ? '取消' : '添加' }}</BaseButton>
+        <BookList class="seg"></BookList>
+        <BaseButton class="seg" @click="showAdder = !showAdder">{{ showAdder ? '^' : '+' }}</BaseButton>
         <Search class="seg"></Search>
       </div>
       <div class="right">
