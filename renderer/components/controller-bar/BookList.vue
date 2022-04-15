@@ -49,37 +49,43 @@ onMounted(async () => {
       <BaseButton class="btn-actions"><span>{{ '书单 ' + booklistStore.total }}</span></BaseButton>
     </template>
     <template #body>
-      <!-- 当前书单 -->
-      <div class="cur-list" @click="unselectBooklist">
-        <span v-if="curBooklist.name" class="currIndicator"></span>
-        {{ curBooklist.name || '未选择书单' }}
+      <div class="wrapper">
+        <!-- 当前书单 -->
+        <div class="cur-list" @click="unselectBooklist">
+          <span v-if="curBooklist.name" class="currIndicator"></span>
+          {{ curBooklist.name || '尚未选择任何书单' }}
+        </div>
+        <!-- 动态列表 -->
+        <ul class="all-list">
+          <li v-if="true" v-for="(v, k) in booklistStore.items" key="k" @mouseenter="() => currId = k"
+            @mouseleave="() => currId = 1000">
+            <div class="booklist-wrapper" @click="selectBooklist(k, v)">
+              <span class="list-books-count">{{ '共 ' + v?.books?.size + ' 本' }}</span>
+              <span class="list-name">{{ v?.name }}</span>
+            </div>
+            <div v-if="currId === k && !confirmDelete" class="btn-confirm-delete" @click="confirmDelete = true">
+              <span class="cross"></span>
+            </div>
+            <div v-if="currId === k && confirmDelete" class="confirm-wrapper">
+              <div class="btn-delete" @click="deleteBooklist(v?.id)">
+                删除
+              </div>
+              <div class="btn-cancel" @click="confirmDelete = false">
+                取消
+              </div>
+            </div>
+          </li>
+        </ul>
       </div>
-      <!-- 动态列表 -->
-      <ul class="all-list">
-        <li v-if="true" v-for="(v, k) in booklistStore.items" key="k" @mouseenter="() => currId = k"
-          @mouseleave="() => currId = 1000">
-          <div class="booklist-wrapper" @click="selectBooklist(k, v)">
-            <span class="list-books-count">{{ '共 ' + v?.books?.size + ' 本' }}</span>
-            <span class="list-name">{{ v?.name }}</span>
-          </div>
-          <div v-if="currId === k && !confirmDelete" class="btn-confirm-delete" @click="confirmDelete = true">
-            <span class="cross"></span>
-          </div>
-          <div v-if="currId === k && confirmDelete" class="confirm-wrapper">
-            <div class="btn-delete" @click="deleteBooklist(v?.id)">
-              删除
-            </div>
-            <div class="btn-cancel" @click="confirmDelete = false">
-              取消
-            </div>
-          </div>
-        </li>
-      </ul>
     </template>
   </FolderPanel>
 </template>
 
 <style scoped>
+.wrapper {
+  padding: 5px;
+}
+
 ul {
   font-size: 15px;
   list-style: none;
@@ -95,14 +101,15 @@ li {
 }
 
 li:hover {
-  background-color: grey;
+  background-color: dimgray;
 }
 
 
 .cur-list {
-  border-bottom: 2px solid dimgray;
   padding: 2px 10px;
   font-size: small;
+  margin-bottom: 5px;
+  background-color: #777;
 }
 
 .currIndicator {
