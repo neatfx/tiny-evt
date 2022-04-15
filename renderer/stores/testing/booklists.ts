@@ -28,6 +28,7 @@ export const useBooklistStore = defineStore('booklists', {
       const {name, books, shared} = booklist
       console.log(name,books,shared)
       await TestingDB.booklists.add(new Booklist(name))
+      await this.list()
     },
     async update(key: number, mod: any) {
       console.log(key, mod)
@@ -38,6 +39,7 @@ export const useBooklistStore = defineStore('booklists', {
     },
     async delete(key: number) {
       await TestingDB.booklists.delete(key)
+      await this.list()
     },
     async filter(filter: Map<string, Set<string>>) {
       // console.log(filter)

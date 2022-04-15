@@ -27,7 +27,9 @@ function selectBooklist(listID: number, list: any) {
 
 function deleteBooklist(booklistId: number) {
   console.log('删除书单 ', booklistId)
-  emit('booklist:delete')
+  booklistStore.delete(booklistId)
+  confirmDelete.value = false
+  // emit('booklist:delete')
 }
 
 function unselectBooklist() {
@@ -63,7 +65,7 @@ onMounted(() => {
             <span class="cross"></span>
           </div>
           <div v-if="currId === k && confirmDelete" class="confirm-wrapper">
-            <div class="btn-delete" @click="deleteBooklist(k)">
+            <div class="btn-delete" @click="deleteBooklist(v?.id)">
               删除
             </div>
             <div class="btn-cancel" @click="confirmDelete = false">
