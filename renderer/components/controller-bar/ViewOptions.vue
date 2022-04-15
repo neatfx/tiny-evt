@@ -18,7 +18,7 @@ function switchView(key: string, value: any) {
 <template>
   <FolderPanel :isInlinePanel="true">
     <template #header>
-      <BaseButton class="btn btn-view-opt">视图</BaseButton>
+      <BaseButton class="btn-view-opt">视图</BaseButton>
     </template>
     <template #body>
       <div class="wrapper">
@@ -37,11 +37,13 @@ function switchView(key: string, value: any) {
 </template>
 
 <style scoped>
-.btn-view-opt{
+.btn-view-opt {
   border-radius: 1rem 0 0 0;
 }
+
 .wrapper {
   padding: 10px 10px 15px 15px;
+  font-size: small;
 }
 
 .view-type {
@@ -63,9 +65,16 @@ li {
   border: 1px solid d;
   padding: 2px;
 }
-.btn:hover{
+
+.btn {
+  font-size: small;
+  padding: 3px 10px;
+}
+
+.btn:hover {
   background-color: dimgray;
 }
+
 .on {
   background-color: greenyellow;
 }

@@ -58,7 +58,7 @@ onMounted(() => {
         <li v-if="true" v-for="(v, k) in booklistStore.items" key="k" @mouseenter="() => currId = k"
           @mouseleave="() => currId = 1000">
           <div class="booklist-wrapper" @click="selectBooklist(k, v)">
-            <span class="list-books-count">{{ v?.books?.length + ' 本' }}</span>
+            <span class="list-books-count">{{ '共 ' + v?.books?.length + ' 本' }}</span>
             <span class="list-name">{{ v?.name }}</span>
           </div>
           <div v-if="currId === k && !confirmDelete" class="btn-confirm-delete" @click="confirmDelete = true">
@@ -101,6 +101,7 @@ li:hover {
 .cur-list {
   border-bottom: 2px solid dimgray;
   padding: 2px 10px;
+  font-size: small;
 }
 
 .currIndicator {

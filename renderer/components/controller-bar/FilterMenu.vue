@@ -78,6 +78,7 @@ ul {
 li {
   padding: 5px 15px;
   background-color: grey;
+    font-size: small;
 }
 
 li:hover {
