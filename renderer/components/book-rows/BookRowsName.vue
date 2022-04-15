@@ -81,7 +81,7 @@ onUnmounted(() => {
 <template>
   <div class="wrapper">
     <div class="inner-wrapper">
-      <!-- 综合菜单(总是显示) -->
+      <!-- 操作菜单 -->
       <BookRowsMenuVue :hasCover="cover" @action-show-cover-uploader="() => {
         showCoverUploader = true
       }" @action-delete-cover="deleteCover" @action-delete-book="showConfirmBookDeletion = true"></BookRowsMenuVue>
@@ -90,6 +90,9 @@ onUnmounted(() => {
       <BookRowsReadingStatusVue class="reading-status" :readingStatus="readingStatus"
         @mark-reading-status="markReadingStatus">
       </BookRowsReadingStatusVue>
+
+      <!-- 书单 -->
+      <BookRowsBookList @click="showBooklist = !showBooklist"></BookRowsBookList>
 
       <!-- 书名 -->
       <div class="name-wrapper" @mouseover="showCover = true" @mouseleave="showCover = false">
@@ -100,8 +103,6 @@ onUnmounted(() => {
           <div v-if="showCover" v-html="coverHtml" class="cover-base"></div>
         </div>
       </div>
-      <!-- 书单 -->
-      <BookRowsBookList @click="showBooklist = !showBooklist"></BookRowsBookList>
     </div>
 
     <!-- 拖放添加封面图片区域（浮动显示） -->
@@ -142,7 +143,7 @@ onUnmounted(() => {
 }
 
 .reading-status {
-  margin-left: 1px;
+  margin: 0 1px;
 }
 
 .name-wrapper {
