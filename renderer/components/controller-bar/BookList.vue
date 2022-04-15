@@ -1,15 +1,32 @@
 <script setup lang="ts">
 import BaseButton from '@comps/BaseButton.vue';
 import FolderPanel from '@comps/FolderPanel.vue';
+import { reactive, ref } from 'vue';
 
 const props = defineProps(['hasCover']);
 const emit = defineEmits<{
-  (e: 'action-show-cover-uploader'): Promise<void>
-  (e: 'action-delete-cover'): Promise<void>
-  (e: 'action-add-note'): Promise<void>
-  (e: 'action-add-to-collection'): Promise<void>
-  (e: 'action-delete-book'): Promise<void>
+  (e: 'booklist:select'): Promise<void>
+  (e: 'booklist:delete'): Promise<void>
 }>()
+const curBooklist = reactive({
+  id: 0,
+  name: ''
+})
+
+function selectBooklist(listID: number, name: string) {
+  console.log(listID, name)
+  // 设置选定书单置顶显示
+  curBooklist.id = listID
+  curBooklist.name = name
+  // emit('booklist:select')
+}
+
+function deleteBooklist() {
+  // console.log('ss')
+  curBooklist.id = 0
+  curBooklist.name = ''
+  emit('booklist:delete')
+}
 </script>
 
 <template>
@@ -18,17 +35,20 @@ const emit = defineEmits<{
       <BaseButton class="btn-actions"><span>书单</span></BaseButton>
     </template>
     <template #body>
-      <ul>
-        <li @click="emit('action-show-more')">显示更多数据...</li>
-        <li v-if="!hasCover" @click="emit('booklist:select')">
-          <span>添加封面</span>
-          <div class="btn-delete" @click="deleteList(key)">
+      <!-- 当前书单 -->
+      <ul v-if="curBooklist.name" class="cur-list">
+        <li @click="">{{ curBooklist.name }}</li>
+      </ul>
+      <!-- 动态列表 -->
+      <ul class="all-list">
+        <li @click="">书单-1</li>
+        <li v-if="!hasCover">
+          <span @click="selectBooklist(2, '书单-2')">书单-2</span>
+          <div class="btn-delete" @click="deleteBooklist">
             <span class="cross"></span>
           </div>
         </li>
-        <li v-if="hasCover" @click="emit('action-delete-cover')">移除封面</li>
-        <li @click="emit('action-add-note')">添加借书备注...</li>
-        <li @click="emit('action-delete-book')">删除书籍</li>
+        <li @click="">书单-3</li>
       </ul>
     </template>
   </FolderPanel>
@@ -52,7 +72,9 @@ li:hover {
   background-color: lightgrey;
   cursor: default;
 }
-
+.cur-list{
+  border-bottom: 2px solid dimgray;
+}
 .btn-delete {
   display: inline-block;
   position: relative;
