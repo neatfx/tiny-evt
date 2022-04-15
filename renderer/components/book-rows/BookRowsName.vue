@@ -9,7 +9,7 @@ import BookRowsReadingStatusVue from './BookRowsReadingStatus.vue';
 import BookRowsMenuVue from './BookRowsMenu.vue';
 import BookRowsBookList from './BookRowsBookList.vue'
 
-const props = defineProps(['rowId', 'name', 'isName', 'cover', 'readingStatus'])
+const props = defineProps(['rowId', 'name', 'isName', 'cover', 'readingStatus', 'booklists'])
 const emit = defineEmits<{
   (event: 'mark-reading-status', rowId: number, readingStatus: string): void
   (event: 'update-cover', rowId: number, cover: File | undefined): void
@@ -92,7 +92,7 @@ onUnmounted(() => {
       </BookRowsReadingStatusVue>
 
       <!-- 书单 -->
-      <BookRowsBookList @click="showBooklist = !showBooklist"></BookRowsBookList>
+      <BookRowsBookList :bookId="rowId" :booklists="booklists" @click="showBooklist = !showBooklist"></BookRowsBookList>
 
       <!-- 书名 -->
       <div @mouseover="showCover = true" @mouseleave="showCover = false">

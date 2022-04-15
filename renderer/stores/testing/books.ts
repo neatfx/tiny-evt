@@ -147,6 +147,29 @@ export const useBooksStore = defineStore('books', {
     },
     async toggleIndicator(show: boolean) {
       this.indicator = show
+    },
+    // 添加书籍到书单
+    async addBooklistIdToBook(bookId: number, booklistId: number) {
+      const book = await TestingDB.books.get(bookId)
+      if (book){
+        if(book.booklists === undefined) book.booklists = []
+
+        book.booklists.push(booklistId)
+        await TestingDB.books.put(book)
+      }
+    },
+    async addBookIdToBooklist(bookId: number, booklistId: number){
+
+    },
+    async addToBooklist(bookId: number, booklistId: number) {
+      console.log('db - ', bookId, booklistId)
+
+      TestingDB.transaction('rw', TestingDB.books, TestingDB.booklists, async () => {
+        await Promise.all([
+          this.addBooklistIdToBook(bookId, booklistId),
+          // this.addBookIdToBooklist()
+        ]);
+      });
     }
   },
 })

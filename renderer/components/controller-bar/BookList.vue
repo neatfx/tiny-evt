@@ -37,15 +37,16 @@ function unselectBooklist() {
   curBooklist.name = ''
 }
 
-onMounted(() => {
-  booklistStore.list()
+onMounted(async () => {
+  await booklistStore.list()
+  await booklistStore.count()
 })
 </script>
 
 <template>
   <FolderPanel :is-inline-panel="true">
     <template #header>
-      <BaseButton class="btn-actions"><span>书单</span></BaseButton>
+      <BaseButton class="btn-actions"><span>{{ '书单 ' + booklistStore.total }}</span></BaseButton>
     </template>
     <template #body>
       <!-- 当前书单 -->

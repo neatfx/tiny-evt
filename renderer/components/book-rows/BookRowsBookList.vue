@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import BaseButton from '@comps/BaseButton.vue';
 import FolderPanel from '@comps/FolderPanel.vue';
+import { useBooksStore, useBooklistStore } from '@stores/index'
+import { onMounted } from 'vue';
 
-const props = defineProps(['hasCover']);
+const props = defineProps(['bookId', 'booklists']);
 const emit = defineEmits<{
   (e: 'action-show-cover-uploader'): Promise<void>
   (e: 'action-delete-cover'): Promise<void>
@@ -10,6 +12,16 @@ const emit = defineEmits<{
   (e: 'action-add-to-collection'): Promise<void>
   (e: 'action-delete-book'): Promise<void>
 }>()
+const booksStore = useBooksStore()
+const booklistsStore = useBooklistStore()
+
+// 暂无批量更新
+function addBookToBooklist(booklistId: number) {
+  booksStore.addToBooklist(props.bookId, booklistId)
+}
+onMounted(() => {
+  booklistsStore.list()
+})
 </script>
 
 <template>
@@ -18,40 +30,60 @@ const emit = defineEmits<{
       <BaseButton class="btn-actions">#</BaseButton>
     </template>
     <template #body>
-      <ul>
-        <li @click="emit('')"><span class="mark-select"></span>2021年度最佳非虚构作品</li>
-        <li @click="emit('action-remove-from-booklist')"><span class="mark-select"></span>科幻经典</li>
-        <li @click="emit('')"><span class="mark-select"></span>Rust 编程语言系列</li>
-      </ul>
-             <BaseButton class="btn-actions">确认更新（从取消勾选的书单中移除）</BaseButton>
-      <div class="lists">
-        <BaseButton class="btn-actions">添加至书单 ></BaseButton>
+      <div class="wrapper">
+        <ul class="curr-booklists">
+          <li v-if="!props.booklists">尚未加入任何书单</li>
+          <li v-for="(v, k) in booklists" @click="">
+            <span class="mark-select"></span>
+            {{ v }}
+          </li>
+        </ul>
+        <ul>
+          <li v-for="(v, k) in booklistsStore.items" @click="addBookToBooklist(k)">
+            <span class="mark-select mark-select-unselected"></span>
+            {{ v?.name }}
+          </li>
+        </ul>
       </div>
     </template>
   </FolderPanel>
 </template>
 
 <style scoped>
+.wrapper {
+  padding: 5px;
+}
+
+.curr-booklists {
+  margin: 0 0 5px 0;
+}
+
 .mark-select {
   display: inline-block;
   width: 10px;
   height: 10px;
-  margin: 0 10px 0 0;
+  margin: 0 5px 0 0;
   background-color: chartreuse;
 }
-.lists{
-  display: grid;
-  grid-template-columns: auto;
-  grid-auto-flow: column;
-  gap: 5px;
-  padding: 5px;
+
+.mark-select-unselected {
+  background-color: darkgrey;
 }
+
 .btn-actions {
   background-color: #777;
 }
 
 .btn-actions:hover {
   background-color: #777;
+}
+
+.btn-confirm {
+  margin: 5px 0 0;
+}
+
+.btn-confirm:hover {
+  background-color: cornflowerblue;
 }
 
 ul {
@@ -63,13 +95,12 @@ ul {
 
 li {
   font-size: small;
-  padding: 4px 15px 5px;
-  /* border-color: #777; */
+  padding: 5px 10px 5px;
   background-color: #777;
 }
 
 li:hover {
-  background-color: #777;
+  background-color: dimgrey;
   cursor: default;
 }
 </style>

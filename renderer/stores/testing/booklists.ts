@@ -34,43 +34,9 @@ export const useBooklistStore = defineStore('booklists', {
       console.log(key, mod)
       await TestingDB.booklists.update(key, mod)
     },
-    async updateTest(key: number, change: any) {
-      await TestingDB.booklists.update(key, change)
-    },
     async delete(key: number) {
       await TestingDB.booklists.delete(key)
       await this.list()
-    },
-    async filter(filter: Map<string, Set<string>>) {
-      // console.log(filter)
-
-      const filterArr: any[] = []
-
-      filter.forEach((filterParams, fieldName) => {
-        if (fieldName !== 'lend') {
-          filterArr.push(
-            TestingDB.booklists
-              .where(fieldName)
-              .anyOf(Array.from(filterParams))
-              .primaryKeys()
-          )
-        }
-      })
-
-      if (filterArr.length === 0) filterArr.push(
-        // TestingDB.booklists.orderBy('name').primaryKeys()
-      )
-
-      const results = await Promise.all(filterArr);
-      const intersection = results.reduce((ids1: number[], ids2: number[]) => {
-        const set = new Set(ids1);
-        return ids2.filter(id => set.has(id));
-      });
-
-      total.value = intersection.length;
-      this.items = await TestingDB.booklists.bulkGet(intersection.splice(offset.value, limit.value))
-
-      // await toggleIndicator(false)
     },
     async fetchPagedRows() {
       await this.count()

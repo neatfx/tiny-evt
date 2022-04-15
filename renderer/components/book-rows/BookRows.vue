@@ -68,13 +68,13 @@ function openDouban(url: string) {
 
 <template>
   <BaseDataRows :items="props.items">
-    <template #item="{ id, name, author, categories, publishing, published, cover, lend, readingStatus, douban }">
+    <template #item="{ id, name, author, categories, publishing, published, cover, lend, readingStatus, douban, booklists }">
       <div class="row" v-context-menu="id">
         <div v-if="store.view.fields.id" class="id">{{ (id < 9) ? ('0' + id) : id }}</div>
             <BookRowsLendStatus v-if="store.view.fields.lend" :lend="lend" :rowId="id" @update-lend:reset="updateLend"
               @update-lend:add="updateLend"></BookRowsLendStatus>
             <BookRowsName v-if="store.view.fields.name" :cover="cover" :rowId="id" :name="name" :isName="() => true"
-              :readingStatus="readingStatus" @update="(rowId, payload) => {
+              :readingStatus="readingStatus" :booklists="booklists" @update="(rowId, payload) => {
                 currentUpdateField = 'name'
                 updateField(rowId, payload)
               }" @update-cover="updateCover" @mark-reading-status="markReadingStatus"
