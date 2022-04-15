@@ -26,8 +26,8 @@ function switchView(key: string, value: any) {
           <div class="view-type">{{ trans(k.toString()) }}</div>
           <ul v-for="(value, key) in v">
             <li :key="key">
-              <div :class="['status-color-base', value ? on : off]"></div>
               <BaseButton class="btn" @click="switchView(key.toString(), v)">{{ trans(key.toString()) }}</BaseButton>
+              <div :class="['status-color-base', value ? on : off]"></div>
             </li>
           </ul>
         </div>
@@ -42,7 +42,7 @@ function switchView(key: string, value: any) {
 }
 
 .wrapper {
-  padding: 10px 10px 15px 15px;
+  padding: 0px 10px 10px 15px;
   font-size: small;
 }
 
@@ -60,19 +60,29 @@ ul {
 }
 
 li {
-  display: grid;
-  grid-template-columns: 5px auto;
+  /* display: grid;
+  grid-template-columns: auto; */
+  position: relative;
   border: 1px solid d;
   padding: 2px;
 }
 
 .btn {
+  display: inline-block;
   font-size: small;
-  padding: 3px 10px;
+  padding: 3px 10px 3px 15px;
 }
 
 .btn:hover {
   background-color: dimgray;
+}
+
+.status-color-base {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  top:5px;
+  left: 5px;
 }
 
 .on {
@@ -80,6 +90,6 @@ li {
 }
 
 .off {
-  background-color: dimgrey;
+  background-color: grey;
 }
 </style>
