@@ -95,8 +95,8 @@ onUnmounted(() => {
       <BookRowsBookList @click="showBooklist = !showBooklist"></BookRowsBookList>
 
       <!-- 书名 -->
-      <div class="name-wrapper" @mouseover="showCover = true" @mouseleave="showCover = false">
-        <EditableText class="name" :rowId="rowId" :text="name || '--no-name--'" :isName="isName"
+      <div @mouseover="showCover = true" @mouseleave="showCover = false">
+        <EditableText :rowId="rowId" :text="name || '--no-name--'" :isName="isName"
           @update="(rowId, payload) => { emit('update', rowId, payload) }"></EditableText>
         <!-- 封面（浮动显示） -->
         <div v-if="showCover" class="pop-cover-wrapper">
@@ -146,24 +146,6 @@ onUnmounted(() => {
   margin: 0 1px;
 }
 
-.name-wrapper {
-  /* display: block; */
-}
-
-.name {
-  /* display: inline-block; */
-}
-
-.btn-cover-status {
-  background-color: #777;
-}
-
-.btn-booklist-status,
-.btn-booklist-status:hover {
-  margin-left: 1px;
-  background-color: #777;
-}
-
 .pop-cover-wrapper {
   display: inline-block;
   position: fixed;
@@ -174,26 +156,6 @@ onUnmounted(() => {
 
 .cover-base {
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
-}
-
-.delete-btn {
-  margin-right: 0;
-  background-color: indianred;
-  box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
-}
-
-.delete-btn:hover {
-  background-color: indianred;
-}
-
-.add-btn {
-  display: inline-grid;
-  margin-right: 0;
-  background-color: steelblue;
-}
-
-.add-btn:hover {
-  background-color: steelblue;
 }
 
 .pop-cover-uplaoder-wrapper {
@@ -220,7 +182,6 @@ onUnmounted(() => {
   display: block;
   text-align: center;
   padding-top: 27px;
-  /* border: 1px solid red; */
 }
 
 .btn-confirm,
