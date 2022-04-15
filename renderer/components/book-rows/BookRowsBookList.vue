@@ -65,6 +65,7 @@ li {
   font-size: small;
   padding: 4px 15px 5px;
   /* border-color: #777; */
+  background-color: #777;
 }
 
 li:hover {
