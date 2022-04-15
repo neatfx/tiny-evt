@@ -14,20 +14,25 @@ const curBooklist = reactive({
   name: ''
 })
 const booklistStore = useBooklistStore()
+const currId = ref(1000)
+const confirmDelete = ref(false)
 
 function selectBooklist(listID: number, list: any) {
-  console.log(listID, name)
+  console.log('选中 ', listID, list)
   // 设置选定书单置顶显示
   curBooklist.id = list.id
   curBooklist.name = list.name
   // emit('booklist:select')
 }
 
-function deleteBooklist() {
-  // console.log('ss')
+function deleteBooklist(booklistId: number) {
+  console.log('删除书单 ', booklistId)
+  emit('booklist:delete')
+}
+
+function unselectBooklist() {
   curBooklist.id = 0
   curBooklist.name = ''
-  emit('booklist:delete')
 }
 
 onMounted(() => {
@@ -42,15 +47,28 @@ onMounted(() => {
     </template>
     <template #body>
       <!-- 当前书单 -->
-      <ul v-if="curBooklist.name" class="cur-list">
-        <li @click="">{{ curBooklist.name }}</li>
-      </ul>
+      <div class="cur-list" @click="unselectBooklist">
+        <span v-if="curBooklist.name" class="currIndicator"></span>
+        {{ curBooklist.name || '未选择书单' }}
+      </div>
       <!-- 动态列表 -->
       <ul class="all-list">
-        <li v-if="true" v-for="(v, k) in booklistStore.items" key="k">
-          <span @click="selectBooklist(k, v)">{{ v?.name }}</span>
-          <div class="btn-delete" @click="deleteBooklist">
+        <li v-if="true" v-for="(v, k) in booklistStore.items" key="k" @mouseenter="() => currId = k"
+          @mouseleave="() => currId = 1000">
+          <div class="booklist-wrapper" @click="selectBooklist(k, v)">
+            <span class="list-books-count">{{ v?.books?.length + ' 本' }}</span>
+            <span class="list-name">{{ v?.name }}</span>
+          </div>
+          <div v-if="currId === k && !confirmDelete" class="btn-confirm-delete" @click="confirmDelete = true">
             <span class="cross"></span>
+          </div>
+          <div v-if="currId === k && confirmDelete" class="confirm-wrapper">
+            <div class="btn-delete" @click="deleteBooklist(k)">
+              删除
+            </div>
+            <div class="btn-cancel" @click="confirmDelete = false">
+              取消
+            </div>
           </div>
         </li>
       </ul>
@@ -67,39 +85,78 @@ ul {
 }
 
 li {
+  position: relative;
   font-size: small;
-  padding: 5px 15px 5px;
   background-color: #777;
+  cursor: default;
 }
 
 li:hover {
   background-color: lightgrey;
-  cursor: default;
 }
+
 
 .cur-list {
   border-bottom: 2px solid dimgray;
+  padding: 2px 10px;
 }
 
-.btn-delete {
+.currIndicator {
   display: inline-block;
-  position: relative;
-  top: 2px;
-  margin: 0px 10px;
-  width: 15px;
-  height: 15px;
+  width: 10px;
+  height: 10px;
+  margin-right: 5px;
+  background-color: greenyellow;
+}
+
+.booklist-wrapper {
+  padding: 2px 0px;
+}
+
+.list-name {
+  padding: 2px 15px 2px 10px;
+}
+
+.list-books-count {
+  padding: 2px 15px;
+}
+
+.btn-confirm-delete {
+  position: absolute;
+  top: 0px;
+  left: -20px;
+  width: 25px;
+  height: 100%;
   padding: 0px 0px 0px 0px;
   background-color: indianred;
-  border-radius: 1em;
   text-align: center;
 }
 
 .cross {
   display: inline-block;
   position: relative;
-  width: 7px;
+  width: 9px;
   height: 1px;
-  top: -7px;
+  top: -2px;
+  left: 0px;
   background-color: #555;
+}
+
+.confirm-wrapper {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+.btn-delete {
+  display: inline-block;
+  padding: 2px 10px;
+  background-color: cornflowerblue;
+}
+
+.btn-cancel {
+  display: inline-block;
+  padding: 2px 10px;
+  background-color: darkgoldenrod;
 }
 </style>

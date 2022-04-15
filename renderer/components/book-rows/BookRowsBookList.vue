@@ -24,8 +24,7 @@ const emit = defineEmits<{
         <li @click="emit('')"><span class="mark-select"></span>Rust 编程语言系列</li>
       </ul>
       <div class="lists">
-        <BaseButton class="btn-actions">添加至书单</BaseButton>
-        <BaseButton class="btn-actions">创建书单并添加</BaseButton>
+        <BaseButton class="btn-actions">添加至书单 ></BaseButton>
       </div>
     </template>
   </FolderPanel>
