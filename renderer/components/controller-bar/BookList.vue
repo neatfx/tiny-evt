@@ -94,7 +94,7 @@ li {
 }
 
 li:hover {
-  background-color: lightgrey;
+  background-color: grey;
 }
 
 

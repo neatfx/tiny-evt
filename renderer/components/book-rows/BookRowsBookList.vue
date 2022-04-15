@@ -23,6 +23,7 @@ const emit = defineEmits<{
         <li @click="emit('action-remove-from-booklist')"><span class="mark-select"></span>科幻经典</li>
         <li @click="emit('')"><span class="mark-select"></span>Rust 编程语言系列</li>
       </ul>
+             <BaseButton class="btn-actions">确认更新（从取消勾选的书单中移除）</BaseButton>
       <div class="lists">
         <BaseButton class="btn-actions">添加至书单 ></BaseButton>
       </div>
