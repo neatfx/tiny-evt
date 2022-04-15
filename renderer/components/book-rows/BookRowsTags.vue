@@ -41,7 +41,7 @@ function addTag() {
           <span>{{ value }}</span>
         </div>
         <div v-if="currentTag === key" class="delete-btn" @click="deleteTag(key)">
-          <span class="cross">+</span>
+          <span class="cross"></span>
         </div>
       </div>
     </li>
@@ -89,15 +89,21 @@ li {
   position: absolute;
   right: -10px;
   top: -10px;
-  padding: 0px 7px 0px 9px;
+  width: 20px;
+  height: 20px;
+  padding: 0px 0px 0px 0px;
   background-color: indianred;
   border-radius: 1em;
 }
 
 .cross {
   display: inline-block;
-  transition-property: all;
-  transform: rotate(45deg);
+  position: relative;
+  width: 8px;
+  height: 1px;
+  top: -6px;
+  left: 6px;
+  background-color: #333;
 }
 
 .input-wrapper {

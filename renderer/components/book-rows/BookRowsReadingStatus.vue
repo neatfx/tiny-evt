@@ -25,7 +25,9 @@ function mark(readingStatus: string) {
     </template>
     <template #body>
       <ul v-for="key in menuData.keys()" :key="key">
-        <li @click="mark(menuData.get(key))" :class="menuData.get(key)">{{ key }}</li>
+        <li @click="mark(menuData.get(key))">
+          <span :class="['mark-select', menuData.get(key)]"></span>{{ key }}
+        </li>
       </ul>
     </template>
   </FolderPanel>
@@ -69,10 +71,20 @@ ul {
 
 li {
   font-size: small;
-  padding: 5px 15px;
+  padding: 5px 15px 5px 10px;
+  background-color: #777;
 }
 
 li:hover {
   cursor: default;
+  background-color: grey;
+}
+
+.mark-select {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin: 0 10px 0 0;
+  border-radius: 1rem;
 }
 </style>
