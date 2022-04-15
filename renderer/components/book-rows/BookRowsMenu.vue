@@ -43,7 +43,7 @@ const emit = defineEmits<{
 }
 
 .no-cover {
-  color: snow;
+  color:lavender;
 }
 
 ul {
