@@ -8,6 +8,7 @@ import BaseInput from '../BaseInput.vue';
 
 const store = useBooksStore()
 const imgSrc = ref(false)
+const createBookList = ref(false)
 const fullMode = ref(false)
 const bookData: IBook = {
   name: '',
@@ -59,14 +60,29 @@ async function addItem() {
 
 <template>
   <div class="panel-body-wrapper">
+    <!-- 书单 / 书籍 切换 -->
+    <BaseButton class="btn-mode" @click="createBookList = !createBookList">{{
+      createBookList ? '添加类型 > 书单' : '添加类型 > 书籍'
+    }}
+    </BaseButton>
     <!--  -->
-    <BaseButton class="btn-mode" @click="fullMode = !fullMode">{{ fullMode ? '切换至快速添加模式' : '切换至标准录入模式' }}</BaseButton>
-    <label v-if="!fullMode">
+    <label v-if="createBookList">
+      <span>书单名称</span>
+      <BaseInput type="text" :modelValue="bookData.name" @update:model-value="newValue => bookData.name = newValue" />
+    </label>
+    <!-- 书籍 - 模式切换 -->
+    <BaseButton v-if="!createBookList" class="btn-mode" @click="fullMode = !fullMode">{{
+      fullMode ? '书籍录入模式 > 标准' :
+        '书籍录入模式 > 快速'
+    }}
+    </BaseButton>
+    <!-- 书籍 - 快速模式 -->
+    <label v-if="!createBookList && !fullMode">
       <span>书名</span>
       <BaseInput type="text" :modelValue="bookData.name" @update:model-value="newValue => bookData.name = newValue" />
     </label>
-    <!--  -->
-    <div v-if="fullMode" class="full-mode">
+    <!-- 书籍 - 标准模式 -->
+    <div v-if="!createBookList && fullMode" class="full-mode">
       <div class="dropzone" @dragover="ondragover" @drop="ondrop">
         <span v-if="!imgSrc" class="tip">拖放图片至此区域</span>
         <img />
@@ -100,7 +116,7 @@ async function addItem() {
         </label>
       </div>
     </div>
-    <!--  -->
+    <!-- 提交保存 -->
     <div class="submit">
       <BaseButton class="btn-submit" @click="addItem">添加至数据库</BaseButton>
     </div>
@@ -137,9 +153,11 @@ async function addItem() {
   padding: 5px 10px;
   background-color: cadetblue;
 }
-img{
+
+img {
   width: 150px;
 }
+
 /*  */
 
 .text-fields {
@@ -181,6 +199,7 @@ input:focus {
   padding: 6px 20px;
   background-color: cornflowerblue;
 }
+
 .btn-submit:hover {
   background-color: cornflowerblue;
 }
