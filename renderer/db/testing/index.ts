@@ -21,6 +21,7 @@ class TestingDatabase extends BaseDatabase {
     var db = this;
     this.conditionalVersion(1, {
       books: '++id, name, author, *categories, publishing, *nameTokens, lend, readingStatus',
+      booklists: '++id, name, public, *books, deleted',
       contacts: '++id, firstName, lastName, sex, role',
       emails: '++id, contactId, type, email',
       phones: '++id, contactId, type, phone',

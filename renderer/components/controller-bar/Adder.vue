@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { reactive, ref } from 'vue';
 import type { IBook } from '@/db/testing/type-defs';
 import { useBooksStore } from '@stores/index'
 
@@ -18,6 +18,11 @@ const bookData: IBook = {
   cover: null,
   // created: new Date()
 }
+const booklistData = reactive({
+  name: '',
+  public: false,
+  deleted: false,
+})
 
 function check(): boolean {
   if (!bookData.name) return false
@@ -56,6 +61,11 @@ async function addItem() {
   await store.add(bookData)
   imgSrc.value = false
 }
+
+async function addBooklist() {
+  console.log(booklistData)
+  //  await store.addBooklist(booklistData)
+}
 </script>
 
 <template>
@@ -68,7 +78,8 @@ async function addItem() {
     <!--  -->
     <label v-if="createBookList">
       <span>书单名称</span>
-      <BaseInput type="text" :modelValue="bookData.name" @update:model-value="newValue => bookData.name = newValue" />
+      <BaseInput type="text" :modelValue="booklistData.name"
+        @update:model-value="newValue => booklistData.name = newValue" />
     </label>
     <!-- 书籍 - 模式切换 -->
     <BaseButton v-if="!createBookList" class="btn-mode" @click="fullMode = !fullMode">{{
@@ -117,8 +128,12 @@ async function addItem() {
       </div>
     </div>
     <!-- 提交保存 -->
-    <div class="submit">
-      <BaseButton class="btn-submit" @click="addItem">添加至数据库</BaseButton>
+    <div v-if="!createBookList" class="submit">
+      <BaseButton class="btn-submit" @click="addItem">添加书籍至数据库</BaseButton>
+    </div>
+
+    <div v-if="createBookList" class="submit">
+      <BaseButton class="btn-submit" @click="addBooklist">添加书单至数据库</BaseButton>
     </div>
   </div>
 </template>
