@@ -19,7 +19,7 @@ const emit = defineEmits<{
     </template>
     <template #body>
       <ul>
-        <!-- <li @click="emit('action-show-more')">显示更多数据...</li> -->
+        <!-- <li @click="emit('action-show-more')">开启更多过滤器快捷方式...</li> -->
         <li v-if="!hasCover" @click="emit('action-show-cover-uploader')">添加封面</li>
         <li v-if="hasCover" @click="emit('action-delete-cover')">移除封面</li>
         <li @click="emit('action-add-note')">添加借书备注...</li>
