@@ -1,24 +1,30 @@
 <script setup lang="ts">
-import BaseButton from '@comps/BaseButton.vue';
-import FolderPanel from '@comps/FolderPanel.vue';
 import { useBooksStore, useBooklistStore } from '@stores/index'
 import { onMounted } from 'vue';
 
+import BaseButton from '@comps/BaseButton.vue';
+import FolderPanel from '@comps/FolderPanel.vue';
+
 const props = defineProps(['bookId', 'booklists']);
-const emit = defineEmits<{
-  (e: 'action-show-cover-uploader'): Promise<void>
-  (e: 'action-delete-cover'): Promise<void>
-  (e: 'action-add-note'): Promise<void>
-  (e: 'action-add-to-collection'): Promise<void>
-  (e: 'action-delete-book'): Promise<void>
-}>()
+// const emit = defineEmits<{
+//   (e: 'action-show-cover-uploader'): Promise<void>
+//   (e: 'action-delete-cover'): Promise<void>
+//   (e: 'action-add-note'): Promise<void>
+//   (e: 'action-add-to-collection'): Promise<void>
+//   (e: 'action-delete-book'): Promise<void>
+// }>()
 const booksStore = useBooksStore()
 const booklistsStore = useBooklistStore()
 
-// 暂无批量更新
-function addBookToBooklist(booklistId: number) {
-  booksStore.addToBooklist(props.bookId, booklistId)
+// 细粒度更新，暂无批量操作
+async function addBookToBooklist(booklistId: number) {
+  await booksStore.addToBooklist(props.bookId, booklistId)
 }
+
+async function removeBookFromBooklist(booklistId: number) {
+  await booksStore.removeFromBooklist(props.bookId, booklistId)
+}
+
 onMounted(() => {
   booklistsStore.list()
 })
@@ -33,13 +39,13 @@ onMounted(() => {
       <div class="wrapper">
         <ul class="curr-booklists">
           <li v-if="!props.booklists">尚未加入任何书单</li>
-          <li v-for="(v, k) in booklists" @click="">
+          <li v-for="(v, k) in booklists" @click="removeBookFromBooklist(v)">
             <span class="mark-select"></span>
             {{ v }}
           </li>
         </ul>
         <ul>
-          <li v-for="(v, k) in booklistsStore.items" @click="addBookToBooklist(k)">
+          <li v-for="(v, k) in booklistsStore.items" @click="addBookToBooklist(v.id)">
             <span class="mark-select mark-select-unselected"></span>
             {{ v?.name }}
           </li>

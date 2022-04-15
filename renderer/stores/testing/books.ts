@@ -159,15 +159,32 @@ export const useBooksStore = defineStore('books', {
       }
     },
     async addBookIdToBooklist(bookId: number, booklistId: number){
+      const booklist = await TestingDB.booklists.get(booklistId)
+      if (booklist){
+        if(booklist.books === undefined) booklist.books = []
 
+        booklist.books.push(bookId)
+        await TestingDB.booklists.put(booklist)
+      }
     },
     async addToBooklist(bookId: number, booklistId: number) {
-      console.log('db - ', bookId, booklistId)
+      console.log('db.shudan.add - ', bookId, booklistId)
 
       TestingDB.transaction('rw', TestingDB.books, TestingDB.booklists, async () => {
         await Promise.all([
           this.addBooklistIdToBook(bookId, booklistId),
-          // this.addBookIdToBooklist()
+          this.addBookIdToBooklist(bookId, booklistId)
+        ]);
+      });
+    },
+    // 从书单中移除书籍
+    async removeFromBooklist(bookId: number, booklistId: number) {
+      console.log('db.shudan.remove - ', bookId, booklistId)
+
+      TestingDB.transaction('rw', TestingDB.books, TestingDB.booklists, async () => {
+        await Promise.all([
+          // this.removeBooklistIdFromBook(bookId, booklistId),
+          // this.removeBookIdFromBooklist(bookId, booklistId),
         ]);
       });
     }
