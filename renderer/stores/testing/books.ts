@@ -89,6 +89,7 @@ export const useBooksStore = defineStore('books', {
             TestingDB.books
               .where(fieldName)
               .anyOf(Array.from(filterParams))
+              .distinct()
               .primaryKeys()
           )
         }
