@@ -8,7 +8,7 @@ import { TestingDB } from './index'
 export class Booklist implements IBooklist {
   id: number | undefined;
   name!: string;
-  books: number[];
+  books: Set<number>;
   public?: boolean;
   deleted?: boolean;
   created!: Date;
@@ -16,7 +16,7 @@ export class Booklist implements IBooklist {
   constructor(name: string) {
     this.name = name;
     // 默认值
-    this.books = [];
+    this.books = new Set();
     this.public = false;
     this.deleted = false;
     this.created = new Date();

@@ -14,7 +14,7 @@ export interface IBook {
   isbn?: string; // 书号
   categories?: string[]; // 分类标签
   douban?: string; // 豆瓣图书链接
-  booklists?: number[]; // 书单
+  booklists?: Set<number>; // 书单
   readingStatus?: string; // 阅读状态【已读、未读、在读、想读】
   lend?: string; // 出借状态（不为空即表明状态为“已借出”）
   // lendInfo?: string; // 出借信息
@@ -34,7 +34,7 @@ export interface IBook {
 export interface IBooklist {
   id?: number; // Primary key. Optional (autoincremented)
   name: string;
-  books?: number[]; // 书籍 IDs
+  books?: Set<number>; // 书籍 IDs
   shared?: boolean; // 是否公开（在线分享）
   deleted?: boolean; // 数据删除标识
   created: Date; // 数据创建时间

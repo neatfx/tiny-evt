@@ -38,7 +38,7 @@ onMounted(() => {
     <template #body>
       <div class="wrapper">
         <ul class="curr-booklists">
-          <li v-if="!props.booklists">尚未加入任何书单</li>
+          <li v-if="!props.booklists?.size">尚未加入任何书单</li>
           <li v-for="(v, k) in booklists" @click="removeBookFromBooklist(v)">
             <span class="mark-select"></span>
             {{ v }}

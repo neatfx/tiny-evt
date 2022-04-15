@@ -151,19 +151,19 @@ export const useBooksStore = defineStore('books', {
     // 添加书籍到书单
     async addBooklistIdToBook(bookId: number, booklistId: number) {
       const book = await TestingDB.books.get(bookId)
-      if (book){
-        if(book.booklists === undefined) book.booklists = []
+      if (book) {
+        if (book.booklists === undefined) book.booklists = new Set()
 
-        book.booklists.push(booklistId)
+        book.booklists.add(booklistId)
         await TestingDB.books.put(book)
       }
     },
-    async addBookIdToBooklist(bookId: number, booklistId: number){
+    async addBookIdToBooklist(bookId: number, booklistId: number) {
       const booklist = await TestingDB.booklists.get(booklistId)
-      if (booklist){
-        if(booklist.books === undefined) booklist.books = []
+      if (booklist) {
+        if (booklist.books === undefined) booklist.books = new Set()
 
-        booklist.books.push(bookId)
+        booklist.books.add(bookId)
         await TestingDB.booklists.put(booklist)
       }
     },
@@ -178,13 +178,31 @@ export const useBooksStore = defineStore('books', {
       });
     },
     // 从书单中移除书籍
+    async removeBooklistIdFromBook(bookId: number, booklistId: number) {
+      const book = await TestingDB.books.get(bookId)
+      if (book) {
+        if (book.booklists) {
+          book.booklists.delete(booklistId)
+          await TestingDB.books.put(book)
+        }
+      }
+    },
+    async removeBookIdFromBooklist(bookId: number, booklistId: number) {
+      const booklist = await TestingDB.booklists.get(booklistId)
+      if (booklist) {
+        if (booklist.books) {
+          booklist.books.delete(bookId)
+          await TestingDB.booklists.put(booklist)
+        }
+      }
+    },
     async removeFromBooklist(bookId: number, booklistId: number) {
       console.log('db.shudan.remove - ', bookId, booklistId)
 
       TestingDB.transaction('rw', TestingDB.books, TestingDB.booklists, async () => {
         await Promise.all([
-          // this.removeBooklistIdFromBook(bookId, booklistId),
-          // this.removeBookIdFromBooklist(bookId, booklistId),
+          this.removeBooklistIdFromBook(bookId, booklistId),
+          this.removeBookIdFromBooklist(bookId, booklistId),
         ]);
       });
     }
