@@ -20,8 +20,8 @@ class TestingDatabase extends BaseDatabase {
     super(name, schemaVersion);
     var db = this;
     this.conditionalVersion(1, {
-      books: '++id, name, author, *categories, publishing, *nameTokens, lend, readingStatus, deleted',
-      booklists: '++id, name, public, deleted',
+      books: '++id, name, author, *categories, publishing, *nameTokens, lend, readingStatus, deleted, created',
+      booklists: '++id, name, shared, deleted, created',
     });
 
     db.books.mapToClass(Book);

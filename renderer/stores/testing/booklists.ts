@@ -2,15 +2,17 @@ import { defineStore } from 'pinia'
 import { TestingDB } from '../../db'
 
 import { usePagination } from '../../components/pagination';
-import type { IBook } from '@/db/testing/type-defs';
 import { useFilter } from '@/components/controller-bar/filter';
+
+import type { IBooklist } from '@/db/testing/type-defs';
+import { Booklist } from '@/db/testing';
 
 const { total, offset, limit } = usePagination()
 const { workingFilters } = useFilter()
 
 export const useBooklistStore = defineStore('booklists', {
   state: () => ({
-    items: [] as (IBook | undefined)[],
+    items: [] as (IBooklist | undefined)[],
     total: 0,
     indicator: false
   }),
@@ -20,12 +22,12 @@ export const useBooklistStore = defineStore('booklists', {
     },
     async list() {
       this.items = await TestingDB.booklists.offset(offset.value).limit(limit.value).toArray()
-
-      await toggleIndicator(false)
+      // await toggleIndicator(false)
     },
-    async add(book: IBook) {
-      console.log(book)
-      await TestingDB.booklists.add(book)
+    async add(booklist: IBooklist) {
+      const {name, books, shared} = booklist
+      console.log(name,books,shared)
+      await TestingDB.booklists.add(new Booklist(name))
     },
     async update(key: number, mod: any) {
       console.log(key, mod)
@@ -40,8 +42,7 @@ export const useBooklistStore = defineStore('booklists', {
     async filter(filter: Map<string, Set<string>>) {
       // console.log(filter)
 
-      const filterArr = []
-      const lendFilter = filter.get('lend')
+      const filterArr: any[] = []
 
       filter.forEach((filterParams, fieldName) => {
         if (fieldName !== 'lend') {
@@ -54,31 +55,12 @@ export const useBooklistStore = defineStore('booklists', {
         }
       })
 
-      // TODO: 移除 filter 的使用，以配合 Hook 或 DBCore
-      if (lendFilter) filterArr.push(
-        TestingDB.booklists
-          .filter((book) => {
-            if (filter.get('lend')) {
-              if (filter.get('lend')?.has('true')) {
-                if (book.lend !== undefined) return true
-                return false
-              } else {
-                if (book.lend === undefined) return true
-                return false
-              }
-            } else {
-              return true
-            }
-          })
-          .primaryKeys()
-      )
-
       if (filterArr.length === 0) filterArr.push(
         // TestingDB.booklists.orderBy('name').primaryKeys()
       )
 
       const results = await Promise.all(filterArr);
-      const intersection = results.reduce((ids1, ids2) => {
+      const intersection = results.reduce((ids1: number[], ids2: number[]) => {
         const set = new Set(ids1);
         return ids2.filter(id => set.has(id));
       });
@@ -86,14 +68,14 @@ export const useBooklistStore = defineStore('booklists', {
       total.value = intersection.length;
       this.items = await TestingDB.booklists.bulkGet(intersection.splice(offset.value, limit.value))
 
-      await toggleIndicator(false)
+      // await toggleIndicator(false)
     },
     async fetchPagedRows() {
       await this.count()
       await this.list()
       total.value = this.total
 
-      await toggleIndicator(false)
+      // await toggleIndicator(false)
     },
     async search(keywords: string) {
       this.items = await TestingDB.booklists
@@ -102,7 +84,7 @@ export const useBooklistStore = defineStore('booklists', {
         .or('categories').anyOfIgnoreCase([keywords])
         .distinct().toArray();
 
-      await toggleIndicator(false)
+      // await toggleIndicator(false)
     },
     async toggleIndicator(show: boolean) {
       this.indicator = show
@@ -111,13 +93,13 @@ export const useBooklistStore = defineStore('booklists', {
 })
 
 // 供 search middleware mutate 后统一调用
-export async function refresh() {
-  if (workingFilters.size) {
-    await useBooklistStore().filter(workingFilters)
-  } else {
-    await useBooklistStore().fetchPagedRows()
-  }
-}
+// export async function refresh() {
+//   if (workingFilters.size) {
+//     await useBooklistStore().filter(workingFilters)
+//   } else {
+//     await useBooklistStore().fetchPagedRows()
+//   }
+// }
 
 // 供 search middleware put@mutate 时调用
 // export async function refreshFiltersMeta() {
@@ -125,15 +107,15 @@ export async function refresh() {
 // }
 
 // Indicator
-async function sleep() {
-  return new Promise(resolve => {
-    setTimeout(resolve, 500)
-  })
-}
+// async function sleep() {
+//   return new Promise(resolve => {
+//     setTimeout(resolve, 500)
+//   })
+// }
 
-export async function toggleIndicator(show: boolean) {
-  if (!show) await sleep()
-  await useBooklistStore().toggleIndicator(show)
-}
+// export async function toggleIndicator(show: boolean) {
+//   if (!show) await sleep()
+//   await useBooklistStore().toggleIndicator(show)
+// }
 
 // Persist

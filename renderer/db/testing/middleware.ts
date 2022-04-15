@@ -62,6 +62,7 @@ const middleware: Middleware<DBCore> = {
       // 覆写 table 方法
       table(tableName) {
         const downlevelTable = downlevelDatabase.table(tableName); // 调用默认 table 方法
+        if(tableName !== 'books') return downlevelTable
         // 由默认 table 派生出自定义 table
         return {
           ...downlevelTable, // 复制默认 table 实现

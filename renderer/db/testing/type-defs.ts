@@ -34,8 +34,8 @@ export interface IBook {
 export interface IBooklist {
   id?: number; // Primary key. Optional (autoincremented)
   name: string;
-  books: number[]; // 书籍 IDs
-  public?: boolean; // 是否公开（在线分享）
+  books?: number[]; // 书籍 IDs
+  shared?: boolean; // 是否公开（在线分享）
   deleted?: boolean; // 数据删除标识
   created: Date; // 数据创建时间
 }

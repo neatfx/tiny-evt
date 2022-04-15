@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import BaseButton from '@comps/BaseButton.vue';
 import FolderPanel from '@comps/FolderPanel.vue';
-import { reactive, ref } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
+import { useBooklistStore } from '@stores/index'
 
-const props = defineProps(['hasCover']);
+const props = defineProps([]);
 const emit = defineEmits<{
   (e: 'booklist:select'): Promise<void>
   (e: 'booklist:delete'): Promise<void>
@@ -12,12 +13,13 @@ const curBooklist = reactive({
   id: 0,
   name: ''
 })
+const booklistStore = useBooklistStore()
 
-function selectBooklist(listID: number, name: string) {
+function selectBooklist(listID: number, list: any) {
   console.log(listID, name)
   // 设置选定书单置顶显示
-  curBooklist.id = listID
-  curBooklist.name = name
+  curBooklist.id = list.id
+  curBooklist.name = list.name
   // emit('booklist:select')
 }
 
@@ -27,6 +29,10 @@ function deleteBooklist() {
   curBooklist.name = ''
   emit('booklist:delete')
 }
+
+onMounted(() => {
+  booklistStore.list()
+})
 </script>
 
 <template>
@@ -41,14 +47,12 @@ function deleteBooklist() {
       </ul>
       <!-- 动态列表 -->
       <ul class="all-list">
-        <li @click="">书单-1</li>
-        <li v-if="!hasCover">
-          <span @click="selectBooklist(2, '书单-2')">书单-2</span>
+        <li v-if="true" v-for="(v, k) in booklistStore.items" key="k">
+          <span @click="selectBooklist(k, v)">{{ v?.name }}</span>
           <div class="btn-delete" @click="deleteBooklist">
             <span class="cross"></span>
           </div>
         </li>
-        <li @click="">书单-3</li>
       </ul>
     </template>
   </FolderPanel>
@@ -72,9 +76,11 @@ li:hover {
   background-color: lightgrey;
   cursor: default;
 }
-.cur-list{
+
+.cur-list {
   border-bottom: 2px solid dimgray;
 }
+
 .btn-delete {
   display: inline-block;
   position: relative;

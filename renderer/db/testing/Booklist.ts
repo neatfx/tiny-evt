@@ -15,6 +15,7 @@ export class Booklist implements IBooklist {
 
   constructor(name: string) {
     this.name = name;
+    // 默认值
     this.books = [];
     this.public = false;
     this.deleted = false;

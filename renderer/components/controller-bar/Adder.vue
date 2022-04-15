@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
 import type { IBook } from '@/db/testing/type-defs';
-import { useBooksStore } from '@stores/index'
+import { useBooksStore, useBooklistStore } from '@stores/index'
 
 import BaseButton from '../BaseButton.vue';
 import BaseInput from '../BaseInput.vue';
 
-const store = useBooksStore()
+const bookStore = useBooksStore()
+const booklistStore = useBooklistStore()
 const imgSrc = ref(false)
 const createBookList = ref(false)
 const fullMode = ref(false)
@@ -18,11 +19,13 @@ const bookData: IBook = {
   cover: null,
   created: new Date()
 }
-const booklistData = reactive({
+const booklistData = {
   name: '',
-  public: false,
+  books: [],
+  shared: false,
   deleted: false,
-})
+  created: new Date()
+}
 
 function check(): boolean {
   if (!bookData.name) return false
@@ -58,13 +61,13 @@ async function addItem() {
     return
   }
 
-  await store.add(bookData)
+  await bookStore.add(bookData)
   imgSrc.value = false
 }
 
 async function addBooklist() {
-  console.log(booklistData)
-  //  await store.addBooklist(booklistData)
+  const res = await booklistStore.add(booklistData)
+  console.log('创建书单: ', res)
 }
 </script>
 
