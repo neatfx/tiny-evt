@@ -16,7 +16,7 @@ const bookData: IBook = {
   categories: [],
   publishing: '',
   cover: null,
-  // created: new Date()
+  created: new Date()
 }
 const booklistData = reactive({
   name: '',

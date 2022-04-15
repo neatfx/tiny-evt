@@ -1,27 +1,23 @@
 /* 
- * class mapped to the books table
+ * class mapped to the booklists table
  */
 
-import type { IBook } from './type-defs'
-// import { TestingDB } from './index'
+import type { IBooklist } from './type-defs'
+import { TestingDB } from './index'
 
-export class Book implements IBook {
+export class Booklist implements IBooklist {
   id: number | undefined;
   name!: string;
-  author!: string;
-  categories?: string[] | undefined;
-  publishing?: string | undefined;
-  published?: string;
-  nameTokens?: string[] | undefined;
+  books: number[];
+  public?: boolean;
+  deleted?: boolean;
   created!: Date;
-  lend?: string | undefined;
-  readingStatus!: 'read';
 
-  constructor(name: string, author: string) {
+  constructor(name: string) {
     this.name = name;
-    this.author = author;
-    this.readingStatus = 'read';
-    this.lend = undefined;
+    this.books = [];
+    this.public = false;
+    this.deleted = false;
     this.created = new Date();
 
     // Define navigation properties.

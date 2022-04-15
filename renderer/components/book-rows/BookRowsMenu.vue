@@ -38,10 +38,6 @@ const emit = defineEmits<{
   background-color: #777;
 }
 
-.has-cover {
-  /* color:aliceblue; */
-}
-
 .no-cover {
   color:lavender;
 }
