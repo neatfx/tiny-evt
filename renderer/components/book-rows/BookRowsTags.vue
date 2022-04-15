@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import BaseButton from '@comps/BaseButton.vue';
 import BaseInput from '@comps/BaseInput.vue';
+import { useFilter } from '@comps/controller-bar/filter'
 
 const props = defineProps(['categories', 'rowId'])
 const emit = defineEmits<{
@@ -11,6 +12,7 @@ const emit = defineEmits<{
 const currentTag = ref(100)
 const tagInput = ref('')
 const showInput = ref(false)
+const { filter } = useFilter()
 
 function deleteTag(key: number) {
   const arr: string[] = Array.from(props.categories || [])
@@ -31,13 +33,17 @@ function addTag() {
   tagInput.value = ''
   showInput.value = false
 }
+
+function sendCurrTagToFilter(filterValue: string) {
+  filter('categories', filterValue)
+}
 </script>
 
 <template>
   <ul>
     <li v-for="(value, key) in props.categories" :key="key">
       <div class="tag-wrapper" @mouseenter="() => currentTag = key" @mouseleave="() => currentTag = 100">
-        <div class="tag-name">
+        <div class="tag-name" @dblclick="sendCurrTagToFilter(value)">
           <span>{{ value }}</span>
         </div>
         <div v-if="currentTag === key" class="delete-btn" @click="deleteTag(key)">
