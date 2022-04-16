@@ -63,16 +63,16 @@ export class Book implements IBook {
     //   created: { value: new Date(), enumerable: false, writable: false },
     // });
   }
-
-  // async load() {
-  // [this.emails, this.phones] = await Promise.all([
-  //   TestingDB.emails.where('contactId').equals(this.id!).toArray(),
-  //   TestingDB.phones.where('contactId').equals(this.id!).toArray()
-  // ]);
-  // }
-
   async save() {
     return await TestingDB.books.add(this);
+  }
+  async load() {
+    // [this.emails, this.phones] = await Promise.all([
+    //   TestingDB.emails.where('contactId').equals(this.id!).toArray(),
+    //   TestingDB.phones.where('contactId').equals(this.id!).toArray()
+    // ]);
+  }
+  async other() {
     //   return TestingDB.transaction('rw', TestingDB.books, TestingDB.emails, TestingDB.phones, async () => {
     //     this.id = await TestingDB.books.put(this);
 
