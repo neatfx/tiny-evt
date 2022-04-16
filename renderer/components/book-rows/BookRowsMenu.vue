@@ -7,7 +7,6 @@ const emit = defineEmits<{
   (e: 'action-show-cover-uploader'): Promise<void>
   (e: 'action-delete-cover'): Promise<void>
   (e: 'action-add-note'): Promise<void>
-  (e: 'action-add-to-collection'): Promise<void>
   (e: 'action-delete-book'): Promise<void>
 }>()
 </script>
@@ -19,7 +18,6 @@ const emit = defineEmits<{
     </template>
     <template #body>
       <ul>
-        <!-- <li @click="emit('action-show-more')">开启更多过滤器快捷方式...</li> -->
         <li v-if="!hasCover" @click="emit('action-show-cover-uploader')">添加封面</li>
         <li v-if="hasCover" @click="emit('action-delete-cover')">移除封面</li>
         <li @click="emit('action-add-note')">添加借书备注...</li>
