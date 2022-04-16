@@ -17,7 +17,10 @@ const props = defineProps(['bookId', 'booklists']);
 const booksStore = useBooksStore()
 const booklistsStore = useBooklistStore()
 const availableBooklists = computed(() => {
+  if (props.booklists === undefined) return booklistsStore.items
+
   const restBooklists: any[] = []
+  
   booklistsStore.items.map((v, k) => {
     if (!props.booklists.has(v?.id)) {
       restBooklists.push(v)
