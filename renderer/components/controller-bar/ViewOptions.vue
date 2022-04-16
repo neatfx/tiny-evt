@@ -38,7 +38,7 @@ function switchView(key: string, value: any) {
 
 <style scoped>
 .btn-view-opt {
-  border-radius: 1rem 0 0 0;
+  border-radius: 0 0 0 0;
 }
 
 .wrapper {

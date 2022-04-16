@@ -37,7 +37,7 @@ const showAdder = ref(false)
 .control-bar {
   display: grid;
   gap: 10px;
-  margin: 0 0 7px 50px;
+  margin: 0 0 7px 60px;
 }
 
 .opt-row {
