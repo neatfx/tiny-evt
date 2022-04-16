@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import BaseButton from '../BaseButton.vue';
+import BaseButton from '@comps/BaseButton.vue';
 
 const { electronDarkMode } = window
 

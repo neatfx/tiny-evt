@@ -3,7 +3,7 @@
  */
 
 import type { IBooklist } from '../index'
-import { TestingDB } from '../index'
+import { AppDB } from '../index'
 
 export class Booklist implements IBooklist {
   id?: number;
@@ -29,6 +29,6 @@ export class Booklist implements IBooklist {
   }
 
   async save() {
-    return await TestingDB.booklists.add(this);
+    return await AppDB.booklists.add(this);
   }
 }

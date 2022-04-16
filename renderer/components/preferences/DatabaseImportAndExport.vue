@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { TestingDB } from '../../db'
-import BaseButton from '../BaseButton.vue';
+import { AppDB } from '@/db'
+import BaseButton from '@comps/BaseButton.vue';
 import { importDB, exportDB, importInto, peakImportFile } from "dexie-export-import";
 import type { ExportProgress } from 'dexie-export-import/dist/export';
 
@@ -31,7 +31,7 @@ let fileBlob: Blob
 
 async function exportDatabase() {
   try {
-    const blob = await exportDB(TestingDB, {
+    const blob = await exportDB(AppDB, {
       prettyJson: true,
       progressCallback: progressCallback,
       filter: (table, value, key) => {
@@ -60,7 +60,7 @@ async function exportDatabase() {
 
 async function importDatabase() {
   console.log('importing...')
-  // await TestingDB.delete();
+  // await AppDB.delete();
   // await importDB(fileBlob, { progressCallback });
   // console.log("Import complete");
 
@@ -111,12 +111,28 @@ async function ondrop(ev: any) {
 }
 
 async function showContent() {
-  tables.value = await Promise.all(TestingDB.tables.map(async table => ({
+  tables.value = await Promise.all(AppDB.tables.map(async table => ({
     id: table.name,
     name: table.name,
     count: await table.count(),
     primKey: table.schema.primKey.src
   })));
+}
+
+function enableScheduledBackup() {
+  
+}
+
+function enableOnlineBackup() {
+  
+}
+
+function switchImagePersisWay() {
+  
+}
+
+function setImagesDir() {
+  
 }
 
 onMounted(async () => {
@@ -127,7 +143,7 @@ onMounted(async () => {
 <template>
   <div class="wrapper">
     <div class="export-wrapper">
-      <div>Database name: {{ TestingDB.name }}</div>
+      <div>Database name: {{ AppDB.name }}</div>
       <ul>
         <li v-for="table in tables" :key="table.id">
           <span>Table: {{ table.id }} - Primary Key: {{ table.primKey }} - Row count: {{ table.count }}</span>
@@ -135,9 +151,9 @@ onMounted(async () => {
       </ul>
       <BaseButton @click="exportDatabase">导出数据库</BaseButton>
       <BaseButton @click="enableScheduledBackup">定时备份数据</BaseButton>
-      <BaseButton @click="enableScheduledBackup">网络备份设置 ( GitHub )</BaseButton>
-      <BaseButton @click="switchPicPersisWay">图片保存方式（ APP 模式可见 ）</BaseButton>
-      <BaseButton @click="enableScheduledBackup">图片存储目录设置</BaseButton>
+      <BaseButton @click="enableOnlineBackup">网络备份设置(GitHub)</BaseButton>
+      <BaseButton @click="switchImagePersisWay">图片保存方式(APP 模式可见)</BaseButton>
+      <BaseButton @click="setImagesDir">图片存储目录设置</BaseButton>
     </div>
     <div class="import-wrapper">
       <div id="dropzone" @dragover="ondragover" @drop="ondrop">Drop Dexie JSON file here.</div>

@@ -28,9 +28,9 @@ class AppDatabase extends BaseDatabase {
   }
 }
 
-const TestingDB = new AppDatabase('AppDatabase', 1)
+const AppDB = new AppDatabase('AppDatabase', 1)
 
 handlePopulate() // 初始化测试数据
-TestingDB.use(middleware) // DBCore Middleware For Search & SyncStore
+AppDB.use(middleware) // DBCore Middleware For Search & SyncStore
 
-export { TestingDB, Book, Booklist, IBook, IBooklist }
+export { AppDB, Book, Booklist, IBook, IBooklist }

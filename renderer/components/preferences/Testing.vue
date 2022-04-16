@@ -1,17 +1,19 @@
 <script setup lang="ts">
 import type { Table } from 'dexie';
-import { TestingDB } from '../../db'
-import BaseButton from '../BaseButton.vue';
+
+import { AppDB } from '@/db/index'
+
+import BaseButton from '@comps/BaseButton.vue';
 
 async function clearTables() {
-  await TestingDB.table('books').clear();
-  await Promise.all(TestingDB.tables.map((table: Table) => {
+  await AppDB.table('books').clear();
+  await Promise.all(AppDB.tables.map((table: Table) => {
     table.clear()
   }));
 }
 
 async function deleteDatabase() {
-  await TestingDB.delete()
+  await AppDB.delete()
 }
 
 function switchPicPersisWay() {

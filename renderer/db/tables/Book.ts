@@ -3,7 +3,7 @@
  */
 
 import type { IBook } from '../index'
-import { TestingDB } from '../index'
+import { AppDB } from '../index'
 
 export class Book implements IBook {
   id?: number;
@@ -64,29 +64,29 @@ export class Book implements IBook {
     // });
   }
   async save() {
-    return await TestingDB.books.add(this);
+    return await AppDB.books.add(this);
   }
   async load() {
     // [this.emails, this.phones] = await Promise.all([
-    //   TestingDB.emails.where('contactId').equals(this.id!).toArray(),
-    //   TestingDB.phones.where('contactId').equals(this.id!).toArray()
+    //   AppDB.emails.where('contactId').equals(this.id!).toArray(),
+    //   AppDB.phones.where('contactId').equals(this.id!).toArray()
     // ]);
   }
   async other() {
-    //   return TestingDB.transaction('rw', TestingDB.books, TestingDB.emails, TestingDB.phones, async () => {
-    //     this.id = await TestingDB.books.put(this);
+    //   return AppDB.transaction('rw', AppDB.books, AppDB.emails, AppDB.phones, async () => {
+    //     this.id = await AppDB.books.put(this);
 
     //     let [emailIds, phoneIds] = await Promise.all([
-    //       Promise.all(this.emails.map(email => TestingDB.emails.put(email))),
-    //       Promise.all(this.phones.map(phone => TestingDB.phones.put(phone)))
+    //       Promise.all(this.emails.map(email => AppDB.emails.put(email))),
+    //       Promise.all(this.phones.map(phone => AppDB.phones.put(phone)))
     //     ])
 
     //     await Promise.all([
-    //       TestingDB.emails.where('contactId').equals(this.id) // references us
+    //       AppDB.emails.where('contactId').equals(this.id) // references us
     //         .and(email => emailIds.indexOf(email.id!) === -1) // Not anymore in our array
     //         .delete(),
 
-    //       TestingDB.phones.where('contactId').equals(this.id)
+    //       AppDB.phones.where('contactId').equals(this.id)
     //         .and(phone => phoneIds.indexOf(phone.id!) === -1)
     //         .delete()
     //     ]);

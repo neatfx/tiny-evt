@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { TestingDB } from '@/db'
+import { AppDB } from '@/db'
 
 import { usePagination } from '@comps/pagination';
 import { useFilter } from '@comps/controller-bar/filter';
@@ -22,16 +22,16 @@ export const useBooklistStore = defineStore('booklists', {
       await this.list()
     },
     async count() {
-      this.total = await TestingDB.booklists.count()
+      this.total = await AppDB.booklists.count()
     },
     // 暂不提供分页器支持
     async list() {
-      // this.items = await TestingDB.booklists.offset(offset.value).limit(limit.value).toArray()
-      this.items = await TestingDB.booklists.toArray()
+      // this.items = await AppDB.booklists.offset(offset.value).limit(limit.value).toArray()
+      this.items = await AppDB.booklists.toArray()
       // await toggleIndicator(false)
     },
     async search(keywords: string) {
-      this.items = await TestingDB.booklists
+      this.items = await AppDB.booklists
         .where("name").startsWithIgnoreCase(keywords)
         .distinct().toArray();
 
@@ -39,28 +39,28 @@ export const useBooklistStore = defineStore('booklists', {
     },
     // async update(key: number, mod: any) {
     //   console.log(key, mod)
-    //   await TestingDB.booklists.update(key, mod)
+    //   await AppDB.booklists.update(key, mod)
     // },
     // 删除书单
     // 包含事务：
     // 1、将书单从其所包含的书籍中移除
     // 2、删除书单
     async delete(key: number) {
-      const booklist = await TestingDB.booklists.get(key)
+      const booklist = await AppDB.booklists.get(key)
 
       if (booklist) {
         const bookIds = Array.from(booklist.books || [])
 
-        TestingDB.transaction('rw', TestingDB.books, TestingDB.booklists, async () => {
+        AppDB.transaction('rw', AppDB.books, AppDB.booklists, async () => {
           await Promise.all([
             Promise.all(bookIds.map(async id => {
-              const book = await TestingDB.books.get(id)
+              const book = await AppDB.books.get(id)
               if (book && book.booklists) {
                 book.booklists.delete(key)
-                TestingDB.books.put(book)
+                AppDB.books.put(book)
               }
             })),
-            TestingDB.booklists.delete(key)
+            AppDB.booklists.delete(key)
           ])
         })
 

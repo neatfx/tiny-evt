@@ -2,7 +2,7 @@
  * Database Populating
  */
 
-import { TestingDB, Book, Booklist } from './index';
+import { AppDB, Book, Booklist } from './index';
 import { segmentit } from './middleware'
 
 async function populateBooks() {
@@ -68,13 +68,13 @@ async function populateBooks() {
     nameTokens: segmentit.doSegment('Under the Dome', { simple: true })
   })
 
-  await TestingDB.books.bulkAdd([
+  await AppDB.books.bulkAdd([
     book1, book2, book3, book4, book5, book6, book7
   ])
 }
 
 async function checkThenPopulateBooks() {
-  await TestingDB.books.count(async (count: number) => {
+  await AppDB.books.count(async (count: number) => {
     if (count > 0) {
       console.log("Table <books> already populated.")
     } else {
@@ -96,13 +96,13 @@ async function populateBooklists() {
   const booklist_3 = new Booklist({
     name: '科学技术',
   })
-  await TestingDB.booklists.bulkAdd([
+  await AppDB.booklists.bulkAdd([
     booklist_1, booklist_2, booklist_3
   ])
 }
 
 async function checkThenPopulateBooklists() {
-  await TestingDB.booklists.count(async (count: number) => {
+  await AppDB.booklists.count(async (count: number) => {
     if (count > 0) {
       console.log("Table <booklists> already populated.")
     } else {
@@ -115,7 +115,7 @@ async function checkThenPopulateBooklists() {
 }
 
 export function handlePopulate() {
-  TestingDB.on('populate', async () => {
+  AppDB.on('populate', async () => {
     console.log('Database Event <populate>')
     await Promise.all([
       populateBooks(),
@@ -123,8 +123,8 @@ export function handlePopulate() {
     ])
   })
 
-  TestingDB.on('ready', () => {
-    return TestingDB.transaction('rw', TestingDB.books, TestingDB.booklists, async () => {
+  AppDB.on('ready', () => {
+    return AppDB.transaction('rw', AppDB.books, AppDB.booklists, async () => {
       await Promise.all([
         checkThenPopulateBooks(),
         checkThenPopulateBooklists()
