@@ -18,10 +18,7 @@ export const useBooklistStore = defineStore('booklists', {
   }),
   actions: {
     async add(booklist: IBooklist) {
-      // console.log(name, books, shared)
-      const booklistIns = new Booklist(booklist)
-
-      await TestingDB.booklists.add(booklistIns)
+      await new Booklist(booklist).save()
       await this.list()
     },
     async count() {
