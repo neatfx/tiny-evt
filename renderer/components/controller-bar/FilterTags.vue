@@ -36,6 +36,7 @@ defineProps<{
   border-bottom: none;
   padding: 10px;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
+  font-size: small;
 }
 .filter-tags-wrapper {
   display: grid;
@@ -49,7 +50,7 @@ defineProps<{
 }
 li {
   border: 2px solid dimgray;
-  padding: 2px;
+  padding: 2px 2px 2px;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
 }
 .type-li {
@@ -69,12 +70,12 @@ li {
 }
 .btn-delete {
   display: inline-block;
-  padding: 0px 9px 1px 10px;
+  padding: 2px 8px 2px 8px;
   margin-left: 2px;
   background-color: lightcoral;
 }
 .cross {
-  font-size: medium;
+  font-size: small;
   display: inline-block;
   transition-property: all;
   transform: rotate(45deg);
