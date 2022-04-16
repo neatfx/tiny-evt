@@ -29,37 +29,37 @@ async function deleteItem(key: number | undefined) {
 }
 
 async function addTag(rowId: number, tags: string[], ) {
-  store.updateTest(rowId, {
+  store.update(rowId, {
     categories: tags
   })
 }
 
 async function deleteTag(tags: string[], rowId: number) {
-  store.updateTest(rowId, {
+  store.update(rowId, {
     categories: tags
   })
 }
 
 async function deleteLend(rowId: number) {
-  store.updateTest(rowId, {
+  store.update(rowId, {
     lend: undefined
   })
 }
 
 async function addLend(rowId: number, info: string) {
-  store.updateTest(rowId, {
+  store.update(rowId, {
     lend: info
   })
 }
 
 async function markRead(rowId: number, read: boolean | undefined) {
-  store.updateTest(rowId, {
+  store.update(rowId, {
     read: read
   })
 }
 
 async function addCover(rowId: number, cover: File | undefined) {
-  store.updateTest(rowId, {
+  store.update(rowId, {
     cover: cover
   })
 }

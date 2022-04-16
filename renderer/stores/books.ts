@@ -56,12 +56,7 @@ export const useBooksStore = defineStore('books', {
     async add(book: IBook) {
       return await new Book(book).save()
     },
-    // TODO: 重复代码
-    async update(key: number, mod: any) {
-      console.log(key, mod)
-      await AppDB.books.update(key, mod)
-    },
-    async updateTest(key: number, change: any) {
+    async update(key: number, change: any) {
       await AppDB.books.update(key, change)
     },
     // 删除书籍

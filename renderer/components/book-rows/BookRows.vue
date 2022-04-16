@@ -35,25 +35,25 @@ async function updateField(rowId: number, payload: string) {
 }
 
 async function updateLend(rowId: number, note: string) {
-  store.updateTest(rowId, {
+  store.update(rowId, {
     lend: note
   })
 }
 
 async function markReadingStatus(rowId: number, readingStatus: string) {
-  store.updateTest(rowId, {
+  store.update(rowId, {
     readingStatus: readingStatus
   })
 }
 
 async function updateCover(rowId: number, cover: File | undefined) {
-  store.updateTest(rowId, {
+  store.update(rowId, {
     cover: cover
   })
 }
 
 async function updateTag(rowId: number, tags: string[]) {
-  store.updateTest(rowId, {
+  store.update(rowId, {
     categories: tags
   })
 }
