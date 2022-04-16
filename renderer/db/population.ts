@@ -7,6 +7,7 @@ import { segmentit } from './middleware'
 
 async function populateBooks() {
   const book1 = new Book({
+    readingStatus: 'wanted',
     name: '流浪地球',
     author: '刘慈欣',
     publishing: '长江文艺出版社',
@@ -15,6 +16,7 @@ async function populateBooks() {
     nameTokens: segmentit.doSegment('流浪地球', { simple: true })
   })
   const book2 = new Book({
+    readingStatus: 'not-yet',
     lend: '2022.1.20 借出给张三',
     name: '胶东雄狮',
     author: '彦庆杰',
@@ -24,6 +26,7 @@ async function populateBooks() {
     nameTokens: segmentit.doSegment('胶东雄狮', { simple: true }),
   })
   const book3 = new Book({
+    readingStatus: 'reading',
     name: '三体:地球往事三部曲之一',
     author: '刘慈欣',
     publishing: '重庆出版社',
@@ -32,6 +35,7 @@ async function populateBooks() {
     nameTokens: segmentit.doSegment('三体:地球往事三部曲之一', { simple: true })
   })
   const book4 = new Book({
+    readingStatus: 'read',
     name: '三体2:黑暗森林',
     author: '刘慈欣',
     publishing: '重庆出版社',
