@@ -58,7 +58,7 @@ function onFilterItemClick(e: MouseEvent, filterType: string, filterValue: strin
       <div>
         <ul v-if="Object.keys(items).includes(seletedFilter)" class="final-filter">
           <li v-for="(v, k) in currentSubMenuData" :key="k" @click="onFilterItemClick($event, seletedFilter, v)">
-            {{ (['lend', 'readingStatus'].indexOf(seletedFilter) !== -1) ? trans(v) : v }}
+            {{ ((['lend', 'readingStatus'].indexOf(seletedFilter) !== -1) ? trans(v) : v) || '-- 未知 --' }}
           </li>
         </ul>
       </div>
