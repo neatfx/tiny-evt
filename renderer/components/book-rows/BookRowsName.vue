@@ -33,6 +33,7 @@ const coverHtml = computed(() => {
 const fileData = ref<File | undefined>()
 const showCover = ref(false)
 const showCoverUploader = ref(false)
+const showConfirmCoverDeletion = ref(false)
 const showConfirmBookDeletion = ref(false)
 const showBooklist = ref(false)
 const showLendNoteAdder = ref(false)
@@ -63,6 +64,7 @@ async function deleteCover() {
   if (fileData.value) {
     emit("update-cover", props.rowId, undefined)
     fileData.value = undefined
+    showConfirmCoverDeletion.value = false
   }
 }
 
@@ -92,7 +94,7 @@ onUnmounted(() => {
       <!-- 操作菜单 -->
       <BookRowsMenuVue :hasCover="cover" @action-show-cover-uploader="() => {
         showCoverUploader = true
-      }" @action-delete-cover="deleteCover" @action-show-lend-note-adder="showLendNoteAdder = true"
+      }" @action-delete-cover="showConfirmCoverDeletion = true" @action-show-lend-note-adder="showLendNoteAdder = true"
         @action-delete-book="showConfirmBookDeletion = true"></BookRowsMenuVue>
 
       <!-- 阅读状态 -->
@@ -129,7 +131,16 @@ onUnmounted(() => {
       </div>
     </Transition>
 
-    <!-- 删除 book 数据二次确认（浮动显示） -->
+    <!-- 删除封面二次确认（浮动显示） -->
+    <Transition name="slide-up" mode="out-in">
+      <div v-if="showConfirmCoverDeletion" class="pop-cover-uplaoder-wrapper">
+        <BaseButton class="btn-confirm" @click="deleteCover">确认删除
+        </BaseButton>
+        <BaseButton class="btn-cancel" @click="showConfirmCoverDeletion = false">取消</BaseButton>
+      </div>
+    </Transition>
+
+    <!-- 删除书籍二次确认（浮动显示） -->
     <Transition name="slide-up" mode="out-in">
       <div v-if="showConfirmBookDeletion" class="pop-cover-uplaoder-wrapper">
         <BaseButton class="btn-confirm" @click="emit('delete-book')">确认删除
@@ -137,6 +148,7 @@ onUnmounted(() => {
         <BaseButton class="btn-cancel" @click="showConfirmBookDeletion = false">取消</BaseButton>
       </div>
     </Transition>
+
     <!-- 添加出借备注 -->
     <Transition name="slide-up" mode="out-in">
       <div v-if="showLendNoteAdder" class="lend-note-adder">
