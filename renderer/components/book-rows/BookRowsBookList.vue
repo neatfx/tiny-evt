@@ -53,7 +53,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <FolderPanel :is-inline-panel="true" position="right">
+  <FolderPanel :is-pop-menu="true" position="right">
     <template #header>
       <BaseButton class="btn-actions">#</BaseButton>
     </template>
