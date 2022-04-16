@@ -2,8 +2,8 @@
  * class mapped to the booklists table
  */
 
-import type { IBooklist } from '../type-defs'
-import { TestingDB } from '../index'
+import type { IBooklist } from '../index'
+// import { TestingDB } from '../index'
 
 export class Booklist implements IBooklist {
   id: number | undefined;

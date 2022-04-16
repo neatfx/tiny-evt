@@ -5,12 +5,11 @@
 import type { Table } from 'dexie'
 
 import { BaseDatabase } from './base-db'
-import { handlePopulate } from './testing/population'
-import { middleware } from './testing/middleware'
+import { handlePopulate } from './population'
+import { middleware } from './middleware'
 
 import type { IBook, IBooklist } from './type-defs'
-import { Book } from './testing/Book';
-import { Booklist } from './testing/Booklist'
+import { Book, Booklist } from './tables'
 
 class TestingDatabase extends BaseDatabase {
   books!: Table<IBook, number>;
