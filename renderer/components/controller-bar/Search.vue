@@ -74,13 +74,14 @@ async function addBook(book: any) {
         name: book.title,
         cover: myBlob,
         author: book.author_name,
+        readingStatus: 'read',
         published: book.year,
-        douban: book.url
+        douban: book.url,
       })
     });
 }
 
-onMounted(()=>{
+onMounted(() => {
 
   // fetch(new Request('https://book.douban.com/j/subject_suggest?q=中国近代史'))
   //   .then(function (response) {

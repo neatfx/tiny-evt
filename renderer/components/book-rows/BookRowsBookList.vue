@@ -50,8 +50,8 @@ async function removeBookFromBooklist(booklistId: number) {
   await booksStore.removeFromBooklist(props.bookId, booklistId)
 }
 
-onMounted(() => {
-  booklistsStore.list()
+onMounted(async () => {
+  // await booklistsStore.list()
 })
 </script>
 

@@ -18,9 +18,10 @@ export const useBooklistStore = defineStore('booklists', {
   }),
   actions: {
     async add(booklist: IBooklist) {
-      const { name, books, shared } = booklist
-      console.log(name, books, shared)
-      await TestingDB.booklists.add(new Booklist(name))
+      // console.log(name, books, shared)
+      const booklistIns = new Booklist(booklist)
+
+      await TestingDB.booklists.add(booklistIns)
       await this.list()
     },
     async count() {
@@ -69,16 +70,16 @@ export const useBooklistStore = defineStore('booklists', {
         await this.list()
       }
     },
-    async fetchPagedRows() {
-      await this.count()
-      await this.list()
-      total.value = this.total
+    // async fetchPagedRows() {
+    //   await this.count()
+    //   await this.list()
+    //   total.value = this.total
 
-      // await toggleIndicator(false)
-    },
-    async toggleIndicator(show: boolean) {
-      this.indicator = show
-    }
+    //   // await toggleIndicator(false)
+    // },
+    // async toggleIndicator(show: boolean) {
+    //   this.indicator = show
+    // }
   },
 })
 

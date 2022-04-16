@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue';
-import type { IBook } from '@/db/testing/type-defs';
+import { ref } from 'vue';
+import type { IBook, IBooklist } from '@/db';
 import { useBooksStore, useBooklistStore } from '@stores/index'
 
 import BaseButton from '../BaseButton.vue';
@@ -13,18 +13,15 @@ const createBookList = ref(false)
 const fullMode = ref(false)
 const bookData: IBook = {
   name: '',
+  cover: null,
   author: '',
+  readingStatus: 'read',
   categories: [],
   publishing: '',
-  cover: null,
-  created: new Date()
+  published: '',
 }
-const booklistData = {
+const booklistData: IBooklist = {
   name: '',
-  books: [],
-  shared: false,
-  deleted: false,
-  created: new Date()
 }
 
 function check(): boolean {
@@ -66,8 +63,8 @@ async function addItem() {
 }
 
 async function addBooklist() {
-  const res = await booklistStore.add(booklistData)
-  console.log('创建书单: ', res)
+  await booklistStore.add(booklistData)
+  // console.log('创建书单: ', res)
 }
 </script>
 

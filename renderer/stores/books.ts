@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { TestingDB } from '@/db'
+import { Book, TestingDB } from '@/db'
 import type { IndexableTypeArray } from 'dexie';
 
 import { usePagination } from '@comps/pagination';
@@ -54,8 +54,7 @@ export const useBooksStore = defineStore('books', {
       await toggleIndicator(false)
     },
     async add(book: IBook) {
-      console.log(book)
-      await TestingDB.books.add(book)
+      return await new Book(book).save()
     },
     async update(key: number, mod: any) {
       console.log(key, mod)

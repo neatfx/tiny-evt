@@ -30,7 +30,7 @@ class TestingDatabase extends BaseDatabase {
 
 const TestingDB = new TestingDatabase('AppDatabase', 1)
 
-handlePopulate() // 初始化测试数据
+// handlePopulate() // 初始化测试数据
 TestingDB.use(middleware) // DBCore Middleware For Search & SyncStore
 
 export { TestingDB, Book, Booklist, IBook, IBooklist }
