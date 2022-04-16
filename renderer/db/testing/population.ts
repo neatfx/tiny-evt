@@ -2,7 +2,7 @@
  * Database Populating
  */
 
-import { TestingDB, Book } from './index';
+import { TestingDB, Book } from '../index';
 import { segmentit } from './middleware'
 
 async function populateBooks() {
