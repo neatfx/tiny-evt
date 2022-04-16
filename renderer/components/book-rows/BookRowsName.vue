@@ -138,7 +138,7 @@ onUnmounted(() => {
     <!-- 删除封面二次确认（浮动显示） -->
     <Transition name="slide-up" mode="out-in">
       <div v-if="showConfirmCoverDeletion" class="pop-cover-uplaoder-wrapper">
-        <BaseButton class="btn-confirm" @click="deleteCover">确认删除
+        <BaseButton class="btn-confirm" @click="deleteCover">确认移除
         </BaseButton>
         <BaseButton class="btn-cancel" @click="showConfirmCoverDeletion = false">取消</BaseButton>
       </div>

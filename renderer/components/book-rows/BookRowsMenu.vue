@@ -18,10 +18,10 @@ const emit = defineEmits<{
     </template>
     <template #body>
       <ul>
-        <li v-if="!hasCover" @click="emit('action-show-cover-uploader')">添加封面</li>
-        <li v-if="hasCover" @click="emit('action-delete-cover')">移除封面</li>
+        <li v-if="!hasCover" @click="emit('action-show-cover-uploader')">添加封面图片</li>
+        <li v-if="hasCover" @click="emit('action-delete-cover')">移除封面图片</li>
         <li @click="emit('action-show-lend-note-adder')">添加借书备注...</li>
-        <li @click="emit('action-delete-book')">删除书籍</li>
+        <li @click="emit('action-delete-book')">删除本书</li>
       </ul>
     </template>
   </FolderPanel>
