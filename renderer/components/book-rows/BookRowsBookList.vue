@@ -27,6 +27,17 @@ const availableBooklists = computed(() => {
   return restBooklists
 })
 
+function getBooklistName(id: number) {
+  let name = ''
+
+  booklistsStore.items.map((v, k) => {
+    if (v?.id === id) {
+      name = v.name
+    }
+  })
+
+  return name
+}
 // 细粒度更新，暂无批量操作
 async function addBookToBooklist(booklistId: number) {
   await booksStore.addToBooklist(props.bookId, booklistId)
@@ -51,9 +62,9 @@ onMounted(() => {
         <!-- 书籍所属书单列表 -->
         <ul class="curr-booklists">
           <li v-if="!props.booklists?.size">尚未加入任何书单</li>
-          <li v-for="(v, k) in booklists" @click="removeBookFromBooklist(v)">
+          <li v-for="(v, k) in booklists" key="k" @click="removeBookFromBooklist(v)">
             <span class="mark-select"></span>
-            {{ v }}
+            {{ getBooklistName(v) }}
           </li>
         </ul>
         <!-- 现有书单列表与书籍所属书单列表的差集（派生计算数据） -->

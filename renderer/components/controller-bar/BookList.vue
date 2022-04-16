@@ -25,11 +25,13 @@ function selectBooklist(listID: number, list: any) {
   // emit('booklist:select')
 }
 
-function deleteBooklist(booklistId: number) {
+function deleteBooklist(booklistId: number | undefined) {
   console.log('删除书单 ', booklistId)
-  booklistStore.delete(booklistId)
-  confirmDelete.value = false
-  // emit('booklist:delete')
+  if (booklistId !== undefined) {
+    booklistStore.delete(booklistId)
+    confirmDelete.value = false
+    // emit('booklist:delete')
+  }
 }
 
 function unselectBooklist() {
@@ -57,7 +59,7 @@ onMounted(async () => {
         </div>
         <!-- 动态列表 -->
         <ul class="all-list">
-          <li v-if="true" v-for="(v, k) in booklistStore.items" key="k" @mouseenter="() => currId = k"
+          <li v-for="(v, k) in booklistStore.items" :key="k" @mouseenter="() => currId = k"
             @mouseleave="() => currId = 1000">
             <div class="booklist-wrapper" @click="selectBooklist(k, v)">
               <span class="list-books-count">{{ '共 ' + v?.books?.size + ' 本' }}</span>
@@ -66,8 +68,8 @@ onMounted(async () => {
             <div v-if="currId === k && !confirmDelete" class="btn-confirm-delete" @click="confirmDelete = true">
               <span class="cross"></span>
             </div>
-            <div v-if="currId === k && confirmDelete" class="confirm-wrapper">
-              <div class="btn-delete" @click="deleteBooklist(v?.id)">
+            <div v-if="v && (currId === k) && confirmDelete" class="confirm-wrapper">
+              <div class="btn-delete" @click="deleteBooklist(v.id)">
                 删除
               </div>
               <div class="btn-cancel" @click="confirmDelete = false">
