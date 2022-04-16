@@ -4,9 +4,9 @@ import { RouterLink } from "vue-router"
 
 <template>
   <nav>
-    <RouterLink to="/" data-test-id="/">统计</RouterLink>
+    <RouterLink to="/" data-test-id="/">实验室</RouterLink>
     <RouterLink to="/data-rows" data-test-id="/b">数据管理</RouterLink>
-    <RouterLink to="/preferences" data-test-id="/d">设置</RouterLink>
+    <RouterLink to="/preferences" data-test-id="/d">设置选项</RouterLink>
   </nav>
 </template>
 
