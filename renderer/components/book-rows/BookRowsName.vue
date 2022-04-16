@@ -157,7 +157,7 @@ onUnmounted(() => {
     <Transition name="slide-up" mode="out-in">
       <div v-if="showLendNoteAdder" class="lend-note-adder">
         <BaseInput class="input-zone" v-model="lendInfo"></BaseInput>
-        <BaseButton class="btn-confirm" @click="addLendNote">添加备注</BaseButton>
+        <BaseButton class="btn-confirm" @click="addLendNote">确认添加</BaseButton>
         <BaseButton class="btn-cancel" @click="showLendNoteAdder = false">取消</BaseButton>
       </div>
     </Transition>
