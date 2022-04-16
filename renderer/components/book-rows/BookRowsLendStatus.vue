@@ -13,7 +13,7 @@ function reset() {
 </script>
 
 <template>
-  <FolderPanel :isInlinePanel="true">
+  <FolderPanel :isPopMenu="true">
     <template #header>
       <BaseButton :class="[lend ? 'outside' : 'in']">{{
         props.position || ('01-' + (rowId < 10 ? '0' + rowId : rowId))
