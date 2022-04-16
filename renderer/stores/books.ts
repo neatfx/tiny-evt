@@ -28,16 +28,17 @@ export const useBooksStore = defineStore('books', {
       fields: {
         id: true,
         lend: true,
-        readingStatus: true,
-        name: true,
+        varyCardReadingStatus: true,
+        varyCardBooklist: true,
+        varyCardName: true,
+        douban: true,
         author: true,
-        categories: true,
         publishing: true,
-        published: true
+        published: true,
+        categories: true
       },
       control: {
-        categories: true,
-        delete: true,
+        varyCardMenu: true,
       }
     },
     indicator: false

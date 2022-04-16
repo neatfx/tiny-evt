@@ -10,7 +10,7 @@ import BookRowsReadingStatusVue from './BookRowsReadingStatus.vue';
 import BookRowsMenuVue from './BookRowsMenu.vue';
 import BookRowsBookList from './BookRowsBookList.vue'
 
-const props = defineProps(['rowId', 'name', 'isName', 'cover', 'readingStatus', 'booklists'])
+const props = defineProps(['rowId', 'name', 'isName', 'cover', 'readingStatus', 'booklists','viewOption'])
 const emit = defineEmits<{
   (event: 'mark-reading-status', rowId: number, readingStatus: string): void
   (event: 'update-cover', rowId: number, cover: File | undefined): void
@@ -92,21 +92,21 @@ onUnmounted(() => {
   <div class="wrapper">
     <div class="inner-wrapper">
       <!-- 操作菜单 -->
-      <BookRowsMenuVue :hasCover="cover" @action-show-cover-uploader="() => {
+      <BookRowsMenuVue v-if="viewOption.control.varyCardMenu" :hasCover="cover" @action-show-cover-uploader="() => {
         showCoverUploader = true
       }" @action-delete-cover="showConfirmCoverDeletion = true" @action-show-lend-note-adder="showLendNoteAdder = true"
         @action-delete-book="showConfirmBookDeletion = true"></BookRowsMenuVue>
 
       <!-- 阅读状态 -->
-      <BookRowsReadingStatusVue class="reading-status" :readingStatus="readingStatus"
+      <BookRowsReadingStatusVue v-if="viewOption.fields.varyCardReadingStatus" class="reading-status" :readingStatus="readingStatus"
         @mark-reading-status="markReadingStatus">
       </BookRowsReadingStatusVue>
 
       <!-- 书单 -->
-      <BookRowsBookList :bookId="rowId" :booklists="booklists" @click="showBooklist = !showBooklist"></BookRowsBookList>
+      <BookRowsBookList v-if="viewOption.fields.varyCardBooklist" :bookId="rowId" :booklists="booklists" @click="showBooklist = !showBooklist"></BookRowsBookList>
 
       <!-- 书名 -->
-      <div @mouseover="showCover = true" @mouseleave="showCover = false">
+      <div v-if="viewOption.fields.varyCardName" @mouseover="showCover = true" @mouseleave="showCover = false">
         <EditableText :rowId="rowId" :text="name || '--no-name--'" :isName="isName"
           @update="(rowId, payload) => { emit('update', rowId, payload) }"></EditableText>
         <!-- 封面（浮动显示） -->
