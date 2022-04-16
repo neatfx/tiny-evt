@@ -4,6 +4,7 @@ import { onMounted } from 'vue';
 
 import BaseButton from '@comps/BaseButton.vue';
 import FolderPanel from '@comps/FolderPanel.vue';
+import { computed } from '@vue/reactivity';
 
 const props = defineProps(['bookId', 'booklists']);
 // const emit = defineEmits<{
@@ -15,6 +16,16 @@ const props = defineProps(['bookId', 'booklists']);
 // }>()
 const booksStore = useBooksStore()
 const booklistsStore = useBooklistStore()
+const availableBooklists = computed(() => {
+  const restBooklists: any[] = []
+  booklistsStore.items.map((v, k) => {
+    if (!props.booklists.has(v?.id)) {
+      restBooklists.push(v)
+    }
+  })
+
+  return restBooklists
+})
 
 // 细粒度更新，暂无批量操作
 async function addBookToBooklist(booklistId: number) {
@@ -37,6 +48,7 @@ onMounted(() => {
     </template>
     <template #body>
       <div class="wrapper">
+        <!-- 书籍所属书单列表 -->
         <ul class="curr-booklists">
           <li v-if="!props.booklists?.size">尚未加入任何书单</li>
           <li v-for="(v, k) in booklists" @click="removeBookFromBooklist(v)">
@@ -44,8 +56,10 @@ onMounted(() => {
             {{ v }}
           </li>
         </ul>
+        <!-- 现有书单列表与书籍所属书单列表的差集（派生计算数据） -->
         <ul>
-          <li v-for="(v, k) in booklistsStore.items" @click="addBookToBooklist(v.id)">
+          <li v-if="availableBooklists.length === 0">暂无书单可供选择</li>
+          <li v-for="(v, k) in availableBooklists" @click="addBookToBooklist(v.id)">
             <span class="mark-select mark-select-unselected"></span>
             {{ v?.name }}
           </li>
