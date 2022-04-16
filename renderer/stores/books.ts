@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia'
-import { TestingDB } from '../../db'
+import { TestingDB } from '@/db'
 import type { IndexableTypeArray } from 'dexie';
 
-import { usePagination } from '../../components/pagination';
+import { usePagination } from '@comps/pagination';
 import type { IBook } from '@/db/testing/type-defs';
 import { useFilter } from '@/components/controller-bar/filter';
 

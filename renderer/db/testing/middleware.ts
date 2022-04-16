@@ -8,7 +8,7 @@ import {
   DictOptimizer, ChsNameOptimizer, DatetimeOptimizer,
   pangu, wildcard
 } from 'segmentit'
-import { refresh, refreshFiltersMeta, toggleIndicator } from '@stores/testing/books'
+import { refresh, refreshFiltersMeta, toggleIndicator } from '@stores/index'
 import type { DBCore, Middleware } from 'dexie';
 
 const debug = false

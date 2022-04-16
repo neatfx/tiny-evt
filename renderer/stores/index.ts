@@ -1,2 +1,2 @@
-export * from './testing/books'
-export * from './testing/booklists'
+export * from './books'
+export * from './booklists'

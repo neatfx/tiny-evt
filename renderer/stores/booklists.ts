@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia'
-import { TestingDB } from '../../db'
+import { TestingDB } from '@/db'
 
-import { usePagination } from '../../components/pagination';
-import { useFilter } from '@/components/controller-bar/filter';
+import { usePagination } from '@comps/pagination';
+import { useFilter } from '@comps/controller-bar/filter';
 
 import type { IBooklist } from '@/db/testing/type-defs';
 import { Booklist } from '@/db/testing';
