@@ -14,11 +14,11 @@ const { workingFilters } = useDataRowsController(store)
 // TODO: 优化
 store.$subscribe((mutation, state) => {
   // persist the whole state to the local storage whenever it changes
-  localStorage.setItem('books', JSON.stringify(state.view))
+  localStorage.setItem('app-view-options', JSON.stringify(state.view))
 })
 
 onMounted(() => {
-  const viewLocal = localStorage.getItem('books')
+  const viewLocal = localStorage.getItem('app-view-options')
   if (viewLocal) store.view = JSON.parse(viewLocal)
 })
 </script>
