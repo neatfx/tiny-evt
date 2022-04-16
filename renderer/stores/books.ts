@@ -3,7 +3,7 @@ import { TestingDB } from '@/db'
 import type { IndexableTypeArray } from 'dexie';
 
 import { usePagination } from '@comps/pagination';
-import type { IBook } from '@/db/testing/type-defs';
+import type { IBook } from '@/db';
 import { useFilter } from '@/components/controller-bar/filter';
 
 const { total, offset, limit } = usePagination()

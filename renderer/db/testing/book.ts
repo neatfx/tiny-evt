@@ -2,7 +2,7 @@
  * class mapped to the books table
  */
 
-import type { IBook } from './type-defs'
+import type { IBook } from '../type-defs'
 // import { TestingDB } from './index'
 
 export class Book implements IBook {

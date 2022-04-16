@@ -8,7 +8,7 @@ import { BaseDatabase } from './base-db'
 import { handlePopulate } from './testing/population'
 import { middleware } from './testing/middleware'
 
-import type { IBook, IBooklist } from './testing/type-defs'
+import type { IBook, IBooklist } from './type-defs'
 import { Book } from './testing/Book';
 import { Booklist } from './testing/Booklist'
 
@@ -34,4 +34,4 @@ const TestingDB = new TestingDatabase('AppDatabase', 1)
 handlePopulate() // 初始化测试数据
 TestingDB.use(middleware) // DBCore Middleware For Search & SyncStore
 
-export { TestingDB, Book, Booklist }
+export { TestingDB, Book, Booklist, IBook, IBooklist }

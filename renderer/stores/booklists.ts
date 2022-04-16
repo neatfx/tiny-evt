@@ -4,7 +4,7 @@ import { TestingDB } from '@/db'
 import { usePagination } from '@comps/pagination';
 import { useFilter } from '@comps/controller-bar/filter';
 
-import type { IBooklist } from '@/db/testing/type-defs';
+import type { IBooklist } from '@/db';
 import { Booklist } from '@/db'
 
 const { total, offset, limit } = usePagination()
