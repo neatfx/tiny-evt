@@ -6,6 +6,7 @@ import { ref } from 'vue'
 import { vContextMenu, useContextMenu } from '@comps/contextMenu'
 import EditableText from '@comps/EditableText.vue'
 import BaseButton from '@comps/BaseButton.vue';
+import { useFilter } from '@comps/controller-bar/filter'
 
 import BaseDataRows from './BaseRows.vue'
 import BookRowsLendStatus from './BookRowsLendStatus.vue'
@@ -17,6 +18,7 @@ const props = defineProps(['items'])
 const store = useBooksStore()
 const { targetId } = useContextMenu();
 const currentUpdateField = ref('')
+const { filter } = useFilter()
 
 function openDetail(rowId: number | undefined) {
   router.push('/data-row-detail/' + rowId)
@@ -68,30 +70,45 @@ function openDouban(url: string) {
 
 <template>
   <BaseDataRows :items="props.items">
-    <template #item="{ id, name, author, categories, publishing, published, cover, lend, readingStatus, douban, booklists }">
+    <template
+      #item="{ id, name, author, categories, publishing, published, cover, lend, readingStatus, douban, booklists }">
       <div class="row" v-context-menu="id">
         <div v-if="store.view.fields.id" class="id">{{ (id < 9) ? ('0' + id) : id }}</div>
+            <!-- 借阅状态 -->
             <BookRowsLendStatus v-if="store.view.fields.lend" :lend="lend" :rowId="id" @update-lend:reset="updateLend"
               @update-lend:add="updateLend"></BookRowsLendStatus>
+            <!-- 书名（常用操作菜单、阅读状态、书名、书单） -->
             <BookRowsName v-if="store.view.fields.name" :cover="cover" :rowId="id" :name="name" :isName="() => true"
               :readingStatus="readingStatus" :booklists="booklists" @update="(rowId, payload) => {
                 currentUpdateField = 'name'
                 updateField(rowId, payload)
-              }" @update-cover="updateCover" @mark-reading-status="markReadingStatus"
-              @delete-book="deleteItem(id)"></BookRowsName>
+              }" @update-cover="updateCover" @mark-reading-status="markReadingStatus" @delete-book="deleteItem(id)">
+            </BookRowsName>
             <BaseButton v-if="douban" class="douban" @click="openDouban(douban)">豆</BaseButton>
-            <EditableText v-if="store.view.fields.author" :rowId="id" :text="author || '-- 作者 --'" @update="(rowId, payload) => {
-              currentUpdateField = 'author'
-              updateField(rowId, payload)
-            }"></EditableText>
-            <EditableText v-if="store.view.fields.publishing" :rowId="id" :text="publishing || '-- 出版社 --'" @update="(rowId, payload) => {
-              currentUpdateField = 'publishing'
-              updateField(rowId, payload)
-            }"></EditableText>
-            <EditableText v-if="store.view.fields.published" :rowId="id" :text="published || '-- 出版时间 --'" @update="(rowId, payload) => {
-              currentUpdateField = 'published'
-              updateField(rowId, payload)
-            }"></EditableText>
+            <!-- 作者 -->
+            <div>
+              <BaseButton class="prefix-field-icon-filter" @dblclick="filter('author', author)">作者</BaseButton>
+              <EditableText v-if="store.view.fields.author" :rowId="id" :text="author || '---'" @update="(rowId, payload) => {
+                currentUpdateField = 'author'
+                updateField(rowId, payload)
+              }"></EditableText>
+            </div>
+            <!-- 出版社 -->
+            <div>
+              <BaseButton class="prefix-field-icon-filter" @dblclick="filter('publishing', publishing)">出版社</BaseButton>
+              <EditableText v-if="store.view.fields.publishing" :rowId="id" :text="publishing || '---'" @update="(rowId, payload) => {
+                currentUpdateField = 'publishing'
+                updateField(rowId, payload)
+              }"></EditableText>
+            </div>
+            <!-- 出版时间 -->
+            <div>
+              <BaseButton class="prefix-field-icon-filter">出版日期</BaseButton>
+              <EditableText v-if="store.view.fields.published" :rowId="id" :text="published || '---'" @update="(rowId, payload) => {
+                currentUpdateField = 'published'
+                updateField(rowId, payload)
+              }"></EditableText>
+            </div>
             <BookRowsTags v-if="store.view.fields.categories" :categories="categories" :rowId="id"
               @update-tag:add="updateTag" @update-tag:delete="updateTag"></BookRowsTags>
         </div>
@@ -119,12 +136,20 @@ function openDouban(url: string) {
   border-radius: 50rem 50rem 50rem 0;
 }
 
+.prefix-field-icon-filter,
+.prefix-field-icon-filter:hover {
+  background-color: #888;
+  margin-right: 0;
+  border-radius: 1rem 0 0 0;
+}
+
 .douban,
 .douban:hover {
   border-radius: 50rem 50rem 50rem 0;
   background-color: limegreen;
 }
-.btn-delete{
+
+.btn-delete {
   justify-self: right;
 }
 </style>
