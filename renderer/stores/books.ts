@@ -123,10 +123,10 @@ export const useBooksStore = defineStore('books', {
           .filter((book) => {
             if (filter.get('lend')) {
               if (filter.get('lend')?.has('true')) {
-                if (book.lend !== undefined) return true
+                if (book.lend !== '') return true
                 return false
               } else {
-                if (book.lend === undefined) return true
+                if (book.lend === '') return true
                 return false
               }
             } else {
