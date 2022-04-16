@@ -63,8 +63,29 @@ export const useBooksStore = defineStore('books', {
     async updateTest(key: number, change: any) {
       await TestingDB.books.update(key, change)
     },
+    // 删除书籍
+    // 包含事务：
+    // 1、将书籍从其所属的书单中移除
+    // 2、删除书籍
     async delete(key: number) {
-      await TestingDB.books.delete(key)
+      const book = await TestingDB.books.get(key)
+
+      if (book) {
+        const booklistIds = Array.from(book.booklists || [])
+
+        TestingDB.transaction('rw', TestingDB.books, TestingDB.booklists, async () => {
+          await Promise.all([
+            Promise.all(booklistIds.map(async id => {
+              const booklist = await TestingDB.booklists.get(id)
+              if (booklist && booklist.books) {
+                booklist.books.delete(key)
+                TestingDB.booklists.put(booklist)
+              }
+            })),
+            TestingDB.books.delete(key)
+          ])
+        })
+      }
     },
     async fetchFiltersMeta() {
       await TestingDB.books.orderBy('categories').uniqueKeys((keysArray) => {
