@@ -66,8 +66,8 @@ async function deleteCover() {
   }
 }
 
-function addLendNote(note: string) {
-  emit('add-lend-note', props.rowId, note)
+function addLendNote() {
+  emit('add-lend-note', props.rowId, lendInfo.value)
 }
 
 function markReadingStatus(readingStatus: string) {
@@ -139,7 +139,7 @@ onUnmounted(() => {
     </Transition>
     <div v-if="showLendNoteAdder" class="lend-note-adder">
       <BaseInput class="input-zone" v-model="lendInfo"></BaseInput>
-      <BaseButton class="btn-confirm" @click="">添加备注</BaseButton>
+      <BaseButton class="btn-confirm" @click="addLendNote">添加备注</BaseButton>
       <BaseButton class="btn-cancel" @click="showLendNoteAdder = false">取消</BaseButton>
     </div>
   </div>

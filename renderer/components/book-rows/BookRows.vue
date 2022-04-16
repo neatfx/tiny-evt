@@ -34,9 +34,9 @@ async function updateField(rowId: number, payload: string) {
   currentUpdateField.value = ''
 }
 
-async function updateLend(rowId: number, info: string) {
+async function updateLend(rowId: number, note: string) {
   store.updateTest(rowId, {
-    lend: info
+    lend: note
   })
 }
 
@@ -82,7 +82,7 @@ function openDouban(url: string) {
               :readingStatus="readingStatus" :booklists="booklists" @update="(rowId, payload) => {
                 currentUpdateField = 'name'
                 updateField(rowId, payload)
-              }" @update-cover="updateCover" @mark-reading-status="markReadingStatus" @delete-book="deleteItem(id)">
+              }" @update-cover="updateCover" @mark-reading-status="markReadingStatus" @add-lend-note="updateLend" @delete-book="deleteItem(id)">
             </BookRowsName>
             <BaseButton v-if="douban" class="douban" @click="openDouban(douban)">豆</BaseButton>
             <!-- 作者 -->
