@@ -17,40 +17,62 @@ export const useBooklistStore = defineStore('booklists', {
     indicator: false
   }),
   actions: {
-    async count() {
-      this.total = await TestingDB.booklists.count()
-    },
-    async list() {
-      this.items = await TestingDB.booklists.offset(offset.value).limit(limit.value).toArray()
-      // await toggleIndicator(false)
-    },
     async add(booklist: IBooklist) {
-      const {name, books, shared} = booklist
-      console.log(name,books,shared)
+      const { name, books, shared } = booklist
+      console.log(name, books, shared)
       await TestingDB.booklists.add(new Booklist(name))
       await this.list()
     },
-    async update(key: number, mod: any) {
-      console.log(key, mod)
-      await TestingDB.booklists.update(key, mod)
+    async count() {
+      this.total = await TestingDB.booklists.count()
     },
+    // 暂不提供分页器支持
+    async list() {
+      // this.items = await TestingDB.booklists.offset(offset.value).limit(limit.value).toArray()
+      this.items = await TestingDB.booklists.toArray()
+      // await toggleIndicator(false)
+    },
+    async search(keywords: string) {
+      this.items = await TestingDB.booklists
+        .where("name").startsWithIgnoreCase(keywords)
+        .distinct().toArray();
+
+      // await toggleIndicator(false)
+    },
+    // async update(key: number, mod: any) {
+    //   console.log(key, mod)
+    //   await TestingDB.booklists.update(key, mod)
+    // },
+    // 删除书单
+    // 包含事务：
+    // 1、将书单从其所包含的书籍中移除
+    // 2、删除书单
     async delete(key: number) {
-      await TestingDB.booklists.delete(key)
-      await this.list()
+      const booklist = await TestingDB.booklists.get(key)
+
+      if (booklist) {
+        const bookIds = Array.from(booklist.books || [])
+
+        TestingDB.transaction('rw', TestingDB.books, TestingDB.booklists, async () => {
+          await Promise.all([
+            Promise.all(bookIds.map(async id => {
+              const book = await TestingDB.books.get(id)
+              if (book && book.booklists) {
+                book.booklists.delete(key)
+                TestingDB.books.put(book)
+              }
+            })),
+            TestingDB.booklists.delete(key)
+          ])
+        })
+
+        await this.list()
+      }
     },
     async fetchPagedRows() {
       await this.count()
       await this.list()
       total.value = this.total
-
-      // await toggleIndicator(false)
-    },
-    async search(keywords: string) {
-      this.items = await TestingDB.booklists
-        .where("nameTokens").startsWithIgnoreCase(keywords)
-        .or('author').startsWithIgnoreCase(keywords)
-        .or('categories').anyOfIgnoreCase([keywords])
-        .distinct().toArray();
 
       // await toggleIndicator(false)
     },

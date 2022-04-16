@@ -10,6 +10,7 @@ export class Book implements IBook {
   name!: string;
   author!: string;
   categories?: string[] | undefined;
+  booklists?: Set<number> | undefined;
   publishing?: string | undefined;
   published?: string;
   nameTokens?: string[] | undefined;
@@ -22,6 +23,7 @@ export class Book implements IBook {
     this.author = author;
     this.readingStatus = 'read';
     this.lend = undefined;
+    this.booklists = new Set();
     this.created = new Date();
 
     // Define navigation properties.
