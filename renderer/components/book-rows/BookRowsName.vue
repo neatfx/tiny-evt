@@ -10,7 +10,7 @@ import BookRowsReadingStatusVue from './BookRowsReadingStatus.vue';
 import BookRowsMenuVue from './BookRowsMenu.vue';
 import BookRowsBookList from './BookRowsBookList.vue'
 
-const props = defineProps(['rowId', 'name', 'isName', 'cover', 'readingStatus', 'booklists','viewOption'])
+const props = defineProps(['rowId', 'name', 'isName', 'cover', 'readingStatus', 'booklists', 'viewOption'])
 const emit = defineEmits<{
   (event: 'mark-reading-status', rowId: number, readingStatus: string): void
   (event: 'update-cover', rowId: number, cover: File | undefined): void
@@ -98,15 +98,19 @@ onUnmounted(() => {
         @action-delete-book="showConfirmBookDeletion = true"></BookRowsMenuVue>
 
       <!-- 阅读状态 -->
-      <BookRowsReadingStatusVue v-if="viewOption.fields.varyCardReadingStatus" class="reading-status" :readingStatus="readingStatus"
-        @mark-reading-status="markReadingStatus">
+      <BookRowsReadingStatusVue v-if="viewOption.fields.varyCardReadingStatus" class="reading-status"
+        :readingStatus="readingStatus" @mark-reading-status="markReadingStatus">
       </BookRowsReadingStatusVue>
 
       <!-- 书单 -->
-      <BookRowsBookList v-if="viewOption.fields.varyCardBooklist" :bookId="rowId" :booklists="booklists" @click="showBooklist = !showBooklist"></BookRowsBookList>
+      <BookRowsBookList v-if="viewOption.fields.varyCardBooklist" :bookId="rowId" :booklists="booklists"
+        @click="showBooklist = !showBooklist"></BookRowsBookList>
 
       <!-- 书名 -->
-      <div v-if="viewOption.fields.varyCardName" @mouseover="showCover = true" @mouseleave="showCover = false">
+      <div v-if="viewOption.fields.varyCardName" class="book-name" @mouseover="showCover = true"
+        @mouseleave="showCover = false">
+        <!-- Cover 状态显示 -->
+        <span :class="['circle', cover ? 'has-cover' : '']"></span>
         <EditableText :rowId="rowId" :text="name || '--no-name--'" :isName="isName"
           @update="(rowId, payload) => { emit('update', rowId, payload) }"></EditableText>
         <!-- 封面（浮动显示） -->
@@ -161,15 +165,33 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
-.wrapper {
-  /* display: inline; */
-}
+/* .wrapper {
+  display: inline;
+} */
 
 .inner-wrapper {
   display: grid;
   grid-template-columns: auto;
   grid-auto-flow: column;
 }
+
+.circle {
+  display: inline-block;
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  margin: 3px;
+  /* border-radius: 50rem; */
+  background-color: grey;
+}
+
+.has-cover {
+  background-color:greenyellow;
+}
+
+/* .book-name {
+  margin-left: 1px;
+} */
 
 .reading-status {
   margin: 0 1px;

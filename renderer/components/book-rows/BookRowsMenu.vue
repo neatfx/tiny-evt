@@ -14,7 +14,7 @@ const emit = defineEmits<{
 <template>
   <FolderPanel :is-pop-menu="true" position="right">
     <template #header>
-      <BaseButton class="btn-actions"><span :class="hasCover ? 'has-cover' : 'no-cover'">+</span></BaseButton>
+      <BaseButton class="btn-actions"><span>+</span></BaseButton>
     </template>
     <template #body>
       <ul>
@@ -34,10 +34,6 @@ const emit = defineEmits<{
 
 .btn-actions:hover {
   background-color: #777;
-}
-
-.no-cover {
-  color:lavender;
 }
 
 ul {
