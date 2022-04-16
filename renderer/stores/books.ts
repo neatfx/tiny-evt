@@ -112,7 +112,6 @@ export const useBooksStore = defineStore('books', {
         }
       })
 
-      // TODO: 移除 filter 的使用，以配合 Hook 或 DBCore
       if (lendFilter) filterArr.push(
         AppDB.books
           .filter((book) => {
@@ -129,10 +128,6 @@ export const useBooksStore = defineStore('books', {
             }
           })
           .primaryKeys()
-      )
-
-      if (filterArr.length === 0) filterArr.push(
-        // AppDB.books.orderBy('name').primaryKeys()
       )
 
       const results = await Promise.all(filterArr);
