@@ -4,6 +4,7 @@ import { onMounted, onUnmounted } from 'vue';
 
 import EditableText from '@comps/EditableText.vue'
 import BaseButton from '@comps/BaseButton.vue';
+import BaseInput from '../BaseInput.vue';
 
 import BookRowsReadingStatusVue from './BookRowsReadingStatus.vue';
 import BookRowsMenuVue from './BookRowsMenu.vue';
@@ -13,6 +14,7 @@ const props = defineProps(['rowId', 'name', 'isName', 'cover', 'readingStatus', 
 const emit = defineEmits<{
   (event: 'mark-reading-status', rowId: number, readingStatus: string): void
   (event: 'update-cover', rowId: number, cover: File | undefined): void
+  (event: 'add-lend-note', rowId: number, note: string): void
   (event: 'update', rowId: number, payload: string): void
   (event: 'delete-book'): void
 }>()
@@ -33,6 +35,8 @@ const showCover = ref(false)
 const showCoverUploader = ref(false)
 const showConfirmBookDeletion = ref(false)
 const showBooklist = ref(false)
+const showLendNoteAdder = ref(false)
+const lendInfo = ref('')
 
 function ondragover(event: any) {
   event.stopPropagation();
@@ -62,6 +66,10 @@ async function deleteCover() {
   }
 }
 
+function addLendNote(note: string) {
+  emit('add-lend-note', props.rowId, note)
+}
+
 function markReadingStatus(readingStatus: string) {
   emit('mark-reading-status', props.rowId, readingStatus)
 }
@@ -84,7 +92,8 @@ onUnmounted(() => {
       <!-- 操作菜单 -->
       <BookRowsMenuVue :hasCover="cover" @action-show-cover-uploader="() => {
         showCoverUploader = true
-      }" @action-delete-cover="deleteCover" @action-delete-book="showConfirmBookDeletion = true"></BookRowsMenuVue>
+      }" @action-delete-cover="deleteCover" @action-show-lend-note-adder="showLendNoteAdder = true"
+        @action-delete-book="showConfirmBookDeletion = true"></BookRowsMenuVue>
 
       <!-- 阅读状态 -->
       <BookRowsReadingStatusVue class="reading-status" :readingStatus="readingStatus"
@@ -128,6 +137,11 @@ onUnmounted(() => {
         <BaseButton class="btn-cancel" @click="showConfirmBookDeletion = false">取消</BaseButton>
       </div>
     </Transition>
+    <div v-if="showLendNoteAdder" class="lend-note-adder">
+      <BaseInput class="input-zone" v-model="lendInfo"></BaseInput>
+      <BaseButton class="btn-confirm" @click="">添加备注</BaseButton>
+      <BaseButton class="btn-cancel" @click="showLendNoteAdder = false">取消</BaseButton>
+    </div>
   </div>
 </template>
 
@@ -182,6 +196,18 @@ onUnmounted(() => {
   display: block;
   text-align: center;
   padding-top: 27px;
+}
+
+.lend-note-adder {
+  position: fixed;
+  padding: 5px;
+  background-color: gray;
+  box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
+}
+
+.input-zone {
+  background-color: beige;
+  margin-right: 5px;
 }
 
 .btn-confirm,

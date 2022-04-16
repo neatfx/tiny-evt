@@ -6,7 +6,7 @@ const props = defineProps(['hasCover']);
 const emit = defineEmits<{
   (e: 'action-show-cover-uploader'): Promise<void>
   (e: 'action-delete-cover'): Promise<void>
-  (e: 'action-add-note'): Promise<void>
+  (e: 'action-show-lend-note-adder'): Promise<void>
   (e: 'action-delete-book'): Promise<void>
 }>()
 </script>
@@ -20,7 +20,7 @@ const emit = defineEmits<{
       <ul>
         <li v-if="!hasCover" @click="emit('action-show-cover-uploader')">添加封面</li>
         <li v-if="hasCover" @click="emit('action-delete-cover')">移除封面</li>
-        <li @click="emit('action-add-note')">添加借书备注...</li>
+        <li @click="emit('action-show-lend-note-adder')">添加借书备注...</li>
         <li @click="emit('action-delete-book')">删除书籍</li>
       </ul>
     </template>
