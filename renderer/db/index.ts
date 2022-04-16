@@ -11,7 +11,7 @@ import { middleware } from './middleware'
 import type { IBook, IBooklist } from './type-defs'
 import { Book, Booklist } from './tables'
 
-class TestingDatabase extends BaseDatabase {
+class AppDatabase extends BaseDatabase {
   books!: Table<IBook, number>;
   booklists!: Table<IBooklist, number>;
 
@@ -28,7 +28,7 @@ class TestingDatabase extends BaseDatabase {
   }
 }
 
-const TestingDB = new TestingDatabase('AppDatabase', 1)
+const TestingDB = new AppDatabase('AppDatabase', 1)
 
 handlePopulate() // 初始化测试数据
 TestingDB.use(middleware) // DBCore Middleware For Search & SyncStore
