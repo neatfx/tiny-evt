@@ -94,6 +94,7 @@ watchEffect(() => {
   color: #111;
   background-color: grey;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
+  z-index: 9999; /* 全局修复 */
 }
 
 .fixed-panel-body {

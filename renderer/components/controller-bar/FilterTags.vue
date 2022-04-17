@@ -12,7 +12,7 @@ defineProps<{
   <div class="wrapper" v-if="items.size">
     <ul class="filter-tags-wrapper" v-for="key in items.keys()" :key="key">
       <li>
-        <span class="filter-value">{{ trans(key) }}</span>
+        <span class="filter-type">{{ trans(key) }}</span>
       </li>
       <li v-for="v in items.get(key)" :key="key + v">
         <span class="filter-value">{{ v }}</span>
@@ -43,9 +43,8 @@ defineProps<{
 }
 
 li {
-  border: 2px solid dimgray;
+  /* border: 1px solid dimgray; */
   padding: 2px 2px 2px;
-  box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
 }
 
 .type-li {
@@ -55,28 +54,31 @@ li {
 
 .filter-type {
   display: inline-block;
-  padding: 6px 15px 6px;
-  margin-right: 0px;
+  padding: 2px 15px 2px 10px;
   background-color: grey;
+  border-radius: 0 1em 0 0;
 }
 
 .filter-value {
   display: inline-block;
   padding: 2px 15px 2px;
   background-color: slategray;
+  border-radius: 1em 1em 1em 1em;
 }
 
 .btn-delete {
   display: inline-block;
   padding: 2px 8px 2px 8px;
-  margin-left: 2px;
+  margin-left: 3px;
   background-color: lightcoral;
+  border-radius: 1rem;
 }
 
 .cross {
+  /* position:absolute; */
   font-size: small;
   display: inline-block;
-  transition-property: all;
   transform: rotate(45deg);
+
 }
 </style>
