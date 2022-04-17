@@ -51,7 +51,7 @@ function reset() {
 
 .info-text {
   padding: 5px 10px;
-  background-color: antiquewhite;
+  background-color: darkgray;
 }
 
 .reset-btn,
