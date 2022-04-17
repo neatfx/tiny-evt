@@ -19,7 +19,8 @@ export const useBooklistsStore = defineStore('booklists', {
   actions: {
     async add(booklist: IBooklist) {
       await new Booklist(booklist).save()
-      await this.list()
+
+      await this.fetchPagedRows()
     },
     async count() {
       this.total = await AppDB.booklists.count()
@@ -28,6 +29,7 @@ export const useBooklistsStore = defineStore('booklists', {
     async list() {
       // this.items = await AppDB.booklists.offset(offset.value).limit(limit.value).toArray()
       this.items = await AppDB.booklists.toArray()
+
       // await toggleIndicator(false)
     },
     async search(keywords: string) {
@@ -51,7 +53,7 @@ export const useBooklistsStore = defineStore('booklists', {
       if (booklist) {
         const bookIds = Array.from(booklist.books || [])
 
-        AppDB.transaction('rw', AppDB.books, AppDB.booklists, async () => {
+        await AppDB.transaction('rw', AppDB.books, AppDB.booklists, async () => {
           await Promise.all([
             Promise.all(bookIds.map(async id => {
               const book = await AppDB.books.get(id)
@@ -64,16 +66,17 @@ export const useBooklistsStore = defineStore('booklists', {
           ])
         })
 
-        await this.list()
+        await this.fetchPagedRows()
       }
     },
-    // async fetchPagedRows() {
-    //   await this.count()
-    //   await this.list()
-    //   total.value = this.total
+    async fetchPagedRows() {
+      await this.count()
+      await this.list()
 
-    //   // await toggleIndicator(false)
-    // },
+      // total.value = this.total
+
+      // await toggleIndicator(false)
+    },
     // async toggleIndicator(show: boolean) {
     //   this.indicator = show
     // }
@@ -81,13 +84,13 @@ export const useBooklistsStore = defineStore('booklists', {
 })
 
 // 供 search middleware mutate 后统一调用
-// export async function refresh() {
-//   if (workingFilters.size) {
-//     await useBooklistsStore().filter(workingFilters)
-//   } else {
-//     await useBooklistsStore().fetchPagedRows()
-//   }
-// }
+export async function refreshStore() {
+  // if (workingFilters.size) {
+  //   await useBooklistsStore().filter(workingFilters)
+  // } else {
+  await useBooklistsStore().fetchPagedRows()
+  // }
+}
 
 // 供 search middleware put@mutate 时调用
 // export async function refreshFiltersMeta() {

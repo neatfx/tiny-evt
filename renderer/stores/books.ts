@@ -5,6 +5,7 @@ import type { IndexableTypeArray } from 'dexie';
 import { usePagination } from '@comps/pagination';
 import type { IBook } from '@/db';
 import { useFilter } from '@/components/controller-bar/filter';
+import { refreshStore } from './booklists'
 
 const { total, offset, limit } = usePagination()
 const { workingFilters } = useFilter()
@@ -188,6 +189,8 @@ export const useBooksStore = defineStore('books', {
           this.addBookIdToBooklist(bookId, booklistId)
         ]);
       });
+      // 同步更新 booklistsStore
+      await refreshStore()
     },
     // 从书单中移除书籍
     async removeBooklistIdFromBook(bookId: number, booklistId: number) {
@@ -216,7 +219,10 @@ export const useBooksStore = defineStore('books', {
           this.removeBooklistIdFromBook(bookId, booklistId),
           this.removeBookIdFromBooklist(bookId, booklistId),
         ]);
-      });
+      })
+
+      // 同步更新 booklistsStore
+      await refreshStore()
     }
   },
 })
