@@ -5,11 +5,6 @@ import { onMounted, reactive, ref } from 'vue';
 import { useBooklistsStore, useBooksStore } from '../../stores';
 import { useFilter } from './filter'
 
-// const props = defineProps([]);
-// const emit = defineEmits<{
-//   (e: 'booklist:select'): Promise<void>
-//   (e: 'booklist:delete'): Promise<void>
-// }>()
 const curBooklist = reactive({
   id: 0,
   name: ''
@@ -49,7 +44,6 @@ async function deleteBooklist(booklistId: number | undefined) {
   if (booklistId !== undefined) {
     await booklistsStore.delete(booklistId)
     confirmDelete.value = false
-    // emit('booklist:delete')
   }
 }
 

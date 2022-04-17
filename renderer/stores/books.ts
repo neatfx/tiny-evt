@@ -65,7 +65,7 @@ export const useBooksStore = defineStore('books', {
       } else {
         this.items = await AppDB.books.offset(offset.value).limit(limit.value).toArray()
       }
-      
+
       await toggleIndicator(false)
     },
     async add(book: IBook) {
@@ -154,15 +154,9 @@ export const useBooksStore = defineStore('books', {
       // 如存在书籍 IDs 数据（ booklist@state , 来自选中书单 ）则 :
       // 1、重置分页器（ 是否保存分页器状态供书单关闭后返回之前书籍分页状态 ？）
       // 2、将 IDs 加入 Reduce 实现基于原有过滤器的书单列表
-      // console.log(this.currBooklist, filterArr)
-
-      if (this.currBooklist.length) {
-        // offset.value = 0 // 重置分页器
+      if (this.booklistSelected) {
         results.push(this.currBooklist)
-        // if (withSelectedBooklist) this.currBooklist = []
       }
-
-      // console.log(this.currBooklist, filterArr, filter)
 
       const intersection = results.reduce((ids1, ids2) => {
         const set = new Set(ids1);
