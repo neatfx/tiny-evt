@@ -31,6 +31,7 @@ defineProps<{
   padding: 0 5px 5px;
   font-size: small;
   border: 2px solid dimgray;
+  border-bottom: none;
 }
 
 .filter-tags-wrapper {
