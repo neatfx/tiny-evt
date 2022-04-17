@@ -71,7 +71,7 @@ function onFilterItemClick(e: MouseEvent, filterType: string, filterValue: strin
     }">
       {{ booksStore.showFilterTagsZone && filtersCount ? '^' : '+' }}
     </BaseButton>
-    <BaseButton v-if="filtersCount" class="btn-toggle" @click="resetFilter">重置</BaseButton>
+    <BaseButton v-if="filtersCount" class="btn-reset" @click="resetFilter">重置</BaseButton>
   </div>
 </template>
 
@@ -103,7 +103,9 @@ li:hover {
   background-color: #777;
 }
 
-/*  */
+.btn-reset {
+  background-color: #888;
+}
 .filters-list {
   z-index: 990;
 }
