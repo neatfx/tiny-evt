@@ -3,7 +3,7 @@ import { useFilter } from './filter'
 import BaseButton from "../BaseButton.vue"
 import { trans } from './translate'
 
-const { removeFilter, resetFilter } = useFilter()
+const { removeFilter } = useFilter()
 defineProps<{
   items: Map<string, Set<string>>
 }>()
@@ -28,10 +28,10 @@ defineProps<{
 
 <style scoped>
 .wrapper {
-  border: 2px solid dimgray;
   border-bottom: none;
   padding: 0 5px 5px;
   font-size: small;
+  border: 2px solid dimgray;
 }
 
 .filter-tags-wrapper {
@@ -42,7 +42,6 @@ defineProps<{
   justify-content: left;
   padding: 0px;
   margin: 5px 0 0 0;
-  /* border: 1px solid grey; */
 }
 
 li {
