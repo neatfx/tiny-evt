@@ -56,10 +56,10 @@ onMounted(async () => {
 <template>
   <FolderPanel :is-inline-panel="true">
     <template #header>
-      <BaseButton class="btn-actions"><span>{{
-        '书单 ' + booklistsStore.total + (curBooklist.name ? ' > ' +
-          curBooklist.name : '')
-      }}</span>
+      <BaseButton class="btn-actions">
+        <span>
+          {{ curBooklist.name ? '当前书单 《 ' + curBooklist.name + ' 》' : booklistsStore.total + ' 书单 ' }}
+        </span>
       </BaseButton>
     </template>
     <template #body>
