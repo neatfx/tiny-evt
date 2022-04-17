@@ -66,6 +66,12 @@ function openDouban(url: string) {
   console.log(url)
   window.open(url, '_blank') // 新窗口打开外链接
 }
+
+function formmatId(rowId: number) {
+  if (rowId < 10) return '000' + rowId
+  if (rowId >= 10 && rowId < 100) return '00' + rowId
+  if (rowId >= 100 && rowId < 1000) return '0' + rowId
+}
 </script>
 
 <template>
@@ -73,45 +79,46 @@ function openDouban(url: string) {
     <template
       #item="{ id, name, author, categories, publishing, published, cover, lend, readingStatus, douban, booklists }">
       <div class="row" v-context-menu="id">
-        <div v-if="store.view.fields.id" class="id">{{ (id < 9) ? ('0' + id) : id }}</div>
-            <!-- 借阅状态 -->
-            <BookRowsLendStatus v-if="store.view.fields.lend" :lend="lend" :rowId="id" @update-lend:reset="updateLend"
-              @update-lend:add="updateLend"></BookRowsLendStatus>
-            <!-- 书名（常用操作菜单、阅读状态、书名、书单） -->
-            <BookRowsName :cover="cover" :rowId="id" :name="name" :isName="() => true"
-              :readingStatus="readingStatus" :booklists="booklists" :viewOption="store.view" @update="(rowId, payload) => {
-                currentUpdateField = 'name'
-                updateField(rowId, payload)
-              }" @update-cover="updateCover" @mark-reading-status="markReadingStatus" @add-lend-note="updateLend" @delete-book="deleteItem(id)">
-            </BookRowsName>
-            <BaseButton v-if="douban && store.view.fields.douban" class="douban" @click="openDouban(douban)">豆</BaseButton>
-            <!-- 作者 -->
-            <div v-if="store.view.fields.author">
-              <BaseButton class="prefix-field-icon-filter" @dblclick="filter('author', author)">作者</BaseButton>
-              <EditableText :rowId="id" :text="author || '---'" @update="(rowId, payload) => {
-                currentUpdateField = 'author'
-                updateField(rowId, payload)
-              }"></EditableText>
-            </div>
-            <!-- 出版社 -->
-            <div v-if="store.view.fields.publishing">
-              <BaseButton class="prefix-field-icon-filter" @dblclick="filter('publishing', publishing)">出版发行</BaseButton>
-              <EditableText :rowId="id" :text="publishing || '---'" @update="(rowId, payload) => {
-                currentUpdateField = 'publishing'
-                updateField(rowId, payload)
-              }"></EditableText>
-            </div>
-            <!-- 出版时间 -->
-            <div v-if="store.view.fields.published">
-              <BaseButton class="prefix-field-icon-filter">版次</BaseButton>
-              <EditableText :rowId="id" :text="published || '---'" @update="(rowId, payload) => {
-                currentUpdateField = 'published'
-                updateField(rowId, payload)
-              }"></EditableText>
-            </div>
-            <BookRowsTags v-if="store.view.fields.categories" :categories="categories" :rowId="id"
-              @update-tag:add="updateTag" @update-tag:delete="updateTag"></BookRowsTags>
+        <div v-if="store.view.fields.id" class="id">{{ formmatId(id) }}</div>
+        <!-- 借阅状态 -->
+        <BookRowsLendStatus v-if="store.view.fields.lend" :lend="lend" :rowId="id" @update-lend:reset="updateLend"
+          @update-lend:add="updateLend"></BookRowsLendStatus>
+        <!-- 书名（常用操作菜单、阅读状态、书名、书单） -->
+        <BookRowsName :cover="cover" :rowId="id" :name="name" :isName="() => true" :readingStatus="readingStatus"
+          :booklists="booklists" :viewOption="store.view" @update="(rowId, payload) => {
+            currentUpdateField = 'name'
+            updateField(rowId, payload)
+          }" @update-cover="updateCover" @mark-reading-status="markReadingStatus" @add-lend-note="updateLend"
+          @delete-book="deleteItem(id)">
+        </BookRowsName>
+        <BaseButton v-if="douban && store.view.fields.douban" class="douban" @click="openDouban(douban)">豆</BaseButton>
+        <!-- 作者 -->
+        <div v-if="store.view.fields.author">
+          <BaseButton class="prefix-field-icon-filter" @dblclick="filter('author', author)">作者</BaseButton>
+          <EditableText :rowId="id" :text="author || '---'" @update="(rowId, payload) => {
+            currentUpdateField = 'author'
+            updateField(rowId, payload)
+          }"></EditableText>
         </div>
+        <!-- 出版社 -->
+        <div v-if="store.view.fields.publishing">
+          <BaseButton class="prefix-field-icon-filter" @dblclick="filter('publishing', publishing)">出版发行</BaseButton>
+          <EditableText :rowId="id" :text="publishing || '---'" @update="(rowId, payload) => {
+            currentUpdateField = 'publishing'
+            updateField(rowId, payload)
+          }"></EditableText>
+        </div>
+        <!-- 出版时间 -->
+        <div v-if="store.view.fields.published">
+          <BaseButton class="prefix-field-icon-filter">版次</BaseButton>
+          <EditableText :rowId="id" :text="published || '---'" @update="(rowId, payload) => {
+            currentUpdateField = 'published'
+            updateField(rowId, payload)
+          }"></EditableText>
+        </div>
+        <BookRowsTags v-if="store.view.fields.categories" :categories="categories" :rowId="id"
+          @update-tag:add="updateTag" @update-tag:delete="updateTag"></BookRowsTags>
+      </div>
     </template>
   </BaseDataRows>
   <ContextMenu @view="openDetail(targetId)" @delete="deleteItem(targetId)">
