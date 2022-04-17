@@ -44,7 +44,8 @@ export const useBooksStore = defineStore('books', {
         varyCardMenu: true,
       }
     },
-    indicator: false
+    indicator: false,
+    showFilterTagsZone: false,
   }),
   getters: {},
   actions: {

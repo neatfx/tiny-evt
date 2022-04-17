@@ -6,22 +6,19 @@ import BaseButton from '../BaseButton.vue';
 
 import { useFilter } from './filter'
 import { trans } from './translate'
+import { useBooksStore } from '../../stores';
 
 const { filter, filtersCount, resetFilter } = useFilter()
 const props = defineProps(['items'])
 const seletedFilter = ref('')
 const filtersMenu = ref<EventTarget | null>()
 const currentSubMenuData = ref({})
-const emit = defineEmits<{
-  (event: 'toggle-filter-tags-zone'): void
-}>()
-const expanded = ref(false)
+const booksStore = useBooksStore()
 
 // 显示二级菜单
 function showFinalFilter(e: MouseEvent, filterType: string, subData: object) {
   seletedFilter.value = filterType
   filtersMenu.value = e.target
-  // console.log(subData)
   currentSubMenuData.value = subData
 }
 
@@ -70,10 +67,9 @@ function onFilterItemClick(e: MouseEvent, filterType: string, filterValue: strin
       </template>
     </FolderPanel>
     <BaseButton class="btn-toggle" @click="() => {
-      if (filtersCount) emit('toggle-filter-tags-zone')
-      if (filtersCount) expanded = !expanded
+      if (filtersCount) booksStore.showFilterTagsZone = !booksStore.showFilterTagsZone
     }">
-      {{ expanded ? '^' : '+' }}
+      {{ booksStore.showFilterTagsZone && filtersCount ? '^' : '+' }}
     </BaseButton>
     <BaseButton v-if="filtersCount" class="btn-toggle" @click="resetFilter">重置</BaseButton>
   </div>

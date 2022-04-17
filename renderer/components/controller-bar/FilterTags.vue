@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import { useFilter } from './filter'
-import BaseButton from "../BaseButton.vue"
 import { trans } from './translate'
 
 const { removeFilter } = useFilter()
 defineProps<{
   items: Map<string, Set<string>>
 }>()
-
 </script>
 
 <template>

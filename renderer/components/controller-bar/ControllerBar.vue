@@ -10,17 +10,18 @@ import Pagination from "../Pagination.vue";
 import Adder from './Adder.vue'
 
 import BaseButton from '../BaseButton.vue';
+import { useBooksStore } from '../../stores';
 
 defineProps(['views', 'filters', 'workingFilters'])
 const showAdder = ref(false)
-const toggleFilterTags = ref(false)
+const booksStore = useBooksStore()
 </script>
 <template>
   <div class="control-bar">
     <div class="opt-row">
       <div class="left">
         <ViewOptions class="seg" :views="views"></ViewOptions>
-        <FilterMenu class="seg" :items="filters" @toggle-filter-tags-zone="toggleFilterTags = !toggleFilterTags">
+        <FilterMenu class="seg" :items="filters">
         </FilterMenu>
         <Booklist class="seg"></Booklist>
         <BaseButton class="seg" @click="showAdder = !showAdder">{{ '添加' + (showAdder ? ' ^' : ' +') }}</BaseButton>
@@ -31,7 +32,7 @@ const toggleFilterTags = ref(false)
       </div>
     </div>
   </div>
-  <FilterTags v-if="toggleFilterTags" class="filter-tags" :items="workingFilters"></FilterTags>
+  <FilterTags v-if="booksStore.showFilterTagsZone" class="filter-tags" :items="workingFilters"></FilterTags>
   <Adder v-if="showAdder"></Adder>
 </template>
 
