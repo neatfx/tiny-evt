@@ -13,15 +13,17 @@ import BaseButton from '../BaseButton.vue';
 
 defineProps(['views', 'filters', 'workingFilters'])
 const showAdder = ref(false)
+const toggleFilterTags = ref(false)
 </script>
 <template>
   <div class="control-bar">
     <div class="opt-row">
       <div class="left">
         <ViewOptions class="seg" :views="views"></ViewOptions>
-        <FilterMenu class="seg" :items="filters"></FilterMenu>
+        <FilterMenu class="seg" :items="filters" @toggle-filter-tags-zone="toggleFilterTags = !toggleFilterTags">
+        </FilterMenu>
         <Booklist class="seg"></Booklist>
-        <BaseButton class="seg" @click="showAdder = !showAdder">{{ showAdder ? '^' : '+' }}</BaseButton>
+        <BaseButton class="seg" @click="showAdder = !showAdder">{{ '添加' + (showAdder ? ' ^' : ' +') }}</BaseButton>
         <Search class="seg"></Search>
       </div>
       <div class="right">
@@ -29,7 +31,7 @@ const showAdder = ref(false)
       </div>
     </div>
   </div>
-  <FilterTags class="filter-tags" :items="workingFilters"></FilterTags>
+  <FilterTags v-if="toggleFilterTags" class="filter-tags" :items="workingFilters"></FilterTags>
   <Adder v-if="showAdder"></Adder>
 </template>
 

@@ -7,11 +7,15 @@ import BaseButton from '../BaseButton.vue';
 import { useFilter } from './filter'
 import { trans } from './translate'
 
-const { filter } = useFilter()
+const { filter, filtersCount, resetFilter } = useFilter()
 const props = defineProps(['items'])
 const seletedFilter = ref('')
 const filtersMenu = ref<EventTarget | null>()
 const currentSubMenuData = ref({})
+const emit = defineEmits<{
+  (event: 'toggle-filter-tags-zone'): void
+}>()
+const expanded = ref(false)
 
 // 显示二级菜单
 function showFinalFilter(e: MouseEvent, filterType: string, subData: object) {
@@ -43,30 +47,43 @@ function onFilterItemClick(e: MouseEvent, filterType: string, filterValue: strin
 </script>
 
 <template>
-  <FolderPanel title="Filter" :isPopMenu="true">
-    <template #header>
-      <BaseButton>过滤器</BaseButton>
-    </template>
-    <template #body>
-      <ul class="filters-list">
-        <li v-for="(v, k) in props.items" :key="k" @click="showFinalFilter($event, k.toString(), v)">{{
-          trans(k.toString())
-        }}</li>
-      </ul>
-    </template>
-    <template #menu>
-      <div>
-        <ul v-if="Object.keys(items).includes(seletedFilter)" class="final-filter">
-          <li v-for="(v, k) in currentSubMenuData" :key="k" @click="onFilterItemClick($event, seletedFilter, v)">
-            {{ ((['lend', 'readingStatus'].indexOf(seletedFilter) !== -1) ? trans(v) : v) || '-- 未知 --' }}
-          </li>
+  <div class="wrapper">
+    <FolderPanel title="Filter" :isPopMenu="true">
+      <template #header>
+        <BaseButton>{{ (filtersCount ? filtersCount : '') + ' 过滤器' }}</BaseButton>
+      </template>
+      <template #body>
+        <ul class="filters-list">
+          <li v-for="(v, k) in props.items" :key="k" @click="showFinalFilter($event, k.toString(), v)">{{
+            trans(k.toString())
+          }}</li>
         </ul>
-      </div>
-    </template>
+      </template>
+      <template #menu>
+        <div>
+          <ul v-if="Object.keys(items).includes(seletedFilter)" class="final-filter">
+            <li v-for="(v, k) in currentSubMenuData" :key="k" @click="onFilterItemClick($event, seletedFilter, v)">
+              {{ ((['lend', 'readingStatus'].indexOf(seletedFilter) !== -1) ? trans(v) : v) || '-- 未知 --' }}
+            </li>
+          </ul>
+        </div>
+      </template>
     </FolderPanel>
+    <BaseButton class="btn-toggle" @click="() => {
+      if (filtersCount) emit('toggle-filter-tags-zone')
+      if (filtersCount) expanded = !expanded
+    }">
+      {{ expanded ? '^' : '+' }}
+    </BaseButton>
+    <BaseButton v-if="filtersCount" class="btn-toggle" @click="resetFilter">重置</BaseButton>
+  </div>
 </template>
 
 <style scoped>
+.wrapper {
+  display: inline-block;
+}
+
 ul {
   font-size: 15px;
   list-style: none;
@@ -78,12 +95,16 @@ ul {
 li {
   padding: 5px 15px;
   background-color: grey;
-    font-size: small;
+  font-size: small;
 }
 
 li:hover {
   background-color: dimgray;
   cursor: default;
+}
+
+.btn-toggle {
+  background-color: #777;
 }
 
 /*  */
