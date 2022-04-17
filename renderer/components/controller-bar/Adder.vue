@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import type { IBook, IBooklist } from '@/db';
-import { useBooksStore, useBooklistStore } from '@stores/index'
+import { useBooksStore, useBooklistsStore } from '@stores/index'
 
 import BaseButton from '../BaseButton.vue';
 import BaseInput from '../BaseInput.vue';
 
 const bookStore = useBooksStore()
-const booklistStore = useBooklistStore()
+const booklistsStore = useBooklistsStore()
 const imgSrc = ref(false)
 const createBookList = ref(false)
 const fullMode = ref(false)
@@ -63,7 +63,7 @@ async function addItem() {
 }
 
 async function addBooklist() {
-  await booklistStore.add(booklistData)
+  await booklistsStore.add(booklistData)
   // console.log('创建书单: ', res)
 }
 </script>

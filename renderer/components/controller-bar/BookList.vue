@@ -2,7 +2,7 @@
 import BaseButton from '@comps/BaseButton.vue';
 import FolderPanel from '@comps/FolderPanel.vue';
 import { onMounted, reactive, ref } from 'vue';
-import { useBooklistStore } from '@stores/index'
+import { useBooklistsStore } from '../../stores';
 
 const props = defineProps([]);
 const emit = defineEmits<{
@@ -13,7 +13,7 @@ const curBooklist = reactive({
   id: 0,
   name: ''
 })
-const booklistStore = useBooklistStore()
+const booklistsStore = useBooklistsStore()
 const currId = ref(1000)
 const confirmDelete = ref(false)
 
@@ -28,7 +28,7 @@ function selectBooklist(listID: number, list: any) {
 function deleteBooklist(booklistId: number | undefined) {
   console.log('删除书单 ', booklistId)
   if (booklistId !== undefined) {
-    booklistStore.delete(booklistId)
+    booklistsStore.delete(booklistId)
     confirmDelete.value = false
     // emit('booklist:delete')
   }
@@ -40,15 +40,15 @@ function unselectBooklist() {
 }
 
 onMounted(async () => {
-  await booklistStore.list()
-  await booklistStore.count()
+  await booklistsStore.list()
+  await booklistsStore.count()
 })
 </script>
 
 <template>
   <FolderPanel :is-inline-panel="true">
     <template #header>
-      <BaseButton class="btn-actions"><span>{{ '书单 ' + booklistStore.total }}</span></BaseButton>
+      <BaseButton class="btn-actions"><span>{{ '书单 ' + booklistsStore.total }}</span></BaseButton>
     </template>
     <template #body>
       <div class="wrapper">
@@ -59,7 +59,7 @@ onMounted(async () => {
         </div>
         <!-- 动态列表 -->
         <ul class="all-list">
-          <li v-for="(v, k) in booklistStore.items" :key="k" @mouseenter="() => currId = k"
+          <li v-for="(v, k) in booklistsStore.items" :key="k" @mouseenter="() => currId = k"
             @mouseleave="() => currId = 1000">
             <div class="booklist-wrapper" @click="selectBooklist(k, v)">
               <span class="list-books-count">{{ '共 ' + v?.books?.size + ' 本' }}</span>

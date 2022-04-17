@@ -10,7 +10,7 @@ import { Booklist } from '@/db'
 const { total, offset, limit } = usePagination()
 const { workingFilters } = useFilter()
 
-export const useBooklistStore = defineStore('booklists', {
+export const useBooklistsStore = defineStore('booklists', {
   state: () => ({
     items: [] as (IBooklist | undefined)[],
     total: 0,
@@ -83,15 +83,15 @@ export const useBooklistStore = defineStore('booklists', {
 // 供 search middleware mutate 后统一调用
 // export async function refresh() {
 //   if (workingFilters.size) {
-//     await useBooklistStore().filter(workingFilters)
+//     await useBooklistsStore().filter(workingFilters)
 //   } else {
-//     await useBooklistStore().fetchPagedRows()
+//     await useBooklistsStore().fetchPagedRows()
 //   }
 // }
 
 // 供 search middleware put@mutate 时调用
 // export async function refreshFiltersMeta() {
-//   await useBooklistStore().fetchFiltersMeta()
+//   await useBooklistsStore().fetchFiltersMeta()
 // }
 
 // Indicator
@@ -103,7 +103,7 @@ export const useBooklistStore = defineStore('booklists', {
 
 // export async function toggleIndicator(show: boolean) {
 //   if (!show) await sleep()
-//   await useBooklistStore().toggleIndicator(show)
+//   await useBooklistsStore().toggleIndicator(show)
 // }
 
 // Persist

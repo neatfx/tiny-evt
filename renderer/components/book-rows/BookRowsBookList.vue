@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useBooksStore, useBooklistStore } from '@stores/index'
+import { useBooksStore, useBooklistsStore } from '../../stores/index'
 import { onMounted } from 'vue';
 
 import BaseButton from '@comps/BaseButton.vue';
@@ -15,7 +15,7 @@ const props = defineProps(['bookId', 'booklists']);
 //   (e: 'action-delete-book'): Promise<void>
 // }>()
 const booksStore = useBooksStore()
-const booklistsStore = useBooklistStore()
+const booklistsStore = useBooklistsStore()
 const availableBooklists = computed(() => {
   if (props.booklists === undefined) return booklistsStore.items
 

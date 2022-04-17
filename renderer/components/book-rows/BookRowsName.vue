@@ -7,8 +7,8 @@ import BaseButton from '@comps/BaseButton.vue';
 import BaseInput from '../BaseInput.vue';
 
 import BookRowsReadingStatusVue from './BookRowsReadingStatus.vue';
-import BookRowsMenuVue from './BookRowsMenu.vue';
-import BookRowsBookList from './BookRowsBookList.vue'
+import BookRowsMenu from './BookRowsMenu.vue';
+import BookRowsBooklist from './BookRowsBooklist.vue';
 
 const props = defineProps(['rowId', 'name', 'isName', 'cover', 'readingStatus', 'booklists', 'viewOption'])
 const emit = defineEmits<{
@@ -92,10 +92,10 @@ onUnmounted(() => {
   <div class="wrapper">
     <div class="inner-wrapper">
       <!-- 操作菜单 -->
-      <BookRowsMenuVue v-if="viewOption.control.varyCardMenu" :hasCover="cover" @action-show-cover-uploader="() => {
+      <BookRowsMenu v-if="viewOption.control.varyCardMenu" :hasCover="cover" @action-show-cover-uploader="() => {
         showCoverUploader = true
       }" @action-delete-cover="showConfirmCoverDeletion = true" @action-show-lend-note-adder="showLendNoteAdder = true"
-        @action-delete-book="showConfirmBookDeletion = true"></BookRowsMenuVue>
+        @action-delete-book="showConfirmBookDeletion = true"></BookRowsMenu>
 
       <!-- 阅读状态 -->
       <BookRowsReadingStatusVue v-if="viewOption.fields.varyCardReadingStatus" class="reading-status"
@@ -103,8 +103,8 @@ onUnmounted(() => {
       </BookRowsReadingStatusVue>
 
       <!-- 书单 -->
-      <BookRowsBookList v-if="viewOption.fields.varyCardBooklist" :bookId="rowId" :booklists="booklists"
-        @click="showBooklist = !showBooklist"></BookRowsBookList>
+      <BookRowsBooklist v-if="viewOption.fields.varyCardBooklist" :bookId="rowId" :booklists="booklists"
+        @click="showBooklist = !showBooklist"></BookRowsBooklist>
 
       <!-- 书名 -->
       <div v-if="viewOption.fields.varyCardName" class="book-name" @mouseover="showCover = true"
