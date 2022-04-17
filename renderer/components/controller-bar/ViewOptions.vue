@@ -1,18 +1,34 @@
 <script setup lang="ts">
 import FolderPanel from '@comps/FolderPanel.vue';
 import BaseButton from '@comps/BaseButton.vue';
-import { ref } from 'vue';
+import { onMounted, ref, watch, watchEffect } from 'vue';
 import { trans } from './translate'
+import { useBooksStore } from '@stores/index'
 
 const props = defineProps(['views'])
 const on = ref('on')
 const off = ref('off')
+const booksStore = useBooksStore()
+const watchEnable = ref(false)
 
 function switchView(key: string, value: any) {
   if (key === 'cards') value['rows'] = !value['rows']
   if (key === 'rows') value['cards'] = !value['cards']
   value[key] = !value[key]
 }
+
+watchEffect(() => {
+  if (watchEnable.value) {
+    console.log('booksStore.view <set>')
+    localStorage.setItem('app-view-options', JSON.stringify(props.views))
+  }
+})
+
+onMounted(() => {
+  const viewConf = localStorage.getItem('app-view-options')
+  if (viewConf) booksStore.view = JSON.parse(viewConf)
+  watchEnable.value = true
+})
 </script>
 
 <template>
@@ -81,7 +97,7 @@ li {
   position: absolute;
   width: 5px;
   height: 5px;
-  top:5px;
+  top: 5px;
   left: 5px;
 }
 

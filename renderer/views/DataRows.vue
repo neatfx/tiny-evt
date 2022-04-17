@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
-
 import { useBooksStore } from '../stores'
 
 import { useDataRowsController } from '@/components/controller-bar/controller'
@@ -10,17 +8,6 @@ import BookCards from "@/components/book-cards/BookCards.vue"
 
 const store = useBooksStore()
 const { workingFilters } = useDataRowsController(store)
-
-// TODO: 优化
-store.$subscribe((mutation, state) => {
-  // persist the whole state to the local storage whenever it changes
-  localStorage.setItem('app-view-options', JSON.stringify(state.view))
-})
-
-onMounted(() => {
-  const viewLocal = localStorage.getItem('app-view-options')
-  if (viewLocal) store.view = JSON.parse(viewLocal)
-})
 </script>
 
 <template>
