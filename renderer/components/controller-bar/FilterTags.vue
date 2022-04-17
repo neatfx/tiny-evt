@@ -15,10 +15,11 @@ defineProps<{
         <span class="filter-type">{{ trans(key) }}</span>
       </li>
       <li v-for="v in items.get(key)" :key="key + v">
-        <span class="filter-value">{{ v }}</span>
-        <span class="btn-delete" @click="removeFilter(key, v)">
+              <span class="btn-delete" @click="removeFilter(key, v)">
           <span class="cross rotate">+</span>
         </span>
+        <span class="filter-value">{{ v }}</span>
+
       </li>
     </ul>
   </div>
@@ -44,6 +45,7 @@ defineProps<{
 
 li {
   /* border: 1px solid dimgray; */
+  position: relative;
   padding: 2px 2px 2px;
 }
 
@@ -61,24 +63,24 @@ li {
 
 .filter-value {
   display: inline-block;
-  padding: 2px 15px 2px;
+  padding: 2px 10px 2px 27px;
   background-color: slategray;
   border-radius: 1em 1em 1em 1em;
 }
 
 .btn-delete {
+  position: absolute;
   display: inline-block;
-  padding: 2px 8px 2px 8px;
-  margin-left: 3px;
+  padding: 0px 6px 0px 6px;
+  margin-left: 2px;
+  margin-top: 2px;
   background-color: lightcoral;
   border-radius: 1rem;
 }
 
 .cross {
-  /* position:absolute; */
   font-size: small;
   display: inline-block;
   transform: rotate(45deg);
-
 }
 </style>
