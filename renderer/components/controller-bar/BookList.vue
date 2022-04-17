@@ -2,41 +2,50 @@
 import BaseButton from '@comps/BaseButton.vue';
 import FolderPanel from '@comps/FolderPanel.vue';
 import { onMounted, reactive, ref } from 'vue';
-import { useBooklistsStore } from '../../stores';
+import { useBooklistsStore, useBooksStore } from '../../stores';
+// import { useFilter } from './filter'
 
-const props = defineProps([]);
-const emit = defineEmits<{
-  (e: 'booklist:select'): Promise<void>
-  (e: 'booklist:delete'): Promise<void>
-}>()
+// const props = defineProps([]);
+// const emit = defineEmits<{
+//   (e: 'booklist:select'): Promise<void>
+//   (e: 'booklist:delete'): Promise<void>
+// }>()
 const curBooklist = reactive({
   id: 0,
   name: ''
 })
 const booklistsStore = useBooklistsStore()
+const booksStore = useBooksStore()
 const currId = ref(1000)
 const confirmDelete = ref(false)
+// const { workingFilters, resetFilter } = useFilter()
 
-function selectBooklist(listID: number, list: any) {
-  console.log('选中 ', listID, list)
-  // 设置选定书单置顶显示
+// 设置选定书单置顶显示并为 booksStore 提供过滤数据参数（ bookIds@booklist.books ）
+async function selectBooklist(listID: number, list: any) {
   curBooklist.id = list.id
   curBooklist.name = list.name
-  // emit('booklist:select')
+
+  // 请求书单所包含的书籍列表
+  booksStore.currBooklist = Array.from(list.books)
+  await booksStore.list()
 }
 
-function deleteBooklist(booklistId: number | undefined) {
-  console.log('删除书单 ', booklistId)
+async function unselectBooklist() {
+  curBooklist.id = 0
+  curBooklist.name = ''
+
+  // 从书单返回书籍列表模式
+  booksStore.currBooklist = []
+  // resetFilter()
+  await booksStore.list()
+}
+
+async function deleteBooklist(booklistId: number | undefined) {
   if (booklistId !== undefined) {
-    booklistsStore.delete(booklistId)
+    await booklistsStore.delete(booklistId)
     confirmDelete.value = false
     // emit('booklist:delete')
   }
-}
-
-function unselectBooklist() {
-  curBooklist.id = 0
-  curBooklist.name = ''
 }
 
 onMounted(async () => {
@@ -48,7 +57,11 @@ onMounted(async () => {
 <template>
   <FolderPanel :is-inline-panel="true">
     <template #header>
-      <BaseButton class="btn-actions"><span>{{ '书单 ' + booklistsStore.total }}</span></BaseButton>
+      <BaseButton class="btn-actions"><span>{{
+        '书单 ' + booklistsStore.total + (curBooklist.name ? ' > ' +
+          curBooklist.name : '')
+      }}</span>
+      </BaseButton>
     </template>
     <template #body>
       <div class="wrapper">

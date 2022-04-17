@@ -14,6 +14,7 @@ export const useBooksStore = defineStore('books', {
   state: () => ({
     items: [] as (IBook | undefined)[],
     total: 0,
+    currBooklist: [] as number[],
     filters: {
       categories: [] as IndexableTypeArray,
       author: [] as IndexableTypeArray,
@@ -50,8 +51,11 @@ export const useBooksStore = defineStore('books', {
       this.total = await AppDB.books.count()
     },
     async list() {
-      this.items = await AppDB.books.offset(offset.value).limit(limit.value).toArray()
-
+      if (this.currBooklist.length) {
+        this.items = await AppDB.books.where('id').anyOf(this.currBooklist).offset(offset.value).limit(limit.value).toArray()
+      } else {
+        this.items = await AppDB.books.offset(offset.value).limit(limit.value).toArray()
+      }
       await toggleIndicator(false)
     },
     async add(book: IBook) {
@@ -95,7 +99,7 @@ export const useBooksStore = defineStore('books', {
         this.filters.author = keysArray
       });
     },
-    async filter(filter: Map<string, Set<string>>) {
+    async filter(filter: Map<string, Set<string>>, withSelectedBooklist: boolean = false) {
       // console.log(filter)
 
       const filterArr = []
@@ -131,7 +135,25 @@ export const useBooksStore = defineStore('books', {
           .primaryKeys()
       )
 
+      // if (filterArr.length === 0) {
+      //   filterArr.push(AppDB.books.orderBy('id').primaryKeys())
+      // }
+
       const results = await Promise.all(filterArr);
+
+      // 如存在书籍 IDs 数据（ booklist@state , 来自选中书单 ）则 :
+      // 1、重置分页器（ 是否保存分页器状态供书单关闭后返回之前书籍分页状态 ？）
+      // 2、将 IDs 加入 Reduce 实现基于原有过滤器的书单列表
+      // console.log(this.currBooklist, filterArr)
+
+      if (this.currBooklist.length) {
+        offset.value = 0 // 重置分页器
+        results.push(this.currBooklist)
+        // if (withSelectedBooklist) this.currBooklist = []
+      }
+
+      // console.log(this.currBooklist, filterArr, filter)
+
       const intersection = results.reduce((ids1, ids2) => {
         const set = new Set(ids1);
         return ids2.filter(id => set.has(id));
