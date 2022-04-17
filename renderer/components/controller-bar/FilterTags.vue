@@ -65,7 +65,7 @@ li {
   display: inline-block;
   padding: 2px 10px 2px 27px;
   background-color: slategray;
-  border-radius: 1em 1em 1em 1em;
+  border-radius: 1rem 1rem 1rem 1rem;
 }
 
 .btn-delete {
