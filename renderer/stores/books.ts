@@ -14,6 +14,7 @@ export const useBooksStore = defineStore('books', {
   state: () => ({
     items: [] as (IBook | undefined)[],
     total: 0,
+    booklistSelected: false,
     currBooklist: [] as number[],
     filters: {
       categories: [] as IndexableTypeArray,
@@ -48,14 +49,23 @@ export const useBooksStore = defineStore('books', {
   getters: {},
   actions: {
     async count() {
-      this.total = await AppDB.books.count()
+      if (this.booklistSelected) {
+        if (this.currBooklist.length) {
+          this.total = await AppDB.books.where('id').anyOf(this.currBooklist).count()
+        } else {
+          this.total = 0
+        }
+      } else {
+        this.total = await AppDB.books.count()
+      }
     },
     async list() {
-      if (this.currBooklist.length) {
+      if (this.booklistSelected) {
         this.items = await AppDB.books.where('id').anyOf(this.currBooklist).offset(offset.value).limit(limit.value).toArray()
       } else {
         this.items = await AppDB.books.offset(offset.value).limit(limit.value).toArray()
       }
+      
       await toggleIndicator(false)
     },
     async add(book: IBook) {
@@ -147,7 +157,7 @@ export const useBooksStore = defineStore('books', {
       // console.log(this.currBooklist, filterArr)
 
       if (this.currBooklist.length) {
-        offset.value = 0 // 重置分页器
+        // offset.value = 0 // 重置分页器
         results.push(this.currBooklist)
         // if (withSelectedBooklist) this.currBooklist = []
       }

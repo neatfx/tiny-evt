@@ -3,7 +3,7 @@ import BaseButton from '@comps/BaseButton.vue';
 import FolderPanel from '@comps/FolderPanel.vue';
 import { onMounted, reactive, ref } from 'vue';
 import { useBooklistsStore, useBooksStore } from '../../stores';
-// import { useFilter } from './filter'
+import { useFilter } from './filter'
 
 // const props = defineProps([]);
 // const emit = defineEmits<{
@@ -18,7 +18,7 @@ const booklistsStore = useBooklistsStore()
 const booksStore = useBooksStore()
 const currId = ref(1000)
 const confirmDelete = ref(false)
-// const { workingFilters, resetFilter } = useFilter()
+const { workingFilters, resetFilter } = useFilter()
 
 // 设置选定书单置顶显示并为 booksStore 提供过滤数据参数（ bookIds@booklist.books ）
 async function selectBooklist(listID: number, list: any) {
@@ -26,7 +26,10 @@ async function selectBooklist(listID: number, list: any) {
   curBooklist.name = list.name
 
   // 请求书单所包含的书籍列表
+  booksStore.booklistSelected = true
   booksStore.currBooklist = Array.from(list.books)
+  resetFilter()
+  await booksStore.count()
   await booksStore.list()
 }
 
@@ -35,8 +38,10 @@ async function unselectBooklist() {
   curBooklist.name = ''
 
   // 从书单返回书籍列表模式
+  booksStore.booklistSelected = false
   booksStore.currBooklist = []
-  // resetFilter()
+  resetFilter()
+  await booksStore.count()
   await booksStore.list()
 }
 
