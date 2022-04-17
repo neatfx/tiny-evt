@@ -155,7 +155,7 @@ onUnmounted(() => {
 
     <!-- 添加出借备注 -->
     <Transition name="slide-up" mode="out-in">
-      <div v-if="showLendNoteAdder" class="lend-note-adder">
+      <div v-if="showLendNoteAdder" class="pop-cover-uplaoder-wrapper">
         <BaseInput class="input-zone" v-model="lendInfo"></BaseInput>
         <BaseButton class="btn-confirm" @click="addLendNote">确认添加</BaseButton>
         <BaseButton class="btn-cancel" @click="showLendNoteAdder = false">取消</BaseButton>
@@ -165,9 +165,9 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
-/* .wrapper {
+.wrapper {
   display: inline;
-} */
+}
 
 .inner-wrapper {
   display: grid;
@@ -210,6 +210,7 @@ onUnmounted(() => {
 }
 
 .pop-cover-uplaoder-wrapper {
+  z-index: 9000;
   position: fixed;
   padding: 5px;
   background-color: gray;
@@ -234,29 +235,26 @@ onUnmounted(() => {
   text-align: center;
   padding-top: 27px;
 }
-
-.lend-note-adder {
-  position: fixed;
-  padding: 5px;
-  background-color: gray;
-  box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
-}
-
 .input-zone {
-  background-color: beige;
-  margin-right: 5px;
+  display: inline-block;
+  background-color:darkgrey;
+  margin: 0 5px 0 0;
+  padding: 7px 10px 7px;
+  vertical-align: middle;
 }
 
 .btn-confirm,
 .btn-confirm:hover {
   margin-right: 5px;
   background-color: cornflowerblue;
+    vertical-align: middle;
 }
 
 .btn-cancel,
 .btn-cancel:hover {
   margin-right: 0;
   background-color: goldenrod;
+    vertical-align: middle;
 }
 
 /* Transition */
