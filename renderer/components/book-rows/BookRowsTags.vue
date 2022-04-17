@@ -138,7 +138,7 @@ li {
   left: 2px;
   top: 2px;
   padding: 3px 9px;
-  background-color: steelblue;
+  background-color:slategray;
   border-radius: 1rem;
 }
 
@@ -148,7 +148,7 @@ li {
   left: 2px;
   top: 2px;
   padding: 3px 9px;
-  background-color: steelblue;
+  background-color: cadetblue;
   border-radius: 1rem;
 }
 
