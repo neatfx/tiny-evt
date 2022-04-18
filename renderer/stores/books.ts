@@ -14,6 +14,7 @@ const { workingFilters } = useFilter()
 export const useBooksStore = defineStore('books', {
   state: () => ({
     items: [] as (IBook | undefined)[],
+    totalFixed: 0,
     total: 0,
     booklistSelected: false,
     currBooklist: [] as number[],
@@ -51,6 +52,9 @@ export const useBooksStore = defineStore('books', {
   }),
   getters: {},
   actions: {
+    async dbTotal() {
+      this.totalFixed = await AppDB.books.count()
+    },
     async count() {
       if (this.booklistSelected) {
         if (this.currBooklist.length) {

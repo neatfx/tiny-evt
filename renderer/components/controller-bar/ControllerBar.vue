@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 import ViewOptions from './ViewOptions.vue'
 import FilterMenu from './FilterMenu.vue'
@@ -17,6 +17,10 @@ defineProps(['views', 'filters', 'workingFilters'])
 const showAdder = ref(false)
 const showBooklistAdder = ref(false)
 const booksStore = useBooksStore()
+
+onMounted(async() => {
+  await booksStore.dbTotal()
+})
 </script>
 <template>
   <div class="control-bar">
@@ -31,7 +35,7 @@ const booksStore = useBooksStore()
       <div class="right">
         <div class="seg btn-book-adder">
           <BaseButton class="btn-add-book" @click="showAdder = !showAdder">{{ showAdder ? ' ^' : ' +' }}</BaseButton>
-          <BaseButton class="btn-book-info">{{ booksStore.total + '书籍' }}</BaseButton>
+          <BaseButton class="btn-book-info">{{ booksStore.totalFixed + '书籍' }}</BaseButton>
         </div>
         <Pagination></Pagination>
       </div>
