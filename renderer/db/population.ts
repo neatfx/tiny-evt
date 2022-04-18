@@ -83,11 +83,45 @@ async function populateBooks() {
     publishing: '人民文学出版社',
     published: '1979',
     categories: ['小说'],
-    nameTokens: segmentit.doSegment('官场现形记（上）', { simple: true })
+    nameTokens: segmentit.doSegment('官场现形记（下）', { simple: true })
+  })
+
+  const book10 = new Book({
+    name: '史记（点校本二十四史修订本）',
+    author: '马迁 著 / 裴骃 集解 / 司马贞 索隐 / 张守节 正义',
+    isbn: '9787101095012',
+    translator: '点校本《史记》修订组',
+    publishing: '中华书局',
+    published: '2013-8',
+    categories: ['历史'],
+    nameTokens: segmentit.doSegment('史记（点校本二十四史修订本）', { simple: true })
+  })
+
+  const book11 = new Book({
+    name: '西行漫记',
+    subname: '红星照耀中国',
+    author: '[美] 埃德加·斯诺埃',
+    translator: '董乐山',
+    publishing: '生活.读书.新知三联书店',
+    published: '1979',
+    categories: ['报告文学', '历史'],
+    nameTokens: segmentit.doSegment('西行漫记,红星照耀中国', { simple: true })
+  })
+
+  const book12 = new Book({
+    name: '创造自然',
+    subname: '亚历山大·冯·洪堡的科学发现之旅',
+    author: '[德] 安德烈娅·武尔夫',
+    translator: '边和',
+    publishing: '浙江人民出版社',
+    published: ' 2017-10',
+    isbn: '9787213083426',
+    categories: ['传记'],
+    nameTokens: segmentit.doSegment('创造自然,亚历山大·冯·洪堡的科学发现之旅', { simple: true })
   })
 
   await AppDB.books.bulkAdd([
-    book1, book2, book3, book4, book5, book6, book7, book8, book9
+    book1, book2, book3, book4, book5, book6, book7, book8, book9, book10, book11, book12
   ])
 }
 
