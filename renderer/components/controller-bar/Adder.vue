@@ -118,6 +118,7 @@ async function addItem() {
   padding: 5px;
   border: 2px solid dimgray;
   border-bottom: none;
+  margin-left: 60px;
 }
 
 .btn-mode {

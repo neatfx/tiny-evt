@@ -9,7 +9,7 @@ const first = '首页'
 
 <template>
     <BaseButton disabled class="page-number">{{ curPageStart }} - {{ curPageEnd }}</BaseButton>
-    <BaseButton disabled class="page-number">共 {{ total }} 条数据</BaseButton>
+    <!-- <BaseButton disabled class="page-number">共 {{ total }} 条数据</BaseButton> -->
     <BaseButton @click="head" v-html="first"></BaseButton>
     <BaseButton @click="prev" v-html="arrow"></BaseButton>
     <BaseButton @click="next">></BaseButton>

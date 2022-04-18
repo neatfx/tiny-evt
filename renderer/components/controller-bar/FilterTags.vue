@@ -19,7 +19,6 @@ defineProps<{
           <span class="cross rotate">+</span>
         </span>
         <span class="filter-value">{{ v }}</span>
-
       </li>
     </ul>
   </div>
@@ -27,10 +26,10 @@ defineProps<{
 
 <style scoped>
 .wrapper {
-  border-bottom: none;
   padding: 0 5px 5px;
   font-size: small;
   border: 2px solid dimgray;
+  margin-left: 60px;
   border-bottom: none;
 }
 
@@ -59,7 +58,7 @@ li {
   display: inline-block;
   padding: 2px 15px 2px 10px;
   background-color: grey;
-  border-radius: 0 1em 0 0;
+  border-radius: 0 1em 1em 0;
 }
 
 .filter-value {

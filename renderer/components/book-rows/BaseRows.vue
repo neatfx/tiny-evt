@@ -23,6 +23,7 @@ li {
   margin-bottom: 1px;
   list-style: none;
   background-color:dimgrey;
+  border-radius: 1rem 0 0 0;
 }
 li:hover {
   background-color:gray;
