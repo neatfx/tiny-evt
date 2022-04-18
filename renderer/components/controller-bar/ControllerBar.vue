@@ -8,12 +8,14 @@ import Booklist from './Booklist.vue'
 import Search from "./Search.vue";
 import Pagination from "../Pagination.vue";
 import Adder from './Adder.vue'
+import BooklistAdder from './BooklistAdder.vue';
 
 import BaseButton from '../BaseButton.vue';
 import { useBooksStore } from '../../stores';
 
 defineProps(['views', 'filters', 'workingFilters'])
 const showAdder = ref(false)
+const showBooklistAdder = ref(false)
 const booksStore = useBooksStore()
 </script>
 <template>
@@ -23,7 +25,7 @@ const booksStore = useBooksStore()
         <ViewOptions class="seg" :views="views"></ViewOptions>
         <FilterMenu class="seg" :items="filters">
         </FilterMenu>
-        <Booklist class="seg"></Booklist>
+        <Booklist class="seg" @show-booklist-adder="showBooklistAdder = !showBooklistAdder"></Booklist>
         <div class="seg btn-book-adder">
           <BaseButton class="btn-add-book" @click="showAdder = !showAdder">{{ showAdder ? ' ^' : ' +' }}</BaseButton>
           <BaseButton class="btn-book-info">{{ booksStore.total + '书籍' }}</BaseButton>
@@ -37,6 +39,7 @@ const booksStore = useBooksStore()
   </div>
   <FilterTags v-if="booksStore.showFilterTagsZone" class="filter-tags" :items="workingFilters"></FilterTags>
   <Adder v-if="showAdder"></Adder>
+  <BooklistAdder v-if="showBooklistAdder"></BooklistAdder>
 </template>
 
 <style scoped>

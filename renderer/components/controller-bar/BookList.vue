@@ -14,6 +14,9 @@ const booksStore = useBooksStore()
 const currId = ref(1000)
 const confirmDelete = ref(false)
 const { workingFilters, resetFilter } = useFilter()
+const emit = defineEmits<{
+  (event: 'show-booklist-adder'): void
+}>()
 
 // 设置选定书单置顶显示并为 booksStore 提供过滤数据参数（ bookIds@booklist.books ）
 async function selectBooklist(listID: number, list: any) {
@@ -55,7 +58,7 @@ onMounted(async () => {
 
 <template>
   <div class="root-wrapper">
-    <BaseButton class="btn-reset" @click="resetFilter">+</BaseButton>
+    <BaseButton class="btn-reset" @click="emit('show-booklist-adder')">+</BaseButton>
     <FolderPanel :is-inline-panel="true">
       <template #header>
         <BaseButton class="btn-actions">

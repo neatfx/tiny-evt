@@ -1,15 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import type { IBook, IBooklist } from '@/db';
-import { useBooksStore, useBooklistsStore } from '@stores/index'
+import type { IBook } from '@/db';
+import { useBooksStore } from '@stores/index'
 
 import BaseButton from '../BaseButton.vue';
 import BaseInput from '../BaseInput.vue';
 
 const bookStore = useBooksStore()
-const booklistsStore = useBooklistsStore()
 const imgSrc = ref(false)
-const createBookList = ref(false)
 const fullMode = ref(false)
 const bookData: IBook = {
   name: '',
@@ -19,9 +17,6 @@ const bookData: IBook = {
   categories: [],
   publishing: '',
   published: '',
-}
-const booklistData: IBooklist = {
-  name: '',
 }
 
 function check(): boolean {
@@ -61,39 +56,23 @@ async function addItem() {
   await bookStore.add(bookData)
   imgSrc.value = false
 }
-
-async function addBooklist() {
-  await booklistsStore.add(booklistData)
-  // console.log('创建书单: ', res)
-}
 </script>
 
 <template>
   <div class="panel-body-wrapper">
-    <!-- 书单 / 书籍 切换 -->
-    <BaseButton class="btn-mode" @click="createBookList = !createBookList">{{
-      createBookList ? '添加类型 > 书单' : '添加类型 > 书籍'
-    }}
-    </BaseButton>
-    <!--  -->
-    <label v-if="createBookList">
-      <span>书单名称</span>
-      <BaseInput type="text" :modelValue="booklistData.name"
-        @update:model-value="newValue => booklistData.name = newValue" />
-    </label>
     <!-- 书籍 - 模式切换 -->
-    <BaseButton v-if="!createBookList" class="btn-mode" @click="fullMode = !fullMode">{{
+    <BaseButton class="btn-mode" @click="fullMode = !fullMode">{{
       fullMode ? '录入模式 > 标准' :
         '录入模式 > 快速'
     }}
     </BaseButton>
     <!-- 书籍 - 快速模式 -->
-    <label v-if="!createBookList && !fullMode">
+    <label v-if="!fullMode">
       <span>书名</span>
       <BaseInput type="text" :modelValue="bookData.name" @update:model-value="newValue => bookData.name = newValue" />
     </label>
     <!-- 书籍 - 标准模式 -->
-    <div v-if="!createBookList && fullMode" class="full-mode">
+    <div v-if="fullMode" class="full-mode">
       <div class="dropzone" @dragover="ondragover" @drop="ondrop">
         <span v-if="!imgSrc" class="tip">拖放图片至此区域</span>
         <img />
@@ -128,12 +107,8 @@ async function addBooklist() {
       </div>
     </div>
     <!-- 提交保存 -->
-    <div v-if="!createBookList" class="submit">
+    <div class="submit">
       <BaseButton class="btn-submit" @click="addItem">添加书籍</BaseButton>
-    </div>
-
-    <div v-if="createBookList" class="submit">
-      <BaseButton class="btn-submit" @click="addBooklist">添加书单</BaseButton>
     </div>
   </div>
 </template>
