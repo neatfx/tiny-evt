@@ -58,7 +58,9 @@ onMounted(async () => {
 
 <template>
   <div class="root-wrapper">
-    <BaseButton class="btn-reset" @click="emit('show-booklist-adder')">+</BaseButton>
+    <BaseButton class="btn-reset" @click="booksStore.showBooklistAdder = !booksStore.showBooklistAdder">
+      {{ booksStore.showBooklistAdder ? '^' : '+' }}
+    </BaseButton>
     <FolderPanel :is-inline-panel="true">
       <template #header>
         <BaseButton class="btn-actions">

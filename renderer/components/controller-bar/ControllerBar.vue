@@ -39,7 +39,7 @@ const booksStore = useBooksStore()
   </div>
   <FilterTags v-if="booksStore.showFilterTagsZone" class="filter-tags" :items="workingFilters"></FilterTags>
   <Adder v-if="showAdder"></Adder>
-  <BooklistAdder v-if="showBooklistAdder"></BooklistAdder>
+  <BooklistAdder v-if="booksStore.showBooklistAdder"></BooklistAdder>
 </template>
 
 <style scoped>

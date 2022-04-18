@@ -46,6 +46,7 @@ export const useBooksStore = defineStore('books', {
     },
     indicator: false,
     showFilterTagsZone: false,
+    showBooklistAdder: false,
   }),
   getters: {},
   actions: {
