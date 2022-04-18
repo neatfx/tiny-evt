@@ -1,7 +1,7 @@
 import { computed, ref, watch } from "vue"
 
 const total = ref(0)
-const limit = ref(10)
+const limit = ref(15)
 const offset = ref(0)
 const pages = computed(() => {
   return Math.ceil(total.value / limit.value)

@@ -120,8 +120,54 @@ async function populateBooks() {
     nameTokens: segmentit.doSegment('创造自然,亚历山大·冯·洪堡的科学发现之旅', { simple: true })
   })
 
+  const book13 = new Book({
+    name: '最寒冷的冬天',
+    subname: '美国人眼中的朝鲜战争',
+    author: '[美] 大卫·哈伯斯塔姆',
+    translator: '祖宁 / 刘寅龙',
+    publishing: '台海出版社',
+    published: ' 2017-5',
+    isbn: '9787516814345',
+    categories: ['历史', '朝鲜战争', '冷战'],
+    nameTokens: segmentit.doSegment('最寒冷的冬天,美国人眼中的朝鲜战争', { simple: true })
+  })
+
+  const book14 = new Book({
+    name: '地理与世界霸权',
+    author: '[英] 詹姆斯·费尔格里夫',
+    translator: '胡坚',
+    publishing: '浙江人民出版社',
+    published: '2016-12-1',
+    isbn: '9787213076763',
+    categories: ['地缘政治学'],
+    nameTokens: segmentit.doSegment('地理与世界霸权', { simple: true })
+  })
+
+  const book15 = new Book({
+    name: '阿拉伯的劳伦斯',
+    subname: '战争、谎言、帝国愚行与现代中东的形成',
+    author: '[美]斯科特•安德森 Scott Anderson',
+    translator: '陆大鹏',
+    publishing: '社会科学文献出版社',
+    published: '2014-9-1',
+    isbn: '9787509759233',
+    categories: ['历史', '中东'],
+    nameTokens: segmentit.doSegment('阿拉伯的劳伦斯,战争、谎言、帝国愚行与现代中东的形成', { simple: true })
+  })
+
+  const book16 = new Book({
+    name: '这里是中国2',
+    subname: '百年重塑山河',
+    author: '星球研究所',
+    publishing: '中信出版集团',
+    published: ' 2021-7',
+    isbn: '9787521731224',
+    categories: ['科普', '中国'],
+    nameTokens: segmentit.doSegment('这里是中国2,百年重塑山河', { simple: true })
+  })
+
   await AppDB.books.bulkAdd([
-    book1, book2, book3, book4, book5, book6, book7, book8, book9, book10, book11, book12
+    book1, book2, book3, book4, book5, book6, book7, book8, book9, book10, book11, book12, book13, book14, book15, book16
   ])
 }
 
