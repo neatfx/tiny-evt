@@ -202,17 +202,6 @@ li:hover {
   background-color: darkgoldenrod;
 }
 
-/*  */
-.btn-delete {
-  position: absolute;
-  display: inline-block;
-  padding: 0px 6px 0px 6px;
-  margin-left: 2px;
-  margin-top: 2px;
-  background-color: coral;
-  border-radius: 1rem;
-}
-
 .close {
   font-size: small;
   display: inline-block;
