@@ -212,6 +212,7 @@ export const useBooksStore = defineStore('books', {
         .where("nameTokens").startsWithIgnoreCase(keywords)
         .or('author').startsWithIgnoreCase(keywords)
         .or('categories').anyOfIgnoreCase([keywords])
+        .or('publishing').anyOfIgnoreCase([keywords])
         .distinct().toArray();
 
       await toggleIndicator(false)
