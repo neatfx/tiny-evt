@@ -17,7 +17,7 @@ export class Cover implements ICover {
     const { data } = cover
 
     this.data = data;
-    
+
     this.deleted = false;
     this.created = new Date();
 
@@ -30,7 +30,6 @@ export class Cover implements ICover {
     // });
   }
   async save() {
-    console.log(this)
     return await AppDB.covers.add(this);
   }
 }

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from '@vue/reactivity';
 import { onMounted, onUnmounted } from 'vue';
+import { useBooksStore } from '@/stores'
 
 import EditableText from '@comps/EditableText.vue'
 import BaseButton from '@comps/BaseButton.vue';
@@ -18,6 +19,7 @@ const emit = defineEmits<{
   (event: 'update', rowId: number, payload: string): void
   (event: 'delete-book'): void
 }>()
+const coverPool: Map<number, string> = new Map()
 const blobUrls: string[] = []
 const coverHtml = computed(() => {
   let binaryData = []
@@ -38,6 +40,22 @@ const showConfirmBookDeletion = ref(false)
 const showBooklist = ref(false)
 const showLendNoteAdder = ref(false)
 const lendInfo = ref('')
+const booksStore = useBooksStore()
+
+function coverBlobToImgTag(cover: Blob) {
+  const url = window.URL.createObjectURL(new Blob([cover], { type: 'image/jpeg' }))
+  blobUrls.push(url)
+  return '<img src="' + url + '" style="max-width: 160px; max-height: 222px; display: block;" />'
+}
+
+async function showCoverPanel(cover: any) {
+  // 取回封面图片
+  if (cover) {
+    const coverBlob = await booksStore.getCover(cover)
+    if (coverBlob?.data) coverPool.set(cover, coverBlobToImgTag(coverBlob.data as Blob))
+  }
+  showCover.value = true
+}
 
 function ondragover(event: any) {
   event.stopPropagation();
@@ -82,9 +100,9 @@ onMounted(() => {
 
 // TDOO: 清理内存，是否必要 ？
 onUnmounted(() => {
-  blobUrls.map((v, k) => {
-    URL.revokeObjectURL(v)
-  })
+  // blobUrls.map((v, k) => {
+  //   URL.revokeObjectURL(v)
+  // })
 })
 </script>
 
@@ -107,7 +125,7 @@ onUnmounted(() => {
         @click="showBooklist = !showBooklist"></BookRowsBooklist>
 
       <!-- 书名 -->
-      <div v-if="viewOption.fields.varyCardName" class="book-name" @mouseover="showCover = true"
+      <div v-if="viewOption.fields.varyCardName" class="book-name" @mouseover="showCoverPanel(cover)"
         @mouseleave="showCover = false">
         <!-- Cover 状态显示 -->
         <span :class="['circle', cover ? 'has-cover' : '']"></span>
@@ -115,7 +133,7 @@ onUnmounted(() => {
           @update="(rowId, payload) => { emit('update', rowId, payload) }"></EditableText>
         <!-- 封面（浮动显示） -->
         <div v-if="showCover" class="pop-cover-wrapper">
-          <div v-if="showCover" v-html="coverHtml" class="cover-base"></div>
+          <div v-if="showCover" v-html="coverPool.get(cover) || coverHtml" class="cover-base"></div>
         </div>
       </div>
     </div>
@@ -186,7 +204,7 @@ onUnmounted(() => {
 }
 
 .has-cover {
-  background-color:greenyellow;
+  background-color: greenyellow;
 }
 
 /* .book-name {
@@ -235,9 +253,10 @@ onUnmounted(() => {
   text-align: center;
   padding-top: 27px;
 }
+
 .input-zone {
   display: inline-block;
-  background-color:darkgrey;
+  background-color: darkgrey;
   margin: 0 5px 0 0;
   padding: 7px 10px 7px;
   vertical-align: middle;
@@ -247,14 +266,14 @@ onUnmounted(() => {
 .btn-confirm:hover {
   margin-right: 5px;
   background-color: cornflowerblue;
-    vertical-align: middle;
+  vertical-align: middle;
 }
 
 .btn-cancel,
 .btn-cancel:hover {
   margin-right: 0;
   background-color: goldenrod;
-    vertical-align: middle;
+  vertical-align: middle;
 }
 
 /* Transition */

@@ -76,8 +76,11 @@ export const useBooksStore = defineStore('books', {
       await new Book(book).save()
     },
     async update(key: number, change: any) {
-      if(change.cover) change.cover = await new Cover({ data: change.cover }).save()
+      if (change.cover) change.cover = await new Cover({ data: change.cover }).save()
       await AppDB.books.update(key, change)
+    },
+    async getCover(id: number) {
+      return await AppDB.covers.get(id)
     },
     // 删除书籍
     // 包含事务：
