@@ -6,6 +6,7 @@ import { usePagination } from '@comps/pagination';
 import type { IBook } from '@/db';
 import { useFilter } from '@/components/controller-bar/filter';
 import { refreshStore } from './booklists'
+import { Cover } from '@/db/tables';
 
 const { total, offset, limit } = usePagination()
 const { workingFilters } = useFilter()
@@ -71,9 +72,11 @@ export const useBooksStore = defineStore('books', {
       await toggleIndicator(false)
     },
     async add(book: IBook) {
-      return await new Book(book).save()
+      book.cover = await new Cover({ data: book.cover }).save()
+      await new Book(book).save()
     },
     async update(key: number, change: any) {
+      if(change.cover) change.cover = await new Cover({ data: change.cover }).save()
       await AppDB.books.update(key, change)
     },
     // 删除书籍

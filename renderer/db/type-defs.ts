@@ -10,7 +10,7 @@ export interface IBook {
 
   name: string;             // 书名
   author?: string;          // 作者
-  cover?: Blob | null;      // 封面图片
+  cover?: Blob | number;    // 封面图片
   publishing?: string;      // 出版发行
   published?: string;       // 版次
   isbn?: string;            // 书号
@@ -36,6 +36,16 @@ export interface IBook {
   price?: number;           // 价格
   from?: string;            // 购买地点
   summary?: string;         // 内容简介（ 豆瓣 ）
+}
+
+// 书籍封面
+export interface ICover {
+  id?: number;          // 自增主键
+
+  data?: Blob | number;    // 图片数据
+
+  deleted?: boolean;    // 数据删除标识
+  created?: Date;       // 数据创建时间
 }
 
 // 书单

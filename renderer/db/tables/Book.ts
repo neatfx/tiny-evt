@@ -4,13 +4,14 @@
 
 import type { IBook } from '../index'
 import { AppDB } from '../index'
+import { Cover } from './Cover';
 
 export class Book implements IBook {
   id?: number;
 
   name!: string;
   author?: string;
-  cover?: Blob | null;
+  cover?: Blob | number;
   publishing?: string;
   published?: string;
   isbn?: string | undefined;
@@ -35,7 +36,7 @@ export class Book implements IBook {
 
     this.name = name;
     this.author = author || '';
-    this.cover = cover || null;
+    this.cover = cover;
     this.publishing = publishing || '';
     this.published = published || '';
     this.isbn = isbn || '';
@@ -64,6 +65,13 @@ export class Book implements IBook {
     // });
   }
   async save() {
+    // let coverId: number | undefined
+    // // 存储封面图片
+    // if (this.cover) {
+    //   coverId = await new Cover({ data: this.cover as Blob }).save()
+    // }
+
+    // this.cover = coverId
     return await AppDB.books.add(this);
   }
   async load() {
