@@ -18,7 +18,7 @@ const showAdder = ref(false)
 const showBooklistAdder = ref(false)
 const booksStore = useBooksStore()
 
-onMounted(async() => {
+onMounted(async () => {
   await booksStore.dbTotal()
 })
 </script>
@@ -29,14 +29,14 @@ onMounted(async() => {
         <ViewOptions class="seg" :views="views"></ViewOptions>
         <FilterMenu class="seg" :items="filters">
         </FilterMenu>
-        <Booklist class="seg" @show-booklist-adder="showBooklistAdder = !showBooklistAdder"></Booklist>
-        <Search class="seg"></Search>
-      </div>
-      <div class="right">
         <div class="seg btn-book-adder">
           <BaseButton class="btn-add-book" @click="showAdder = !showAdder">{{ showAdder ? ' ^' : ' +' }}</BaseButton>
           <BaseButton class="btn-book-info">{{ booksStore.totalFixed + '书籍' }}</BaseButton>
         </div>
+        <Booklist class="seg" @show-booklist-adder="showBooklistAdder = !showBooklistAdder"></Booklist>
+        <Search class="seg"></Search>
+      </div>
+      <div class="right">
         <Pagination></Pagination>
       </div>
     </div>
