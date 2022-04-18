@@ -8,7 +8,7 @@ import BaseInput from '../BaseInput.vue';
 
 import BookRowsReadingStatusVue from './BookRowsReadingStatus.vue';
 import BookRowsMenu from './BookRowsMenu.vue';
-import BookRowsBooklist from './BookRowsBooklist.vue';
+import BookRowsBooklist from './BookRowsBookList.vue';
 
 const props = defineProps(['rowId', 'name', 'isName', 'cover', 'readingStatus', 'booklists', 'viewOption'])
 const emit = defineEmits<{
