@@ -25,8 +25,8 @@ const booksStore = useBooksStore()
         </FilterMenu>
         <Booklist class="seg"></Booklist>
         <div class="seg btn-book-adder">
-          <BaseButton @click="showAdder = !showAdder">{{ showAdder ? ' ^' : ' +' }}</BaseButton>
-          <BaseButton class="btn-book-info">{{ '1000 书籍' }}</BaseButton>
+          <BaseButton class="btn-add-book" @click="showAdder = !showAdder">{{ showAdder ? ' ^' : ' +' }}</BaseButton>
+          <BaseButton class="btn-book-info">{{ booksStore.total + '书籍' }}</BaseButton>
         </div>
         <Search class="seg"></Search>
       </div>
@@ -52,10 +52,11 @@ const booksStore = useBooksStore()
 }
 
 .seg {
-  margin-right: 1px;
+  margin-right: 3px;
 }
 .btn-book-adder{
   display: inline-block;
+  padding:0;
 }
 .btn-book-info{
   background-color: #888;

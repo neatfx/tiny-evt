@@ -95,7 +95,9 @@ onMounted(async () => {
         </div>
       </template>
     </FolderPanel>
-    <BaseButton v-if="curBooklist.name" class="btn-reset" @click="resetFilter">x</BaseButton>
+    <BaseButton v-if="curBooklist.name" class="btn-reset" @click="unselectBooklist">
+      <span class="close">+</span>
+    </BaseButton>
   </div>
 </template>
 
@@ -195,5 +197,22 @@ li:hover {
   display: inline-block;
   padding: 2px 10px;
   background-color: darkgoldenrod;
+}
+
+/*  */
+.btn-delete {
+  position: absolute;
+  display: inline-block;
+  padding: 0px 6px 0px 6px;
+  margin-left: 2px;
+  margin-top: 2px;
+  background-color: coral;
+  border-radius: 1rem;
+}
+
+.close {
+  font-size: small;
+  display: inline-block;
+  transform: rotate(45deg);
 }
 </style>
