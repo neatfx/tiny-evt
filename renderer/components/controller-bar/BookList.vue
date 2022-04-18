@@ -54,50 +54,62 @@ onMounted(async () => {
 </script>
 
 <template>
-  <FolderPanel :is-inline-panel="true">
-    <template #header>
-      <BaseButton class="btn-actions">
-        <span>
-          {{ curBooklist.name ? '当前书单 《 ' + curBooklist.name + ' 》' : booklistsStore.total + ' 书单 ' }}
-        </span>
-      </BaseButton>
-    </template>
-    <template #body>
-      <div class="wrapper">
-        <!-- 当前书单 -->
-        <div class="cur-list" @click="unselectBooklist">
-          <span v-if="curBooklist.name" class="currIndicator"></span>
-          {{ curBooklist.name || '尚未选择任何书单' }}
+  <div class="root-wrapper">
+    <BaseButton class="btn-reset" @click="resetFilter">+</BaseButton>
+    <FolderPanel :is-inline-panel="true">
+      <template #header>
+        <BaseButton class="btn-actions">
+          <span>
+            {{ curBooklist.name ? '《 ' + curBooklist.name + ' 》' : booklistsStore.total + ' 书单 ' }}
+          </span>
+        </BaseButton>
+      </template>
+      <template #body>
+        <div class="wrapper">
+          <!-- 当前书单 -->
+          <div class="cur-list" @click="unselectBooklist">
+            <span v-if="curBooklist.name" class="currIndicator"></span>
+            {{ curBooklist.name || '尚未选择任何书单' }}
+          </div>
+          <!-- 动态列表 -->
+          <ul class="all-list">
+            <li v-for="(v, k) in booklistsStore.items" :key="k" @mouseenter="() => currId = k"
+              @mouseleave="() => currId = 1000">
+              <div class="booklist-wrapper" @click="selectBooklist(k, v)">
+                <span class="list-books-count">{{ '共 ' + v?.books?.size + ' 本' }}</span>
+                <span class="list-name">{{ v?.name }}</span>
+              </div>
+              <div v-if="currId === k && !confirmDelete" class="btn-confirm-delete" @click="confirmDelete = true">
+                <span class="cross"></span>
+              </div>
+              <div v-if="v && (currId === k) && confirmDelete" class="confirm-wrapper">
+                <div class="btn-delete" @click="deleteBooklist(v.id)">
+                  删除
+                </div>
+                <div class="btn-cancel" @click="confirmDelete = false">
+                  取消
+                </div>
+              </div>
+            </li>
+          </ul>
         </div>
-        <!-- 动态列表 -->
-        <ul class="all-list">
-          <li v-for="(v, k) in booklistsStore.items" :key="k" @mouseenter="() => currId = k"
-            @mouseleave="() => currId = 1000">
-            <div class="booklist-wrapper" @click="selectBooklist(k, v)">
-              <span class="list-books-count">{{ '共 ' + v?.books?.size + ' 本' }}</span>
-              <span class="list-name">{{ v?.name }}</span>
-            </div>
-            <div v-if="currId === k && !confirmDelete" class="btn-confirm-delete" @click="confirmDelete = true">
-              <span class="cross"></span>
-            </div>
-            <div v-if="v && (currId === k) && confirmDelete" class="confirm-wrapper">
-              <div class="btn-delete" @click="deleteBooklist(v.id)">
-                删除
-              </div>
-              <div class="btn-cancel" @click="confirmDelete = false">
-                取消
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </template>
-  </FolderPanel>
+      </template>
+    </FolderPanel>
+    <BaseButton v-if="curBooklist.name" class="btn-reset" @click="resetFilter">x</BaseButton>
+  </div>
 </template>
 
 <style scoped>
+.root-wrapper {
+  display: inline-block;
+}
+
 .wrapper {
   padding: 5px;
+}
+
+.btn-actions {
+  background-color: #888;
 }
 
 ul {
