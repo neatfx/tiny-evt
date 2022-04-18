@@ -68,8 +68,26 @@ async function populateBooks() {
     nameTokens: segmentit.doSegment('Under the Dome', { simple: true })
   })
 
+  const book8 = new Book({
+    name: '官场现形记（上）',
+    author: '李宝嘉',
+    publishing: '人民文学出版社',
+    published: '1979',
+    categories: ['小说'],
+    nameTokens: segmentit.doSegment('官场现形记（上）', { simple: true })
+  })
+
+  const book9 = new Book({
+    name: '官场现形记（下）',
+    author: '李宝嘉',
+    publishing: '人民文学出版社',
+    published: '1979',
+    categories: ['小说'],
+    nameTokens: segmentit.doSegment('官场现形记（上）', { simple: true })
+  })
+
   await AppDB.books.bulkAdd([
-    book1, book2, book3, book4, book5, book6, book7
+    book1, book2, book3, book4, book5, book6, book7, book8, book9
   ])
 }
 
