@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from '@vue/reactivity';
+import { ref } from '@vue/reactivity';
 import { onMounted, onUnmounted } from 'vue';
 import { useBooksStore } from '@/stores'
 
@@ -21,17 +21,6 @@ const emit = defineEmits<{
 }>()
 const coverPool: Map<number, string> = new Map()
 const blobUrls: string[] = []
-const coverHtml = computed(() => {
-  let binaryData = []
-  let url = ''
-
-  if (fileData.value) {
-    binaryData.push(fileData.value)
-    url = window.URL.createObjectURL(new Blob(binaryData, { type: 'image/jpeg' }))
-    blobUrls.push(url)
-    return '<img src="' + url + '" style="max-width: 160px; max-height: 222px; display: block;" />'
-  }
-})
 const fileData = ref<File | undefined>()
 const showCover = ref(false)
 const showCoverUploader = ref(false)
@@ -48,11 +37,23 @@ function coverBlobToImgTag(cover: Blob) {
   return '<img src="' + url + '" style="max-width: 160px; max-height: 222px; display: block;" />'
 }
 
-async function showCoverPanel(cover: any) {
+function genCoverImgHTML(coverId: number) {
+  let coverHTML = coverPool.get(coverId)
+
+  if (!coverHTML) {
+    if (fileData.value) coverHTML = coverBlobToImgTag(fileData.value)
+  }
+
+  return coverHTML
+}
+
+async function showCoverPanel(coverId: any) {
   // 取回封面图片
-  if (cover) {
-    const coverBlob = await booksStore.getCover(cover)
-    if (coverBlob?.data) coverPool.set(cover, coverBlobToImgTag(coverBlob.data as Blob))
+  if (coverId) {
+    if (!coverPool.get(coverId)) { // go to coverPool
+      const coverBlob = await booksStore.getCover(coverId)
+      if (coverBlob?.data) coverPool.set(coverId, coverBlobToImgTag(coverBlob.data as Blob))
+    }
   }
   showCover.value = true
 }
@@ -98,11 +99,11 @@ onMounted(() => {
   fileData.value = props.cover
 })
 
-// TDOO: 清理内存，是否必要 ？
 onUnmounted(() => {
-  // blobUrls.map((v, k) => {
-  //   URL.revokeObjectURL(v)
-  // })
+  // TDOO: 清理内存，是否必要 ？
+  blobUrls.map((v, k) => {
+    URL.revokeObjectURL(v)
+  })
 })
 </script>
 
@@ -133,7 +134,7 @@ onUnmounted(() => {
           @update="(rowId, payload) => { emit('update', rowId, payload) }"></EditableText>
         <!-- 封面（浮动显示） -->
         <div v-if="showCover" class="pop-cover-wrapper">
-          <div v-if="showCover" v-html="coverPool.get(cover) || coverHtml" class="cover-base"></div>
+          <div v-if="showCover" v-html="genCoverImgHTML(cover)" class="cover-base"></div>
         </div>
       </div>
     </div>

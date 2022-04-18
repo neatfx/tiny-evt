@@ -80,6 +80,7 @@ export const useBooksStore = defineStore('books', {
       await AppDB.books.update(key, change)
     },
     async getCover(id: number) {
+      console.log(id)
       return await AppDB.covers.get(id)
     },
     // 删除书籍
