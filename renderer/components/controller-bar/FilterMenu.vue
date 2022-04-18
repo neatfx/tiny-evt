@@ -47,7 +47,7 @@ function onFilterItemClick(e: MouseEvent, filterType: string, filterValue: strin
   <div class="wrapper">
     <FolderPanel title="Filter" :isPopMenu="true">
       <template #header>
-        <BaseButton>{{ (filtersCount ? filtersCount : '') + ' 过滤器' }}</BaseButton>
+        <BaseButton>+</BaseButton>
       </template>
       <template #body>
         <ul class="filters-list">
@@ -66,12 +66,14 @@ function onFilterItemClick(e: MouseEvent, filterType: string, filterValue: strin
         </div>
       </template>
     </FolderPanel>
-    <BaseButton class="btn-toggle" @click="() => {
+    <BaseButton class="btn-reset" @click="resetFilter">
+      {{ (filtersCount ? '重置' : '') + '过滤器' }}
+    </BaseButton>
+    <BaseButton v-if="filtersCount" class="btn-toggle" @click="() => {
       if (filtersCount) booksStore.showFilterTagsZone = !booksStore.showFilterTagsZone
     }">
       {{ booksStore.showFilterTagsZone && filtersCount ? '^' : '+' }}
     </BaseButton>
-    <BaseButton v-if="filtersCount" class="btn-reset" @click="resetFilter">重置</BaseButton>
   </div>
 </template>
 
@@ -106,6 +108,7 @@ li:hover {
 .btn-reset {
   background-color: #888;
 }
+
 .filters-list {
   z-index: 990;
 }
