@@ -76,8 +76,27 @@ export const useBooksStore = defineStore('books', {
       await new Book(book).save()
     },
     async update(key: number, change: any) {
-      if (change.cover) change.cover = await new Cover({ data: change.cover }).save()
       await AppDB.books.update(key, change)
+    },
+    // 包含事务处理
+    async updateCover(key: number, cover: Blob | undefined) {
+      if (cover === undefined) {
+        // 事务处理 - 删除封面
+        const book = await AppDB.books.get(key)
+
+        AppDB.transaction('rw', AppDB.books, AppDB.covers, async () => {
+          await Promise.all([
+            AppDB.covers.delete(book?.cover as number),
+            AppDB.books.update(key, { cover: cover })
+          ])
+        })
+      } else {
+        // 事务处理 - 添加封面
+        AppDB.transaction('rw', AppDB.books, AppDB.covers, async () => {
+          const coverId = await new Cover({ data: cover }).save()
+          await AppDB.books.update(key, { cover: coverId })
+        })
+      }
     },
     async getCover(id: number) {
       console.log(id)

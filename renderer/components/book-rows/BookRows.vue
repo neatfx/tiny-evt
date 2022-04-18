@@ -47,9 +47,7 @@ async function markReadingStatus(rowId: number, readingStatus: string) {
 }
 
 async function updateCover(rowId: number, cover: File | undefined) {
-  store.update(rowId, {
-    cover: cover
-  })
+  store.updateCover(rowId,  cover)
 }
 
 async function updateTag(rowId: number, tags: string[]) {
