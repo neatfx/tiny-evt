@@ -87,13 +87,14 @@ export const useBooksStore = defineStore('books', {
       if (cover === undefined) {
         // 事务处理 - 删除封面
         const book = await AppDB.books.get(key)
-
-        AppDB.transaction('rw', AppDB.books, AppDB.covers, async () => {
-          await Promise.all([
-            AppDB.covers.delete(book?.cover as number),
-            AppDB.books.update(key, { cover: cover })
-          ])
-        })
+        if (book) {
+          AppDB.transaction('rw', AppDB.books, AppDB.covers, async () => {
+            await Promise.all([
+              AppDB.covers.delete(book.cover as number),
+              AppDB.books.update(key, { cover: cover })
+            ])
+          })
+        }
       } else {
         // 事务处理 - 添加封面
         AppDB.transaction('rw', AppDB.books, AppDB.covers, async () => {
@@ -165,8 +166,9 @@ export const useBooksStore = defineStore('books', {
       if (lendFilter) filterArr.push(
         AppDB.books
           .filter((book) => {
-            if (filter.get('lend')) {
-              if (filter.get('lend')?.has('true')) {
+            const lendParam = filter.get('lend')
+            if (lendParam) {
+              if (lendParam.has('true')) {
                 if (book.lend !== '') return true
                 return false
               } else {
