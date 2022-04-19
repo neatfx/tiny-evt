@@ -15,7 +15,7 @@ watch(search, async (newKeyWords) => {
     await store.search(newKeyWords)
     // 本地搜索无结果时调用豆瓣推荐服务 API
     if (store.items.length === 0) {
-      await suggestBooks(newKeyWords)
+      // await suggestBooks(newKeyWords)
       ifShowDouban.value = true
     }
   } else {
@@ -25,38 +25,22 @@ watch(search, async (newKeyWords) => {
   }
 })
 
-async function suggestBooks(newKeyWords: string) {
-  const myRequest = new Request('http://127.0.0.1:8080/suggest/' + newKeyWords);
+async function suggestBooks() {
+  const request = new Request('http://127.0.0.1:8080/suggest/' + search.value);
 
-  fetch(myRequest, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json;",
-    },
-  }).then(async function (response) {
-    return response.body?.getReader();
-  }).then(async function (reader) {
+  fetch(request).then(async function (response) {
+    const reader = response.body?.getReader();
     let text = '';
     const decoder = new TextDecoder('utf-8');
-    reader?.read().then(({ value, done }) => {
-      if (done) return JSON.parse(text);
-      text += decoder.decode(value, { stream: true });
 
-      console.log(text)
-      // return reader.read().then(push);
-      // console.log(value)
-      // if (done) {
-      //   console.log('Download completed');
-      //   return;
-      // }
-      // loaded += value.length;
-      // if (total === null) {
-      //   console.log(`Downloaded ${loaded}`);
-      // } else {
-      //   console.log(`Downloaded ${loaded} of ${total} (${(loaded / total * 100).toFixed(2)}%)`);
-      // }
-      // return logProgress(reader);
-    });
+    reader?.read().then(({ value, done }) => {
+      text += decoder.decode(value, { stream: true });
+      const data = JSON.parse(text)
+
+      books.values = data
+
+      console.log(data, books)
+    })
   });
 
   isShowSuggestItems.value = true
@@ -96,18 +80,6 @@ async function addBook(book: any) {
       })
     });
 }
-
-onMounted(() => {
-
-  // fetch(new Request('https://book.douban.com/j/subject_suggest?q=中国近代史'))
-  //   .then(function (response) {
-  //     return response.json();
-  //   })
-  //   .then(async function (books) {
-  //     console.log('douban',books)
-  //   })
-
-})
 </script>
 
 <template>
@@ -115,7 +87,7 @@ onMounted(() => {
     <BaseInput v-model="search" class="input-zone" />
     <BaseButton v-if="ifShowDouban" @click="suggestBooks">搜索豆瓣图书</BaseButton>
     <div v-if="isShowSuggestItems" class="suggest-list">
-      <ul v-for="(v, k) in books" key="k">
+      <ul v-for="(v, k) in books.values" key="k">
         <li>
           <!-- <div> -->
           <!-- <img src="blob:http://127.0.0.1:3000/40c4f408-3453-4769-b3a1-ffd7aee4a8c3" /> -->
