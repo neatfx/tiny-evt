@@ -18,6 +18,10 @@ body {
   cursor:default;
   -webkit-user-select:none;
   user-select:none;
+
+  /* height: 300px;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory; */
 }
 button{
   font-family: '思源宋体';

@@ -52,13 +52,7 @@ export default defineConfig({
   ],
   root: 'renderer',
   server: {
-    proxy: {
-      '/api': {
-        target: 'https://search.douban.com/book',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '')
-      },
-    },
+    https: true,
     port: 3000
   },
   resolve: {

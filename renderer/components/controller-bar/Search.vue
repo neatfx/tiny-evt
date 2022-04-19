@@ -1,30 +1,21 @@
 <script setup lang="ts">
-import { ref, watch, computed, onMounted } from 'vue';
+import { ref, watch, computed, onMounted, reactive } from 'vue';
 import BaseInput from '../BaseInput.vue';
 import BaseButton from '../BaseButton.vue';
 import { useBooksStore } from '@/stores'
-import { books } from '@/services/mock-suggested-books'
 
-// import { mande } from 'mande'
-// import axios from 'axios'
-
-// const { electronDouban } = window
 const store = useBooksStore()
 const search = ref('')
 const ifShowDouban = ref(false)
 const isShowSuggestItems = ref(false)
-
-// const doubanBook = mande('/api/j')
-// doubanBook.options.headers.origon = 'https://book.douban.com'
-// doubanBook.options.headers.crossOrigin = 'no-cors'
+const books = reactive([])
 
 watch(search, async (newKeyWords) => {
   if (search.value.length) {
     await store.search(newKeyWords)
-
+    // 本地搜索无结果时调用豆瓣推荐服务 API
     if (store.items.length === 0) {
-      // await electronDouban.suggestBook(newKeyWords)
-      console.log(books)
+      await suggestBooks(newKeyWords)
       ifShowDouban.value = true
     }
   } else {
@@ -34,20 +25,45 @@ watch(search, async (newKeyWords) => {
   }
 })
 
-async function suggestBooks() {
-  // if (search.value) search.value = ''
+async function suggestBooks(newKeyWords: string) {
+  const myRequest = new Request('http://127.0.0.1:8080/suggest/' + newKeyWords);
+
+  fetch(myRequest, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json;",
+    },
+  }).then(async function (response) {
+    return response.body?.getReader();
+  }).then(async function (reader) {
+    let text = '';
+    const decoder = new TextDecoder('utf-8');
+    reader?.read().then(({ value, done }) => {
+      if (done) return JSON.parse(text);
+      text += decoder.decode(value, { stream: true });
+
+      console.log(text)
+      // return reader.read().then(push);
+      // console.log(value)
+      // if (done) {
+      //   console.log('Download completed');
+      //   return;
+      // }
+      // loaded += value.length;
+      // if (total === null) {
+      //   console.log(`Downloaded ${loaded}`);
+      // } else {
+      //   console.log(`Downloaded ${loaded} of ${total} (${(loaded / total * 100).toFixed(2)}%)`);
+      // }
+      // return logProgress(reader);
+    });
+  });
+
   isShowSuggestItems.value = true
-
-  // const x = await doubanBook.get('subject_suggest?q=三体')
-  // console.log(x)
-
-  // axios.get('/api/movie/in_theaters').then((res) => {
-  //   console.log(res);
-  // })
 }
 
 function coverHtml(src: string) {
-  return '<img src="' + src + '" style="display: block; max-height: 150px; margin:0;" />'
+  return '<img src="' + src + '" style="display: block; max-height: 120px; margin:0;" />'
 }
 
 async function addBook(book: any) {
@@ -99,7 +115,6 @@ onMounted(() => {
     <BaseInput v-model="search" class="input-zone" />
     <BaseButton v-if="ifShowDouban" @click="suggestBooks">搜索豆瓣图书</BaseButton>
     <div v-if="isShowSuggestItems" class="suggest-list">
-      <img>
       <ul v-for="(v, k) in books" key="k">
         <li>
           <!-- <div> -->
@@ -109,7 +124,7 @@ onMounted(() => {
             <div>{{ v.title }}</div>
             <div>{{ v.author_name || '暂无作者信息' }}</div>
             <div>{{ v.year }}</div>
-            <BaseButton class="btn" @click="addBook(v)">
+            <BaseButton class="btn-import" @click="addBook(v)">
               <span class="btn-text">+</span>
             </BaseButton>
           </div>
@@ -169,14 +184,19 @@ img {
   /* border: 1px solid blue; */
 }
 
-.btn {
+.btn-import,
+.btn-import:hover {
   position: absolute;
-  right: 0;
-  bottom: 0;
+  right: 10px;
+  bottom: 10px;
   margin: 10px 0 0;
+  padding: 5px;
+  background-color: cornflowerblue;
+  border-radius: 1rem;
 }
 
 .btn-text {
   padding: 5px;
+  color: #333;
 }
 </style>
