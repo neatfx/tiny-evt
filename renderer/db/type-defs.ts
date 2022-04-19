@@ -36,6 +36,10 @@ export interface IBook {
   price?: number;           // 价格
   from?: string;            // 购买地点
   summary?: string;         // 内容简介（ 豆瓣 ）
+  brand?: string;           // 品牌
+  size?: string;            // 尺寸规格
+  code?: string;             // 统一书号
+  designed?: string;        // 装帧
 }
 
 // 书籍封面
