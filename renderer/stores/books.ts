@@ -109,14 +109,15 @@ export const useBooksStore = defineStore('books', {
     // 删除书籍
     // 包含事务：
     // 1、将书籍从其所属的书单中移除
-    // 2、删除书籍
+    // 2、删除书籍封面图片
+    // 3、删除书籍
     async delete(key: number) {
       const book = await AppDB.books.get(key)
 
       if (book) {
         const booklistIds = Array.from(book.booklists || [])
 
-        AppDB.transaction('rw', AppDB.books, AppDB.booklists, async () => {
+        AppDB.transaction('rw', AppDB.books, AppDB.booklists, AppDB.covers, async () => {
           await Promise.all([
             Promise.all(booklistIds.map(async id => {
               const booklist = await AppDB.booklists.get(id)
@@ -124,9 +125,11 @@ export const useBooksStore = defineStore('books', {
                 booklist.books.delete(key)
                 AppDB.booklists.put(booklist)
               }
-            })),
-            AppDB.books.delete(key)
-          ])
+            }))
+          ]);
+
+          await AppDB.covers.delete(book.cover as number)
+          await AppDB.books.delete(key)
         })
       }
     },
@@ -201,6 +204,7 @@ export const useBooksStore = defineStore('books', {
       await toggleIndicator(false)
     },
     async fetchPagedRows() {
+      await this.dbTotal()
       await this.count()
       await this.list()
       total.value = this.total
