@@ -5,6 +5,7 @@ import { onMounted, reactive, ref } from 'vue';
 import { useBooklistsStore, useBooksStore } from '../../stores';
 import { useFilter } from './filter'
 import EditableText from '../EditableText.vue';
+import DeleteButton from '../DeleteButton.vue';
 
 const curBooklist = reactive({
   id: 0,
@@ -70,9 +71,7 @@ onMounted(async () => {
     <FolderPanel :is-inline-panel="true">
       <template #header>
         <BaseButton class="btn-actions">
-          <span>
-            {{ curBooklist.name ? curBooklist.name : booklistsStore.total + ' 书单 ' }}
-          </span>
+          {{ curBooklist.name ? curBooklist.name : booklistsStore.total + ' 书单 ' }}
         </BaseButton>
       </template>
       <template #body>
@@ -80,26 +79,15 @@ onMounted(async () => {
           <ul class="all-list">
             <li v-for="(v, k) in booklistsStore.items" :key="k" @mouseenter="() => currId = k"
               @mouseleave="() => currId = 1000">
-              <div class="booklist-wrapper" @click="selectBooklist(k, v)">
-                <span v-if="curBooklist.name === v.name" class="indicator currIndicator"></span>
-                <span v-if="curBooklist.name !== v.name" class="indicator"></span>
-                <span class="list-books-count">{{ '共 ' + v?.books?.size + ' 本' }}</span>
-                <!-- <span class="list-name">{{ v?.name }}</span> -->
-                <div class="booklist-name">
+              <div class="booklist-wrapper">
+                <div class="booklist-name-zone" @click="selectBooklist(k, v)">
+                  <span v-if="curBooklist.name === v.name" class="indicator indicator-curr"></span>
+                  <span v-if="curBooklist.name !== v.name" class="indicator"></span>
+                  <span class="list-books-count">{{ '共 ' + v?.books?.size + ' 本' }}</span>
                   <EditableText :text="v?.name" @update="(rowId, payload) => updateBooklistName(v.id, payload)">
                   </EditableText>
                 </div>
-              </div>
-              <div v-if="currId === k && !confirmDelete" class="btn-confirm-delete" @click="confirmDelete = true">
-                <span class="cross"></span>
-              </div>
-              <div v-if="v && (currId === k) && confirmDelete" class="confirm-wrapper">
-                <div class="btn-delete" @click="deleteBooklist(v.id)">
-                  删除
-                </div>
-                <div class="btn-cancel" @click="confirmDelete = false">
-                  取消
-                </div>
+                <DeleteButton class="btn-delete" @click="deleteBooklist(v.id)"></DeleteButton>
               </div>
             </li>
           </ul>
@@ -137,6 +125,11 @@ li {
   font-size: small;
   background-color: #777;
   cursor: default;
+  padding: 2px 2px 0 5px;
+}
+
+li:last-child {
+  padding-bottom: 2px;
 }
 
 li:hover {
@@ -155,68 +148,36 @@ li:hover {
   display: inline-block;
   width: 10px;
   height: 10px;
-  margin: 0 0 0 10px;
+  margin: 0 5px 0 0;
   background-color: dimgray;
 }
 
-.currIndicator {
+.indicator-curr {
   background-color: greenyellow;
 }
 
 .booklist-wrapper {
-  padding: 2px 0px;
-}
-
-.list-name {
-  padding: 2px 15px 2px 10px;
+  /* padding: 0px 0 2px; */
+  /* border: 1px solid lawngreen; */
 }
 
 .list-books-count {
-  padding: 2px 15px;
-}
-
-.booklist-name {
   display: inline-block;
-
+  padding: 3px 5px 4px;
+  background-color: #888;
 }
 
-.btn-confirm-delete {
-  position: absolute;
-  top: 0px;
-  left: -20px;
-  width: 25px;
-  height: 100%;
-  padding: 0px 0px 0px 0px;
-  background-color: indianred;
-  text-align: center;
-}
-
-.cross {
+.booklist-name-zone {
   display: inline-block;
-  position: relative;
-  width: 9px;
-  height: 1px;
-  top: -2px;
-  left: 0px;
-  background-color: #555;
-}
-
-.confirm-wrapper {
-  position: absolute;
-  top: 0px;
-  left: 0px;
+  margin: 0px 2px 0 0;
+  /* padding: 5px 0; */
+  /* border: 1px solid blue; */
 }
 
 .btn-delete {
   display: inline-block;
-  padding: 2px 10px;
+  padding: 3px 10px 5px;
   background-color: cornflowerblue;
-}
-
-.btn-cancel {
-  display: inline-block;
-  padding: 2px 10px;
-  background-color: darkgoldenrod;
 }
 
 .close {
