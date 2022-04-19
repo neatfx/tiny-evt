@@ -13,11 +13,8 @@ const books = reactive([])
 watch(search, async (newKeyWords) => {
   if (search.value.length) {
     await store.search(newKeyWords)
-    // 本地搜索无结果时调用豆瓣推荐服务 API
-    if (store.items.length === 0) {
-      // await suggestBooks(newKeyWords)
-      ifShowDouban.value = true
-    }
+    // 本地搜索无结果时显示豆瓣推荐搜索按钮
+    if (store.items.length === 0) ifShowDouban.value = true
   } else {
     ifShowDouban.value = false
     isShowSuggestItems.value = false
@@ -25,6 +22,7 @@ watch(search, async (newKeyWords) => {
   }
 })
 
+// 豆瓣图书搜索推荐服务
 async function suggestBooks() {
   const request = new Request('http://127.0.0.1:8080/suggest/' + search.value);
 
@@ -35,11 +33,9 @@ async function suggestBooks() {
 
     reader?.read().then(({ value, done }) => {
       text += decoder.decode(value, { stream: true });
-      const data = JSON.parse(text)
+      books.values = JSON.parse(text)
 
-      books.values = data
-
-      console.log(data, books)
+      console.log(books)
     })
   });
 
@@ -55,7 +51,6 @@ async function addBook(book: any) {
   isShowSuggestItems.value = false
   await store.list()
   search.value = ''
-  console.log(book)
 
   // 导入选中的豆瓣图书条目（书名、封面图片、作者、出版年份、豆瓣图书链接）
   const myRequest = new Request(book.pic);
@@ -65,11 +60,6 @@ async function addBook(book: any) {
       return response.blob();
     })
     .then(async function (myBlob) {
-      console.log(myBlob)
-      let objectURL = URL.createObjectURL(myBlob);
-      console.log('haha', objectURL)
-      // myImage.src = objectURL;
-
       await store.add({
         name: book.title,
         cover: myBlob,
@@ -89,8 +79,6 @@ async function addBook(book: any) {
     <div v-if="isShowSuggestItems" class="suggest-list">
       <ul v-for="(v, k) in books.values" key="k">
         <li>
-          <!-- <div> -->
-          <!-- <img src="blob:http://127.0.0.1:3000/40c4f408-3453-4769-b3a1-ffd7aee4a8c3" /> -->
           <div v-html="coverHtml(v.pic)"></div>
           <div class="info">
             <div>{{ v.title }}</div>
