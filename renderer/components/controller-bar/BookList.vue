@@ -71,26 +71,24 @@ onMounted(async () => {
       <template #header>
         <BaseButton class="btn-actions">
           <span>
-            {{ curBooklist.name ? '《 ' + curBooklist.name + ' 》' : booklistsStore.total + ' 书单 ' }}
+            {{ curBooklist.name ? curBooklist.name : booklistsStore.total + ' 书单 ' }}
           </span>
         </BaseButton>
       </template>
       <template #body>
         <div class="wrapper">
-          <!-- 当前书单 -->
-          <div class="cur-list" @click="unselectBooklist">
-            <span v-if="curBooklist.name" class="currIndicator"></span>
-            {{ curBooklist.name || '尚未选择任何书单' }}
-          </div>
-          <!-- 动态列表 -->
           <ul class="all-list">
             <li v-for="(v, k) in booklistsStore.items" :key="k" @mouseenter="() => currId = k"
               @mouseleave="() => currId = 1000">
               <div class="booklist-wrapper" @click="selectBooklist(k, v)">
+                <span v-if="curBooklist.name === v.name" class="indicator currIndicator"></span>
+                <span v-if="curBooklist.name !== v.name" class="indicator"></span>
                 <span class="list-books-count">{{ '共 ' + v?.books?.size + ' 本' }}</span>
                 <!-- <span class="list-name">{{ v?.name }}</span> -->
-                <EditableText :text="v?.name" @update="(rowId, payload) => updateBooklistName(v.id, payload)">
-                </EditableText>
+                <div class="booklist-name">
+                  <EditableText :text="v?.name" @update="(rowId, payload) => updateBooklistName(v.id, payload)">
+                  </EditableText>
+                </div>
               </div>
               <div v-if="currId === k && !confirmDelete" class="btn-confirm-delete" @click="confirmDelete = true">
                 <span class="cross"></span>
@@ -153,11 +151,15 @@ li:hover {
   background-color: #777;
 }
 
-.currIndicator {
+.indicator {
   display: inline-block;
   width: 10px;
   height: 10px;
-  margin-right: 5px;
+  margin: 0 0 0 10px;
+  background-color: dimgray;
+}
+
+.currIndicator {
   background-color: greenyellow;
 }
 
@@ -171,6 +173,11 @@ li:hover {
 
 .list-books-count {
   padding: 2px 15px;
+}
+
+.booklist-name {
+  display: inline-block;
+
 }
 
 .btn-confirm-delete {
