@@ -39,10 +39,10 @@ export const useBooklistsStore = defineStore('booklists', {
 
       // await toggleIndicator(false)
     },
-    // async update(key: number, mod: any) {
-    //   console.log(key, mod)
-    //   await AppDB.booklists.update(key, mod)
-    // },
+    async update(key: number, mod: any) {
+      console.log(key, mod)
+      await AppDB.booklists.update(key, mod)
+    },
     // 删除书单
     // 包含事务：
     // 1、将书单从其所包含的书籍中移除

@@ -4,6 +4,7 @@ import FolderPanel from '@comps/FolderPanel.vue';
 import { onMounted, reactive, ref } from 'vue';
 import { useBooklistsStore, useBooksStore } from '../../stores';
 import { useFilter } from './filter'
+import EditableText from '../EditableText.vue';
 
 const curBooklist = reactive({
   id: 0,
@@ -50,6 +51,11 @@ async function deleteBooklist(booklistId: number | undefined) {
   }
 }
 
+async function updateBooklistName(booklistId: number, name: string) {
+  console.log(booklistId, name)
+  booklistsStore.update(booklistId, { name: name })
+}
+
 onMounted(async () => {
   await booklistsStore.list()
   await booklistsStore.count()
@@ -82,7 +88,9 @@ onMounted(async () => {
               @mouseleave="() => currId = 1000">
               <div class="booklist-wrapper" @click="selectBooklist(k, v)">
                 <span class="list-books-count">{{ '共 ' + v?.books?.size + ' 本' }}</span>
-                <span class="list-name">{{ v?.name }}</span>
+                <!-- <span class="list-name">{{ v?.name }}</span> -->
+                <EditableText :text="v?.name" @update="(rowId, payload) => updateBooklistName(v.id, payload)">
+                </EditableText>
               </div>
               <div v-if="currId === k && !confirmDelete" class="btn-confirm-delete" @click="confirmDelete = true">
                 <span class="cross"></span>
