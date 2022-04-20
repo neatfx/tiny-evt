@@ -154,6 +154,7 @@ export const useBooksStore = defineStore('books', {
             await AppDB.books.delete(key)
           } else {
             await AppDB.books.update(key, {
+              booklists: new Set(),
               deleted: true
             })
           }
