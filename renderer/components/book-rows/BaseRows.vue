@@ -5,7 +5,7 @@ defineProps(['items'])
 <template>
   <TransitionGroup name="list" tag="ul">
     <li v-if="!items.length" class="no-data">无数据</li>
-    <li v-for="item in items" :key="item.id">
+    <li v-show="items.length" v-for="item in items" :key="item.id">
       <slot name="item" v-bind="item" />
     </li>
   </TransitionGroup>

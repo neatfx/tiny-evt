@@ -26,18 +26,9 @@ watch(search, async (newKeyWords) => {
 async function suggestBooks() {
   const request = new Request('http://127.0.0.1:8080/suggest/' + search.value);
 
-  fetch(request).then(async function (response) {
-    const reader = response.body?.getReader();
-    let text = '';
-    const decoder = new TextDecoder('utf-8');
-
-    reader?.read().then(({ value, done }) => {
-      text += decoder.decode(value, { stream: true });
-      books.values = JSON.parse(text)
-
-      console.log(books)
-    })
-  });
+  const resp = await fetch(request)
+  const result = JSON.parse(await resp.json())
+  books.values = result
 
   isShowSuggestItems.value = true
 }
@@ -54,21 +45,16 @@ async function addBook(book: any) {
 
   // 导入选中的豆瓣图书条目（书名、封面图片、作者、出版年份、豆瓣图书链接）
   const myRequest = new Request(book.pic);
+  const resp = await fetch(myRequest)
 
-  fetch(myRequest)
-    .then(function (response) {
-      return response.blob();
-    })
-    .then(async function (myBlob) {
-      await store.add({
-        name: book.title,
-        cover: myBlob,
-        author: book.author_name,
-        readingStatus: 'read',
-        published: book.year,
-        douban: book.url,
-      })
-    });
+  await store.add({
+    name: book.title,
+    cover: await resp.blob(),
+    author: book.author_name,
+    readingStatus: 'read',
+    published: book.year,
+    douban: book.url,
+  })
 }
 </script>
 
