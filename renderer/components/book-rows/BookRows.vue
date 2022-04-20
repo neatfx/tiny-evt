@@ -47,7 +47,7 @@ async function markReadingStatus(rowId: number, readingStatus: string) {
 }
 
 async function updateCover(rowId: number, cover: File | undefined) {
-  store.updateCover(rowId,  cover)
+  store.updateCover(rowId, cover)
 }
 
 async function updateTag(rowId: number, tags: string[]) {
@@ -70,13 +70,28 @@ function formmatId(rowId: number) {
   if (rowId >= 10 && rowId < 100) return '00' + rowId
   if (rowId >= 100 && rowId < 1000) return '0' + rowId
 }
+
+async function recoverBook(bookId: number) {
+  await store.update(bookId, { deleted: false })
+}
+
+async function hardDeleteBook(bookId: number) {
+  await store.delete(bookId, true)
+}
 </script>
 
 <template>
   <BaseDataRows :items="props.items">
     <template
-      #item="{ id, name, author, categories, publishing, published, cover, lend, readingStatus, douban, booklists }">
+      #item="{ id, name, author, categories, publishing, published, cover, lend, readingStatus, douban, booklists, deleted }">
       <div class="row" v-context-menu="id">
+        <!-- 恢复（仅在书籍处于已删除状态，回收站界面可见） -->
+        <BaseButton v-if="deleted" class="btn-recover" @click="recoverBook(id)">恢复
+        </BaseButton>
+
+        <BaseButton v-if="deleted" class="btn-recover" @click="hardDeleteBook(id)">彻底删除
+        </BaseButton>
+        <!-- ID（数据库主键） -->
         <div v-if="store.view.fields.id" class="id">{{ formmatId(id) }}</div>
         <!-- 借阅状态 -->
         <BookRowsLendStatus v-if="store.view.fields.lend" :lend="lend" :rowId="id" @update-lend:reset="updateLend"
@@ -138,6 +153,12 @@ function formmatId(rowId: number) {
   margin: 0 2px;
   color: #333;
   background-color: slategrey;
+  border-radius: 50rem 50rem 50rem 0;
+}
+
+.btn-recover {
+  margin-left: 3px;
+  background-color: chocolate;
   border-radius: 50rem 50rem 50rem 0;
 }
 

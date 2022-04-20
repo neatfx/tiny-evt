@@ -18,6 +18,10 @@ const showAdder = ref(false)
 const showBooklistAdder = ref(false)
 const booksStore = useBooksStore()
 
+async function showingDletedBooks() {
+  booksStore.showDeleted = !booksStore.showDeleted
+  await booksStore.fetchPagedRows()
+}
 onMounted(async () => {
   await booksStore.dbTotal()
 })
@@ -32,6 +36,7 @@ onMounted(async () => {
         <div class="seg btn-book-adder">
           <BaseButton class="btn-add-book" @click="showAdder = !showAdder">{{ showAdder ? ' ^' : ' +' }}</BaseButton>
           <BaseButton class="btn-book-info">{{ booksStore.totalFixed + '书籍' }}</BaseButton>
+          <BaseButton class="btn-add-book" @click="showingDletedBooks">回收站</BaseButton>
         </div>
         <Booklist class="seg" @show-booklist-adder="showBooklistAdder = !showBooklistAdder"></Booklist>
         <Search class="seg"></Search>

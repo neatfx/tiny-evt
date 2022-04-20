@@ -18,12 +18,13 @@ export const useBooksStore = defineStore('books', {
     total: 0,
     booklistSelected: false,
     currBooklist: [] as number[],
+    showDeleted: false,
     filters: {
       categories: [] as IndexableTypeArray,
       author: [] as IndexableTypeArray,
       publishing: [] as IndexableTypeArray,
       lend: ['true', 'false'],
-      readingStatus: ['wanted', 'not-yet', 'reading', 'read']
+      readingStatus: ['wanted', 'not-yet', 'reading', 'read'],
     },
     view: {
       layout: {
@@ -53,7 +54,7 @@ export const useBooksStore = defineStore('books', {
   getters: {},
   actions: {
     async dbTotal() {
-      this.totalFixed = await AppDB.books.count()
+      this.totalFixed = await AppDB.books.filter((book) => book.deleted === false).count()
     },
     async count() {
       if (this.booklistSelected) {
@@ -63,14 +64,33 @@ export const useBooksStore = defineStore('books', {
           this.total = 0
         }
       } else {
-        this.total = await AppDB.books.count()
+        this.total = await AppDB.books
+          .filter((book) => {
+            if (this.showDeleted) {
+              return book.deleted === true
+            } else {
+              return book.deleted === false
+            }
+          })
+          .count()
       }
     },
     async list() {
       if (this.booklistSelected) {
-        this.items = await AppDB.books.where('id').anyOf(this.currBooklist).offset(offset.value).limit(limit.value).toArray()
+        this.items = await AppDB.books
+          .where('id').anyOf(this.currBooklist)
+          .and((book) => book.deleted === false)
+          .offset(offset.value).limit(limit.value).toArray()
       } else {
-        this.items = await AppDB.books.offset(offset.value).limit(limit.value).toArray()
+        this.items = await AppDB.books
+          .filter((book) => {
+            if (this.showDeleted) {
+              return book.deleted === true
+            } else {
+              return book.deleted === false
+            }
+          })
+          .offset(offset.value).limit(limit.value).toArray()
       }
 
       await toggleIndicator(false)
@@ -107,12 +127,12 @@ export const useBooksStore = defineStore('books', {
       console.log(id)
       return await AppDB.covers.get(id)
     },
-    // 删除书籍
+    // 删除书籍（软删除）
     // 包含事务：
     // 1、将书籍从其所属的书单中移除
     // 2、删除书籍封面图片
     // 3、删除书籍
-    async delete(key: number) {
+    async delete(key: number, hard: boolean = false) {
       const book = await AppDB.books.get(key)
 
       if (book) {
@@ -129,8 +149,14 @@ export const useBooksStore = defineStore('books', {
             }))
           ]);
 
-          await AppDB.covers.delete(book.cover as number)
-          await AppDB.books.delete(key)
+          if (hard) {
+            await AppDB.covers.delete(book.cover as number)
+            await AppDB.books.delete(key)
+          } else {
+            await AppDB.books.update(key, {
+              deleted: true
+            })
+          }
         })
       }
     },
