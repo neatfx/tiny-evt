@@ -12,14 +12,18 @@ import BooklistAdder from './BooklistAdder.vue';
 
 import BaseButton from '../BaseButton.vue';
 import { useBooksStore } from '../../stores';
+import { usePagination } from '../pagination';
 
 defineProps(['views', 'filters', 'workingFilters'])
 const showAdder = ref(false)
 const showBooklistAdder = ref(false)
 const booksStore = useBooksStore()
+const { reset } = usePagination()
 
 async function showingDletedBooks() {
   booksStore.showDeleted = !booksStore.showDeleted
+  // 打开回收站时需重置分页器
+  reset()
   await booksStore.fetchPagedRows()
 }
 onMounted(async () => {
