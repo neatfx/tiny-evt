@@ -3,7 +3,6 @@ import { onMounted } from 'vue';
 
 import ViewOptions from './ViewOptions.vue'
 import Filter from './Filter.vue'
-import FilterTags from "./FilterTags.vue"
 import Book from './Book.vue';
 import Booklist from './Booklist.vue'
 import Search from "./Search.vue";
@@ -43,7 +42,6 @@ onMounted(async () => {
       </div>
     </div>
   </div>
-  <FilterTags v-if="booksStore.showFilterTagsZone" class="filter-tags" :items="workingFilters"></FilterTags>
 </template>
 
 <style scoped>
