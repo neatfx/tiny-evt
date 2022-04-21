@@ -68,8 +68,8 @@ async function addItem() {
       <div class="panel-body-wrapper">
         <!-- 书籍 - 模式切换 -->
         <BaseButton class="btn-mode" @click="fullMode = !fullMode">{{
-          fullMode ? '录入模式 > 标准' :
-            '录入模式 > 快速'
+          fullMode ? '模式 > 标准' :
+            '模式 > 快速'
         }}
         </BaseButton>
         <!-- 书籍 - 快速模式 -->
@@ -145,7 +145,7 @@ async function addItem() {
 .dropzone {
   /* height: 190px; */
   text-align: center;
-  background-color: slategray;
+  background-color:darkslategray;
   /* border: 1px solid red; */
 }
 
@@ -153,7 +153,7 @@ async function addItem() {
   position: relative;
   top: 50px;
   padding: 5px 10px;
-  background-color: cadetblue;
+  /* background-color: cadetblue; */
 }
 
 img {
@@ -194,12 +194,11 @@ input:focus {
 /*  */
 .submit {
   margin-top: 5px;
-  /* border: 1px solid red; */
 }
 
 .btn-submit {
   padding: 6px 20px;
-  background-color: cornflowerblue;
+  background-color:darkgray;
 }
 
 .btn-submit:hover {

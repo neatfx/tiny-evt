@@ -48,7 +48,7 @@ function onFilterItemClick(e: MouseEvent, filterType: string, filterValue: strin
   <div class="wrapper">
     <FolderPanel title="Filter" :isPopMenu="true">
       <template #header>
-        <BaseButton>+</BaseButton>
+        <BaseButton class="btn-adder">+</BaseButton>
       </template>
       <template #body>
         <ul class="filters-list">
@@ -99,7 +99,9 @@ function onFilterItemClick(e: MouseEvent, filterType: string, filterValue: strin
 .wrapper {
   display: inline-block;
 }
-
+.btn-adder{
+  background-color: gray;
+}
 .filters-list,
 .final-filter {
   font-size: 15px;

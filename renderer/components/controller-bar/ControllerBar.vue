@@ -34,10 +34,10 @@ onMounted(async () => {
         <Filter class="seg" :items="filters"></Filter>
         <Book class="seg"></Book>
         <Booklist class="seg"></Booklist>
+        <BaseButton class="seg" @click="showingDletedBooks">回收站</BaseButton>
         <Search class="seg"></Search>
       </div>
       <div>
-        <BaseButton class="seg" @click="showingDletedBooks">回收站</BaseButton>
         <Pagination></Pagination>
       </div>
     </div>
