@@ -6,14 +6,20 @@ const props = defineProps<{
 }>()
 defineEmits(['update:modelValue'])
 const inputVal = ref('')
+let inputRef = ref(null)
 
+function startInput(e:any) {
+  // console.log(e)
+  // const testLength = e.target;
+  // console.log(inputVal.value.length)
+}
 onMounted(() => {
   if (props.content) inputVal.value = props.content
 })
 </script>
 
 <template>
-  <input type="text" @input="$emit('update:modelValue', inputVal)" v-model="inputVal" />
+  <input type="text" @input="$emit('update:modelValue', inputVal)" @keydown="startInput(this)" v-model="inputVal" ref="inputRef"/>
 </template>
 
 <style scoped>

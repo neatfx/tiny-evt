@@ -29,13 +29,13 @@ onMounted(async () => {
 <template>
   <div class="control-bar">
     <div class="opt-row">
-      <div>
-        <ViewOptions class="seg" :views="views"></ViewOptions>
-        <Filter class="seg" :items="filters"></Filter>
-        <Book class="seg"></Book>
-        <Booklist class="seg"></Booklist>
-        <BaseButton class="seg" @click="showingDletedBooks">回收站</BaseButton>
-        <Search class="seg"></Search>
+      <div class="left-items">
+        <ViewOptions :views="views"></ViewOptions>
+        <Filter :items="filters"></Filter>
+        <Book></Book>
+        <Booklist></Booklist>
+        <BaseButton @click="showingDletedBooks">回收站</BaseButton>
+        <Search></Search>
       </div>
       <div>
         <Pagination></Pagination>
@@ -54,7 +54,11 @@ onMounted(async () => {
   grid-template-columns: 1fr auto;
 }
 
-.seg {
-  margin-right: 2px;
+.left-items {
+  display: grid;
+  grid-template-columns: auto;
+  grid-auto-flow: column;
+  justify-content: left;
+  gap: 2px;
 }
 </style>

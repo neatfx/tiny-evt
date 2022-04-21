@@ -34,7 +34,7 @@ async function suggestBooks() {
 }
 
 function coverHtml(src: string) {
-  return '<img src="' + src + '" style="display: block; max-height: 120px; margin:0;" />'
+  return '<img src="' + src + '" style="display: block; max-height: 150px; margin:0;" />'
 }
 
 async function addBook(book: any) {
@@ -60,8 +60,10 @@ async function addBook(book: any) {
 
 <template>
   <div class="wrapper">
-    <BaseInput v-model="search" class="input-zone" />
-    <BaseButton v-if="ifShowDouban" @click="suggestBooks">搜索豆瓣图书</BaseButton>
+    <div class="search-bar">
+      <BaseInput v-model="search" class="input-zone" />
+      <BaseButton class="btn-search-douban" v-if="ifShowDouban" @click="suggestBooks">搜索豆瓣图书</BaseButton>
+    </div>
     <div v-if="isShowSuggestItems" class="suggest-list">
       <ul v-for="(v, k) in books.values" key="k">
         <li>
@@ -70,9 +72,7 @@ async function addBook(book: any) {
             <div>{{ v.title }}</div>
             <div>{{ v.author_name || '暂无作者信息' }}</div>
             <div>{{ v.year }}</div>
-            <BaseButton class="btn-import" @click="addBook(v)">
-              <span class="btn-text">+</span>
-            </BaseButton>
+            <BaseButton class="btn-import" @click="addBook(v)">+</BaseButton>
           </div>
         </li>
       </ul>
@@ -81,20 +81,23 @@ async function addBook(book: any) {
 </template>
 
 <style scoped>
-.wrapper {
-  display: inline-block;
-  /* border: 1px solid rebeccapurple; */
+.search-bar {
+  display: grid;
+  grid-template-columns: auto;
+  grid-auto-flow: column;
 }
 
-.input-zone {
-  /* height: auto; */
-  padding: 8px 10px 6px;
-  /* vertical-align: middle; */
+.input-zone{
+  padding: 7px 10px 7px;
+  background-color: #999;
+  vertical-align: middle;
+}
+.btn-search-douban {
+  font-size: small;
 }
 
 .suggest-list {
   position: fixed;
-  /* background-color: grey; */
 }
 
 ul {
@@ -102,47 +105,32 @@ ul {
   padding: 0;
   margin: 0;
   float: left;
-  /* grid-auto-flow: column; */
 }
 
 li {
   display: grid;
   grid-template-columns: auto auto;
-  /* grid-auto-flow: column; */
-  justify-self: left;
-  border: 2px solid darkgrey;
-  padding: 0px;
   background-color: grey;
   margin: 5px 5px 0px 0;
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.1);
 }
 
-img {
-  display: block;
-  width: 80px;
-  height: 120px;
-  margin: 0;
-}
-
 .info {
   position: relative;
-  padding: 15px 15px;
-  /* border: 1px solid blue; */
+  padding: 15px;
 }
 
-.btn-import,
-.btn-import:hover {
+.btn-import {
   position: absolute;
   right: 10px;
   bottom: 10px;
   margin: 10px 0 0;
-  padding: 5px;
-  background-color: cornflowerblue;
+  padding: 5px 11px;
+  background-color: #999;
   border-radius: 1rem;
 }
 
-.btn-text {
-  padding: 5px;
-  color: #333;
+.btn-import:hover {
+  background-color: dimgrey;
 }
 </style>
