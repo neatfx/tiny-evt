@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import BaseButton from '@comps/BaseButton.vue';
+import BaseInput from '@comps/BaseInput.vue';
 import FolderPanel from '@comps/FolderPanel.vue';
 import { onMounted, reactive, ref } from 'vue';
 import { useBooklistsStore, useBooksStore } from '../../stores';
 import { useFilter } from './filter'
-import EditableText from '../EditableText.vue';
-import DeleteButton from '../DeleteButton.vue';
+import EditableText from '@comps/EditableText.vue';
+import DeleteButton from '@comps/DeleteButton.vue';
+import type { IBooklist } from '@/db';
 
 const curBooklist = reactive({
   id: 0,
@@ -15,7 +17,7 @@ const booklistsStore = useBooklistsStore()
 const booksStore = useBooksStore()
 const currId = ref(1000)
 const confirmDelete = ref(false)
-const { workingFilters, resetFilter } = useFilter()
+const { resetFilter } = useFilter()
 const emit = defineEmits<{
   (event: 'show-booklist-adder'): void
 }>()
@@ -57,6 +59,14 @@ async function updateBooklistName(booklistId: number, name: string) {
   booklistsStore.update(booklistId, { name: name })
 }
 
+const booklistData: IBooklist = {
+  name: '',
+}
+
+async function addBooklist() {
+  await booklistsStore.add(booklistData)
+}
+
 onMounted(async () => {
   await booklistsStore.list()
   await booklistsStore.count()
@@ -65,9 +75,6 @@ onMounted(async () => {
 
 <template>
   <div class="root-wrapper">
-    <BaseButton class="btn-reset" @click="booksStore.showBooklistAdder = !booksStore.showBooklistAdder">
-      {{ booksStore.showBooklistAdder ? '^' : '+' }}
-    </BaseButton>
     <FolderPanel :is-inline-panel="true">
       <template #header>
         <BaseButton class="btn-actions">
@@ -76,19 +83,25 @@ onMounted(async () => {
       </template>
       <template #body>
         <div class="wrapper">
+          <div class="adder">
+            <!-- <label> -->
+            <BaseInput class="adder-input" type="text" :modelValue="booklistData.name"
+              @update:model-value="newValue => booklistData.name = newValue" />
+            <BaseButton class="btn-submit" @click="addBooklist">添加书单</BaseButton>
+            <!-- </label> -->
+          </div>
+          <!--  -->
           <ul class="all-list">
             <li v-for="(v, k) in booklistsStore.items" :key="k" @mouseenter="() => currId = k"
               @mouseleave="() => currId = 1000">
-              <div class="booklist-wrapper">
-                <div class="booklist-name-zone" @click="selectBooklist(k, v)">
-                  <span v-if="curBooklist.name === v.name" class="indicator indicator-curr"></span>
-                  <span v-if="curBooklist.name !== v.name" class="indicator"></span>
-                  <span class="list-books-count">{{ '共 ' + v?.books?.size + ' 本' }}</span>
-                  <EditableText :text="v?.name" @update="(rowId, payload) => updateBooklistName(v.id, payload)">
-                  </EditableText>
-                </div>
-                <DeleteButton class="btn-delete" @click="deleteBooklist(v.id)"></DeleteButton>
+              <div class="booklist-name-zone" @click="selectBooklist(k, v)">
+                <span v-if="curBooklist.name === v.name" class="indicator indicator-curr"></span>
+                <span v-if="curBooklist.name !== v.name" class="indicator"></span>
+                <span class="list-books-count">{{ '共 ' + v?.books?.size + ' 本' }}</span>
+                <EditableText :text="v?.name" @update="(rowId, payload) => updateBooklistName(v.id, payload)">
+                </EditableText>
               </div>
+              <DeleteButton class="btn-delete" @click="deleteBooklist(v.id)"></DeleteButton>
             </li>
           </ul>
         </div>
@@ -156,11 +169,6 @@ li:hover {
   background-color: greenyellow;
 }
 
-.booklist-wrapper {
-  /* padding: 0px 0 2px; */
-  /* border: 1px solid lawngreen; */
-}
-
 .list-books-count {
   display: inline-block;
   padding: 3px 5px 4px;
@@ -184,5 +192,40 @@ li:hover {
   font-size: small;
   display: inline-block;
   transform: rotate(45deg);
+}
+
+/*  */
+
+.adder {
+  margin-bottom: 5px;
+}
+
+.booklist-name {
+  font-size: small;
+  padding: 2px 5px 0;
+  background-color: dimgray;
+}
+
+.adder-input,
+.adder-input:focus {
+  width: 120px;
+  vertical-align: middle;
+  outline: none;
+  border: 3px solid dimgray;
+  font-size: small;
+  height: auto;
+  padding: 6px;
+}
+
+/*  */
+
+.btn-submit {
+  vertical-align: middle;
+  padding: 7px 10px;
+  background-color: dimgray;
+}
+
+.btn-submit:hover {
+  background-color: dimgray;
 }
 </style>

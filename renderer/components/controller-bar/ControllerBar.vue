@@ -8,7 +8,7 @@ import Booklist from './Booklist.vue'
 import Search from "./Search.vue";
 import Pagination from "../Pagination.vue";
 import Adder from './Adder.vue'
-import BooklistAdder from './BooklistAdder.vue';
+// import BooklistAdder from './BooklistAdder.vue';
 
 import BaseButton from '../BaseButton.vue';
 import { useBooksStore } from '../../stores';
@@ -16,7 +16,7 @@ import { usePagination } from '../pagination';
 
 defineProps(['views', 'filters', 'workingFilters'])
 const showAdder = ref(false)
-const showBooklistAdder = ref(false)
+// const showBooklistAdder = ref(false)
 const booksStore = useBooksStore()
 const { reset } = usePagination()
 
@@ -40,19 +40,19 @@ onMounted(async () => {
         <div class="seg btn-book-adder">
           <BaseButton class="btn-add-book" @click="showAdder = !showAdder">{{ showAdder ? ' ^' : ' +' }}</BaseButton>
           <BaseButton class="btn-book-info">{{ booksStore.totalFixed + '书籍' }}</BaseButton>
-          <BaseButton class="btn-add-book" @click="showingDletedBooks">回收站</BaseButton>
         </div>
-        <Booklist class="seg" @show-booklist-adder="showBooklistAdder = !showBooklistAdder"></Booklist>
+        <Booklist class="seg"></Booklist>
         <Search class="seg"></Search>
       </div>
       <div class="right">
+        <BaseButton class="seg btn-add-book" @click="showingDletedBooks">回收站</BaseButton>
         <Pagination></Pagination>
       </div>
     </div>
   </div>
   <FilterTags v-if="booksStore.showFilterTagsZone" class="filter-tags" :items="workingFilters"></FilterTags>
   <Adder v-if="showAdder"></Adder>
-  <BooklistAdder v-if="booksStore.showBooklistAdder"></BooklistAdder>
+  <!-- <BooklistAdder v-if="booksStore.showBooklistAdder"></BooklistAdder> -->
 </template>
 
 <style scoped>
