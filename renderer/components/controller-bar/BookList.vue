@@ -94,14 +94,15 @@ onMounted(async () => {
           <ul class="all-list">
             <li v-for="(v, k) in booklistsStore.items" :key="k" @mouseenter="() => currId = k"
               @mouseleave="() => currId = 1000">
-              <div class="booklist-name-zone" @click="selectBooklist(k, v)">
+              <div class="booklist-info-zone" @click="selectBooklist(k, v)">
                 <span v-if="curBooklist.name === v.name" class="indicator indicator-curr"></span>
                 <span v-if="curBooklist.name !== v.name" class="indicator"></span>
-                <span class="list-books-count">{{ v?.books?.size }}</span>
-                <EditableText class="book-name-editable" :text="v?.name" @update="(rowId, payload) => updateBooklistName(v.id, payload)">
+                <span class="books-count">{{ v?.books?.size }}</span>
+                <EditableText class="book-name-editable" :text="v?.name"
+                  @update="(rowId, payload) => updateBooklistName(v.id, payload)">
                 </EditableText>
-                              <DeleteButton class="btn-delete" @click="deleteBooklist(v.id)"></DeleteButton>
               </div>
+              <DeleteButton class="btn-delete" @click="deleteBooklist(v.id)"></DeleteButton>
             </li>
           </ul>
         </div>
@@ -131,15 +132,23 @@ ul {
 
 li {
   position: relative;
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: left;
   font-size: small;
-  background-color: #777;
-  cursor: default;
-  padding: 2px 2px 2px 5px;
-  margin: 2px;
+  /* background-color: #777; */
+  /* padding: 0 0 0 0; */
+  margin-bottom: 3px;
+  border-left: 3px solid #888;
+}
+
+li:last-child {
+  margin-bottom: 0;
 }
 
 li:hover {
   background-color: dimgray;
+  border-left: 3px solid silver;
 }
 
 
@@ -147,43 +156,38 @@ li:hover {
   padding: 2px 10px;
   font-size: small;
   margin-bottom: 5px;
-  background-color: #777;
+  background-color: dimgrey;
 }
 
-.indicator {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  margin: 0 5px 0 0;
-  background-color: dimgray;
-}
-
-.indicator-curr {
-  background-color: greenyellow;
-}
-
-.list-books-count {
-  display: inline-block;
-  padding: 3px 10px 4px;
+.booklist-info-zone {
+  display: inline-grid;
+  grid-auto-flow: column;
   background-color: #888;
 }
 
-.booklist-name-zone {
-  display: inline-block;
-  margin: 0px 0px 0 0;
-  /* padding: 5px 0; */
-  /* border: 1px solid blue; */
+.indicator {
+  width: 5px;
+  height: 5px;
+  margin: 5px 0 0 5px;
+  background-color: silver;
 }
-.book-name-editable{
-  display: block;
-  /* height: auto; */
-  padding: 5px;
+
+.indicator-curr {
+  background-color: chartreuse;
 }
+
+.books-count {
+  padding: 4px 15px 4px 5px;
+  text-align: center;
+  /* background-color: #aaa; */
+}
+
 .btn-delete {
-  display: inline-block;
-  padding: 3px 8px 5px;
-  /* margin-left: 2px; */
-  background-color: gray;
+  background-color: #888;
+}
+
+.btn-delete:hover {
+  background-color: darkgray;
 }
 
 .close {
@@ -210,10 +214,10 @@ li:hover {
   width: 150px;
   vertical-align: middle;
   outline: none;
-  border: 2px solid dimgray;
   font-size: small;
   height: auto;
-  padding: 6px;
+  padding: 8px;
+  background-color: #999;
 }
 
 /*  */
@@ -228,7 +232,8 @@ li:hover {
 .btn-submit:hover {
   background-color: cornflowerblue;
 }
-.btn-reset{
+
+.btn-reset {
   background-color: gray;
 }
 </style>
