@@ -5,13 +5,14 @@ import { useBooksStore } from '@stores/index'
 
 import BaseButton from '../BaseButton.vue';
 import BaseInput from '../BaseInput.vue';
+import FolderPanel from '../FolderPanel.vue'
 
-const bookStore = useBooksStore()
+const booksStore = useBooksStore()
 const imgSrc = ref(false)
 const fullMode = ref(false)
 const bookData: IBook = {
   name: '',
-  cover: null,
+  cover: undefined,
   author: '',
   readingStatus: 'read',
   categories: [],
@@ -53,76 +54,86 @@ async function addItem() {
     return
   }
 
-  await bookStore.add(bookData)
+  await booksStore.add(bookData)
   imgSrc.value = false
 }
 </script>
 
 <template>
-  <div class="panel-body-wrapper">
-    <!-- 书籍 - 模式切换 -->
-    <BaseButton class="btn-mode" @click="fullMode = !fullMode">{{
-      fullMode ? '录入模式 > 标准' :
-        '录入模式 > 快速'
-    }}
-    </BaseButton>
-    <!-- 书籍 - 快速模式 -->
-    <label v-if="!fullMode">
-      <span>书名</span>
-      <BaseInput type="text" :modelValue="bookData.name" @update:model-value="newValue => bookData.name = newValue" />
-    </label>
-    <!-- 书籍 - 标准模式 -->
-    <div v-if="fullMode" class="full-mode">
-      <div class="dropzone" @dragover="ondragover" @drop="ondrop">
-        <span v-if="!imgSrc" class="tip">拖放图片至此区域</span>
-        <img />
-      </div>
-
-      <div class="text-fields">
-        <label>
+  <FolderPanel :is-inline-panel="true">
+    <template #header>
+      <BaseButton class="btn-book-info">{{ booksStore.totalFixed + '书籍' }}</BaseButton>
+    </template>
+    <template #body>
+      <div class="panel-body-wrapper">
+        <!-- 书籍 - 模式切换 -->
+        <BaseButton class="btn-mode" @click="fullMode = !fullMode">{{
+          fullMode ? '录入模式 > 标准' :
+            '录入模式 > 快速'
+        }}
+        </BaseButton>
+        <!-- 书籍 - 快速模式 -->
+        <label v-if="!fullMode">
           <span>书名</span>
           <BaseInput type="text" :modelValue="bookData.name"
             @update:model-value="newValue => bookData.name = newValue" />
         </label>
-        <label>
-          <span>作者</span>
-          <BaseInput type="text" :modelValue="bookData.author"
-            @update:model-value="newValue => bookData.author = newValue" />
-        </label>
-        <label>
-          <span>分类</span>
-          <BaseInput type="text" :modelValue="bookData.categories"
-            @update:model-value="newValue => bookData.categories = newValue.split(',')" />
-        </label>
-        <label>
-          <span>出版社</span>
-          <BaseInput type="text" :modelValue="bookData.publishing"
-            @update:model-value="newValue => bookData.publishing = newValue" />
-        </label>
-        <label>
-          <span>出版时间</span>
-          <BaseInput type="text" :modelValue="bookData.published"
-            @update:model-value="newValue => bookData.published = newValue" />
-        </label>
+        <!-- 书籍 - 标准模式 -->
+        <div v-if="fullMode" class="full-mode">
+          <div class="dropzone" @dragover="ondragover" @drop="ondrop">
+            <span v-if="!imgSrc" class="tip">拖放图片至此区域</span>
+            <img />
+          </div>
+
+          <div class="text-fields">
+            <label>
+              <span>书名</span>
+              <BaseInput type="text" :modelValue="bookData.name"
+                @update:model-value="newValue => bookData.name = newValue" />
+            </label>
+            <label>
+              <span>作者</span>
+              <BaseInput type="text" :modelValue="bookData.author"
+                @update:model-value="newValue => bookData.author = newValue" />
+            </label>
+            <label>
+              <span>分类</span>
+              <BaseInput type="text" :modelValue="bookData.categories"
+                @update:model-value="newValue => bookData.categories = newValue.split(',')" />
+            </label>
+            <label>
+              <span>出版社</span>
+              <BaseInput type="text" :modelValue="bookData.publishing"
+                @update:model-value="newValue => bookData.publishing = newValue" />
+            </label>
+            <label>
+              <span>出版时间</span>
+              <BaseInput type="text" :modelValue="bookData.published"
+                @update:model-value="newValue => bookData.published = newValue" />
+            </label>
+          </div>
+        </div>
+        <!-- 提交保存 -->
+        <div class="submit">
+          <BaseButton class="btn-submit" @click="addItem">添加书籍</BaseButton>
+        </div>
       </div>
-    </div>
-    <!-- 提交保存 -->
-    <div class="submit">
-      <BaseButton class="btn-submit" @click="addItem">添加书籍</BaseButton>
-    </div>
-  </div>
+    </template>
+  </FolderPanel>
 </template>
 
 <style scoped>
 .panel-body-wrapper {
   padding: 5px;
-  border: 2px solid dimgray;
   border-bottom: none;
-  margin-left: 60px;
 }
 
 .btn-mode {
   margin-bottom: 5px;
+}
+.btn-mode:hover {
+  margin-bottom: 5px;
+  background-color: dimgray;
 }
 
 .full-mode {
